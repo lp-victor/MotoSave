@@ -17,7 +17,7 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
     private static final String USUARIO = "root";
     private static final String PASS = null;
 
-    private static boolean conectarBBDD() {
+    public static boolean conectarBBDD() {
         try {
             con = DriverManager.getConnection(CONEXION + BBDD, USUARIO, PASS);
         } catch (SQLException e) {
@@ -27,7 +27,7 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
         return true;
     }
     
-    public boolean desconectarBBDD() {
+    public static boolean desconectarBBDD() {
         try {
             if (con != null) {
                 con.close();

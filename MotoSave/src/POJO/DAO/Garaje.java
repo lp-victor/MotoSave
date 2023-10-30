@@ -172,7 +172,7 @@ public class Garaje implements Serializable, Entradable {
         System.out.println("Introduce CC: ");
         ccM=Integer.valueOf(sc.nextLine()); 
         motos.add(new Motocicleta(nombreM, marcaM, colorM, matriculaM, ccM));
-        Entradable.agregarMotoBBDD(matriculaM, nombreM, marcaM, colorM, ccM);
+//        Entradable.agregarMotoBBDD(matriculaM, nombreM, marcaM, colorM, ccM);
         System.out.println("Moto Introducida Correctamente");
         listarMotos();
     }

@@ -1,4 +1,3 @@
-
 package INTERFACES;
 
 import ACCESODATOS.DAO.EntradaSalida;
@@ -189,31 +188,28 @@ public interface Entradable {
         } while (opcion != 0);
         return mes;
     }
-    
+
 // PARA TODAS LAS CONSULTAS SE DEBE HACER EN UNA CLASE POR EJEMPLO BBDD_GARAJE ?
-    
-    public static void agregarMotoBBDD(String matricula, String nombre, String marca, String color, int cc) {
-        Connection con = EntradaSalida.conectarBBDD(" ", " ", " ");
-        try {
-
-            String query = "INSERT INTO motocicleta (matricula, nombre, marca, color, cc) VALUES (?, ?, ?, ?, ?)";
-
-            PreparedStatement pstm = con.prepareStatement(query);
-            
-            pstm.setString(1, matricula);
-            pstm.setString(2, nombre);
-            pstm.setString(3, marca);
-            pstm.setString(4, color);
-            pstm.setInt(5, cc);
-            pstm.executeUpdate();
-
-            pstm.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error:  " + e.toString());
-        }
-
-        EntradaSalida.desconectarBBDD(con);
-    }
+//    public static void agregarMotoBBDD(String matricula, String nombre, String marca, String color, int cc) {
+//        Connection con = EntradaSalida.conectarBBDD(" ", " ", " ");
+//        try {
+//
+//            String query = "INSERT INTO motocicleta (matricula, nombre, marca, color, cc) VALUES (?, ?, ?, ?, ?)";
+//
+//            PreparedStatement pstm = con.prepareStatement(query);
+//            
+//            pstm.setString(1, matricula);
+//            pstm.setString(2, nombre);
+//            pstm.setString(3, marca);
+//            pstm.setString(4, color);
+//            pstm.setInt(5, cc);
+//            pstm.executeUpdate();
+//
+//            pstm.close();
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            System.out.println("Error:  " + e.toString());
+//        }
+//        EntradaSalida.desconectarBBDD(con);
 }

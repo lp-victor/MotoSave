@@ -29,7 +29,6 @@ public class EntradaSalida {
     private static FileOutputStream fos = null;
     private static ObjectOutputStream oos = null;
     //=========JDBC===============
-    static Connection con = null;
 
     public static ArrayList<String> leerCSV(String path) {
         f = new File(path);
@@ -159,41 +158,4 @@ public class EntradaSalida {
             }
         }
     }
-
-    public static Connection conectarBBDD(String nombreBBDD, String usuario_e,String contrasenia_e) {
-        try {
-            String cadena_conexion = "jdbc:mysql://localhost:3306/";
-            String nombre_BBDD = "garaje";
-            //String nombre_BBDD = nombreBBDD;           
-            String usuario = "root";
-            //String usuario = usuario_e;
-            String contrasenia = null;
-            //String contrasenia = contrasenia_e;
-
-            con = DriverManager.getConnection(cadena_conexion + nombre_BBDD, usuario, contrasenia);
-
-        } catch (Exception e) {
-            System.out.println("Error:  " + e.toString());
-        }
-            
-        return con;
-       
-    }
-
-    public static void desconectarBBDD(Connection con) {
-
-        try {
-            if (con != null) {
-                con.close(); 
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error al cerrar la conexion.");
-            System.out.println(ex.toString());
-        }
-
-    }
-
-    
-    
-
 }
