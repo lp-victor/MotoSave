@@ -2,7 +2,7 @@
 
 package MotoSaveMain;
 
-import POJO.DAO.Garaje;
+import Modelo.Garaje;
 
 
 public class MotoSave {

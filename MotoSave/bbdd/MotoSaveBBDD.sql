@@ -20,3 +20,34 @@ CREATE TABLE moto (
     PRIMARY KEY (idGaraje, Matricula),
     FOREIGN KEY (idGaraje) REFERENCES garaje(idGaraje)
 );
+
+
+-- Trigger para actualizar las plazas -1
+
+DELIMITER $$
+CREATE TRIGGER actualizarPlazas
+AFTER INSERT ON moto
+FOR EACH ROW
+BEGIN
+    IF NEW.idGaraje IS NOT NULL THEN
+        UPDATE garaje
+        SET plazas = plazas - 1
+        WHERE idGaraje = OLD.idGaraje;
+    END IF;
+END$$
+DELIMITER ;
+
+-- Trigger para actualizar las plazas +1
+
+DELIMITER $$
+CREATE TRIGGER restaurarPlazas
+AFTER DELETE ON moto
+FOR EACH ROW
+BEGIN
+    IF OLD.idGaraje IS NOT NULL THEN
+        UPDATE garaje
+        SET plazas = plazas + 1
+        WHERE idGaraje = OLD.idGaraje;
+    END IF;
+END$$
+DELIMITER ;

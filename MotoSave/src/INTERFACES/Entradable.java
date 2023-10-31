@@ -1,6 +1,6 @@
 package INTERFACES;
 
-import ACCESODATOS.FICHEROS.EntradaSalida;
+import AuxSerializacion.Serializacion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -191,7 +191,7 @@ public interface Entradable {
 // PARA TODAS LAS CONSULTAS SE DEBE HACER EN UNA CLASE POR EJEMPLO BBDD_GARAJE ?
     // Esta tocado por Victor, cogerlo para dar de alta la moto.
     public static void agregarMotoBBDD(String matricula, String nombre, String marca, String color, int cc) {
-        //Connection con = EntradaSalida.conectarBBDD(" ", " ", " ");
+        //Connection con = Serializacion.conectarBBDD(" ", " ", " ");
         try {
 
             String query = "INSERT INTO motocicleta (matricula, nombre, marca, color, cc) VALUES (?, ?, ?, ?, ?)";
@@ -218,7 +218,7 @@ public interface Entradable {
 
 // PARA TODAS LAS CONSULTAS SE DEBE HACER EN UNA CLASE POR EJEMPLO BBDD_GARAJE ?
 //    public static void agregarMotoBBDD(String matricula, String nombre, String marca, String color, int cc) {
-//        Connection con = EntradaSalida.conectarBBDD(" ", " ", " ");
+//        Connection con = Serializacion.conectarBBDD(" ", " ", " ");
 //        try {
 //
 //            String query = "INSERT INTO motocicleta (matricula, nombre, marca, color, cc) VALUES (?, ?, ?, ?, ?)";
@@ -238,5 +238,5 @@ public interface Entradable {
 //            e.printStackTrace();
 //            System.out.println("Error:  " + e.toString());
 //        }
-//        EntradaSalida.desconectarBBDD(con);
+//        Serializacion.desconectarBBDD(con);
 
