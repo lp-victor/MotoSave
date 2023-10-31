@@ -1,5 +1,6 @@
 package ACCESODATOS.DAO;
 
+import INTERFACES.ConexionBBDD;
 import POJO.DAO.Garaje;
 import POJO.DAO.GarajeExcepcion;
 import POJO.DAO.Motocicleta;
@@ -10,39 +11,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class JDBCMotocicletaDAO implements MotocicletaDAO {
+          
     
-    private static Connection con = null;
-    private static final String CONEXION = "jdbc:mysql://localhost:3306/";
-    private static final String BBDD = "MotoSaveBBDD";
-    private static final String USUARIO = "root";
-    private static final String PASS = null;
-
-    private static boolean conectarBBDD() {
-        try {
-            con = DriverManager.getConnection(CONEXION + BBDD, USUARIO, PASS);
-        } catch (SQLException e) {
-            System.out.println("Error:  " + e.toString());
-            return false;
-        }
-        return true;
-    }
-    
-    public boolean desconectarBBDD() {
-        try {
-            if (con != null) {
-                con.close();
-            }            
-        } catch (SQLException ex) {
-            System.out.println("Error al cerrar la conexion.");
-            System.out.println(ex.toString());
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public void altaMoto(Motocicleta moto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+          
     }
 
     @Override

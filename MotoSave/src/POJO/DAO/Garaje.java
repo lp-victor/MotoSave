@@ -16,6 +16,7 @@ public class Garaje implements Serializable, Entradable {
       
     private int idGaraje;
     private String nombreGaraje = "Garaje";
+    private int plazasLibres;
     ArrayList<Motocicleta> motos=new ArrayList();
     
     public Garaje(){

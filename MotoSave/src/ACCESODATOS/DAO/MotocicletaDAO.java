@@ -16,9 +16,6 @@ import java.util.ArrayList;
  */
 public abstract interface MotocicletaDAO {
 
-    /**
-     *
-     */
     public abstract void altaMoto(Motocicleta moto);
 
     public abstract void bajaMoto(int matricula);

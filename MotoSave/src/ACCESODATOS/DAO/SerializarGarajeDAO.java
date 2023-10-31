@@ -7,56 +7,36 @@ package ACCESODATOS.DAO;
 import POJO.DAO.Garaje;
 import POJO.DAO.GarajeExcepcion;
 import POJO.DAO.Motocicleta;
-import POJO.DAO.MotocicletaExcepcion;
-import java.util.ArrayList;
 
 /**
  *
  * @author victo
  */
-public class CSVMotocicletaDAO implements MotocicletaDAO {
+public class SerializarGarajeDAO implements GarajeDAO{
 
     @Override
-    public void altaMoto(Motocicleta moto) {
-        // LeerCSV para comprobar duplicado
-        // Si no existe meterla con append(true) 
-        
-    }
-
-    @Override
-    public void bajaMoto(int matricula) {
-        // LeerCSV y que seleccione a moto que quiera
-        // Guardamos el fichero de nmuevo con todas las motos menos la que ha seleccionado append(false).
-        
-            
-    
-    }
-
-    @Override
-    public Motocicleta buscarMoto(int matricula) {
+    public void altaGaraje(Garaje garaje) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void modificarMoto(Motocicleta moto) throws MotocicletaExcepcion {
+    public void bajaGaraje(int idGaraje) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void cambiarDeGaraje(Motocicleta moto, Garaje garaje) throws MotocicletaExcepcion {
+    public Garaje buscarGaraje(int idGaraje) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public ArrayList<Motocicleta> listarMotocicletas() {
+    public void modificarGaraje(Motocicleta moto) throws GarajeExcepcion {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public ArrayList<Motocicleta> listarMotocicletasGaraje(int idGaraje) throws GarajeExcepcion {
+    public int plazasLibres(Garaje garaje) throws GarajeExcepcion {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    
     
 }

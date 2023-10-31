@@ -1,11 +1,9 @@
 
 package INTERFACES;
 
-import ACCESODATOS.DAO.EntradaSalida;
-import ACCESODATOS.DAO.EntradaSalida;
+import ACCESODATOS.FICHEROS.EntradaSalida;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -190,15 +188,16 @@ public interface Entradable {
         return mes;
     }
     
-// PARA TODAS LAS CONSULTAS SE DEBE HACER EN UNA CLASE POR EJEMPLO BBDD_GARAJE ?
     
+// PARA TODAS LAS CONSULTAS SE DEBE HACER EN UNA CLASE POR EJEMPLO BBDD_GARAJE ?
+    // Esta tocado por Victor, cogerlo para dar de alta la moto.
     public static void agregarMotoBBDD(String matricula, String nombre, String marca, String color, int cc) {
-        Connection con = EntradaSalida.conectarBBDD(" ", " ", " ");
+        //Connection con = EntradaSalida.conectarBBDD(" ", " ", " ");
         try {
 
             String query = "INSERT INTO motocicleta (matricula, nombre, marca, color, cc) VALUES (?, ?, ?, ?, ?)";
 
-            PreparedStatement pstm = con.prepareStatement(query);
+            PreparedStatement pstm = null; //con.prepareStatement(query);
             
             pstm.setString(1, matricula);
             pstm.setString(2, nombre);
@@ -214,6 +213,6 @@ public interface Entradable {
             System.out.println("Error:  " + e.toString());
         }
 
-        EntradaSalida.desconectarBBDD(con);
+        //EntradaSalida.desconectarBBDD(con);
     }
 }

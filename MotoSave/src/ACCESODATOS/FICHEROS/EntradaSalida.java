@@ -1,5 +1,7 @@
-package ACCESODATOS.DAO;
+package ACCESODATOS.FICHEROS;
 
+import POJO.DAO.Garaje;
+import POJO.DAO.Motocicleta;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,18 +10,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class EntradaSalida {
-
+    
+    private String pathCarpetaCSV = "./csv";
+    private String pathCarpetaDATA = "";
+    
     private static File f = null;
     private static FileWriter fw = null;
     //=========ENTRADA=============
@@ -28,12 +27,10 @@ public class EntradaSalida {
     //=========SALIDA=============
     private static FileOutputStream fos = null;
     private static ObjectOutputStream oos = null;
-    //=========JDBC===============
-    static Connection con = null;
 
-    public static ArrayList<String> leerCSV(String path) {
-        f = new File(path);
-        ArrayList<String> sol = new ArrayList();
+    public ArrayList<Object> leerCSV(String path) {
+        f = new File(pathCarpetaCSV + "/" + path);
+        ArrayList<Object> sol = new ArrayList();
 
         Scanner sc = null;
         String entrada = "";
@@ -66,10 +63,10 @@ public class EntradaSalida {
         return sol;
     }
 
-    public static void guardarCSV(String entrada, String path) {
+    public static void guardarCSV(Object entrada, String path) {
 
-        ArrayList<String> ventas = new ArrayList();
-        ventas.add(entrada);
+        ArrayList<Object> objetoAGuardar = new ArrayList();
+        objetoAGuardar.add(entrada);
 
         try {
 //            f = new File("./CSV");
@@ -77,7 +74,38 @@ public class EntradaSalida {
             f = new File(path);
             f.createNewFile();//Crea el archivo
             fw = new FileWriter(f, true);//si quitamos el true , sobreescribe lo que habia!    APPEND DESACTIVADO, CAMBIARLO AL FINALIZAR EL PROGRAMA
-            for (String v : ventas) {
+            for (Object v : objetoAGuardar) {
+                //fw.write(v.split());
+                fw.write("\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Error al abrir el fichero");
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fw != null) {
+                    fw.close();
+                }
+            } catch (IOException ex) {
+                System.out.println("Error a la hora de cerrar el programa");
+                ex.printStackTrace();
+            }
+        }
+    }
+    
+    // Este se usa solo para cuando se borra un elemento del fichero .csv
+    private static void guardarCSV(ArrayList<Object> entrada, String path) {
+
+        ArrayList<Object> objetoAGuardar = new ArrayList();
+        objetoAGuardar.add(entrada);
+
+        try {
+//            f = new File("./CSV");
+//            f.mkdir();//Crear carpeta de CSV
+            f = new File(path);
+            f.createNewFile();//Crea el archivo
+            fw = new FileWriter(f, true);//si quitamos el true , sobreescribe lo que habia!    APPEND DESACTIVADO, CAMBIARLO AL FINALIZAR EL PROGRAMA
+            for (Object v : objetoAGuardar) {
                 //fw.write(v.split());
                 fw.write("\n");
             }
@@ -130,14 +158,21 @@ public class EntradaSalida {
         return e;
 
     }
-
-    public static void guardarObj(Object entrada, String path) {
-
+    
+    // Este se usa solo para cuando se borra un elemento del fichero .data
+    private static void guardarObj(Object entrada) {
         int cont = 0;
+        
         try {
-
-            fos = new FileOutputStream(path, true);
-            oos = new ObjectOutputStream(fos);
+            
+            if(!f.exists()){
+                fos=new FileOutputStream(f,true);
+                oos=new ObjectOutputStream(fos);
+            } else {
+                fos=new FileOutputStream(f,true);
+                oos =new myOOS(fos);
+            }
+            
             oos.writeObject(entrada);
 
         } catch (FileNotFoundException e) {
@@ -159,41 +194,40 @@ public class EntradaSalida {
             }
         }
     }
-
-    public static Connection conectarBBDD(String nombreBBDD, String usuario_e,String contrasenia_e) {
+    
+    public static void guardarObj(ArrayList<Object> entrada) {
+        int cont = 0;
+        
         try {
-            String cadena_conexion = "jdbc:mysql://localhost:3306/";
-            String nombre_BBDD = "garaje";
-            //String nombre_BBDD = nombreBBDD;           
-            String usuario = "root";
-            //String usuario = usuario_e;
-            String contrasenia = null;
-            //String contrasenia = contrasenia_e;
-
-            con = DriverManager.getConnection(cadena_conexion + nombre_BBDD, usuario, contrasenia);
-
-        } catch (Exception e) {
-            System.out.println("Error:  " + e.toString());
-        }
             
-        return con;
-       
-    }
-
-    public static void desconectarBBDD(Connection con) {
-
-        try {
-            if (con != null) {
-                con.close(); 
+            if(!f.exists()){
+                fos=new FileOutputStream(f,true);
+                oos=new ObjectOutputStream(fos);
+            } else {
+                fos=new FileOutputStream(f,true);
+                oos =new myOOS(fos);
             }
-        } catch (SQLException ex) {
-            System.out.println("Error al cerrar la conexion.");
-            System.out.println(ex.toString());
+            
+            oos.writeObject(entrada);
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Error, el fichero no se encuentra");
+        } catch (IOException e) {
+            System.out.println("Error, al abrir el archivo");
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close();
+                }
+                if (oos != null) {
+                    oos.close();
+                }
+            } catch (IOException e) {
+                System.out.println("Error, al cerrar el archivo");
+                e.printStackTrace();
+            }
         }
-
     }
-
     
-    
-
 }
