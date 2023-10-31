@@ -54,7 +54,37 @@ public class Serializacion {
             }
         }
         return e;
+    }
+    
+    public static Object leerMotocicleta(Motocicleta moto) {
+        f = new File (pathGarajesDATA + "/" + moto.getMatricula());
+        Object e = new Object();
 
+        try (FileInputStream fis = new FileInputStream(f); ObjectInputStream ois = new ObjectInputStream(fis)) {
+            while (true) {
+                e = ois.readObject();
+            }
+        } catch (FileNotFoundException ent) {
+            System.out.println("Error, el fichero no se encuentra");
+        } catch (ClassNotFoundException ent) {
+            System.out.println("Error, la clase no se encuentra");
+        } catch (IOException ent) {
+            System.out.println("Error, al leer el fichero");
+            ent.printStackTrace();
+        } finally {
+            try {
+                if (fis != null) {
+                    fis.close();
+                }
+                if (ois != null) {
+                    ois.close();
+                }
+            } catch (IOException ent) {
+                System.out.println("Error, al cerrar el archivo");
+                ent.printStackTrace();
+            }
+        }
+        return e;
     }
     
     // Este se usa solo para cuando se borra un elemento del fichero .data
