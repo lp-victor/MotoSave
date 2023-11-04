@@ -16,11 +16,11 @@ import java.util.ArrayList;
  */
 public abstract interface MotocicletaDAO {
 
-    public abstract void altaMoto(Motocicleta moto);
+    public abstract boolean altaMoto(Motocicleta moto);
 
-    public abstract void bajaMoto(int matricula);
+    public abstract boolean bajaMoto(String matricula);
 
-    public abstract Motocicleta buscarMoto(int matricula);
+    public abstract Motocicleta buscarMoto(String matricula);
 
     public abstract void modificarMoto(Motocicleta moto) throws MotocicletaExcepcion; // Tira excepcion si pones los mismos datos de moto que ya estaban.
     
@@ -28,7 +28,7 @@ public abstract interface MotocicletaDAO {
 
     public abstract ArrayList<Motocicleta> listarMotocicletas();
     
-    public abstract ArrayList<Motocicleta> listarMotocicletasGaraje(int idGaraje) throws GarajeExcepcion; // Tira excepcion si el garaje está vacio.
+    public abstract ArrayList<Motocicleta> listarMotocicletasGaraje(int idGaraje) throws MotocicletaExcepcion; // Tira excepcion si el garaje está vacio.
    
     
     

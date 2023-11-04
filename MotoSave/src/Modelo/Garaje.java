@@ -20,11 +20,23 @@ public class Garaje implements Serializable, Entradable {
     ArrayList<Motocicleta> motos=new ArrayList();
     
     public Garaje(){
-        
     }
+    
+    public Garaje(String nombreGaraje){
+        this.nombreGaraje = nombreGaraje;
+    }
+    
     public Garaje(ArrayList<Motocicleta> motos) {
         this.motos = motos;
     }
+
+    public int getIdGaraje() {
+        return idGaraje;
+    }
+
+    public void setIdGaraje(int idGaraje) {
+        this.idGaraje = idGaraje;
+    }    
 
     public String getNombreGaraje() {
         return nombreGaraje;
@@ -32,6 +44,14 @@ public class Garaje implements Serializable, Entradable {
 
     public void setNombreGaraje(String nombreGaraje) {
         this.nombreGaraje = nombreGaraje;
+    }
+
+    public int getPlazasLibres() {
+        return plazasLibres;
+    }
+
+    public void setPlazasLibres(int plazasLibres) {
+        this.plazasLibres = plazasLibres;
     }
 
     public ArrayList<Motocicleta> getMotos() {
@@ -172,7 +192,7 @@ public class Garaje implements Serializable, Entradable {
         matriculaM=sc.nextLine();
         System.out.println("Introduce CC: ");
         ccM=Integer.valueOf(sc.nextLine()); 
-        motos.add(new Motocicleta(nombreM, marcaM, colorM, matriculaM, ccM));
+        motos.add(new Motocicleta(1,nombreM, marcaM, colorM, matriculaM, ccM));
 //        Entradable.agregarMotoBBDD(matriculaM, nombreM, marcaM, colorM, ccM);
         System.out.println("Moto Introducida Correctamente");
         listarMotos();

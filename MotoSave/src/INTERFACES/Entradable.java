@@ -137,6 +137,26 @@ public interface Entradable {
         return anio;
     }
 
+    public static boolean validarMatricula(String matricula) {
+        // Verificar que la matrícula tenga 7 caracteres
+        if (matricula.length() != 7) {
+            return false;
+        }
+        // Verificar los primeros 4 char son numeros, con el metodo Character.isDigit comprueba que el char es numero.
+        for (int i = 0; i < 4; i++) {
+            if (!Character.isDigit(matricula.charAt(i))) {
+                return false;
+            }
+        }
+        // Verificar los últimos 3 char son letras, con el metodo Character.isLetter comprueba que el char es una letra.
+        for (int i = 4; i < 7; i++) {
+            if (!Character.isLetter(matricula.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * M�todo que controla que el mel introducido por el usuario est� dentro del
      * rango permitido. El m�todo utiliza Scanner.nextLine() para leer la
@@ -186,57 +206,5 @@ public interface Entradable {
         } while (opcion != 0);
         return mes;
     }
-
-    
-// PARA TODAS LAS CONSULTAS SE DEBE HACER EN UNA CLASE POR EJEMPLO BBDD_GARAJE ?
-    // Esta tocado por Victor, cogerlo para dar de alta la moto.
-    public static void agregarMotoBBDD(String matricula, String nombre, String marca, String color, int cc) {
-        //Connection con = Serializacion.conectarBBDD(" ", " ", " ");
-        try {
-
-            String query = "INSERT INTO motocicleta (matricula, nombre, marca, color, cc) VALUES (?, ?, ?, ?, ?)";
-
-            PreparedStatement pstm = null; //con.prepareStatement(query);
-            
-            pstm.setString(1, matricula);
-            pstm.setString(2, nombre);
-            pstm.setString(3, marca);
-            pstm.setString(4, color);
-            pstm.setInt(5, cc);
-            pstm.executeUpdate();
-
-            pstm.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error:  " + e.toString());
-        }
-
-        //EntradaSalida.desconectarBBDD(con);
-    }
 }
-
-// PARA TODAS LAS CONSULTAS SE DEBE HACER EN UNA CLASE POR EJEMPLO BBDD_GARAJE ?
-//    public static void agregarMotoBBDD(String matricula, String nombre, String marca, String color, int cc) {
-//        Connection con = Serializacion.conectarBBDD(" ", " ", " ");
-//        try {
-//
-//            String query = "INSERT INTO motocicleta (matricula, nombre, marca, color, cc) VALUES (?, ?, ?, ?, ?)";
-//
-//            PreparedStatement pstm = con.prepareStatement(query);
-//            
-//            pstm.setString(1, matricula);
-//            pstm.setString(2, nombre);
-//            pstm.setString(3, marca);
-//            pstm.setString(4, color);
-//            pstm.setInt(5, cc);
-//            pstm.executeUpdate();
-//
-//            pstm.close();
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            System.out.println("Error:  " + e.toString());
-//        }
-//        Serializacion.desconectarBBDD(con);
 

@@ -8,6 +8,7 @@ import AccesoDatos.GarajeDAO;
 import Modelo.Garaje;
 import Modelo.GarajeExcepcion;
 import Modelo.Motocicleta;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,12 +17,12 @@ import Modelo.Motocicleta;
 public class SerializarGarajeDAO implements GarajeDAO{
 
     @Override
-    public void altaGaraje(Garaje garaje) {
+    public boolean altaGaraje(Garaje garaje) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void bajaGaraje(int idGaraje) {
+    public boolean bajaGaraje(int idGaraje) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -37,6 +38,16 @@ public class SerializarGarajeDAO implements GarajeDAO{
 
     @Override
     public int plazasLibres(Garaje garaje) throws GarajeExcepcion {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public ArrayList<Garaje> listarGaraje() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int buscarIdGaraje(String nombreGaraje) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

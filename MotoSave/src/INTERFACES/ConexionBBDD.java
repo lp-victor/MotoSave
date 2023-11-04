@@ -20,14 +20,14 @@ public class ConexionBBDD {
     static final String USUARIO = "root";
     static final String PASS = null;
 
-    public static boolean conectarBBDD() {
+    public static Connection conectarBBDD() {
         try {
             con = DriverManager.getConnection(CONEXION + BBDD, USUARIO, PASS);
         } catch (SQLException e) {
             System.out.println("Error:  " + e.toString());
-            return false;
+            return null;
         }
-        return true;
+        return con;
     }
     
     public static boolean desconectarBBDD() {

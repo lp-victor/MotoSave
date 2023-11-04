@@ -15,20 +15,20 @@ import java.util.ArrayList;
 public class SerializarMotocicletaDAO implements MotocicletaDAO {       
     
     @Override
-    public void altaMoto(Motocicleta moto) {
+    public boolean altaMoto(Motocicleta moto) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void bajaMoto(int matricula) {
+    public boolean bajaMoto(String matricula) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Motocicleta buscarMoto(int matricula) {
+    public Motocicleta buscarMoto(String matricula) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    
     @Override
     public void modificarMoto(Motocicleta moto) throws MotocicletaExcepcion {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -45,7 +45,7 @@ public class SerializarMotocicletaDAO implements MotocicletaDAO {
     }
 
     @Override
-    public ArrayList<Motocicleta> listarMotocicletasGaraje(int idGaraje) throws GarajeExcepcion {
+    public ArrayList<Motocicleta> listarMotocicletasGaraje(int idGaraje) throws MotocicletaExcepcion {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

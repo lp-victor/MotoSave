@@ -6,7 +6,7 @@ USE MotoSaveBBDD;
 CREATE TABLE garaje (
     idGaraje INT AUTO_INCREMENT PRIMARY KEY,
     nombreGaraje VARCHAR(25),
-    plazas INT CHECK (plazas <= 30)
+    plazas INT CHECK (plazas <= 30 AND plazas => 0) 
 );
 
 -- Crear la tabla 'moto' con la clave foránea 'idGaraje' referenciando la tabla 'garaje'
@@ -16,7 +16,7 @@ CREATE TABLE moto (
     marca VARCHAR(15),
     modelo VARCHAR(15),
     color VARCHAR(15),
-    cc INT CHECK (cc <= 4),
+    cc INT(4),
     PRIMARY KEY (idGaraje, Matricula),
     FOREIGN KEY (idGaraje) REFERENCES garaje(idGaraje)
 );
@@ -32,7 +32,7 @@ BEGIN
     IF NEW.idGaraje IS NOT NULL THEN
         UPDATE garaje
         SET plazas = plazas - 1
-        WHERE idGaraje = OLD.idGaraje;
+        WHERE idGaraje = NEW.idGaraje;
     END IF;
 END$$
 DELIMITER ;
@@ -51,3 +51,16 @@ BEGIN
     END IF;
 END$$
 DELIMITER ;
+
+-- Insters a garaje
+
+INSERT INTO garaje(nombreGaraje) VALUES ('Pishamotors');
+INSERT INTO garaje(nombreGaraje) VALUES ('Davidmotors');
+INSERT INTO garaje(nombreGaraje) VALUES ('Vitimotors');
+
+-- Inserts moto
+
+INSERT INTO moto VALUES (1, '1234AAA', 'Honda', 'CBR', 'Negro', 1250);
+INSERT INTO moto VALUES (2, '1234BBB', 'Kawasaki', 'Ninja', 'Blanco', 1000);
+INSERT INTO moto VALUES (3, '1234CCC', 'Yamaha', ' YZF-R1', 'Azul', 950);
+INSERT INTO moto VALUES (2, '1234DDD', 'Ducati', 'Panigale', 'Rojo', 1300);

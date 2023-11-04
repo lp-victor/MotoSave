@@ -7,26 +7,35 @@ import java.util.Objects;
 
 
 public class Motocicleta implements Serializable {
-
+    
+    private int idGaraje;
     private String matricula;
-    private String nombre;
     private String marca;    
     private String modelo; 
     private String color;   
     private int CC;
     
-
+    public Motocicleta(){
+    }
     
     public Motocicleta(String matricula){
-        
     }
 
-    public Motocicleta(String matricula, String marca, String modelo, String color, int CC) {
+    public Motocicleta(int idGaraje, String matricula, String marca, String modelo, String color, int CC) {
+        this.idGaraje = idGaraje;
         this.matricula = matricula;
         this.marca = marca;
         this.modelo = modelo;
         this.color = color;
         this.CC = CC;
+    }
+
+    public int getIdGaraje() {
+        return idGaraje;
+    }
+
+    public void setIdGaraje(int idGaraje) {
+        this.idGaraje = idGaraje;
     }
 
     public String getMatricula() {
