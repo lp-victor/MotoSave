@@ -128,7 +128,8 @@ public class Inicio_Grafico extends javax.swing.JFrame {
         S_separador_Inicio.setForeground(new java.awt.Color(204, 204, 204));
 
         L_motosave_Inicio.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
-        L_motosave_Inicio.setText("MotoSave");
+        L_motosave_Inicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        L_motosave_Inicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Drawable/MotoSave.png"))); // NOI18N
 
         javax.swing.GroupLayout P_panelUsuario_IncioLayout = new javax.swing.GroupLayout(P_panelUsuario_Incio);
         P_panelUsuario_Incio.setLayout(P_panelUsuario_IncioLayout);
@@ -152,10 +153,6 @@ public class Inicio_Grafico extends javax.swing.JFrame {
                     .addComponent(B_eliminar_Inicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(62, 62, 62))
             .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
-                .addGap(126, 126, 126)
-                .addComponent(L_motosave_Inicio)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
                 .addGroup(P_panelUsuario_IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
                         .addGap(99, 99, 99)
@@ -172,13 +169,13 @@ public class Inicio_Grafico extends javax.swing.JFrame {
                         .addGap(95, 95, 95)
                         .addComponent(B_salir_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(26, Short.MAX_VALUE))
+            .addComponent(L_motosave_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         P_panelUsuario_IncioLayout.setVerticalGroup(
             P_panelUsuario_IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, P_panelUsuario_IncioLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(L_motosave_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addComponent(L_motosave_Inicio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(P_panelUsuario_IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TF_introMatricula_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(L_introduceMatricula_Inicio))
