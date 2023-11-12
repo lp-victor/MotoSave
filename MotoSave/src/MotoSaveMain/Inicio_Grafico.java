@@ -12,6 +12,7 @@ import Modelo.Garaje;
 import Modelo.Motocicleta;
 import Modelo.MotocicletaExcepcion;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -39,8 +40,8 @@ public class Inicio_Grafico extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        SP_infoMotos_Inicio = new javax.swing.JScrollPane();
-        TA_infoMotos_Inicio = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        T_infoMotos_Inicio = new javax.swing.JTable();
         P_panelUsuario_Incio = new javax.swing.JPanel();
         B_agregar_Inicio = new javax.swing.JButton();
         TF_introMatricula_Inicio = new javax.swing.JTextField();
@@ -56,15 +57,33 @@ public class Inicio_Grafico extends javax.swing.JFrame {
         B_modificarMoto_Inicio = new javax.swing.JButton();
         S_separador_Inicio = new javax.swing.JSeparator();
         L_motosave_Inicio = new javax.swing.JLabel();
+        L_T_nombreGaraje = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        TA_infoMotos_Inicio.setColumns(20);
-        TA_infoMotos_Inicio.setRows(5);
-        SP_infoMotos_Inicio.setViewportView(TA_infoMotos_Inicio);
+        T_infoMotos_Inicio.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Matricula", "Marca", "Modelo", "Color", "Cilindrada CC"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
 
-        getContentPane().add(SP_infoMotos_Inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 360, 540));
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(T_infoMotos_Inicio);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 70, 470, 470));
 
         P_panelUsuario_Incio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
 
@@ -206,6 +225,11 @@ public class Inicio_Grafico extends javax.swing.JFrame {
 
         getContentPane().add(P_panelUsuario_Incio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 540));
 
+        L_T_nombreGaraje.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        L_T_nombreGaraje.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        L_T_nombreGaraje.setText("Garaje Nombre");
+        getContentPane().add(L_T_nombreGaraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, 260, 30));
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -223,18 +247,26 @@ public class Inicio_Grafico extends javax.swing.JFrame {
     }//GEN-LAST:event_B_buscar_InicioActionPerformed
 
     private void B_listar_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_listar_InicioActionPerformed
-         try {            
+        DefaultTableModel modeloTabla = new DefaultTableModel();
+        modeloTabla.addColumn("Matrícula");
+        modeloTabla.addColumn("Marca");
+        modeloTabla.addColumn("Modelo");
+        modeloTabla.addColumn("Color");
+        modeloTabla.addColumn("Cilindrada (cc)");
+
+        try {
             int aux = garajeAux.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
-            for (Motocicleta moto : motoAux.listarMotocicletasGaraje(aux)) { 
+            for (Motocicleta moto : motoAux.listarMotocicletasGaraje(aux)) {
                 String matricula = moto.getMatricula();
                 String marca = moto.getMarca();
                 String modelo = moto.getModelo();
                 String color = moto.getColor();
                 String cc = String.valueOf(moto.getCC());
-                
-                String texto = "Matricula: " + matricula + "\nMarca: " + marca + "\nModelo: " + modelo + "\nColor: " + color + "\nCilindrada: " + cc + "cc"+"\n ========================"; ;              
-                TA_infoMotos_Inicio.setText(texto);
+
+                String texto = "Matricula: " + matricula + "\nMarca: " + marca + "\nModelo: " + modelo + "\nColor: " + color + "\nCilindrada: " + cc + "cc" + "\n ========================";;
+                modeloTabla.addRow(new Object[]{matricula,marca,modelo,color,cc});
             }
+            T_infoMotos_Inicio.setModel(modeloTabla);
         } catch (MotocicletaExcepcion ex) {
             JOptionPane.showMessageDialog(this, "No hay Motocicletas en este Garaje");
         }
@@ -314,14 +346,15 @@ public class Inicio_Grafico extends javax.swing.JFrame {
     private javax.swing.JButton B_salir_Inicio;
     private javax.swing.JComboBox<String> CB_garajes_Inicio;
     private javax.swing.JComboBox<String> CB_motos_Inicio;
+    private javax.swing.JLabel L_T_nombreGaraje;
     private javax.swing.JLabel L_introduceMatricula_Inicio;
     private javax.swing.JLabel L_motosave_Inicio;
     private javax.swing.JLabel L_seleccionaGaraje_Inicio;
     private javax.swing.JLabel L_seleccionarMoto_Inicio;
     private javax.swing.JPanel P_panelUsuario_Incio;
-    private javax.swing.JScrollPane SP_infoMotos_Inicio;
     private javax.swing.JSeparator S_separador_Inicio;
-    private javax.swing.JTextArea TA_infoMotos_Inicio;
     private javax.swing.JTextField TF_introMatricula_Inicio;
+    private javax.swing.JTable T_infoMotos_Inicio;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

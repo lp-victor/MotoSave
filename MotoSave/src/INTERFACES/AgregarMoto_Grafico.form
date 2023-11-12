@@ -43,18 +43,13 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
-                  <Component id="L_motosave_AgregarMoto" min="-2" pref="123" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
+              <Component id="L_motosave_AgregarMoto" alignment="0" pref="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="L_motosave_AgregarMoto" max="32767" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <Component id="L_motosave_AgregarMoto" pref="70" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -66,7 +61,10 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SansSerif" size="24" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="MotoSave"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Drawable/MotoSave.png"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>
@@ -79,31 +77,37 @@
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="B_volver_AgregarMoto" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                          <Component id="B_Agregar_AgregarMoto" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="L_infoAgregar_AgregarMoto" min="-2" pref="179" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="L_CC_AgregarMoto" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="L_Color_AgregarMoto" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="L_modelo_AgregarMoto" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="L_marca_AgregarMoto" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="L_matricula_AgregarMoto" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="L_infoAgregar_AgregarMoto" min="-2" pref="179" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="L_CC_AgregarMoto" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                                      <Component id="L_Color_AgregarMoto" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                                      <Component id="L_modelo_AgregarMoto" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                                      <Component id="L_marca_AgregarMoto" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                                      <Component id="L_matricula_AgregarMoto" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="TF_CC_AgregarMoto" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
+                                      <Component id="CB_color_AgregarMoto" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
+                                      <Component id="TF_matricula_AgregarMoto" pref="190" max="32767" attributes="0"/>
+                                      <Component id="TF_marca_AgregarMoto" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="TF_modelo_AgregarMoto" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="TF_marca_AgregarMoto" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                              <Component id="TF_modelo_AgregarMoto" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                              <Component id="TF_matricula_AgregarMoto" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                              <Component id="TF_CC_AgregarMoto" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                              <Component id="CB_color_AgregarMoto" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                          </Group>
+                          <EmptySpace pref="71" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                          <Component id="B_volver_AgregarMoto" min="-2" pref="124" max="-2" attributes="0"/>
+                          <EmptySpace pref="45" max="32767" attributes="0"/>
+                          <Component id="B_Agregar_AgregarMoto" min="-2" pref="118" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="81" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -137,12 +141,12 @@
                       <Component id="L_CC_AgregarMoto" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="TF_CC_AgregarMoto" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace pref="26" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="B_volver_AgregarMoto" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="B_Agregar_AgregarMoto" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="27" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
