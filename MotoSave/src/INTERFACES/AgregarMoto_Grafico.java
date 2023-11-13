@@ -24,8 +24,9 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
     private static boolean mousePressed;
     // Atributos clase
     private int idGaraje;
-    private Connection con;
-    //Arreglar conexion 
+    // Conexion y BDD
+    private ConexionBBDD conexionbd = new ConexionBBDD();
+    private Connection con = conexionbd.getCon();
     private JDBCMotocicletaDAO motocicletaDAO = new JDBCMotocicletaDAO(con);
 
     public AgregarMoto_Grafico() {
@@ -33,8 +34,7 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
         habilitarArrastre(this);
     }
 
-    public AgregarMoto_Grafico(int idGaraje_e, Connection con) {
-        this.con = con;
+    public AgregarMoto_Grafico(int idGaraje_e) {
         idGaraje = idGaraje_e;
         initComponents();
         String[] colores = {"Rojo", "Azul", "Verde", "Negro", "Blanco", "Gris", "Amarillo"};
@@ -222,43 +222,43 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
 
         // Controlar excepciones (que no sean null los textField). 
         // Hacer todos los campos obligatorios.
-        JFrame ventanaAgregar = new AgregarMoto_Grafico();
         if ((TF_matricula_AgregarMoto.getText().equals("")) || (TF_matricula_AgregarMoto.getText() == null)) {
-            JOptionPane.showMessageDialog(ventanaAgregar, "La matricula no puede estar vacia.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La matricula no puede estar vacia.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         // Verificar si la matrícula cumple formato
         if (!INTERFACES.Entradable.validarMatricula(TF_matricula_AgregarMoto.getText())) {
-            JOptionPane.showMessageDialog(ventanaAgregar, "La matricula no cumple con el formato requerido. Ej: 1234ABC", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La matricula no cumple con el formato requerido. Ej: 1234ABC", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        String Marca= null;
+        String Marca = null;
         String Modelo = null;
         String Color = (String) CB_color_AgregarMoto.getSelectedItem();
         int cilindrada = 0;
 
         //controlar que la marca, el modelo y la cilindrada no esten vacios
         if (TF_marca_AgregarMoto.getText().isEmpty() || TF_modelo_AgregarMoto.getText().isEmpty() || TF_CC_AgregarMoto.getText().isEmpty()) {
-           
+
         } else {
-            JOptionPane.showMessageDialog(ventanaAgregar, "La marca no puede estas vacia", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La marca no puede estas vacia", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-         Marca = TF_marca_AgregarMoto.getText();
-         Modelo = TF_modelo_AgregarMoto.getText();
-         cilindrada = Integer.parseInt(TF_CC_AgregarMoto.getText());
+
+        Marca = TF_marca_AgregarMoto.getText();
+        Modelo = TF_modelo_AgregarMoto.getText();
+        cilindrada = Integer.parseInt(TF_CC_AgregarMoto.getText());
 
         // Comprobar si la motocicleta ya existe
         if (motocicletaDAO.buscarMoto(TF_matricula_AgregarMoto.getText()) == null) {
-            JOptionPane.showMessageDialog(ventanaAgregar, "La motocicleta ya existe en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La motocicleta ya existe en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-        Motocicleta newMoto = new Motocicleta(idGaraje, TF_matricula_AgregarMoto.getText(), Marca, Modelo, Color, cilindrada);
-        if (motocicletaDAO.altaMoto(newMoto)) {
-            JOptionPane.showMessageDialog(this, "La motocicleta se agrego exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "Error al agregar la motocicleta.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        
+        // Falta meter el precio
+//        Motocicleta newMoto = new Motocicleta(idGaraje, TF_matricula_AgregarMoto.getText(), Marca, Modelo, Color, cilindrada);
+//        if (motocicletaDAO.altaMoto(newMoto)) {
+//            JOptionPane.showMessageDialog(this, "La motocicleta se agrego exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+//        } else {
+//            JOptionPane.showMessageDialog(this, "Error al agregar la motocicleta.", "Error", JOptionPane.ERROR_MESSAGE);
+//        }
 
 
     }//GEN-LAST:event_B_Agregar_AgregarMotoActionPerformed

@@ -26,7 +26,7 @@ public class Serializacion {
 
     //FICHERO PARA GUARDAR EL GARAJE CON SUS MOTOCICLETAS
     public static Object leerGaraje(Garaje garaje) {
-        f = new File (pathGarajesDATA + "/" + garaje.getNombreGaraje());
+        f = new File (pathGarajesDATA + "/" + garaje.getSucursal());
         Object e = new Object();
 
         try (FileInputStream fis = new FileInputStream(f); ObjectInputStream ois = new ObjectInputStream(fis)) {
@@ -89,7 +89,7 @@ public class Serializacion {
     
     // Este se usa solo para cuando se borra un elemento del fichero .data
     private static void guardarGaraje(Garaje garaje) {
-        f = new File (pathGarajesDATA + "/" + garaje.getNombreGaraje());
+        f = new File (pathGarajesDATA + "/" + garaje.getSucursal());
         int cont = 0;
         
         try {

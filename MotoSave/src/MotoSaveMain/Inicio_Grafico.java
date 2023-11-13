@@ -33,6 +33,7 @@ public class Inicio_Grafico extends javax.swing.JFrame {
     private JDBCMotocicletaDAO motoAux = new JDBCMotocicletaDAO(conexionBD.getCon());
     //Interfaces
     private AgregarMoto_Grafico agregarMoto_F = new AgregarMoto_Grafico();
+
     /**
      * Creates new form Inicio_Grafico
      */
@@ -267,7 +268,7 @@ public class Inicio_Grafico extends javax.swing.JFrame {
 
     private void B_buscar_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_buscar_InicioActionPerformed
         DefaultTableModel modeloTabla = estructuraTabla();
-
+        
         Motocicleta moto = motoAux.buscarMoto(TF_introMatricula_Inicio.getText());
         String matricula = moto.getMatricula();
         String marca = moto.getMarca();
@@ -277,13 +278,13 @@ public class Inicio_Grafico extends javax.swing.JFrame {
         //Salida
         modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc});
         T_infoMotos_Inicio.setModel(modeloTabla);
-        L_T_nombreGaraje.setText(garajeAux.buscarGaraje(moto.getIdGaraje()).getNombreGaraje());
+        L_T_nombreGaraje.setText(garajeAux.buscarGaraje(moto.getIdGaraje()).getSucursal());
 
     }//GEN-LAST:event_B_buscar_InicioActionPerformed
 
     private void B_listar_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_listar_InicioActionPerformed
         DefaultTableModel modeloTabla = estructuraTabla();
-
+        
         try {
             int aux = garajeAux.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
             for (Motocicleta moto : motoAux.listarMotocicletasGaraje(aux)) {
@@ -292,10 +293,10 @@ public class Inicio_Grafico extends javax.swing.JFrame {
                 String modelo = moto.getModelo();
                 String color = moto.getColor();
                 String cc = String.valueOf(moto.getCC());
-
+                
                 modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc});
             }
-            L_T_nombreGaraje.setText(garajeAux.buscarGaraje(aux).getNombreGaraje());
+            L_T_nombreGaraje.setText(garajeAux.buscarGaraje(aux).getSucursal());
             T_infoMotos_Inicio.setModel(modeloTabla);
         } catch (MotocicletaExcepcion ex) {
             JOptionPane.showMessageDialog(this, "No hay Motocicletas en este Garaje");
@@ -322,7 +323,7 @@ public class Inicio_Grafico extends javax.swing.JFrame {
     private void B_eliminar_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_eliminar_InicioActionPerformed
         // Hacer la doble confirmacion.
         
-        String [] motoSeleccionada = (String.valueOf(CB_motos_Inicio.getSelectedItem())).split("-");
+        String[] motoSeleccionada = (String.valueOf(CB_motos_Inicio.getSelectedItem())).split("-");
         motoAux.bajaMoto(motoSeleccionada[1]);
         
         actualizarCBMotos();
@@ -330,12 +331,12 @@ public class Inicio_Grafico extends javax.swing.JFrame {
     
     public void abrirAgregarMoto_grafico() {
         int aux = garajeAux.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
-        agregarMoto_F = new AgregarMoto_Grafico(aux, conexionBD.getCon());
+        agregarMoto_F = new AgregarMoto_Grafico(aux);
         agregarMoto_F.setVisible(true);
         agregarMoto_F.pack();
         agregarMoto_F.setLocationRelativeTo(this);
     }
-
+    
     public static void habilitarArrastre(JFrame frame) {
         frame.addMouseListener(new MouseAdapter() {
             @Override
@@ -344,13 +345,13 @@ public class Inicio_Grafico extends javax.swing.JFrame {
                 mouseX = e.getX();
                 mouseY = e.getY();
             }
-
+            
             @Override
             public void mouseReleased(MouseEvent e) {
                 mousePressed = false;
             }
         });
-
+        
         frame.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
@@ -362,7 +363,7 @@ public class Inicio_Grafico extends javax.swing.JFrame {
             }
         });
     }
-
+    
     private DefaultTableModel estructuraTabla() {
         DefaultTableModel modeloTabla = new DefaultTableModel();
         modeloTabla.addColumn("Matrícula");
@@ -370,16 +371,16 @@ public class Inicio_Grafico extends javax.swing.JFrame {
         modeloTabla.addColumn("Modelo");
         modeloTabla.addColumn("Color");
         modeloTabla.addColumn("Cilindrada (cc)");
-
+        modeloTabla.addColumn("Precio (€)");
         return modeloTabla;
     }
-
+    
     private void llenarCBGaraje() {
         for (Garaje garaje : garajeAux.listarGaraje()) {
-            CB_garajes_Inicio.addItem(garaje.getNombreGaraje());
+            CB_garajes_Inicio.addItem(garaje.getSucursal());
         }
     }
-
+    
     private void llenarCBMotos() {
         CB_motos_Inicio.removeAllItems();
         try {
@@ -391,7 +392,7 @@ public class Inicio_Grafico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No hay Motocicletas en este Garaje");
         }
     }
-
+    
     public void actualizarCBMotos() {
         CB_motos_Inicio.removeAllItems();
         String garajeSeleccionado = (String) CB_garajes_Inicio.getSelectedItem();

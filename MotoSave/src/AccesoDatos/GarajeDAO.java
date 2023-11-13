@@ -23,7 +23,7 @@ public interface GarajeDAO {
     
     public abstract int buscarIdGaraje (String nombreGaraje);
 
-    public abstract void modificarGaraje(Motocicleta moto) throws GarajeExcepcion; // Tira excepcion si pones los mismos datos de moto que ya estaban.
+    public abstract void modificarGaraje(Garaje garaje) throws GarajeExcepcion; // Tira excepcion si pones los mismos datos de moto que ya estaban.
     
     public abstract int plazasLibres(Garaje garaje) throws GarajeExcepcion;
     

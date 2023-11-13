@@ -30,7 +30,7 @@ public abstract interface MotocicletaDAO {
     
     public abstract ArrayList<Motocicleta> listarMotocicletasGaraje(int idGaraje) throws MotocicletaExcepcion; // Tira excepcion si el garaje está vacio.
    
-    
+    public abstract void moverMoto(Motocicleta moto, Garaje garaje);
     
 
 }

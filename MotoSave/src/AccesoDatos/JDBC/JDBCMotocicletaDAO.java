@@ -1,12 +1,10 @@
 package AccesoDatos.JDBC;
 
 import AccesoDatos.MotocicletaDAO;
-import INTERFACES.ConexionBBDD;
 import Modelo.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -25,7 +23,7 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
     @Override
     public boolean altaMoto(Motocicleta moto) {
         Motocicleta moto_aux = moto;
-        String insert = "INSERT INTO moto VALUES (?, ?, ?, ?, ?, ?)";
+        String insert = "INSERT INTO motos VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstm = con.prepareStatement(insert)) {
 
             pstm.setInt(1, moto_aux.getIdGaraje());
@@ -34,22 +32,20 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
             pstm.setString(4, moto_aux.getModelo());
             pstm.setString(5, moto_aux.getColor());
             pstm.setInt(6, moto_aux.getCC());
-
+            pstm.setInt(7, moto_aux.getPrecio());
+            
             pstm.executeUpdate();
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al agregar la nueva moto", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-//        finally {
-//            desconectarBBDD();
-//        }
         return true;
     }
 
     @Override
     public boolean bajaMoto(String matricula) {
-        String delete = "DELETE FROM moto WHERE matricula = ?";
+        String delete = "DELETE FROM motos WHERE matricula = ?";
         try (PreparedStatement pstm = con.prepareStatement(delete)) {
             pstm.setString(1, matricula);
             if (pstm.executeUpdate() == 0) {
@@ -68,7 +64,7 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
     @Override
     public Motocicleta buscarMoto(String matricula) {
         Motocicleta moto = new Motocicleta();
-        String query = "SELECT * FROM moto WHERE matricula = ?";
+        String query = "SELECT * FROM motos WHERE matricula = ?";
         try (PreparedStatement pstm = con.prepareStatement(query);) {
             pstm.setString(1, matricula);
             ResultSet res = pstm.executeQuery();
@@ -77,22 +73,21 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
                 moto.setMatricula(res.getString("matricula"));
                 moto.setMarca(res.getString("marca"));
                 moto.setModelo(res.getString("modelo"));
-                moto.setColor(res.getString("Color"));
+                moto.setColor(res.getString("color"));
                 moto.setCC(res.getInt("cc"));
+                moto.setPrecio(res.getInt("precio"));
             }
             return moto;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error: No se han podido recuperar la moto.", "Error", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-//        finally {
-//            desconectarBBDD();
-//        }
     }
-
+    
+    // Revisar modificar moto, idGaraje?, rematricular.
     @Override
     public void modificarMoto(Motocicleta moto) throws MotocicletaExcepcion {
-        String update = "UPDATE moto SET idGaraje = ?, matricula = ?, marca = ?, modelo = ?, color = ?, cc = ? WHERE matricula = ?";
+        String update = "UPDATE motos SET matricula = ?, marca = ?, modelo = ?, color = ?, cc = ?, precio = ? WHERE matricula = ?";
         try (PreparedStatement pstm = con.prepareStatement(update)) {
             pstm.setInt(1, moto.getIdGaraje());
             pstm.setString(2, moto.getMatricula());
@@ -100,28 +95,23 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
             pstm.setString(4, moto.getModelo());
             pstm.setString(5, moto.getColor());
             pstm.setInt(6, moto.getCC());
-            pstm.setString(7, moto.getMatricula());
+            pstm.setInt(7, moto.getPrecio());
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error: no se ha podido modificar la moto.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-//        finally {
-//            desconectarBBDD();
-//        }
-
     }
+    
+    
 
     @Override
     public void cambiarDeGaraje(Motocicleta moto, Garaje garaje) throws MotocicletaExcepcion {
-        String update = "UPDATE moto SET idGaraje = ? WHERE matricula = ?";
+        String update = "UPDATE motos SET idGaraje = ? WHERE matricula = ?";
         try (PreparedStatement pstm = con.prepareStatement(update)) {
             pstm.setInt(1, garaje.getIdGaraje());
             pstm.setString(2, moto.getMatricula());
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error: no se ha podido mover la moto de garaje.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-//        finally {
-//            desconectarBBDD();
-//        }
     }
 
     @Override
@@ -138,22 +128,20 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
                 moto.setModelo(res.getString("modelo"));
                 moto.setColor(res.getString("Color"));
                 moto.setCC(res.getInt("cc"));
+                moto.setPrecio(res.getInt("precio"));
                 motos.add(moto);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error: No se han podido recuperar los garajes.", "Error", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-//        finally {
-//            desconectarBBDD();
-//        }
         return motos;
     }
 
     @Override
     public ArrayList<Motocicleta> listarMotocicletasGaraje(int idGaraje) throws MotocicletaExcepcion {
         ArrayList<Motocicleta> motos = new ArrayList();
-        String query = "SELECT * FROM moto WHERE idGaraje = ?";
+        String query = "SELECT * FROM motos WHERE idGaraje = ?";
 
         try (PreparedStatement pstm = con.prepareStatement(query)) {
             pstm.setInt(1, idGaraje);
@@ -166,16 +154,19 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
                 moto.setModelo(res.getString("modelo"));
                 moto.setColor(res.getString("Color"));
                 moto.setCC(res.getInt("cc"));
+                moto.setPrecio(res.getInt("precio"));
                 motos.add(moto);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error: No se han podido recuperar los garajes.", "Error", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-//        finally {
-//            desconectarBBDD();
-//        }
         return motos;
+    }
+
+    @Override
+    public void moverMoto(Motocicleta moto, Garaje garaje) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

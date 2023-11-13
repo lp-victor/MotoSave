@@ -15,15 +15,15 @@ import java.util.Scanner;
 public class Garaje implements Serializable, Entradable {
       
     private int idGaraje;
-    private String nombreGaraje = "Garaje";
+    private String sucursal = "Garaje";
     private int plazasLibres;
     ArrayList<Motocicleta> motos=new ArrayList();
     
     public Garaje(){
     }
     
-    public Garaje(String nombreGaraje){
-        this.nombreGaraje = nombreGaraje;
+    public Garaje(String sucursal){
+        this.sucursal = sucursal;
     }
     
     public Garaje(ArrayList<Motocicleta> motos) {
@@ -38,12 +38,12 @@ public class Garaje implements Serializable, Entradable {
         this.idGaraje = idGaraje;
     }    
 
-    public String getNombreGaraje() {
-        return nombreGaraje;
+    public String getSucursal() {
+        return sucursal;
     }
 
-    public void setNombreGaraje(String nombreGaraje) {
-        this.nombreGaraje = nombreGaraje;
+    public void setSucursal(String sucursal) {
+        this.sucursal = sucursal;
     }
 
     public int getPlazasLibres() {
@@ -62,7 +62,8 @@ public class Garaje implements Serializable, Entradable {
         this.motos = motos;
     }
 
-    
+    // Hecho pisha dejar por si algo sirve
+    // ==============================================================================
     public void menuGaraje() {
       
         int opcion;
@@ -110,7 +111,7 @@ public class Garaje implements Serializable, Entradable {
                     listarMotos();
                     break;
                 case 2:
-                    agregarMoto();
+//                    agregarMoto();
                     break; 
                 case 3:
                     eliminarMoto();
@@ -156,9 +157,6 @@ public class Garaje implements Serializable, Entradable {
                     break;
             }
         } while (opcion != 0);
-       
-        
-        
     };
     
     //===================GESTION MOTOS====================
@@ -175,28 +173,28 @@ public class Garaje implements Serializable, Entradable {
         }
     }
     
-    private void agregarMoto(){
-        
-        String nombreM="";
-        String marcaM="";
-        String colorM="";
-        String matriculaM="";
-        int ccM=0;
-        System.out.println("Introduce nombre: ");
-        nombreM=sc.nextLine();
-        System.out.println("Introduce marca: ");
-        marcaM=sc.nextLine();
-        System.out.println("Introduce color: ");
-        colorM=sc.nextLine();
-        System.out.println("Introduce matricula: ");
-        matriculaM=sc.nextLine();
-        System.out.println("Introduce CC: ");
-        ccM=Integer.valueOf(sc.nextLine()); 
-        motos.add(new Motocicleta(1,nombreM, marcaM, colorM, matriculaM, ccM));
-//        Entradable.agregarMotoBBDD(matriculaM, nombreM, marcaM, colorM, ccM);
-        System.out.println("Moto Introducida Correctamente");
-        listarMotos();
-    }
+//    private void agregarMoto(){
+//        
+//        String nombreM="";
+//        String marcaM="";
+//        String colorM="";
+//        String matriculaM="";
+//        int ccM=0;
+//        System.out.println("Introduce nombre: ");
+//        nombreM=sc.nextLine();
+//        System.out.println("Introduce marca: ");
+//        marcaM=sc.nextLine();
+//        System.out.println("Introduce color: ");
+//        colorM=sc.nextLine();
+//        System.out.println("Introduce matricula: ");
+//        matriculaM=sc.nextLine();
+//        System.out.println("Introduce CC: ");
+//        ccM=Integer.valueOf(sc.nextLine()); 
+//        motos.add(new Motocicleta(1,nombreM, marcaM, colorM, matriculaM, ccM));
+////        Entradable.agregarMotoBBDD(matriculaM, nombreM, marcaM, colorM, ccM);
+//        System.out.println("Moto Introducida Correctamente");
+//        listarMotos();
+//    }
     
     private void eliminarMoto(){
         int elegir=0;
@@ -242,7 +240,7 @@ public class Garaje implements Serializable, Entradable {
     
     @Override
     public String toString() {
-        return "Garaje{" + "nombre=" + nombreGaraje + ", motos=" + motos + '}';
+        return "Garaje{" + "nombre=" + sucursal + ", motos=" + motos + '}';
     }
 
 
@@ -258,16 +256,9 @@ public class Garaje implements Serializable, Entradable {
             return false;
         }
         final Garaje other = (Garaje) obj;
-        if (!Objects.equals(this.nombreGaraje, other.nombreGaraje)) {
+        if (!Objects.equals(this.sucursal, other.sucursal)){
             return false;
         }
         return Objects.equals(this.motos, other.motos);
     }
-
-    
-
-
-
-
-
 }

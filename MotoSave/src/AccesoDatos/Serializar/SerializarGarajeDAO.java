@@ -32,7 +32,7 @@ public class SerializarGarajeDAO implements GarajeDAO{
     }
 
     @Override
-    public void modificarGaraje(Motocicleta moto) throws GarajeExcepcion {
+    public void modificarGaraje(Garaje garaje) throws GarajeExcepcion {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
