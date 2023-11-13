@@ -6,7 +6,7 @@ USE MotoSaveBBDD;
 CREATE TABLE garaje (
     idGaraje INT AUTO_INCREMENT PRIMARY KEY,
     nombreGaraje VARCHAR(25),
-    plazas INT CHECK (plazas <= 30 AND plazas => 0) 
+    plazas INT CHECK (plazas <= 30 AND plazas => 0  ) 
 );
 
 -- Crear la tabla 'moto' con la clave foránea 'idGaraje' referenciando la tabla 'garaje'

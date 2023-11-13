@@ -6,8 +6,12 @@ package INTERFACES;
 
 import AccesoDatos.JDBC.JDBCMotocicletaDAO;
 import Modelo.Motocicleta;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import java.sql.Connection;
 
 /**
  *
@@ -15,16 +19,22 @@ import javax.swing.JOptionPane;
  */
 public class AgregarMoto_Grafico extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AgregarUsuario_Grafico
-     */
-    int idGaraje;
+    //Movimiento JPanel
+    private static int mouseX, mouseY;
+    private static boolean mousePressed;
+    // Atributos clase
+    private int idGaraje;
+    private Connection con;
+    //Arreglar conexion 
+    private JDBCMotocicletaDAO motocicletaDAO = new JDBCMotocicletaDAO(con);
 
     public AgregarMoto_Grafico() {
         initComponents();
+        habilitarArrastre(this);
     }
 
-    public AgregarMoto_Grafico(int idGaraje_e) {
+    public AgregarMoto_Grafico(int idGaraje_e, Connection con) {
+        this.con = con;
         idGaraje = idGaraje_e;
         initComponents();
         String[] colores = {"Rojo", "Azul", "Verde", "Negro", "Blanco", "Gris", "Amarillo"};
@@ -32,6 +42,7 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
         for (String color : colores) {
             CB_color_AgregarMoto.addItem(color);
         }
+        habilitarArrastre(this);
     }
 
     /**
@@ -61,6 +72,7 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
         CB_color_AgregarMoto = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         L_motosave_AgregarMoto.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         L_motosave_AgregarMoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -207,8 +219,10 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
     }//GEN-LAST:event_CB_color_AgregarMotoActionPerformed
 
     private void B_Agregar_AgregarMotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_Agregar_AgregarMotoActionPerformed
-        //Crear una instancia de JDBCMotocicletaDAO
-        JDBCMotocicletaDAO motocicletaDAO = new JDBCMotocicletaDAO();
+        
+        // Controlar excepciones (que no sean null los textField). 
+        // Hacer todos los campos obligatorios.
+        
         JFrame ventanaAgregar = new AgregarMoto_Grafico();
         if ((TF_matricula_AgregarMoto.getText().equals("")) || (TF_matricula_AgregarMoto.getText() == null)) {
             JOptionPane.showMessageDialog(ventanaAgregar, "La matricula no puede estar vacia.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -224,7 +238,7 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
         int cilindrada = Integer.parseInt(TF_CC_AgregarMoto.getText());
 
         // Comprobar si la motocicleta ya existe
-        if (motocicletaDAO.buscarMoto(TF_matricula_AgregarMoto.getText()) != null) {
+        if (motocicletaDAO.buscarMoto(TF_matricula_AgregarMoto.getText()) == null) {
             JOptionPane.showMessageDialog(ventanaAgregar, "La motocicleta ya existe en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -235,13 +249,40 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al agregar la motocicleta.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        this.dispose();
+        
     }//GEN-LAST:event_B_Agregar_AgregarMotoActionPerformed
 
     private void B_volver_AgregarMotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_volver_AgregarMotoActionPerformed
         this.dispose();
     }//GEN-LAST:event_B_volver_AgregarMotoActionPerformed
+    
+    public static void habilitarArrastre(JFrame frame) {
+        frame.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                mousePressed = true;
+                mouseX = e.getX();
+                mouseY = e.getY();
+            }
 
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                mousePressed = false;
+            }
+        });
+
+        frame.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (mousePressed) {
+                    int x = e.getXOnScreen();
+                    int y = e.getYOnScreen();
+                    frame.setLocation(x - mouseX, y - mouseY);
+                }
+            }
+        });
+    }
+    
     /**
      * @param args the command line arguments
      */

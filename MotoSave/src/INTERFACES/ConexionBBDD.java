@@ -7,34 +7,37 @@ package INTERFACES;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author victo
  */
 public class ConexionBBDD {
-    
-    static Connection con = null;
-    static final String CONEXION = "jdbc:mysql://localhost:3306/";
-    static final String BBDD = "motosavebbdd";
-    static final String USUARIO = "root";
-    static final String PASS = null;
 
-    public static Connection conectarBBDD() {
+    private static Connection con = null;
+    private static final String CONEXION = "jdbc:mysql://localhost:3306/";
+    private static final String BBDD = "motosavebbdd";
+    private static final String USUARIO = "root";
+    private static final String PASS = null;
+
+    public ConexionBBDD() {
+        conectarBBDD();
+    }
+
+    public static void conectarBBDD() {
         try {
             con = DriverManager.getConnection(CONEXION + BBDD, USUARIO, PASS);
         } catch (SQLException e) {
-            System.out.println("Error:  " + e.toString());
-            return null;
+            JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos","Error", JOptionPane.ERROR_MESSAGE);
         }
-        return con;
     }
-    
+
     public static boolean desconectarBBDD() {
         try {
             if (con != null) {
                 con.close();
-            }            
+            }
         } catch (SQLException ex) {
             System.out.println("Error al cerrar la conexion.");
             System.out.println(ex.toString());
@@ -42,5 +45,8 @@ public class ConexionBBDD {
         }
         return true;
     }
-    
+
+    public static Connection getCon() {
+        return con;
+    }
 }

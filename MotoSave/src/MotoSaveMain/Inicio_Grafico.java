@@ -11,6 +11,10 @@ import INTERFACES.ConexionBBDD;
 import Modelo.Garaje;
 import Modelo.Motocicleta;
 import Modelo.MotocicletaExcepcion;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,15 +24,23 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Inicio_Grafico extends javax.swing.JFrame {
 
-    AgregarMoto_Grafico agregarMoto_F = new AgregarMoto_Grafico();
-    JDBCGarajeDAO garajeAux = new JDBCGarajeDAO();
-    JDBCMotocicletaDAO motoAux = new JDBCMotocicletaDAO();
-
+    //Movimiento JPanel
+    private static int mouseX, mouseY;
+    private static boolean mousePressed;
+    // Atributos clase.
+    private ConexionBBDD conexionBD = new ConexionBBDD();
+    private JDBCGarajeDAO garajeAux = new JDBCGarajeDAO(conexionBD.getCon());
+    private JDBCMotocicletaDAO motoAux = new JDBCMotocicletaDAO(conexionBD.getCon());
+    //Interfaces
+    private AgregarMoto_Grafico agregarMoto_F = new AgregarMoto_Grafico();
     /**
      * Creates new form Inicio_Grafico
      */
     public Inicio_Grafico() {
         initComponents();
+        llenarCBGaraje();
+        llenarCBMotos();
+        habilitarArrastre(this);
     }
 
     /**
@@ -60,6 +72,7 @@ public class Inicio_Grafico extends javax.swing.JFrame {
         L_T_nombreGaraje = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         T_infoMotos_Inicio.setModel(new javax.swing.table.DefaultTableModel(
@@ -113,6 +126,11 @@ public class Inicio_Grafico extends javax.swing.JFrame {
         });
 
         B_salir_Inicio.setText("SALIR");
+        B_salir_Inicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                B_salir_InicioActionPerformed(evt);
+            }
+        });
 
         B_buscar_Inicio.setText("Buscar Motocicleta");
         B_buscar_Inicio.addActionListener(new java.awt.event.ActionListener() {
@@ -135,6 +153,11 @@ public class Inicio_Grafico extends javax.swing.JFrame {
         });
 
         B_eliminar_Inicio.setText("Eliminar Motocicleta");
+        B_eliminar_Inicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                B_eliminar_InicioActionPerformed(evt);
+            }
+        });
 
         L_seleccionarMoto_Inicio.setText("Selecciona motocicleta:");
 
@@ -243,16 +266,23 @@ public class Inicio_Grafico extends javax.swing.JFrame {
     }//GEN-LAST:event_TF_introMatricula_InicioActionPerformed
 
     private void B_buscar_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_buscar_InicioActionPerformed
-        motoAux.buscarMoto(TF_introMatricula_Inicio.getText());
+        DefaultTableModel modeloTabla = estructuraTabla();
+
+        Motocicleta moto = motoAux.buscarMoto(TF_introMatricula_Inicio.getText());
+        String matricula = moto.getMatricula();
+        String marca = moto.getMarca();
+        String modelo = moto.getModelo();
+        String color = moto.getColor();
+        String cc = String.valueOf(moto.getCC());
+        //Salida
+        modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc});
+        T_infoMotos_Inicio.setModel(modeloTabla);
+        L_T_nombreGaraje.setText(garajeAux.buscarGaraje(moto.getIdGaraje()).getNombreGaraje());
+
     }//GEN-LAST:event_B_buscar_InicioActionPerformed
 
     private void B_listar_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_listar_InicioActionPerformed
-        DefaultTableModel modeloTabla = new DefaultTableModel();
-        modeloTabla.addColumn("Matrícula");
-        modeloTabla.addColumn("Marca");
-        modeloTabla.addColumn("Modelo");
-        modeloTabla.addColumn("Color");
-        modeloTabla.addColumn("Cilindrada (cc)");
+        DefaultTableModel modeloTabla = estructuraTabla();
 
         try {
             int aux = garajeAux.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
@@ -263,9 +293,9 @@ public class Inicio_Grafico extends javax.swing.JFrame {
                 String color = moto.getColor();
                 String cc = String.valueOf(moto.getCC());
 
-                String texto = "Matricula: " + matricula + "\nMarca: " + marca + "\nModelo: " + modelo + "\nColor: " + color + "\nCilindrada: " + cc + "cc" + "\n ========================";;
-                modeloTabla.addRow(new Object[]{matricula,marca,modelo,color,cc});
+                modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc});
             }
+            L_T_nombreGaraje.setText(garajeAux.buscarGaraje(aux).getNombreGaraje());
             T_infoMotos_Inicio.setModel(modeloTabla);
         } catch (MotocicletaExcepcion ex) {
             JOptionPane.showMessageDialog(this, "No hay Motocicletas en este Garaje");
@@ -273,33 +303,101 @@ public class Inicio_Grafico extends javax.swing.JFrame {
     }//GEN-LAST:event_B_listar_InicioActionPerformed
 
     private void CB_garajes_InicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CB_garajes_InicioMouseClicked
-        for (Garaje garaje : garajeAux.listarGaraje()) {
-            CB_garajes_Inicio.addItem(garaje.getNombreGaraje());
-        }
+
     }//GEN-LAST:event_CB_garajes_InicioMouseClicked
 
     private void CB_motos_InicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CB_motos_InicioMouseClicked
+
+    }//GEN-LAST:event_CB_motos_InicioMouseClicked
+
+    private void CB_garajes_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_garajes_InicioActionPerformed
+        actualizarCBMotos();
+    }//GEN-LAST:event_CB_garajes_InicioActionPerformed
+
+    private void B_salir_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_salir_InicioActionPerformed
+        conexionBD.desconectarBBDD();
+        this.dispose();;
+    }//GEN-LAST:event_B_salir_InicioActionPerformed
+
+    private void B_eliminar_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_eliminar_InicioActionPerformed
+        // Hacer la doble confirmacion.
+        
+        String [] motoSeleccionada = (String.valueOf(CB_motos_Inicio.getSelectedItem())).split("-");
+        motoAux.bajaMoto(motoSeleccionada[1]);
+        
+        actualizarCBMotos();
+    }//GEN-LAST:event_B_eliminar_InicioActionPerformed
+    
+    public void abrirAgregarMoto_grafico() {
+        int aux = garajeAux.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
+        agregarMoto_F = new AgregarMoto_Grafico(aux, conexionBD.getCon());
+        agregarMoto_F.setVisible(true);
+        agregarMoto_F.pack();
+        agregarMoto_F.setLocationRelativeTo(this);
+    }
+
+    public static void habilitarArrastre(JFrame frame) {
+        frame.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                mousePressed = true;
+                mouseX = e.getX();
+                mouseY = e.getY();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                mousePressed = false;
+            }
+        });
+
+        frame.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (mousePressed) {
+                    int x = e.getXOnScreen();
+                    int y = e.getYOnScreen();
+                    frame.setLocation(x - mouseX, y - mouseY);
+                }
+            }
+        });
+    }
+
+    private DefaultTableModel estructuraTabla() {
+        DefaultTableModel modeloTabla = new DefaultTableModel();
+        modeloTabla.addColumn("Matrícula");
+        modeloTabla.addColumn("Marca");
+        modeloTabla.addColumn("Modelo");
+        modeloTabla.addColumn("Color");
+        modeloTabla.addColumn("Cilindrada (cc)");
+
+        return modeloTabla;
+    }
+
+    private void llenarCBGaraje() {
+        for (Garaje garaje : garajeAux.listarGaraje()) {
+            CB_garajes_Inicio.addItem(garaje.getNombreGaraje());
+        }
+    }
+
+    private void llenarCBMotos() {
+        CB_motos_Inicio.removeAllItems();
         try {
-            int aux = garajeAux.buscarIdGaraje(String.valueOf(CB_motos_Inicio.getSelectedItem()));
+            int aux = garajeAux.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
             for (Motocicleta moto : motoAux.listarMotocicletasGaraje(aux)) {
-                CB_motos_Inicio.addItem(moto.getMarca() + " - " + moto.getMatricula());
+                CB_motos_Inicio.addItem(moto.getMarca() + "-" + moto.getMatricula());
             }
         } catch (MotocicletaExcepcion ex) {
             JOptionPane.showMessageDialog(this, "No hay Motocicletas en este Garaje");
         }
-    }//GEN-LAST:event_CB_motos_InicioMouseClicked
+    }
 
-    private void CB_garajes_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_garajes_InicioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CB_garajes_InicioActionPerformed
-
-    public void abrirAgregarMoto_grafico() {
-        int aux = garajeAux.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
-        agregarMoto_F = new AgregarMoto_Grafico(aux);
-        agregarMoto_F.setVisible(true);
-        agregarMoto_F.pack();
-        agregarMoto_F.setLocationRelativeTo(this);
-
+    public void actualizarCBMotos() {
+        CB_motos_Inicio.removeAllItems();
+        String garajeSeleccionado = (String) CB_garajes_Inicio.getSelectedItem();
+        if (garajeSeleccionado != null) {
+            llenarCBMotos();
+        }
     }
 
     /**
