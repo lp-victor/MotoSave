@@ -219,10 +219,9 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
     }//GEN-LAST:event_CB_color_AgregarMotoActionPerformed
 
     private void B_Agregar_AgregarMotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_Agregar_AgregarMotoActionPerformed
-        
+
         // Controlar excepciones (que no sean null los textField). 
         // Hacer todos los campos obligatorios.
-        
         JFrame ventanaAgregar = new AgregarMoto_Grafico();
         if ((TF_matricula_AgregarMoto.getText().equals("")) || (TF_matricula_AgregarMoto.getText() == null)) {
             JOptionPane.showMessageDialog(ventanaAgregar, "La matricula no puede estar vacia.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -232,10 +231,22 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
         if (!INTERFACES.Entradable.validarMatricula(TF_matricula_AgregarMoto.getText())) {
             JOptionPane.showMessageDialog(ventanaAgregar, "La matricula no cumple con el formato requerido. Ej: 1234ABC", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        String Marca = TF_marca_AgregarMoto.getText();
-        String Modelo = TF_modelo_AgregarMoto.getText();
+
+        String Marca= null;
+        String Modelo = null;
         String Color = (String) CB_color_AgregarMoto.getSelectedItem();
-        int cilindrada = Integer.parseInt(TF_CC_AgregarMoto.getText());
+        int cilindrada = 0;
+
+        //controlar que la marca, el modelo y la cilindrada no esten vacios
+        if (TF_marca_AgregarMoto.getText().isEmpty() || TF_modelo_AgregarMoto.getText().isEmpty() || TF_CC_AgregarMoto.getText().isEmpty()) {
+           
+        } else {
+            JOptionPane.showMessageDialog(ventanaAgregar, "La marca no puede estas vacia", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+         Marca = TF_marca_AgregarMoto.getText();
+         Modelo = TF_modelo_AgregarMoto.getText();
+         cilindrada = Integer.parseInt(TF_CC_AgregarMoto.getText());
 
         // Comprobar si la motocicleta ya existe
         if (motocicletaDAO.buscarMoto(TF_matricula_AgregarMoto.getText()) == null) {
@@ -249,13 +260,13 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al agregar la motocicleta.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        
+
     }//GEN-LAST:event_B_Agregar_AgregarMotoActionPerformed
 
     private void B_volver_AgregarMotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_volver_AgregarMotoActionPerformed
         this.dispose();
     }//GEN-LAST:event_B_volver_AgregarMotoActionPerformed
-    
+
     public static void habilitarArrastre(JFrame frame) {
         frame.addMouseListener(new MouseAdapter() {
             @Override
@@ -282,7 +293,7 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
             }
         });
     }
-    
+
     /**
      * @param args the command line arguments
      */
