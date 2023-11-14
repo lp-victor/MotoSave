@@ -6,17 +6,22 @@ package MotoSaveMain;
 
 import AccesoDatos.JDBC.JDBCGarajeDAO;
 import AccesoDatos.JDBC.JDBCMotocicletaDAO;
-import INTERFACES.AgregarMoto_Grafico;
+import InterfacesGraficas.AgregarMoto_Grafico;
 import INTERFACES.ConexionBBDD;
+import InterfacesGraficas.ModificarMoto_Grafico;
 import Modelo.Garaje;
 import Modelo.Motocicleta;
 import Modelo.MotocicletaExcepcion;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -28,11 +33,13 @@ public class Inicio_Grafico extends javax.swing.JFrame {
     private static int mouseX, mouseY;
     private static boolean mousePressed;
     // Atributos clase.
-    private ConexionBBDD conexionBD = new ConexionBBDD();
-    private JDBCGarajeDAO garajeAux = new JDBCGarajeDAO(conexionBD.getCon());
-    private JDBCMotocicletaDAO motoAux = new JDBCMotocicletaDAO(conexionBD.getCon());
+    private final ConexionBBDD conexionBD = new ConexionBBDD();
+    private Connection con = conexionBD.getCon();
+    private JDBCGarajeDAO garajeDAO = new JDBCGarajeDAO(con);
+    private JDBCMotocicletaDAO motoDAO = new JDBCMotocicletaDAO(con);
     //Interfaces
     private AgregarMoto_Grafico agregarMoto_F = new AgregarMoto_Grafico();
+    private ModificarMoto_Grafico modificarMoto_F;
 
     /**
      * Creates new form Inicio_Grafico
@@ -70,6 +77,7 @@ public class Inicio_Grafico extends javax.swing.JFrame {
         B_modificarMoto_Inicio = new javax.swing.JButton();
         S_separador_Inicio = new javax.swing.JSeparator();
         L_motosave_Inicio = new javax.swing.JLabel();
+        TB_ficheros_Inicio = new javax.swing.JToggleButton();
         L_T_nombreGaraje = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -78,17 +86,17 @@ public class Inicio_Grafico extends javax.swing.JFrame {
 
         T_infoMotos_Inicio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Matricula", "Marca", "Modelo", "Color", "Cilindrada CC"
+                "Matricula", "Marca", "Modelo", "Color", "Cilindrada CC", "Precio"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -167,6 +175,11 @@ public class Inicio_Grafico extends javax.swing.JFrame {
         L_seleccionaGaraje_Inicio.setText("Selecciona garaje:");
 
         B_modificarMoto_Inicio.setText("Modificar Motocicleta");
+        B_modificarMoto_Inicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                B_modificarMoto_InicioActionPerformed(evt);
+            }
+        });
 
         S_separador_Inicio.setForeground(new java.awt.Color(204, 204, 204));
 
@@ -174,27 +187,18 @@ public class Inicio_Grafico extends javax.swing.JFrame {
         L_motosave_Inicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         L_motosave_Inicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Drawable/MotoSave.png"))); // NOI18N
 
+        TB_ficheros_Inicio.setIcon(new javax.swing.ImageIcon("C:\\Users\\victo\\Documents\\GitHub\\pr-ctica-2-4-elementos-interfaz-mixta-lp-victor\\b_off.png")); // NOI18N
+        TB_ficheros_Inicio.setSelected(true);
+        TB_ficheros_Inicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TB_ficheros_InicioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout P_panelUsuario_IncioLayout = new javax.swing.GroupLayout(P_panelUsuario_Incio);
         P_panelUsuario_Incio.setLayout(P_panelUsuario_IncioLayout);
         P_panelUsuario_IncioLayout.setHorizontalGroup(
             P_panelUsuario_IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addGroup(P_panelUsuario_IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(B_modificarMoto_Inicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(B_agregar_Inicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(B_listar_Inicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, P_panelUsuario_IncioLayout.createSequentialGroup()
-                        .addComponent(CB_garajes_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(P_panelUsuario_IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(L_seleccionarMoto_Inicio)
-                            .addComponent(CB_motos_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
-                        .addComponent(L_seleccionaGaraje_Inicio)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(B_eliminar_Inicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(62, 62, 62))
             .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
                 .addGroup(P_panelUsuario_IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
@@ -207,12 +211,30 @@ public class Inicio_Grafico extends javax.swing.JFrame {
                         .addComponent(TF_introMatricula_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(S_separador_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addComponent(B_salir_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(S_separador_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(26, Short.MAX_VALUE))
             .addComponent(L_motosave_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addGroup(P_panelUsuario_IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(B_modificarMoto_Inicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(B_agregar_Inicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(B_listar_Inicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, P_panelUsuario_IncioLayout.createSequentialGroup()
+                        .addComponent(CB_garajes_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(P_panelUsuario_IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(L_seleccionarMoto_Inicio)
+                            .addComponent(CB_motos_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(B_eliminar_Inicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
+                        .addComponent(L_seleccionaGaraje_Inicio)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
+                        .addComponent(B_salir_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(TB_ficheros_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(62, 62, 62))
         );
         P_panelUsuario_IncioLayout.setVerticalGroup(
             P_panelUsuario_IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,9 +264,11 @@ public class Inicio_Grafico extends javax.swing.JFrame {
                 .addComponent(B_modificarMoto_Inicio)
                 .addGap(18, 18, 18)
                 .addComponent(B_eliminar_Inicio)
-                .addGap(33, 33, 33)
-                .addComponent(B_salir_Inicio)
-                .addGap(36, 36, 36))
+                .addGap(34, 34, 34)
+                .addGroup(P_panelUsuario_IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(TB_ficheros_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(B_salir_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25))
         );
 
         getContentPane().add(P_panelUsuario_Incio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 540));
@@ -268,8 +292,8 @@ public class Inicio_Grafico extends javax.swing.JFrame {
 
     private void B_buscar_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_buscar_InicioActionPerformed
         DefaultTableModel modeloTabla = estructuraTabla();
-        
-        Motocicleta moto = motoAux.buscarMoto(TF_introMatricula_Inicio.getText());
+
+        Motocicleta moto = motoDAO.buscarMoto(TF_introMatricula_Inicio.getText());
         String matricula = moto.getMatricula();
         String marca = moto.getMarca();
         String modelo = moto.getModelo();
@@ -278,25 +302,25 @@ public class Inicio_Grafico extends javax.swing.JFrame {
         //Salida
         modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc});
         T_infoMotos_Inicio.setModel(modeloTabla);
-        L_T_nombreGaraje.setText(garajeAux.buscarGaraje(moto.getIdGaraje()).getSucursal());
+        L_T_nombreGaraje.setText(garajeDAO.buscarGaraje(moto.getIdGaraje()).getSucursal());
 
     }//GEN-LAST:event_B_buscar_InicioActionPerformed
 
     private void B_listar_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_listar_InicioActionPerformed
         DefaultTableModel modeloTabla = estructuraTabla();
-        
+
         try {
-            int aux = garajeAux.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
-            for (Motocicleta moto : motoAux.listarMotocicletasGaraje(aux)) {
+            int aux = garajeDAO.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
+            for (Motocicleta moto : motoDAO.listarMotocicletasGaraje(aux)) {
                 String matricula = moto.getMatricula();
                 String marca = moto.getMarca();
                 String modelo = moto.getModelo();
                 String color = moto.getColor();
                 String cc = String.valueOf(moto.getCC());
-                
+
                 modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc});
             }
-            L_T_nombreGaraje.setText(garajeAux.buscarGaraje(aux).getSucursal());
+            L_T_nombreGaraje.setText(garajeDAO.buscarGaraje(aux).getSucursal());
             T_infoMotos_Inicio.setModel(modeloTabla);
         } catch (MotocicletaExcepcion ex) {
             JOptionPane.showMessageDialog(this, "No hay Motocicletas en este Garaje");
@@ -322,21 +346,49 @@ public class Inicio_Grafico extends javax.swing.JFrame {
 
     private void B_eliminar_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_eliminar_InicioActionPerformed
         // Hacer la doble confirmacion.
-        
+
         String[] motoSeleccionada = (String.valueOf(CB_motos_Inicio.getSelectedItem())).split("-");
-        motoAux.bajaMoto(motoSeleccionada[1]);
-        
+        motoDAO.bajaMoto(motoSeleccionada[1]);
+
         actualizarCBMotos();
     }//GEN-LAST:event_B_eliminar_InicioActionPerformed
-    
+
+    private void B_modificarMoto_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_modificarMoto_InicioActionPerformed
+        abrirModificarMoto_grafico();
+    }//GEN-LAST:event_B_modificarMoto_InicioActionPerformed
+
+    private void TB_ficheros_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TB_ficheros_InicioActionPerformed
+        TB_ficheros_Inicio.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (TB_ficheros_Inicio.isSelected()) {
+                    TB_ficheros_Inicio.setIcon(new ImageIcon("./b_on.png"));
+                } else {
+                    TB_ficheros_Inicio.setIcon(new ImageIcon("./b_off.png"));
+                }
+            }
+        });
+    }//GEN-LAST:event_TB_ficheros_InicioActionPerformed
+
     public void abrirAgregarMoto_grafico() {
-        int aux = garajeAux.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
-        agregarMoto_F = new AgregarMoto_Grafico(aux);
+        int aux = garajeDAO.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
+        agregarMoto_F = new AgregarMoto_Grafico(aux, con);
         agregarMoto_F.setVisible(true);
         agregarMoto_F.pack();
         agregarMoto_F.setLocationRelativeTo(this);
     }
-    
+
+    public void abrirModificarMoto_grafico() {
+        // Seleccionamos la moto cogiendo la matricula del ComboBox haciendo split.
+        String[] infoMotoSeleccionada = (String.valueOf(CB_motos_Inicio.getSelectedItem())).split("-");
+        Motocicleta motoSeleccionada = motoDAO.buscarMoto(infoMotoSeleccionada[1]);
+
+        modificarMoto_F = new ModificarMoto_Grafico(motoSeleccionada, con);
+        modificarMoto_F.setVisible(true);
+        modificarMoto_F.pack();
+        modificarMoto_F.setLocationRelativeTo(this);
+    }
+
     public static void habilitarArrastre(JFrame frame) {
         frame.addMouseListener(new MouseAdapter() {
             @Override
@@ -345,13 +397,13 @@ public class Inicio_Grafico extends javax.swing.JFrame {
                 mouseX = e.getX();
                 mouseY = e.getY();
             }
-            
+
             @Override
             public void mouseReleased(MouseEvent e) {
                 mousePressed = false;
             }
         });
-        
+
         frame.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
@@ -363,7 +415,7 @@ public class Inicio_Grafico extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private DefaultTableModel estructuraTabla() {
         DefaultTableModel modeloTabla = new DefaultTableModel();
         modeloTabla.addColumn("Matrícula");
@@ -374,25 +426,25 @@ public class Inicio_Grafico extends javax.swing.JFrame {
         modeloTabla.addColumn("Precio (€)");
         return modeloTabla;
     }
-    
+
     private void llenarCBGaraje() {
-        for (Garaje garaje : garajeAux.listarGaraje()) {
+        for (Garaje garaje : garajeDAO.listarGaraje()) {
             CB_garajes_Inicio.addItem(garaje.getSucursal());
         }
     }
-    
+
     private void llenarCBMotos() {
         CB_motos_Inicio.removeAllItems();
         try {
-            int aux = garajeAux.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
-            for (Motocicleta moto : motoAux.listarMotocicletasGaraje(aux)) {
+            int aux = garajeDAO.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
+            for (Motocicleta moto : motoDAO.listarMotocicletasGaraje(aux)) {
                 CB_motos_Inicio.addItem(moto.getMarca() + "-" + moto.getMatricula());
             }
         } catch (MotocicletaExcepcion ex) {
             JOptionPane.showMessageDialog(this, "No hay Motocicletas en este Garaje");
         }
     }
-    
+
     public void actualizarCBMotos() {
         CB_motos_Inicio.removeAllItems();
         String garajeSeleccionado = (String) CB_garajes_Inicio.getSelectedItem();
@@ -452,6 +504,7 @@ public class Inicio_Grafico extends javax.swing.JFrame {
     private javax.swing.JLabel L_seleccionarMoto_Inicio;
     private javax.swing.JPanel P_panelUsuario_Incio;
     private javax.swing.JSeparator S_separador_Inicio;
+    private javax.swing.JToggleButton TB_ficheros_Inicio;
     private javax.swing.JTextField TF_introMatricula_Inicio;
     private javax.swing.JTable T_infoMotos_Inicio;
     private javax.swing.JScrollPane jScrollPane2;

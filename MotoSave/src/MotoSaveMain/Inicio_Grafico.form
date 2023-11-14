@@ -41,16 +41,22 @@
         <Component class="javax.swing.JTable" name="T_infoMotos_Inicio">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="5" rowCount="4">
+              <Table columnCount="6" rowCount="4">
                 <Column editable="true" title="Matricula" type="java.lang.String"/>
                 <Column editable="true" title="Marca" type="java.lang.String"/>
                 <Column editable="true" title="Modelo" type="java.lang.String"/>
                 <Column editable="true" title="Color" type="java.lang.String"/>
                 <Column editable="true" title="Cilindrada CC" type="java.lang.String"/>
+                <Column editable="true" title="Precio" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -105,28 +111,6 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="49" pref="49" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="B_modificarMoto_Inicio" alignment="0" max="32767" attributes="0"/>
-                      <Component id="B_agregar_Inicio" alignment="0" max="32767" attributes="0"/>
-                      <Component id="B_listar_Inicio" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="CB_garajes_Inicio" min="-2" pref="131" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="L_seleccionarMoto_Inicio" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="CB_motos_Inicio" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="L_seleccionaGaraje_Inicio" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="B_eliminar_Inicio" alignment="0" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="62" pref="62" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
@@ -142,14 +126,37 @@
                           <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                           <Component id="S_separador_Inicio" min="-2" pref="369" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
-                          <Component id="B_salir_Inicio" min="-2" pref="214" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
                   <EmptySpace pref="26" max="32767" attributes="0"/>
               </Group>
               <Component id="L_motosave_Inicio" alignment="0" pref="0" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="49" pref="49" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="B_modificarMoto_Inicio" alignment="0" max="32767" attributes="0"/>
+                      <Component id="B_agregar_Inicio" alignment="0" max="32767" attributes="0"/>
+                      <Component id="B_listar_Inicio" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="CB_garajes_Inicio" min="-2" pref="131" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="L_seleccionarMoto_Inicio" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="CB_motos_Inicio" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Component id="B_eliminar_Inicio" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="L_seleccionaGaraje_Inicio" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="B_salir_Inicio" min="-2" pref="150" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="TB_ficheros_Inicio" min="-2" pref="84" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="62" pref="62" max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -183,9 +190,12 @@
                   <Component id="B_modificarMoto_Inicio" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="B_eliminar_Inicio" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                  <Component id="B_salir_Inicio" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="TB_ficheros_Inicio" min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="B_salir_Inicio" min="-2" pref="33" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -285,6 +295,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Modificar Motocicleta"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="B_modificarMoto_InicioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JSeparator" name="S_separador_Inicio">
           <Properties>
@@ -303,6 +316,17 @@
               <Image iconType="3" name="/Drawable/MotoSave.png"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JToggleButton" name="TB_ficheros_Inicio">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="C:\Users\victo\Documents\GitHub\pr-ctica-2-4-elementos-interfaz-mixta-lp-victor\b_off.png"/>
+            </Property>
+            <Property name="selected" type="boolean" value="true"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TB_ficheros_InicioActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

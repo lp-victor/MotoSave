@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package INTERFACES;
+package InterfacesGraficas;
 
 import AccesoDatos.JDBC.JDBCMotocicletaDAO;
+import INTERFACES.ConexionBBDD;
 import Modelo.Motocicleta;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -25,17 +26,16 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
     // Atributos clase
     private int idGaraje;
     // Conexion y BDD
-    private ConexionBBDD conexionbd = new ConexionBBDD();
-    private Connection con = conexionbd.getCon();
-    private JDBCMotocicletaDAO motocicletaDAO = new JDBCMotocicletaDAO(con);
+    private JDBCMotocicletaDAO motoDAO;
 
     public AgregarMoto_Grafico() {
         initComponents();
         habilitarArrastre(this);
     }
 
-    public AgregarMoto_Grafico(int idGaraje_e) {
+    public AgregarMoto_Grafico(int idGaraje_e, Connection con_e) {
         idGaraje = idGaraje_e;
+        motoDAO = new JDBCMotocicletaDAO(con_e);
         initComponents();
         String[] colores = {"Rojo", "Azul", "Verde", "Negro", "Blanco", "Gris", "Amarillo"};
 
@@ -238,17 +238,17 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
 
         //controlar que la marca, el modelo y la cilindrada no esten vacios
         if (TF_marca_AgregarMoto.getText().isEmpty() || TF_modelo_AgregarMoto.getText().isEmpty() || TF_CC_AgregarMoto.getText().isEmpty()) {
-
+               
         } else {
             JOptionPane.showMessageDialog(this, "La marca no puede estas vacia", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         Marca = TF_marca_AgregarMoto.getText();
         Modelo = TF_modelo_AgregarMoto.getText();
-        cilindrada = Integer.parseInt(TF_CC_AgregarMoto.getText());
+        cilindrada = Integer.parseInt(TF_CC_AgregarMoto.getText()); // Comprobar que la cilindrada sea un numero
 
         // Comprobar si la motocicleta ya existe
-        if (motocicletaDAO.buscarMoto(TF_matricula_AgregarMoto.getText()) == null) {
+        if (motoDAO.buscarMoto(TF_matricula_AgregarMoto.getText()) == null) {
             JOptionPane.showMessageDialog(this, "La motocicleta ya existe en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
         

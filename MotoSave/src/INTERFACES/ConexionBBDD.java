@@ -15,25 +15,25 @@ import javax.swing.JOptionPane;
  */
 public class ConexionBBDD {
 
-    private static Connection con = null;
-    private static final String CONEXION = "jdbc:mysql://localhost:3306/";
-    private static final String BBDD = "motosavebbdd";
-    private static final String USUARIO = "root";
-    private static final String PASS = null;
+    private Connection con;
+    private final String CONEXION = "jdbc:mysql://localhost:3306/";
+    private final String BBDD = "motosavebbdd";
+    private final String USUARIO = "root";
+    private final String PASS = null;
 
     public ConexionBBDD() {
         conectarBBDD();
     }
 
-    public static void conectarBBDD() {
+    public void conectarBBDD() {
         try {
             con = DriverManager.getConnection(CONEXION + BBDD, USUARIO, PASS);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos","Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public static boolean desconectarBBDD() {
+    public boolean desconectarBBDD() {
         try {
             if (con != null) {
                 con.close();
@@ -46,7 +46,7 @@ public class ConexionBBDD {
         return true;
     }
 
-    public static Connection getCon() {
+    public Connection getCon() {
         return con;
     }
 }

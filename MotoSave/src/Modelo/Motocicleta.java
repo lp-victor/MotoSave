@@ -87,6 +87,7 @@ public class Motocicleta implements Serializable {
     public void setPrecio(int precio) {
         this.precio = precio;
     }
+    
 
     @Override
     public String toString() {
@@ -125,6 +126,4 @@ public class Motocicleta implements Serializable {
         }
         return Objects.equals(this.color, other.color);
     }
-   
-    
 }

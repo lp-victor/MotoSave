@@ -2,23 +2,62 @@ DROP DATABASE IF EXISTS MotoSaveBBDD;
 CREATE DATABASE MotoSaveBBDD;
 USE MotoSaveBBDD;
 
--- Crear la tabla 'garaje'
-CREATE TABLE garaje (
+
+CREATE TABLE garajes (
     idGaraje INT AUTO_INCREMENT PRIMARY KEY,
-    nombreGaraje VARCHAR(25),
-    plazas INT CHECK (plazas <= 30 AND plazas => 0  ) 
+    sucursal VARCHAR(25),
+    plazas INT DEFAULT 10 CHECK (plazas >= 0 AND plazas <= 10)
 );
 
--- Crear la tabla 'moto' con la clave foránea 'idGaraje' referenciando la tabla 'garaje'
-CREATE TABLE moto (
+CREATE TABLE motos (
     idGaraje INT,
-    Matricula VARCHAR(7),
+    matricula VARCHAR(7),
     marca VARCHAR(15),
     modelo VARCHAR(15),
     color VARCHAR(15),
-    cc INT(4),
-    PRIMARY KEY (idGaraje, Matricula),
-    FOREIGN KEY (idGaraje) REFERENCES garaje(idGaraje)
+    cc INT,
+    precio INT,
+    PRIMARY KEY (idGaraje, matricula),
+    FOREIGN KEY (idGaraje) REFERENCES garajes(idGaraje)
+);
+
+CREATE TABLE usuarios (
+    admin BOOLEAN,
+    idUsuario INT AUTO_INCREMENT PRIMARY KEY,
+    password VARCHAR(20),
+    nombre VARCHAR(20),
+    idGaraje INT,
+    FOREIGN KEY (idGaraje) REFERENCES garajes(idGaraje)
+);
+
+-- Index para las PK's (no se pueden crear las tablas de abajo si no, no entiendo por qué)
+
+CREATE INDEX idx_idUsuario ON usuarios (idUsuario);
+CREATE INDEX idx_idGaraje ON garajes (idGaraje);
+CREATE INDEX idx_matricula ON motos (matricula);
+
+CREATE TABLE ventas (
+    idUsuario INT,
+    idGaraje INT,
+    matricula VARCHAR(7),
+    precio INT,
+    fecha DATE,
+    PRIMARY KEY (idUsuario, idGaraje, matricula),
+    FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuario),
+    FOREIGN KEY (idGaraje) REFERENCES garajes(idGaraje),
+    FOREIGN KEY (matricula) REFERENCES motos(matricula)
+);
+
+CREATE TABLE motos_vendidas (
+    idGaraje INT,
+    matricula VARCHAR(7),
+    marca VARCHAR(15),
+    modelo VARCHAR(15),
+    color VARCHAR(15),
+    cc INT,
+    precio INT,
+    PRIMARY KEY (idGaraje, matricula),
+    FOREIGN KEY (idGaraje) REFERENCES garajes(idGaraje)
 );
 
 
@@ -26,11 +65,11 @@ CREATE TABLE moto (
 
 DELIMITER $$
 CREATE TRIGGER actualizarPlazas
-AFTER INSERT ON moto
+AFTER INSERT ON motos
 FOR EACH ROW
 BEGIN
     IF NEW.idGaraje IS NOT NULL THEN
-        UPDATE garaje
+        UPDATE garajes
         SET plazas = plazas - 1
         WHERE idGaraje = NEW.idGaraje;
     END IF;
@@ -41,26 +80,46 @@ DELIMITER ;
 
 DELIMITER $$
 CREATE TRIGGER restaurarPlazas
-AFTER DELETE ON moto
+AFTER DELETE ON motos
 FOR EACH ROW
 BEGIN
     IF OLD.idGaraje IS NOT NULL THEN
-        UPDATE garaje
+        UPDATE garajes
         SET plazas = plazas + 1
         WHERE idGaraje = OLD.idGaraje;
     END IF;
 END$$
 DELIMITER ;
 
--- Insters a garaje
+-- Trigger para añadir las motos vendidas a la tabla motos_vendidas
 
-INSERT INTO garaje(nombreGaraje) VALUES ('Pishamotors');
-INSERT INTO garaje(nombreGaraje) VALUES ('Davidmotors');
-INSERT INTO garaje(nombreGaraje) VALUES ('Vitimotors');
+DELIMITER $$
 
--- Inserts moto
+CREATE TRIGGER after_delete_moto
+AFTER DELETE
+ON motos FOR EACH ROW
+BEGIN
+    INSERT INTO motos_vendidas (idGaraje, matricula, marca, modelo, color, cc, precio)
+    VALUES (OLD.idGaraje, OLD.matricula, OLD.marca, OLD.modelo, OLD.color, OLD.cc, OLD.precio);
+END;
+$$
 
-INSERT INTO moto VALUES (1, '1234AAA', 'Honda', 'CBR', 'Negro', 1250);
-INSERT INTO moto VALUES (2, '1234BBB', 'Kawasaki', 'Ninja', 'Blanco', 1000);
-INSERT INTO moto VALUES (3, '1234CCC', 'Yamaha', ' YZF-R1', 'Azul', 950);
-INSERT INTO moto VALUES (2, '1234DDD', 'Ducati', 'Panigale', 'Rojo', 1300);
+DELIMITER ;
+
+-- Insters a garajes
+
+INSERT INTO garajes(sucursal) VALUES ('Madrid');
+INSERT INTO garajes(sucursal) VALUES ('Sevilla');
+INSERT INTO garajes(sucursal) VALUES ('Barcelona');
+
+-- Inserts motos
+
+INSERT INTO motos VALUES (1, '1234AAA', 'Honda', 'CBR', 'Negro', 1250, 2500);
+INSERT INTO motos VALUES (2, '1234BBB', 'Kawasaki', 'Ninja', 'Blanco', 1000, 2000);
+INSERT INTO motos VALUES (3, '1234CCC', 'Yamaha', ' YZF-R1', 'Azul', 750, 1500);
+INSERT INTO motos VALUES (2, '1234DDD', 'Ducati', 'Panigale', 'Rojo', 1300, 2600);
+INSERT INTO motos VALUES (3, '1234EEE', 'Ducati', 'Panigale', 'Amarillo', 1300, 2600);
+INSERT INTO motos VALUES (1, '1234FFF', 'Kawasaki', 'Ninja', 'Verde', 1000, 2000);
+INSERT INTO motos VALUES (1, '1234GGG', 'Honda', 'CBR', 'Rojo', 1250, 2500);
+INSERT INTO motos VALUES (3, '1234HHH', 'Yamaha', ' YZF-R1', 'Azul', 750, 1500);
+INSERT INTO motos VALUES (2, '1234III', 'Honda', 'CBR', 'Gris', 1250, 2500);

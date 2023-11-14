@@ -59,7 +59,7 @@ public interface Entradable {
      * @param entrada, nos entra un String
      * @return un boolean true si es Int y false si no lo es.
      */
-    private static boolean esInt(String entrada) {
+    public static boolean esInt(String entrada) {
         try {
             Integer.valueOf(entrada);
             return true;
