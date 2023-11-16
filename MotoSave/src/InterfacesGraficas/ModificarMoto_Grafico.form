@@ -89,34 +89,30 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="L_Color_ModificarMoto" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="L_matricula_ModificarMoto" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="L_CC_ModificarMoto" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="L_sucursal_ModificarMoto" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="L_precio_ModificarMoto" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="CB_sucursal_ModificarMoto" min="-2" pref="150" max="-2" attributes="0"/>
+                              <Component id="CB_color_ModificarMoto" min="-2" pref="150" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="L_precio_ModificarMoto" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                  <Component id="TF_precio_ModificarMoto" min="-2" pref="150" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="E" min="-2" pref="20" max="-2" attributes="0"/>
+                                  <Component id="TF_matricula_ModificarMoto" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="ChB_rematricular_ModificarMoto" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="L_Color_ModificarMoto" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
-                                      <Component id="L_matricula_ModificarMoto" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="L_CC_ModificarMoto" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="L_sucursal_ModificarMoto" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="TF_precio_ModificarMoto" max="32767" attributes="0"/>
+                                      <Component id="TF_CC_ModificarMoto" pref="150" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="CB_sucursal_ModificarMoto" min="-2" pref="150" max="-2" attributes="0"/>
-                                      <Component id="CB_color_ModificarMoto" min="-2" pref="150" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="TF_CC_ModificarMoto" min="-2" pref="150" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="cc" min="-2" pref="20" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="TF_matricula_ModificarMoto" min="-2" pref="150" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="ChB_rematricular_ModificarMoto" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="E" min="-2" pref="20" max="-2" attributes="0"/>
+                                      <Component id="cc" min="-2" pref="20" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>

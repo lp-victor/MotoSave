@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package MotoSaveMain;
+package InterfacesGraficas;
 
 import AccesoDatos.JDBC.JDBCGarajeDAO;
 import AccesoDatos.JDBC.JDBCMotocicletaDAO;
@@ -27,7 +27,7 @@ import javax.swing.ImageIcon;
  *
  * @author USER
  */
-public class Inicio_Grafico extends javax.swing.JFrame {
+public class Administrador_Grafico extends javax.swing.JFrame {
 
     //Movimiento JPanel
     private static int mouseX, mouseY;
@@ -44,7 +44,7 @@ public class Inicio_Grafico extends javax.swing.JFrame {
     /**
      * Creates new form Inicio_Grafico
      */
-    public Inicio_Grafico() {
+    public Administrador_Grafico() {
         initComponents();
         llenarCBGaraje();
         llenarCBMotos();
@@ -187,7 +187,6 @@ public class Inicio_Grafico extends javax.swing.JFrame {
         L_motosave_Inicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         L_motosave_Inicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Drawable/MotoSave.png"))); // NOI18N
 
-        TB_ficheros_Inicio.setIcon(new javax.swing.ImageIcon("C:\\Users\\victo\\Documents\\GitHub\\pr-ctica-2-4-elementos-interfaz-mixta-lp-victor\\b_off.png")); // NOI18N
         TB_ficheros_Inicio.setSelected(true);
         TB_ficheros_Inicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -470,20 +469,21 @@ public class Inicio_Grafico extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Inicio_Grafico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Administrador_Grafico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Inicio_Grafico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Administrador_Grafico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Inicio_Grafico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Administrador_Grafico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Inicio_Grafico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Administrador_Grafico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Inicio_Grafico().setVisible(true);
+                new Administrador_Grafico().setVisible(true);
             }
         });
     }

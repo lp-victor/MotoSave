@@ -19,13 +19,18 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
 
     public JDBCMotocicletaDAO() {
     }
-
+    
+    /** Da de alta una moto en la Base de Datos.
+     * Este método tiene incluido el rollback.
+     * @param Motocicleta
+     * @return boolean
+     */
     @Override
     public boolean altaMoto(Motocicleta moto) {
         Motocicleta moto_aux = moto;
         String insert = "INSERT INTO motos VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstm = con.prepareStatement(insert)) {
-
+            con.setAutoCommit(false);
             pstm.setInt(1, moto_aux.getIdGaraje());
             pstm.setString(2, moto_aux.getMatricula());
             pstm.setString(3, moto_aux.getMarca());
@@ -35,8 +40,14 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
             pstm.setInt(7, moto_aux.getPrecio());
             
             pstm.executeUpdate();
-
+            con.commit();
         } catch (SQLException e) {
+            try {
+                con.rollback();
+            } catch (SQLException ex){
+                JOptionPane.showMessageDialog(null, "Error al realizar el rollback", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
             JOptionPane.showMessageDialog(null, "Error al agregar la nueva moto", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -96,6 +107,10 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
             pstm.setString(5, moto.getColor());
             pstm.setInt(6, moto.getCC());
             pstm.setInt(7, moto.getPrecio());
+            int res = pstm.executeUpdate();
+            if (res == 0) {
+                JOptionPane.showMessageDialog(null, "Moto modificada correctamente");
+            }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error: no se ha podido modificar la moto.", "Error", JOptionPane.ERROR_MESSAGE);
         }

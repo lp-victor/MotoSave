@@ -181,30 +181,27 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(L_Color_ModificarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(L_matricula_ModificarMoto)
+                            .addComponent(L_CC_ModificarMoto)
+                            .addComponent(L_sucursal_ModificarMoto)
+                            .addComponent(L_precio_ModificarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CB_sucursal_ModificarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CB_color_ModificarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(L_precio_ModificarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
-                                .addComponent(TF_precio_ModificarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(TF_matricula_ModificarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(ChB_rematricular_ModificarMoto))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(TF_precio_ModificarMoto)
+                                    .addComponent(TF_CC_ModificarMoto, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(E, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(L_Color_ModificarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(L_matricula_ModificarMoto)
-                                    .addComponent(L_CC_ModificarMoto)
-                                    .addComponent(L_sucursal_ModificarMoto))
-                                .addGap(22, 22, 22)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(CB_sucursal_ModificarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(CB_color_ModificarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(TF_CC_ModificarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cc, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(TF_matricula_ModificarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(ChB_rematricular_ModificarMoto)))))
+                                    .addComponent(E, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cc, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(14, 14, 14)))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -289,7 +286,7 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
         int precio = 0;
 
         // Control matricula
-        if (INTERFACES.Entradable.validarMatricula(TF_matricula_ModificarMoto.getText())) {
+        if (!INTERFACES.Entradable.validarMatricula(TF_matricula_ModificarMoto.getText())) {
             JOptionPane.showMessageDialog(this, "La matricula no cumple con el formato requerido. Ej: 1234ABC", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             matricula = TF_matricula_ModificarMoto.getText();
@@ -309,10 +306,11 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
         } catch (MotocicletaExcepcion e) {
             JOptionPane.showMessageDialog(this, "No se ha podido moficar la motocicleta.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        this.dispose();
     }//GEN-LAST:event_B_Modificar_ModificarMotoActionPerformed
 
     private void CB_color_ModificarMotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_color_ModificarMotoActionPerformed
-
+        
     }//GEN-LAST:event_CB_color_ModificarMotoActionPerformed
 
     private void ChB_rematricular_ModificarMotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChB_rematricular_ModificarMotoActionPerformed

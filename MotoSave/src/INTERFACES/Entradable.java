@@ -143,13 +143,13 @@ public interface Entradable {
             return false;
         }
         // Verificar los primeros 4 char son numeros, con el metodo Character.isDigit comprueba que el char es numero.
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
             if (!Character.isDigit(matricula.charAt(i))) {
                 return false;
             }
         }
         // Verificar los últimos 3 char son letras, con el metodo Character.isLetter comprueba que el char es una letra.
-        for (int i = 4; i < 7; i++) {
+        for (int i = 4; i < 6; i++) {
             if (!Character.isLetter(matricula.charAt(i))) {
                 return false;
             }
