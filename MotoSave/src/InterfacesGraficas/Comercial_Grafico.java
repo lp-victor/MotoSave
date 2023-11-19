@@ -9,23 +9,33 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import java.sql.Connection;
 import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import INTERFACES.*;
 
 /**
  *
  * @author USER
  */
 public class Comercial_Grafico extends javax.swing.JFrame {
-    
+
     //Movimiento JPanel
     private static int mouseX, mouseY;
     private static boolean mousePressed;
     // Atributos clase
-    private JDBCMotocicletaDAO motocicletaDAO ; // Falta nuevo constructor con la conexion
-    
+    private String tipoPers;
+    private JDBCMotocicletaDAO motoDAO;
+
     public Comercial_Grafico() {
+        initComponents();
+        habilitarArrastre(this);
+        listarMotosGarajes();
+        actualizarComercialVentas();
+    }
+
+    public Comercial_Grafico(Connection con_e, String tipoPers_e) {
+        this.tipoPers = tipoPers_e;
+        motoDAO = new JDBCMotocicletaDAO(con_e);
         initComponents();
         habilitarArrastre(this);
         listarMotosGarajes();
@@ -189,14 +199,15 @@ public class Comercial_Grafico extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(117, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(110, 110, 110))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(177, 177, 177))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,7 +244,7 @@ public class Comercial_Grafico extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 736, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,11 +255,11 @@ public class Comercial_Grafico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void TF_introMatricula_comercialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_introMatricula_comercialActionPerformed
-       
+
     }//GEN-LAST:event_TF_introMatricula_comercialActionPerformed
 
     private void B_comprar_motoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_comprar_motoActionPerformed
-        
+
     }//GEN-LAST:event_B_comprar_motoActionPerformed
 
     private void B_motos_vendidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_motos_vendidasActionPerformed
@@ -271,7 +282,7 @@ public class Comercial_Grafico extends javax.swing.JFrame {
 //            JOptionPane.showMessageDialog(this, "No hay Motocicletas en este Garaje");
 //        }
     }//GEN-LAST:event_B_motos_vendidasActionPerformed
-    
+
     private DefaultTableModel estructuraTabla() {
         DefaultTableModel modeloTabla = new DefaultTableModel();
         modeloTabla.addColumn("Matrícula");
@@ -282,22 +293,21 @@ public class Comercial_Grafico extends javax.swing.JFrame {
         modeloTabla.addColumn("Precio (€)");
         return modeloTabla;
     }
-    
-    private void listarMotosGarajes(){
-        
+
+    private void listarMotosGarajes() {
+
         DefaultTableModel modeloTabla = estructuraTabla();
-        
+
         //recorrer todos los garajes y listar todas las motos.
-        
         T_infoMotos_Comercial.setModel(modeloTabla);
     }
-    
-    private void actualizarComercialVentas(){
+
+    private void actualizarComercialVentas() {
         L_nombre_comercial.setText("");
         L_cartera_comercial.setText("");
-            
+
     }
-    
+
     public static void habilitarArrastre(JFrame frame) {
         frame.addMouseListener(new MouseAdapter() {
             @Override
@@ -324,7 +334,7 @@ public class Comercial_Grafico extends javax.swing.JFrame {
             }
         });
     }
-     
+
     /**
      * @param args the command line arguments
      */

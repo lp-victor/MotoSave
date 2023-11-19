@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class ConexionBBDD {
 
-    private Connection con;
+    private static Connection con;
     private final String CONEXION = "jdbc:mysql://localhost:3306/";
     private final String BBDD = "motosavebbdd";
     private final String USUARIO = "root";
@@ -33,7 +33,7 @@ public class ConexionBBDD {
         }
     }
 
-    public boolean desconectarBBDD() {
+    public static boolean desconectarBBDD() {
         try {
             if (con != null) {
                 con.close();

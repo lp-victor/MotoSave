@@ -33,10 +33,10 @@ public class Administrador_Grafico extends javax.swing.JFrame {
     private static int mouseX, mouseY;
     private static boolean mousePressed;
     // Atributos clase.
-    private final ConexionBBDD conexionBD = new ConexionBBDD();
-    private Connection con = conexionBD.getCon();
-    private JDBCGarajeDAO garajeDAO = new JDBCGarajeDAO(con);
-    private JDBCMotocicletaDAO motoDAO = new JDBCMotocicletaDAO(con);
+    private String tipoPers;
+    private Connection con;
+    private JDBCGarajeDAO garajeDAO;
+    private JDBCMotocicletaDAO motoDAO;
     //Interfaces
     private AgregarMoto_Grafico agregarMoto_F = new AgregarMoto_Grafico();
     private ModificarMoto_Grafico modificarMoto_F;
@@ -45,6 +45,17 @@ public class Administrador_Grafico extends javax.swing.JFrame {
      * Creates new form Inicio_Grafico
      */
     public Administrador_Grafico() {
+        initComponents();
+        llenarCBGaraje();
+        llenarCBMotos();
+        habilitarArrastre(this);
+    }
+
+    public Administrador_Grafico(Connection con_e, String tipoPers_e) {
+        garajeDAO = new JDBCGarajeDAO(con_e);
+        motoDAO = new JDBCMotocicletaDAO(con_e);
+        this.con = con_e;
+        this.tipoPers = tipoPers_e;
         initComponents();
         llenarCBGaraje();
         llenarCBMotos();
@@ -339,7 +350,7 @@ public class Administrador_Grafico extends javax.swing.JFrame {
     }//GEN-LAST:event_CB_garajes_InicioActionPerformed
 
     private void B_salir_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_salir_InicioActionPerformed
-        conexionBD.desconectarBBDD();
+        ConexionBBDD.desconectarBBDD();
         this.dispose();;
     }//GEN-LAST:event_B_salir_InicioActionPerformed
 
@@ -371,7 +382,7 @@ public class Administrador_Grafico extends javax.swing.JFrame {
 
     public void abrirAgregarMoto_grafico() {
         int aux = garajeDAO.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
-        agregarMoto_F = new AgregarMoto_Grafico(aux, con);
+        agregarMoto_F = new AgregarMoto_Grafico(aux, con, tipoPers);
         agregarMoto_F.setVisible(true);
         agregarMoto_F.pack();
         agregarMoto_F.setLocationRelativeTo(this);
@@ -382,7 +393,7 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         String[] infoMotoSeleccionada = (String.valueOf(CB_motos_Inicio.getSelectedItem())).split("-");
         Motocicleta motoSeleccionada = motoDAO.buscarMoto(infoMotoSeleccionada[1]);
 
-        modificarMoto_F = new ModificarMoto_Grafico(motoSeleccionada, con);
+        modificarMoto_F = new ModificarMoto_Grafico(motoSeleccionada, con, tipoPers);
         modificarMoto_F.setVisible(true);
         modificarMoto_F.pack();
         modificarMoto_F.setLocationRelativeTo(this);

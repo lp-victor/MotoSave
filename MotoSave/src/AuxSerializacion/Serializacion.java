@@ -12,10 +12,10 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class Serializacion {
-    
+
     private static final String pathGarajesDATA = "./serializados/Garajes";
     private static String pathMotocicletasDATA = "./serializados/Motocicletas";
-    
+
     private static File f = null;
     //=========ENTRADA=============
     private static FileInputStream fis = null;
@@ -26,7 +26,7 @@ public class Serializacion {
 
     //FICHERO PARA GUARDAR EL GARAJE CON SUS MOTOCICLETAS
     public static Object leerGaraje(Garaje garaje) {
-        f = new File (pathGarajesDATA + "/" + garaje.getSucursal());
+        f = new File(pathGarajesDATA + "/" + garaje.getSucursal());
         Object e = new Object();
 
         try (FileInputStream fis = new FileInputStream(f); ObjectInputStream ois = new ObjectInputStream(fis)) {
@@ -55,9 +55,9 @@ public class Serializacion {
         }
         return e;
     }
-    
+
     public static Object leerMotocicleta(Motocicleta moto) {
-        f = new File (pathGarajesDATA + "/" + moto.getMatricula());
+        f = new File(pathGarajesDATA + "/" + moto.getMatricula());
         Object e = new Object();
 
         try (FileInputStream fis = new FileInputStream(f); ObjectInputStream ois = new ObjectInputStream(fis)) {
@@ -86,22 +86,22 @@ public class Serializacion {
         }
         return e;
     }
-    
+
     // Este se usa solo para cuando se borra un elemento del fichero .data
     private static void guardarGaraje(Garaje garaje) {
-        f = new File (pathGarajesDATA + "/" + garaje.getSucursal());
+        f = new File(pathGarajesDATA + "/" + garaje.getSucursal());
         int cont = 0;
-        
+
         try {
-            
-            if(!f.exists()){
-                fos=new FileOutputStream(f,true);
-                oos=new ObjectOutputStream(fos);
+
+            if (!f.exists()) {
+                fos = new FileOutputStream(f, true);
+                oos = new ObjectOutputStream(fos);
             } else {
-                fos=new FileOutputStream(f,true);
-                oos =new myOOS(fos);
+                fos = new FileOutputStream(f, true);
+                oos = new myOOS(fos);
             }
-            
+
             oos.writeObject(garaje);
 
         } catch (FileNotFoundException e) {
@@ -123,20 +123,20 @@ public class Serializacion {
             }
         }
     }
-    
-        // Este se usa solo para cuando se borra un elemento del fichero .data
+
+    // Este se usa solo para cuando se borra un elemento del fichero .data
     private static boolean guardarMotocicleta(Motocicleta moto) {
-        f = new File (pathGarajesDATA + "/" + moto.getMatricula());
+        f = new File(pathGarajesDATA + "/" + moto.getMatricula());
         int cont = 0;
-        
-        try {            
-            if(!f.exists()){
-                fos=new FileOutputStream(f,true);
-                oos=new ObjectOutputStream(fos);
+
+        try {
+            if (!f.exists()) {
+                fos = new FileOutputStream(f, true);
+                oos = new ObjectOutputStream(fos);
             } else {
-                fos=new FileOutputStream(f,true);
-                oos =new myOOS(fos);
-            }            
+                fos = new FileOutputStream(f, true);
+                oos = new myOOS(fos);
+            }
             oos.writeObject(moto);
             return true;
         } catch (FileNotFoundException e) {
@@ -156,24 +156,24 @@ public class Serializacion {
             } catch (IOException e) {
                 System.out.println("Error, al cerrar el archivo");
                 e.printStackTrace();
-            }            
+            }
         }
         return false;
     }
-    
+
     public static void guardarGaraje(ArrayList<Garaje> entrada) {
         int cont = 0;
-        
+
         try {
-            
-            if(!f.exists()){
-                fos=new FileOutputStream(f,true);
-                oos=new ObjectOutputStream(fos);
+
+            if (!f.exists()) {
+                fos = new FileOutputStream(f, true);
+                oos = new ObjectOutputStream(fos);
             } else {
-                fos=new FileOutputStream(f,true);
-                oos =new myOOS(fos);
+                fos = new FileOutputStream(f, true);
+                oos = new myOOS(fos);
             }
-            
+
             oos.writeObject(entrada);
 
         } catch (FileNotFoundException e) {

@@ -4,11 +4,23 @@
  */
 package MotoSaveMain;
 
+import INTERFACES.*;
+import InterfacesGraficas.Administrador_Grafico;
+import InterfacesGraficas.Comercial_Grafico;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author USER
  */
 public class Login_Grafico extends javax.swing.JFrame {
+
+
+    // Atributos clase
+    private ConexionBBDD conexionBD = new ConexionBBDD();
+    private Connection con = conexionBD.getCon();
+    private GestionUsuario gesUser = new GestionUsuario(con);
 
     /**
      * Creates new form Login_Grafico
@@ -33,9 +45,11 @@ public class Login_Grafico extends javax.swing.JFrame {
         B_loguearse_login = new javax.swing.JButton();
         TF_Usuario_login = new javax.swing.JTextField();
         TF_password_login = new javax.swing.JTextField();
+        CB_tipoPers_Login = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setResizable(false);
 
         L_Logo_Motosave_login.setBackground(new java.awt.Color(0, 0, 0));
         L_Logo_Motosave_login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Drawable/Logo_MotoSave2.png"))); // NOI18N
@@ -47,29 +61,58 @@ public class Login_Grafico extends javax.swing.JFrame {
 
         B_loguearse_login.setText("Acceder");
         B_loguearse_login.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        B_loguearse_login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                B_loguearse_loginActionPerformed(evt);
+            }
+        });
+
+        TF_Usuario_login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TF_Usuario_loginActionPerformed(evt);
+            }
+        });
+
+        TF_password_login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TF_password_loginActionPerformed(evt);
+            }
+        });
+
+        CB_tipoPers_Login.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "JDBC", "Ficheros" }));
+        CB_tipoPers_Login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CB_tipoPers_LoginActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Modo");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 54, Short.MAX_VALUE)
-                .addComponent(B_loguearse_login, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(TF_Usuario_login)
-                    .addComponent(TF_password_login, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(82, Short.MAX_VALUE)
                 .addComponent(L_Logo_Motosave_login)
                 .addGap(82, 82, 82))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(TF_Usuario_login)
+                            .addComponent(TF_password_login, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                            .addComponent(CB_tipoPers_Login, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(B_loguearse_login, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,9 +127,13 @@ public class Login_Grafico extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(TF_password_login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CB_tipoPers_Login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(28, 28, 28)
                 .addComponent(B_loguearse_login, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -97,11 +144,61 @@ public class Login_Grafico extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void TF_Usuario_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_Usuario_loginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_Usuario_loginActionPerformed
+
+    private void TF_password_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_password_loginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_password_loginActionPerformed
+
+    private void B_loguearse_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_loguearse_loginActionPerformed
+        if (gesUser.verificarUsuario(TF_Usuario_login.getText(), TF_password_login.getText())) {
+            abrirPantallaUsuario();
+        } else {
+            JOptionPane.showMessageDialog(null, "El usuario o contraseña es incorrecto.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_B_loguearse_loginActionPerformed
+
+    private void CB_tipoPers_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_tipoPers_LoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CB_tipoPers_LoginActionPerformed
+
+    private void abrirPantallaUsuario() {
+        if (gesUser.admin(TF_Usuario_login.getText(), TF_password_login.getText())) {
+            if (CB_tipoPers_Login.getSelectedItem().equals(Enumerados.metodoPersistencia.JDBC.getTipoPers())) {
+                Administrador_Grafico adminGrafico = new Administrador_Grafico(con, Enumerados.metodoPersistencia.JDBC.getTipoPers());
+                adminGrafico.setVisible(true);
+                adminGrafico.pack();
+                this.dispose();
+            } else {
+                Administrador_Grafico adminGrafico = new Administrador_Grafico(con, Enumerados.metodoPersistencia.FICHEROS.getTipoPers());
+                adminGrafico.setVisible(true);
+                adminGrafico.pack();
+                this.dispose();
+            }
+        } else {
+            if (CB_tipoPers_Login.getSelectedItem().equals(Enumerados.metodoPersistencia.JDBC.getTipoPers())) {
+                Comercial_Grafico comerGrafico = new Comercial_Grafico(con, Enumerados.metodoPersistencia.JDBC.getTipoPers());
+                comerGrafico.setVisible(true);
+                comerGrafico.pack();
+                this.dispose();
+            } else {
+                Comercial_Grafico comerGrafico = new Comercial_Grafico(con, Enumerados.metodoPersistencia.FICHEROS.getTipoPers());
+                comerGrafico.setVisible(true);
+                comerGrafico.pack();
+                this.dispose();
+            }
+        }
+    }
+
 
     /**
      * @param args the command line arguments
@@ -140,11 +237,13 @@ public class Login_Grafico extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton B_loguearse_login;
+    private javax.swing.JComboBox<String> CB_tipoPers_Login;
     private javax.swing.JLabel L_Logo_Motosave_login;
     private javax.swing.JTextField TF_Usuario_login;
     private javax.swing.JTextField TF_password_login;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -26,6 +26,7 @@ CREATE TABLE usuarios (
     idUsuario INT AUTO_INCREMENT PRIMARY KEY,
     password VARCHAR(20),
     nombre VARCHAR(20),
+    apellido VARCHAR(15),
     idGaraje INT,
     FOREIGN KEY (idGaraje) REFERENCES garajes(idGaraje)
 );
@@ -123,3 +124,10 @@ INSERT INTO motos VALUES (1, '1234FFF', 'Kawasaki', 'Ninja', 'Verde', 1000, 2000
 INSERT INTO motos VALUES (1, '1234GGG', 'Honda', 'CBR', 'Rojo', 1250, 2500);
 INSERT INTO motos VALUES (3, '1234HHH', 'Yamaha', ' YZF-R1', 'Azul', 750, 1500);
 INSERT INTO motos VALUES (2, '1234III', 'Honda', 'CBR', 'Gris', 1250, 2500);
+
+-- Inserts usuarios
+
+INSERT INTO usuarios VALUES (true, 0, 'admin', 'Juan', 'Bautista', null);
+INSERT INTO usuarios(admin, password, nombre, apellido, idGaraje) VALUES (false, '1234', 'Luis', 'García', 1);
+INSERT INTO usuarios(admin, password, nombre, apellido, idGaraje) VALUES (false, '1234', 'Alberto', 'Jimenez', 2);
+INSERT INTO usuarios(admin, password, nombre, apellido, idGaraje) VALUES (false, '1234', 'Manuel', 'Perez', 3);
