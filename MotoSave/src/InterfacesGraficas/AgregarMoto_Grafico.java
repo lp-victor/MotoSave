@@ -38,12 +38,15 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
     }
 
     public AgregarMoto_Grafico(int idGaraje_e, Connection con_e, String tipoPers_e) {
-        if (tipoPers_e.equals(Enumerados.tipoDAO.JDBC_MOTOCICLETA)) {
-            motoDAO = (JDBCMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(tipoPers_e, con_e);
+        // Control tipo de metodo de persistencia
+        if (tipoPers_e.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
+            this.tipoPers = Enumerados.tipoDAO.JDBC_MOTOCICLETA.toString();
+            motoDAO = (JDBCMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(tipoPers, con_e);
         } else {
-            serialMoto = (SerializarMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(tipoPers_e);
+            this.tipoPers = Enumerados.tipoDAO.SERIALIZAR_MOTOCICLETA.toString();
+            serialMoto = (SerializarMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(tipoPers);
         }
-        this.tipoPers = tipoPers_e;
+
         idGaraje = idGaraje_e;
         initComponents();
         cargarColoresCB();
@@ -279,7 +282,7 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
 
         Motocicleta newMoto = new Motocicleta(idGaraje, TF_matricula_AgregarMoto.getText(), Marca, Modelo, Color, cilindrada, precio);
         // Guardamos la moto dependiendo del tipo de persistencia que se haya seleccionado en el login.
-        if (tipoPers.equals(Enumerados.tipoDAO.JDBC_MOTOCICLETA)) {
+        if (tipoPers.equals(Enumerados.tipoDAO.JDBC_MOTOCICLETA.toString())) {
             if (motoDAO.altaMoto(newMoto)) {
                 JOptionPane.showMessageDialog(this, "La motocicleta se agrego exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             } else {

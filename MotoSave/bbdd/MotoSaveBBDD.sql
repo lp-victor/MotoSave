@@ -103,8 +103,54 @@ BEGIN
     INSERT INTO motos_vendidas (idGaraje, matricula, marca, modelo, color, cc, precio)
     VALUES (OLD.idGaraje, OLD.matricula, OLD.marca, OLD.modelo, OLD.color, OLD.cc, OLD.precio);
 END;
+
 $$
 
+DELIMITER ;
+
+-- Trigger para añadir las motos vendidas a la tabla motos_vendidas
+
+DELIMITER $$
+CREATE TRIGGER after_insert_venta
+AFTER INSERT
+ON ventas FOR EACH ROW
+BEGIN
+    -- Variables para almacenar los valores de la moto vendida
+DELIMITER $$
+CREATE TRIGGER after_insert_venta
+AFTER INSERT
+ON ventas FOR EACH ROW
+BEGIN
+    -- Variables para almacenar los valores de la moto vendida
+    DECLARE vendida_idGaraje INT;
+    DECLARE vendida_matricula VARCHAR(7);
+    DECLARE vendida_marca VARCHAR(15);
+    DECLARE vendida_modelo VARCHAR(15);
+    DECLARE vendida_color VARCHAR(15);
+    DECLARE vendida_cc INT;
+    DECLARE vendida_precio INT;
+
+    -- Seleccionar los valores de la moto vendida desde la tabla motos
+    SELECT idGaraje, matricula, marca, modelo, color, cc, precio
+    INTO vendida_idGaraje, vendida_matricula, vendida_marca, vendida_modelo, vendida_color, vendida_cc, vendida_precio
+    FROM motos
+    WHERE idGaraje = NEW.idGaraje AND matricula = NEW.matricula;
+
+    -- Desactivar la comprobación de claves foráneas
+    SET foreign_key_checks = 0;
+
+    -- Insertar en motos_vendidas
+    INSERT INTO motos_vendidas (idGaraje, matricula, marca, modelo, color, cc, precio)
+    VALUES (vendida_idGaraje, vendida_matricula, vendida_marca, vendida_modelo, vendida_color, vendida_cc, vendida_precio);
+
+    -- Eliminar de la tabla motos
+    DELETE FROM motos
+    WHERE idGaraje = NEW.idGaraje AND matricula = NEW.matricula;
+
+    -- Volver a activar la comprobación de claves foráneas
+    SET foreign_key_checks = 1;
+END;
+$$
 DELIMITER ;
 
 -- Insters a garajes

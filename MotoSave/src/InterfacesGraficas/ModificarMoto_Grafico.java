@@ -43,16 +43,18 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
     }
 
     public ModificarMoto_Grafico(Motocicleta moto, Connection con_e, String tipoPers_e) {
-        if (tipoPers_e.equals(Enumerados.tipoDAO.JDBC_MOTOCICLETA)) {
-            motoDAO = (JDBCMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(tipoPers_e, con_e);
-            garajeDAO = (JDBCGarajeDAO) Factorias.FactoriaDAO.crearObjetoDAO(tipoPers_e, con_e);
+
+        if (tipoPers_e.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
+            motoDAO = (JDBCMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.JDBC_MOTOCICLETA.toString(), con_e);
+            garajeDAO = (JDBCGarajeDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.JDBC_GARAJE.toString(), con_e);
         } else {
-            serialMoto = (SerializarMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(tipoPers_e);
-            serialGaraje = (SerializarGarajeDAO) Factorias.FactoriaDAO.crearObjetoDAO(tipoPers_e);
+            serialMoto = (SerializarMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.SERIALIZAR_MOTOCICLETA.toString());
+            serialGaraje = (SerializarGarajeDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.SERIALIZAR_GARAJE.toString());
         }
 
         this.moto = moto;
         this.tipoPers = tipoPers_e;
+
         initComponents();
         cargarInfoMoto();
         habilitarArrastre(this);
@@ -312,17 +314,17 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
         Motocicleta motoModificada = new Motocicleta(sucursal2Id(sucursal), matricula, moto.getMarca(), moto.getModelo(), color, cilindrada, precio);
 
         // Guardamos la moto dependiendo del tipo de persistencia que se haya seleccionado en el login.
-        if (tipoPers.equals(Enumerados.tipoDAO.JDBC_MOTOCICLETA)) {
+        if (tipoPers.equals(Enumerados.tipoDAO.JDBC_MOTOCICLETA.toString())) {
             try {
                 motoDAO.modificarMoto(motoModificada);
             } catch (MotocicletaExcepcion e) {
                 JOptionPane.showMessageDialog(this, "No se ha podido moficar la motocicleta.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            if (serialMoto.altaMoto(motoModificada)) {
-                JOptionPane.showMessageDialog(this, "La motocicleta se agrego exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "Error al agregar la motocicleta.", "Error", JOptionPane.ERROR_MESSAGE);
+            try {
+                serialMoto.modificarMoto(motoModificada);
+            } catch (MotocicletaExcepcion e) {
+                JOptionPane.showMessageDialog(this, "No se ha podido moficar la motocicleta.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
 
@@ -340,7 +342,7 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
             TF_matricula_ModificarMoto.setEditable(true);
         }
     }//GEN-LAST:event_ChB_rematricular_ModificarMotoActionPerformed
-    
+
     private void cargarInfoMoto() {
         L_Marca_modificarMoto.setText(moto.getMarca());
         L_Modelo_modificarMoto.setText(moto.getModelo());
@@ -350,7 +352,7 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
         TF_CC_ModificarMoto.setText(String.valueOf(moto.getCC()));
         TF_precio_ModificarMoto.setText(String.valueOf(moto.getPrecio()));
     }
-    
+
     private void cargarColoresCB() {
         String[] colores_aux = {"Rojo", "Azul", "Verde", "Negro", "Blanco", "Gris", "Amarillo"};
         String colorMoto = moto.getColor();
@@ -377,7 +379,7 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
         }
         return 0;
     }
-    
+
     // Hacer con serial
     private void cargarSucursales() {
         ArrayList<Garaje> garajes_aux = garajeDAO.listarGaraje();

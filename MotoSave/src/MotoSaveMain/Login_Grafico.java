@@ -172,30 +172,36 @@ public class Login_Grafico extends javax.swing.JFrame {
     }//GEN-LAST:event_CB_tipoPers_LoginActionPerformed
 
     private void abrirPantallaUsuario() {
+        // Primer IF controla el tipo de usuario
+        // Segund IF controla el tipo de persistencia
         if (gesUser.admin(TF_Usuario_login.getText(), TF_password_login.getText())) {
-            if (CB_tipoPers_Login.getSelectedItem().equals(Enumerados.metodoPersistencia.JDBC.getTipoPers())) {
-                Administrador_Grafico adminGrafico = new Administrador_Grafico(con, Enumerados.metodoPersistencia.JDBC.getTipoPers());
+            
+            if (CB_tipoPers_Login.getSelectedItem().equals(Enumerados.metodoPersistencia.JDBC.toString())) {
+                Administrador_Grafico adminGrafico = new Administrador_Grafico(con, Enumerados.metodoPersistencia.JDBC.toString());
                 adminGrafico.setVisible(true);
                 adminGrafico.pack();
                 this.dispose();
             } else {
-                Administrador_Grafico adminGrafico = new Administrador_Grafico(con, Enumerados.metodoPersistencia.FICHEROS.getTipoPers());
+                Administrador_Grafico adminGrafico = new Administrador_Grafico(con, Enumerados.metodoPersistencia.FICHEROS.toString());
                 adminGrafico.setVisible(true);
                 adminGrafico.pack();
                 this.dispose();
             }
+            
         } else {
-            if (CB_tipoPers_Login.getSelectedItem().equals(Enumerados.metodoPersistencia.JDBC.getTipoPers())) {
-                Comercial_Grafico comerGrafico = new Comercial_Grafico(con, Enumerados.metodoPersistencia.JDBC.getTipoPers());
+            
+            if (CB_tipoPers_Login.getSelectedItem().equals(Enumerados.metodoPersistencia.JDBC.toString())) {
+                Comercial_Grafico comerGrafico = new Comercial_Grafico(con, Enumerados.metodoPersistencia.JDBC.toString());
                 comerGrafico.setVisible(true);
                 comerGrafico.pack();
                 this.dispose();
             } else {
-                Comercial_Grafico comerGrafico = new Comercial_Grafico(con, Enumerados.metodoPersistencia.FICHEROS.getTipoPers());
+                Comercial_Grafico comerGrafico = new Comercial_Grafico(con, Enumerados.metodoPersistencia.FICHEROS.toString());
                 comerGrafico.setVisible(true);
                 comerGrafico.pack();
                 this.dispose();
             }
+            
         }
     }
 

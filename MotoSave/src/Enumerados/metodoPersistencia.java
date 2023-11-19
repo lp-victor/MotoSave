@@ -10,20 +10,6 @@ package Enumerados;
  */
 public enum metodoPersistencia {
     
-    JDBC ("JDBC"), FICHEROS ("FICHEROS");
-    
-    private String tipoPers;
-
-    private metodoPersistencia(String tipoPers) {
-        this.tipoPers = tipoPers;
-    }
-
-    public String getTipoPers() {
-        return tipoPers;
-    }
-
-    public void setTipoPers(String tipoPers) {
-        this.tipoPers = tipoPers;
-    }
-            
+    JDBC , FICHEROS
+  
 }

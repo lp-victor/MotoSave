@@ -6,6 +6,8 @@ package InterfacesGraficas;
 
 import AccesoDatos.JDBC.JDBCGarajeDAO;
 import AccesoDatos.JDBC.JDBCMotocicletaDAO;
+import AccesoDatos.Serializar.SerializarGarajeDAO;
+import AccesoDatos.Serializar.SerializarMotocicletaDAO;
 import InterfacesGraficas.AgregarMoto_Grafico;
 import INTERFACES.ConexionBBDD;
 import InterfacesGraficas.ModificarMoto_Grafico;
@@ -21,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 /**
@@ -37,6 +40,8 @@ public class Administrador_Grafico extends javax.swing.JFrame {
     private Connection con;
     private JDBCGarajeDAO garajeDAO;
     private JDBCMotocicletaDAO motoDAO;
+    private SerializarGarajeDAO serialGaraje;
+    private SerializarMotocicletaDAO serialMoto;
     //Interfaces
     private AgregarMoto_Grafico agregarMoto_F = new AgregarMoto_Grafico();
     private ModificarMoto_Grafico modificarMoto_F;
@@ -52,8 +57,14 @@ public class Administrador_Grafico extends javax.swing.JFrame {
     }
 
     public Administrador_Grafico(Connection con_e, String tipoPers_e) {
-        garajeDAO = new JDBCGarajeDAO(con_e);
-        motoDAO = new JDBCMotocicletaDAO(con_e);
+        if (tipoPers_e.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
+            motoDAO = (JDBCMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.JDBC_MOTOCICLETA.toString(), con_e);
+            garajeDAO = (JDBCGarajeDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.JDBC_GARAJE.toString(), con_e);
+        } else {
+            serialMoto = (SerializarMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.SERIALIZAR_MOTOCICLETA.toString());
+            serialGaraje = (SerializarGarajeDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.SERIALIZAR_GARAJE.toString());
+        }
+
         this.con = con_e;
         this.tipoPers = tipoPers_e;
         initComponents();
@@ -88,7 +99,6 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         B_modificarMoto_Inicio = new javax.swing.JButton();
         S_separador_Inicio = new javax.swing.JSeparator();
         L_motosave_Inicio = new javax.swing.JLabel();
-        TB_ficheros_Inicio = new javax.swing.JToggleButton();
         L_T_nombreGaraje = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -116,7 +126,7 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(T_infoMotos_Inicio);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 70, 470, 470));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 70, 500, 470));
 
         P_panelUsuario_Incio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
 
@@ -198,31 +208,10 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         L_motosave_Inicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         L_motosave_Inicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Drawable/MotoSave.png"))); // NOI18N
 
-        TB_ficheros_Inicio.setSelected(true);
-        TB_ficheros_Inicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TB_ficheros_InicioActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout P_panelUsuario_IncioLayout = new javax.swing.GroupLayout(P_panelUsuario_Incio);
         P_panelUsuario_Incio.setLayout(P_panelUsuario_IncioLayout);
         P_panelUsuario_IncioLayout.setHorizontalGroup(
             P_panelUsuario_IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
-                .addGroup(P_panelUsuario_IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
-                        .addGap(99, 99, 99)
-                        .addComponent(B_buscar_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(L_introduceMatricula_Inicio)
-                        .addGap(44, 44, 44)
-                        .addComponent(TF_introMatricula_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(S_separador_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
             .addComponent(L_motosave_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
@@ -239,12 +228,25 @@ public class Administrador_Grafico extends javax.swing.JFrame {
                     .addComponent(B_eliminar_Inicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
                         .addComponent(L_seleccionaGaraje_Inicio)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
-                        .addComponent(B_salir_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(TB_ficheros_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(62, 62, 62))
+            .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
+                .addGroup(P_panelUsuario_IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(B_buscar_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(L_introduceMatricula_Inicio)
+                        .addGap(44, 44, 44)
+                        .addComponent(TF_introMatricula_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(S_separador_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(P_panelUsuario_IncioLayout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(B_salir_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         P_panelUsuario_IncioLayout.setVerticalGroup(
             P_panelUsuario_IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,11 +276,9 @@ public class Administrador_Grafico extends javax.swing.JFrame {
                 .addComponent(B_modificarMoto_Inicio)
                 .addGap(18, 18, 18)
                 .addComponent(B_eliminar_Inicio)
-                .addGap(34, 34, 34)
-                .addGroup(P_panelUsuario_IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(TB_ficheros_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(B_salir_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25))
+                .addGap(18, 18, 18)
+                .addComponent(B_salir_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41))
         );
 
         getContentPane().add(P_panelUsuario_Incio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 540));
@@ -286,7 +286,7 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         L_T_nombreGaraje.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         L_T_nombreGaraje.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         L_T_nombreGaraje.setText("Garaje Nombre");
-        getContentPane().add(L_T_nombreGaraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, 260, 30));
+        getContentPane().add(L_T_nombreGaraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 260, 30));
 
         pack();
         setLocationRelativeTo(null);
@@ -300,22 +300,30 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         B_buscar_InicioActionPerformed(evt);
     }//GEN-LAST:event_TF_introMatricula_InicioActionPerformed
 
+    // Hacer con serializar
     private void B_buscar_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_buscar_InicioActionPerformed
         DefaultTableModel modeloTabla = estructuraTabla();
 
         Motocicleta moto = motoDAO.buscarMoto(TF_introMatricula_Inicio.getText());
-        String matricula = moto.getMatricula();
-        String marca = moto.getMarca();
-        String modelo = moto.getModelo();
-        String color = moto.getColor();
-        String cc = String.valueOf(moto.getCC());
-        //Salida
-        modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc});
-        T_infoMotos_Inicio.setModel(modeloTabla);
-        L_T_nombreGaraje.setText(garajeDAO.buscarGaraje(moto.getIdGaraje()).getSucursal());
+        if (moto.getMatricula() == null) {
+            JOptionPane.showMessageDialog(this, "No existe la motocicleta con matricula", "Error", JOptionPane.ERROR_MESSAGE);
+            TF_introMatricula_Inicio.setText("");
+        } else {
+            String matricula = moto.getMatricula();
+            String marca = moto.getMarca();
+            String modelo = moto.getModelo();
+            String color = moto.getColor();
+            String cc = String.valueOf(moto.getCC());
+            int precio = moto.getPrecio();
+            //Salida
+            modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc, precio});
+            T_infoMotos_Inicio.setModel(modeloTabla);
+            L_T_nombreGaraje.setText(garajeDAO.buscarGaraje(moto.getIdGaraje()).getSucursal());
 
+        }
     }//GEN-LAST:event_B_buscar_InicioActionPerformed
 
+    // Hacer para serializar
     private void B_listar_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_listar_InicioActionPerformed
         DefaultTableModel modeloTabla = estructuraTabla();
 
@@ -327,13 +335,14 @@ public class Administrador_Grafico extends javax.swing.JFrame {
                 String modelo = moto.getModelo();
                 String color = moto.getColor();
                 String cc = String.valueOf(moto.getCC());
+                int precio = moto.getPrecio();
 
-                modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc});
+                modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc, precio});
             }
             L_T_nombreGaraje.setText(garajeDAO.buscarGaraje(aux).getSucursal());
             T_infoMotos_Inicio.setModel(modeloTabla);
         } catch (MotocicletaExcepcion ex) {
-            JOptionPane.showMessageDialog(this, "No hay Motocicletas en este Garaje");
+            JOptionPane.showMessageDialog(this, "No hay Motocicletas en este Garaje", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_B_listar_InicioActionPerformed
 
@@ -351,14 +360,19 @@ public class Administrador_Grafico extends javax.swing.JFrame {
 
     private void B_salir_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_salir_InicioActionPerformed
         ConexionBBDD.desconectarBBDD();
-        this.dispose();;
+        this.dispose();
     }//GEN-LAST:event_B_salir_InicioActionPerformed
 
     private void B_eliminar_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_eliminar_InicioActionPerformed
         // Hacer la doble confirmacion.
-
-        String[] motoSeleccionada = (String.valueOf(CB_motos_Inicio.getSelectedItem())).split("-");
-        motoDAO.bajaMoto(motoSeleccionada[1]);
+        if (tipoPers.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
+            String[] motoSeleccionada = (String.valueOf(CB_motos_Inicio.getSelectedItem())).split("-");
+            motoDAO.bajaMoto(motoSeleccionada[1]);
+        } else {
+            // Falta terminar
+            String[] motoSeleccionada = (String.valueOf(CB_motos_Inicio.getSelectedItem())).split("-");
+            serialMoto = (SerializarMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.SERIALIZAR_MOTOCICLETA.toString());
+        }
 
         actualizarCBMotos();
     }//GEN-LAST:event_B_eliminar_InicioActionPerformed
@@ -366,19 +380,6 @@ public class Administrador_Grafico extends javax.swing.JFrame {
     private void B_modificarMoto_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_modificarMoto_InicioActionPerformed
         abrirModificarMoto_grafico();
     }//GEN-LAST:event_B_modificarMoto_InicioActionPerformed
-
-    private void TB_ficheros_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TB_ficheros_InicioActionPerformed
-        TB_ficheros_Inicio.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (TB_ficheros_Inicio.isSelected()) {
-                    TB_ficheros_Inicio.setIcon(new ImageIcon("./b_on.png"));
-                } else {
-                    TB_ficheros_Inicio.setIcon(new ImageIcon("./b_off.png"));
-                }
-            }
-        });
-    }//GEN-LAST:event_TB_ficheros_InicioActionPerformed
 
     public void abrirAgregarMoto_grafico() {
         int aux = garajeDAO.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
@@ -437,12 +438,21 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         return modeloTabla;
     }
 
+    // Hacer con serializar
     private void llenarCBGaraje() {
-        for (Garaje garaje : garajeDAO.listarGaraje()) {
+        ArrayList<Garaje> garajes = null;
+        if (tipoPers.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
+            garajes = garajeDAO.listarGaraje();
+        } else {
+            garajes = serialGaraje.listarGaraje();
+        }
+        
+        for (Garaje garaje : garajes) {
             CB_garajes_Inicio.addItem(garaje.getSucursal());
         }
     }
 
+    // Hacer con serializar
     private void llenarCBMotos() {
         CB_motos_Inicio.removeAllItems();
         try {
@@ -515,7 +525,6 @@ public class Administrador_Grafico extends javax.swing.JFrame {
     private javax.swing.JLabel L_seleccionarMoto_Inicio;
     private javax.swing.JPanel P_panelUsuario_Incio;
     private javax.swing.JSeparator S_separador_Inicio;
-    private javax.swing.JToggleButton TB_ficheros_Inicio;
     private javax.swing.JTextField TF_introMatricula_Inicio;
     private javax.swing.JTable T_infoMotos_Inicio;
     private javax.swing.JScrollPane jScrollPane2;

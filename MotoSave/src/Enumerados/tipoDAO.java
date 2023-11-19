@@ -9,7 +9,8 @@ package Enumerados;
  * @author victo
  */
 public enum tipoDAO {
-    
-    JDBC_GARAJE, JDBC_MOTOCICLETA, SERIALIZAR_GARAJE, SERIALIZAR_MOTOCICLETA
+
+    JDBC_GARAJE , JDBC_MOTOCICLETA , 
+    SERIALIZAR_GARAJE , SERIALIZAR_MOTOCICLETA
     
 }

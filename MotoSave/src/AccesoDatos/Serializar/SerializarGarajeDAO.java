@@ -24,7 +24,7 @@ import java.util.ArrayList;
  */
 public class SerializarGarajeDAO implements GarajeDAO {
 
-    private static final String pathGarajesDATA = "./serializados/Garajes";
+    private static final String pathGarajesDATA = "./serializados";
     private static String pathMotocicletasDATA = "./serializados/Motocicletas";
 
     private static File f = null;
@@ -126,7 +126,42 @@ public class SerializarGarajeDAO implements GarajeDAO {
 
     @Override
     public ArrayList<Garaje> listarGaraje() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Garaje> garajes = null;
+
+        // Hardcodeado a muerte ya nos rayaremos la cabeza
+        for (int i = 1; i < 4; i++) {
+            f = new File(pathGarajesDATA + "/" + i);
+
+            Object e = new Object();
+
+            try (FileInputStream fis = new FileInputStream(f); ObjectInputStream ois = new ObjectInputStream(fis)) {
+                while (true) {
+                    e = ois.readObject();
+                    garajes.add((Garaje) e);
+                }
+            } catch (FileNotFoundException ent) {
+                System.out.println("Error, el fichero no se encuentra");
+            } catch (ClassNotFoundException ent) {
+                System.out.println("Error, la clase no se encuentra");
+            } catch (IOException ent) {
+                System.out.println("Error, al leer el fichero");
+                ent.printStackTrace();
+            } finally {
+                try {
+                    if (fis != null) {
+                        fis.close();
+                    }
+                    if (ois != null) {
+                        ois.close();
+                    }
+                } catch (IOException ent) {
+                    System.out.println("Error, al cerrar el archivo");
+                    ent.printStackTrace();
+                }
+            }
+        }
+
+        return garajes;
     }
 
     @Override
