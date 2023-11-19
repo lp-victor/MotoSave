@@ -55,6 +55,10 @@ public class Garaje implements Serializable, Entradable {
     public void setMotos(ArrayList<Motocicleta> motos) {
         this.motos = motos;
     }
+    
+    public boolean estaVacio(){
+        return this.motos.isEmpty();
+    }
 
     // Hecho pisha dejar por si algo sirve
     // ==============================================================================

@@ -80,6 +80,8 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
         CB_color_AgregarMoto = new javax.swing.JComboBox<>();
         L_Precio_AgregarMoto = new javax.swing.JLabel();
         TF_precio_AgregarMoto = new javax.swing.JTextField();
+        L_informacioGaraje_AgregarMoto = new javax.swing.JLabel();
+        L_garaje_AgregarMoto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -92,7 +94,7 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(L_motosave_AgregarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(L_motosave_AgregarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 369, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,6 +137,12 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
             }
         });
 
+        TF_matricula_AgregarMoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TF_matricula_AgregarMotoActionPerformed(evt);
+            }
+        });
+
         CB_color_AgregarMoto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CB_color_AgregarMotoActionPerformed(evt);
@@ -144,6 +152,8 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
         L_Precio_AgregarMoto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         L_Precio_AgregarMoto.setText("Precio:");
 
+        L_informacioGaraje_AgregarMoto.setText("Vas a agregar una moto en el garaje:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -152,7 +162,13 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(13, 13, 13)
+                        .addComponent(B_volver_AgregarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addComponent(B_Agregar_AgregarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(L_infoAgregar_AgregarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,19 +185,21 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
                                     .addComponent(CB_color_AgregarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(TF_matricula_AgregarMoto, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                                     .addComponent(TF_marca_AgregarMoto)
-                                    .addComponent(TF_modelo_AgregarMoto))))
-                        .addContainerGap(71, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(B_volver_AgregarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                        .addComponent(B_Agregar_AgregarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43))))
+                                    .addComponent(TF_modelo_AgregarMoto)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(L_informacioGaraje_AgregarMoto)
+                                .addGap(18, 18, 18)
+                                .addComponent(L_garaje_AgregarMoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(L_garaje_AgregarMoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(L_informacioGaraje_AgregarMoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(8, 8, 8)
                 .addComponent(L_infoAgregar_AgregarMoto)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -207,7 +225,7 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(L_Precio_AgregarMoto)
                     .addComponent(TF_precio_AgregarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(B_volver_AgregarMoto)
                     .addComponent(B_Agregar_AgregarMoto))
@@ -219,7 +237,10 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,31 +274,28 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "La matricula no cumple con el formato requerido. Ej: 1234ABC", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        //controlar que la marca, el modelo y la cilindrada no esten vacios
-        if (TF_marca_AgregarMoto.getText().isBlank() || TF_modelo_AgregarMoto.getText().isBlank() || TF_CC_AgregarMoto.getText().isBlank()) {
-            JOptionPane.showMessageDialog(this, "La marca no puede estas vacia", "Error", JOptionPane.ERROR_MESSAGE);
+        //controlar que la marca, el modelo no esten vacios
+        if (TF_marca_AgregarMoto.getText().isBlank() || TF_modelo_AgregarMoto.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "La marca y el modelo no pueden estar vacios", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         Marca = TF_marca_AgregarMoto.getText();
         Modelo = TF_modelo_AgregarMoto.getText();
 
-        // Controlar que el campo de cilindrada sea un número
-        try {
-            cilindrada = Integer.parseInt(TF_CC_AgregarMoto.getText());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "La cilindrada debe ser un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+        if (TF_CC_AgregarMoto.getText().isBlank() && TF_precio_AgregarMoto.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "La CC y el precio no pueden estar vacios", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        // Control CC y Precio
+        if (INTERFACES.Entradable.esInt(TF_CC_AgregarMoto.getText()) && INTERFACES.Entradable.esInt(TF_precio_AgregarMoto.getText())) {
+            cilindrada = Integer.parseInt(TF_CC_AgregarMoto.getText());
+            precio = Integer.parseInt(TF_precio_AgregarMoto.getText());
+        } else {
+            JOptionPane.showMessageDialog(this, "Solo puede introducir numeros en los campos 'CC' y 'Precio'.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
         // Comprobar si la motocicleta ya existe
         if (motoDAO.buscarMoto(TF_matricula_AgregarMoto.getText()) == null) {
             JOptionPane.showMessageDialog(this, "La motocicleta ya existe en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-        // Controlar que el campo de precio no esté vacío y sea un número
-        try {
-            precio = Integer.parseInt(TF_precio_AgregarMoto.getText());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El precio debe ser un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         Motocicleta newMoto = new Motocicleta(idGaraje, TF_matricula_AgregarMoto.getText(), Marca, Modelo, Color, cilindrada, precio);
@@ -300,6 +318,10 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
     private void B_volver_AgregarMotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_volver_AgregarMotoActionPerformed
         this.dispose();
     }//GEN-LAST:event_B_volver_AgregarMotoActionPerformed
+
+    private void TF_matricula_AgregarMotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_matricula_AgregarMotoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_matricula_AgregarMotoActionPerformed
 
     private void cargarColoresCB() {
         String[] colores = {"Rojo", "Azul", "Verde", "Negro", "Blanco", "Gris", "Amarillo"};
@@ -333,6 +355,10 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
                 }
             }
         });
+    }
+
+    private void textoGaraje() {
+        L_garaje_AgregarMoto.setText(String.valueOf(idGaraje).toUpperCase());
     }
 
     /**
@@ -378,7 +404,9 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
     private javax.swing.JLabel L_CC_AgregarMoto;
     private javax.swing.JLabel L_Color_AgregarMoto;
     private javax.swing.JLabel L_Precio_AgregarMoto;
+    private javax.swing.JLabel L_garaje_AgregarMoto;
     private javax.swing.JLabel L_infoAgregar_AgregarMoto;
+    private javax.swing.JLabel L_informacioGaraje_AgregarMoto;
     private javax.swing.JLabel L_marca_AgregarMoto;
     private javax.swing.JLabel L_matricula_AgregarMoto;
     private javax.swing.JLabel L_modelo_AgregarMoto;

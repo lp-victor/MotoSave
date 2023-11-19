@@ -25,7 +25,11 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel1" max="32767" attributes="0"/>
-          <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel2" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -44,7 +48,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="L_motosave_AgregarMoto" alignment="0" pref="0" max="32767" attributes="0"/>
+              <Component id="L_motosave_AgregarMoto" alignment="0" pref="369" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -79,7 +83,14 @@
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                          <Component id="B_volver_AgregarMoto" min="-2" pref="124" max="-2" attributes="0"/>
+                          <EmptySpace pref="35" max="32767" attributes="0"/>
+                          <Component id="B_Agregar_AgregarMoto" min="-2" pref="118" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="L_infoAgregar_AgregarMoto" min="-2" pref="179" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -100,15 +111,13 @@
                                       <Component id="TF_modelo_AgregarMoto" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="L_informacioGaraje_AgregarMoto" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="L_garaje_AgregarMoto" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace pref="71" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                          <Component id="B_volver_AgregarMoto" min="-2" pref="124" max="-2" attributes="0"/>
-                          <EmptySpace pref="47" max="32767" attributes="0"/>
-                          <Component id="B_Agregar_AgregarMoto" min="-2" pref="118" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -118,6 +127,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="L_garaje_AgregarMoto" max="32767" attributes="0"/>
+                      <Component id="L_informacioGaraje_AgregarMoto" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   <Component id="L_infoAgregar_AgregarMoto" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -149,7 +163,7 @@
                       <Component id="L_Precio_AgregarMoto" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="TF_precio_AgregarMoto" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="38" max="32767" attributes="0"/>
+                  <EmptySpace pref="14" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="B_volver_AgregarMoto" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="B_Agregar_AgregarMoto" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -235,6 +249,9 @@
         <Component class="javax.swing.JTextField" name="TF_modelo_AgregarMoto">
         </Component>
         <Component class="javax.swing.JTextField" name="TF_matricula_AgregarMoto">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TF_matricula_AgregarMotoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="TF_CC_AgregarMoto">
         </Component>
@@ -260,6 +277,13 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="TF_precio_AgregarMoto">
+        </Component>
+        <Component class="javax.swing.JLabel" name="L_informacioGaraje_AgregarMoto">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Vas a agregar una moto en el garaje:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="L_garaje_AgregarMoto">
         </Component>
       </SubComponents>
     </Container>

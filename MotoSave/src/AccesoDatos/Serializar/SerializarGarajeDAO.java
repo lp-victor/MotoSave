@@ -56,24 +56,13 @@ public class SerializarGarajeDAO implements GarajeDAO {
             System.out.println("Error, el fichero no se encuentra");
             return false;
         } catch (IOException e) {
-            System.out.println("Error, al abrir el archivo");
+            System.err.println("Error al realizar el alta del garaje: " + e.getMessage());
             e.printStackTrace();
             return false;
         } finally {
-            try {
-                if (fos != null) {
-                    fos.close();
-                }
-                if (oos != null) {
-                    oos.close();
-                }
-            } catch (IOException e) {
-                System.out.println("Error, al cerrar el archivo");
-                e.printStackTrace();
-                return false;
-            }
-            return true;
+            cerrarRecursos();
         }
+        return true;
     }
 
     @Override
@@ -99,17 +88,7 @@ public class SerializarGarajeDAO implements GarajeDAO {
             System.out.println("Error, al leer el fichero");
             ent.printStackTrace();
         } finally {
-            try {
-                if (fis != null) {
-                    fis.close();
-                }
-                if (ois != null) {
-                    ois.close();
-                }
-            } catch (IOException ent) {
-                System.out.println("Error, al cerrar el archivo");
-                ent.printStackTrace();
-            }
+            cerrarRecursos();
         }
         return (Garaje) e;
     }
@@ -120,10 +99,18 @@ public class SerializarGarajeDAO implements GarajeDAO {
     }
 
     @Override
-    public int plazasLibres(Garaje garaje) throws GarajeExcepcion {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    public int plazasLibres(Garaje garaje) {
+        ArrayList<Garaje> garajes = listarGaraje();
 
+        for (Garaje g : garajes) {
+            if (g.getIdGaraje() == garaje.getIdGaraje()) {
+                return g.getPlazasLibres();
+            }
+        }
+        return -1; // Retorna -1 si no se encuentra el garaje
+    }
+    
+/*
     @Override
     public ArrayList<Garaje> listarGaraje() {
         ArrayList<Garaje> garajes = null;
@@ -147,26 +134,72 @@ public class SerializarGarajeDAO implements GarajeDAO {
                 System.out.println("Error, al leer el fichero");
                 ent.printStackTrace();
             } finally {
-                try {
-                    if (fis != null) {
-                        fis.close();
-                    }
-                    if (ois != null) {
-                        ois.close();
-                    }
-                } catch (IOException ent) {
-                    System.out.println("Error, al cerrar el archivo");
-                    ent.printStackTrace();
-                }
+                cerrarRecursos();
             }
         }
 
         return garajes;
-    }
+    }*/
 
+         @Override
+    public ArrayList<Garaje> listarGaraje() {
+        ArrayList<Garaje> garajes = new ArrayList<>(); // Inicializar la lista de garajes
+
+        for (int i = 1; i < 4; i++) {
+            f = new File(pathGarajesDATA + "/" + i);
+
+            Object e = null;
+
+            try (FileInputStream fis = new FileInputStream(f); ObjectInputStream ois = new ObjectInputStream(fis)) {
+                while (true) {
+                    e = ois.readObject();
+                    if (e instanceof Garaje) {
+                        garajes.add((Garaje) e);
+                    }
+                }
+            } catch (FileNotFoundException ent) {
+                System.out.println("Error, el fichero no se encuentra");
+            } catch (ClassNotFoundException ent) {
+                System.out.println("Error, la clase no se encuentra");
+            } catch (IOException ent) {
+                System.out.println("Error, al leer el fichero");
+                ent.printStackTrace();
+            }finally {
+            cerrarRecursos();
+        }
+        }
+
+        return garajes;
+    } 
     @Override
     public int buscarIdGaraje(String nombreGaraje) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Garaje> garajes = listarGaraje();
+
+        for (Garaje garaje : garajes) {
+            if (garaje.getSucursal().equals(nombreGaraje)) {
+                return garaje.getIdGaraje();
+            }
+        }
+        return -1; // Retorna -1 si no se encuentra el garaje con el nombre dado
+    }
+
+    private void cerrarRecursos() {
+        try {
+            if (fos != null) {
+                fos.close();
+            }
+            if (oos != null) {
+                oos.close();
+            }
+            if (fis != null) {
+                fis.close();
+            }
+            if (ois != null) {
+                ois.close();
+            }
+        } catch (IOException e) {
+            System.err.println("Error al cerrar los recursos: " + e.getMessage());
+        }
     }
 
 }
