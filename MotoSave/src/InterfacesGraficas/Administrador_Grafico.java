@@ -181,10 +181,13 @@ public class Administrador_Grafico extends javax.swing.JFrame {
             }
         });
 
+        L_seleccionarMoto_Inicio.setForeground(new java.awt.Color(255, 255, 255));
         L_seleccionarMoto_Inicio.setText("Selecciona motocicleta:");
 
+        L_introduceMatricula_Inicio.setForeground(new java.awt.Color(255, 255, 255));
         L_introduceMatricula_Inicio.setText("Introduce Matricula:");
 
+        L_seleccionaGaraje_Inicio.setForeground(new java.awt.Color(255, 255, 255));
         L_seleccionaGaraje_Inicio.setText("Selecciona garaje:");
 
         B_modificarMoto_Inicio.setText("Modificar Motocicleta");
@@ -197,6 +200,7 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         S_separador_Inicio.setForeground(new java.awt.Color(204, 204, 204));
 
         L_motosave_Inicio.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        L_motosave_Inicio.setForeground(new java.awt.Color(255, 255, 255));
         L_motosave_Inicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         L_motosave_Inicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Drawable/MotoSave.png"))); // NOI18N
 

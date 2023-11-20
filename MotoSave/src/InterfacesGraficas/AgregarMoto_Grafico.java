@@ -84,6 +84,7 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         L_motosave_AgregarMoto.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         L_motosave_AgregarMoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -97,29 +98,37 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(L_motosave_AgregarMoto, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(L_motosave_AgregarMoto)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jPanel2.setBackground(java.awt.Color.darkGray);
 
         L_infoAgregar_AgregarMoto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        L_infoAgregar_AgregarMoto.setForeground(new java.awt.Color(255, 255, 255));
         L_infoAgregar_AgregarMoto.setText("Introduce los siguientes datos:");
 
         L_matricula_AgregarMoto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        L_matricula_AgregarMoto.setForeground(new java.awt.Color(255, 255, 255));
         L_matricula_AgregarMoto.setText("Matricula:");
 
         L_marca_AgregarMoto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        L_marca_AgregarMoto.setForeground(new java.awt.Color(255, 255, 255));
         L_marca_AgregarMoto.setText("Marca:");
 
         L_modelo_AgregarMoto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        L_modelo_AgregarMoto.setForeground(new java.awt.Color(255, 255, 255));
         L_modelo_AgregarMoto.setText("Modelo:");
 
         L_Color_AgregarMoto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        L_Color_AgregarMoto.setForeground(new java.awt.Color(255, 255, 255));
         L_Color_AgregarMoto.setText("Color:");
 
         L_CC_AgregarMoto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        L_CC_AgregarMoto.setForeground(new java.awt.Color(255, 255, 255));
         L_CC_AgregarMoto.setText("C.C:");
 
         B_volver_AgregarMoto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -151,9 +160,13 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
         });
 
         L_Precio_AgregarMoto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        L_Precio_AgregarMoto.setForeground(new java.awt.Color(255, 255, 255));
         L_Precio_AgregarMoto.setText("Precio:");
 
+        L_informacioGaraje_AgregarMoto.setForeground(new java.awt.Color(255, 255, 255));
         L_informacioGaraje_AgregarMoto.setText("Vas a agregar una moto en el garaje:");
+
+        L_garaje_AgregarMoto.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -165,7 +178,7 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(13, 13, 13)
                         .addComponent(B_volver_AgregarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                         .addComponent(B_Agregar_AgregarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -226,30 +239,14 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(L_Precio_AgregarMoto)
                     .addComponent(TF_precio_AgregarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(B_volver_AgregarMoto)
                     .addComponent(B_Agregar_AgregarMoto))
                 .addGap(22, 22, 22))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 57, 360, 370));
 
         pack();
         setLocationRelativeTo(null);

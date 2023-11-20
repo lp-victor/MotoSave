@@ -89,6 +89,7 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         L_motosave_AgregarMoto.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         L_motosave_AgregarMoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -107,15 +108,20 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
             .addComponent(L_motosave_AgregarMoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
         jPanel2.setBackground(java.awt.Color.darkGray);
 
         L_matricula_ModificarMoto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        L_matricula_ModificarMoto.setForeground(new java.awt.Color(255, 255, 255));
         L_matricula_ModificarMoto.setText("Matricula:");
 
         L_Color_ModificarMoto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        L_Color_ModificarMoto.setForeground(new java.awt.Color(255, 255, 255));
         L_Color_ModificarMoto.setText("Color:");
 
         L_CC_ModificarMoto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        L_CC_ModificarMoto.setForeground(new java.awt.Color(255, 255, 255));
         L_CC_ModificarMoto.setText("Cilindrada:");
 
         B_volver_ModificarMoto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -143,11 +149,14 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
         });
 
         L_precio_ModificarMoto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        L_precio_ModificarMoto.setForeground(new java.awt.Color(255, 255, 255));
         L_precio_ModificarMoto.setText("Precio:");
 
         L_sucursal_ModificarMoto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        L_sucursal_ModificarMoto.setForeground(new java.awt.Color(255, 255, 255));
         L_sucursal_ModificarMoto.setText("Sucursal:");
 
+        ChB_rematricular_ModificarMoto.setForeground(new java.awt.Color(255, 255, 255));
         ChB_rematricular_ModificarMoto.setText("Rematricular");
         ChB_rematricular_ModificarMoto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,20 +164,26 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Marca:");
 
+        L_Marca_modificarMoto.setForeground(new java.awt.Color(255, 255, 255));
         L_Marca_modificarMoto.setText("Honda");
 
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Modelo:");
 
+        L_Modelo_modificarMoto.setForeground(new java.awt.Color(255, 255, 255));
         L_Modelo_modificarMoto.setText("CBR");
 
         S_separador_Inicio.setForeground(new java.awt.Color(204, 204, 204));
 
         E.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        E.setForeground(new java.awt.Color(255, 255, 255));
         E.setText("€");
 
         cc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cc.setForeground(new java.awt.Color(255, 255, 255));
         cc.setText("Cc");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -263,20 +278,7 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
                 .addGap(30, 30, 30))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 62, 403, 360));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
