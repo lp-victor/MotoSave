@@ -1,6 +1,7 @@
 package AccesoDatos.Serializar;
 
 import AccesoDatos.MotocicletaDAO;
+import AuxSerializacion.myOOS;
 import Modelo.Garaje;
 import Modelo.Motocicleta;
 import Modelo.MotocicletaExcepcion;
@@ -16,10 +17,9 @@ import java.util.ArrayList;
 /**
  * @author victor, Israel, David
  */
-
 public class SerializarMotocicletaDAO implements MotocicletaDAO {
 
-    private static String pathDATA = "./serializados/";
+    private static String pathDATA = "./serializados/motos.object";
 
     private static File f = null;
     //=========ENTRADA=============
@@ -37,9 +37,14 @@ public class SerializarMotocicletaDAO implements MotocicletaDAO {
      */
     @Override
     public boolean altaMoto(Motocicleta moto) {
-        f = new File(pathDATA + moto.getIdGaraje() + ".object");
+        f = new File(pathDATA);
         try {
-            oos = new ObjectOutputStream(new FileOutputStream(f, true));
+            if (!f.exists()) {
+                oos = new ObjectOutputStream(new FileOutputStream(f));
+            } else {
+                oos = new myOOS(new FileOutputStream(f,true));
+            }
+
             oos.writeObject(moto);
             return true;
         } catch (IOException ex) {
@@ -60,16 +65,19 @@ public class SerializarMotocicletaDAO implements MotocicletaDAO {
     public boolean bajaMoto(String matricula) {
         ArrayList<Motocicleta> motocicletas = listarMotocicletas();
         try {
-            for (Motocicleta moto : motocicletas) {
-                int idGaraje_aux = moto.getIdGaraje();
-                if (moto.getMatricula().equals(matricula)) {
-                    motocicletas.remove(moto);
-                    guardarMotos(motocicletas, idGaraje_aux); // No se si fufará hay que probarlo  
-                    return true;
+            if (motocicletas != null) {
+                for (Motocicleta moto : motocicletas) {
+                    if (moto.getMatricula().equals(matricula)) {
+                        motocicletas.remove(moto);
+                        guardarMotos(motocicletas); // No se si fufará hay que probarlo  
+                        return true;
+                    }
                 }
-            }
+            } 
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally  {
+            cerrarRecursos();
         }
         return false;
     }
@@ -129,7 +137,7 @@ public class SerializarMotocicletaDAO implements MotocicletaDAO {
         if (!encontrada) {
             throw new MotocicletaExcepcion("La motocicleta no se encuentra en el sistema.");
         }
-        guardarMotos(motos, garaje.getIdGaraje());
+        guardarMotos(motos);
     }
 
     /**
@@ -141,16 +149,18 @@ public class SerializarMotocicletaDAO implements MotocicletaDAO {
     @Override
     public ArrayList<Motocicleta> listarMotocicletas() {
         ArrayList<Motocicleta> motos = new ArrayList<>();
+        f = new File(pathDATA);
         try {
-            fis = new FileInputStream(pathDATA);
-            ois = new ObjectInputStream(fis);
+            if (f.exists()) {
+                ois = new ObjectInputStream(new FileInputStream(f));
+                while (true) {
+                    try {
 
-            while (true) {
-                try {
-                    Motocicleta moto = (Motocicleta) ois.readObject();
-                    motos.add(moto);
-                } catch (EOFException e) {
-                    break; // Se alcanzó el final del archivo
+                        Motocicleta moto = (Motocicleta) ois.readObject();
+                        motos.add(moto);
+                    } catch (EOFException e) {
+                        break; // Se alcanzó el final del archivo
+                    }
                 }
             }
         } catch (IOException | ClassNotFoundException ex) {
@@ -173,10 +183,9 @@ public class SerializarMotocicletaDAO implements MotocicletaDAO {
     @Override
     public ArrayList<Motocicleta> listarMotocicletasGaraje(int idGaraje) throws MotocicletaExcepcion {
         ArrayList<Motocicleta> motos = new ArrayList<>();
-        f = new File(pathDATA + idGaraje + ".object");
+        f = new File(pathDATA);
         try {
-            fis = new FileInputStream(f);
-            ois = new ObjectInputStream(fis);
+            ois = new ObjectInputStream(new FileInputStream(f));
 
             while (true) {
                 try {
@@ -206,14 +215,15 @@ public class SerializarMotocicletaDAO implements MotocicletaDAO {
      * @param motos La lista de motocicletas a guardar.
      * @param idGaraje El ID del garaje que identifica el archivo.
      */
-    private void guardarMotos(ArrayList<Motocicleta> motos, int idGaraje) {
-        f = new File(pathDATA + idGaraje + ".object");
+    private void guardarMotos(ArrayList<Motocicleta> motos) {
+        f = new File(pathDATA);
         try {
-            fos = new FileOutputStream(pathDATA);
-            oos = new ObjectOutputStream(fos);
+            if (f.exists()) {
+                oos = new ObjectOutputStream(new FileOutputStream(f));
 
-            for (Motocicleta moto : motos) {
-                oos.writeObject(moto);
+                for (Motocicleta moto : motos) {
+                    oos.writeObject(moto);
+                }
             }
         } catch (IOException ex) {
             ex.printStackTrace();

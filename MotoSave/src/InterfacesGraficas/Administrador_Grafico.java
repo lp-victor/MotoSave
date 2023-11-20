@@ -12,6 +12,7 @@ import INTERFACES.ConexionBBDD;
 import Modelo.Garaje;
 import Modelo.Motocicleta;
 import Modelo.MotocicletaExcepcion;
+import MotoSaveMain.Login_Grafico;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -314,8 +315,9 @@ public class Administrador_Grafico extends javax.swing.JFrame {
             modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc, precio});
             T_infoMotos_Inicio.setModel(modeloTabla);
 
-            L_T_nombreGaraje.setText(garajeDAO.buscarGaraje(moto.getIdGaraje()).getSucursal());
-
+            if (tipoPers == metodoPersistencia.JDBC) {
+                L_T_nombreGaraje.setText(garajeDAO.buscarGaraje(moto.getIdGaraje()).getSucursal());
+            }
         }
     }//GEN-LAST:event_B_buscar_InicioActionPerformed
 
@@ -325,24 +327,40 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         ArrayList<Motocicleta> motos = null;
         String sucursal = "";
         try {
+            if (tipoPers == metodoPersistencia.JDBC) {
+                aux = garajeDAO.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
+                motos = motoDAO.listarMotocicletasGaraje(aux);
+                sucursal = garajeDAO.buscarGaraje(aux).getSucursal();
 
-            aux = garajeDAO.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
-            motos = motoDAO.listarMotocicletasGaraje(aux);
-            sucursal = garajeDAO.buscarGaraje(aux).getSucursal();
+                for (Motocicleta moto : motos) {
+                    String matricula = moto.getMatricula();
+                    String marca = moto.getMarca();
+                    String modelo = moto.getModelo();
+                    String color = moto.getColor();
+                    String cc = String.valueOf(moto.getCC());
+                    int precio = moto.getPrecio();
 
-            for (Motocicleta moto : motos) {
-                String matricula = moto.getMatricula();
-                String marca = moto.getMarca();
-                String modelo = moto.getModelo();
-                String color = moto.getColor();
-                String cc = String.valueOf(moto.getCC());
-                int precio = moto.getPrecio();
+                    modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc, precio});
+                }
 
-                modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc, precio});
+                L_T_nombreGaraje.setText(sucursal);
+                T_infoMotos_Inicio.setModel(modeloTabla);
+            } else {
+                for (Motocicleta moto : motoDAO.listarMotocicletas()) {
+                    String matricula = moto.getMatricula();
+                    String marca = moto.getMarca();
+                    String modelo = moto.getModelo();
+                    String color = moto.getColor();
+                    String cc = String.valueOf(moto.getCC());
+                    int precio = moto.getPrecio();
+
+                    modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc, precio});
+
+                }
+                L_T_nombreGaraje.setText("Motocicletas");
+                T_infoMotos_Inicio.setModel(modeloTabla);
             }
 
-            L_T_nombreGaraje.setText(sucursal);
-            T_infoMotos_Inicio.setModel(modeloTabla);
         } catch (MotocicletaExcepcion ex) {
             JOptionPane.showMessageDialog(this, "No hay Motocicletas en este Garaje", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -363,6 +381,7 @@ public class Administrador_Grafico extends javax.swing.JFrame {
     private void B_salir_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_salir_InicioActionPerformed
         ConexionBBDD.desconectarBBDD();
         this.dispose();
+        new Login_Grafico().setVisible(true);
     }//GEN-LAST:event_B_salir_InicioActionPerformed
 
     private void B_eliminar_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_eliminar_InicioActionPerformed

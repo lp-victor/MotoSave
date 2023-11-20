@@ -43,32 +43,32 @@ public class AuxSerial {
         }
     }
 
-//    public static void altaGaraje(Garaje garaje) {
-//        String pathGarajesDATA = "./serializados/garajes.object";
-//
-//        try {
-//            if (!f.exists()) {
-//
-//                oos = new ObjectOutputStream(new FileOutputStream(f, true));
-//            } else {
-//
-//                oos = new myOOS(new FileOutputStream(f, true));
-//            }
-//
-//            oos.writeObject(garaje);
-//        } catch (IOException e) {
-//            System.err.println("Error al realizar el alta del garaje: " + e.getMessage());
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                if (oos != null) {
-//                    oos.close();
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
+    public static void altaGaraje(Garaje garaje) {
+        String pathGarajesDATA = "./serializados/garajes.object";
+
+        try {
+            if (!f.exists()) {
+
+                oos = new ObjectOutputStream(new FileOutputStream(f, true));
+            } else {
+
+                oos = new myOOS(new FileOutputStream(f, true));
+            }
+
+            oos.writeObject(garaje);
+        } catch (IOException e) {
+            System.err.println("Error al realizar el alta del garaje: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            try {
+                if (oos != null) {
+                    oos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     public static ArrayList<Garaje> listarGaraje() {
         ArrayList<Garaje> garajes = new ArrayList<>();
         String pathGarajesDATA = "./serializados/garajes.object";
@@ -101,29 +101,29 @@ public class AuxSerial {
         return garajes;
     }
 
-    public static void altaGaraje(Garaje garaje) {
-        f = new File( "./serializados/" + garaje.getIdGaraje());
-        int cont = 0;
-
-        try {
-
-            if (!f.exists()) {
-                oos = new ObjectOutputStream(new FileOutputStream(f, true));
-            } else {
-
-                oos = new myOOS(new FileOutputStream(f, true));
-            }
-
-            oos.writeObject(garaje);
-
-        } catch (FileNotFoundException e) {
-            System.out.println("Error, el fichero no se encuentra");
-
-        } catch (IOException e) {
-            System.err.println("Error al realizar el alta del garaje: " + e.getMessage());
-            e.printStackTrace();
-
-        }
-
-    }
+//    public static void altaGaraje(Garaje garaje) {
+//        f = new File( "./serializados/" + garaje.getIdGaraje());
+//        int cont = 0;
+//
+//        try {
+//
+//            if (!f.exists()) {
+//                oos = new ObjectOutputStream(new FileOutputStream(f, true));
+//            } else {
+//
+//                oos = new myOOS(new FileOutputStream(f, true));
+//            }
+//
+//            oos.writeObject(garaje);
+//
+//        } catch (FileNotFoundException e) {
+//            System.out.println("Error, el fichero no se encuentra");
+//
+//        } catch (IOException e) {
+//            System.err.println("Error al realizar el alta del garaje: " + e.getMessage());
+//            e.printStackTrace();
+//
+//        }
+//
+//    }
 }

@@ -247,7 +247,6 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CB_color_AgregarMotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_color_AgregarMotoActionPerformed
-
     }//GEN-LAST:event_CB_color_AgregarMotoActionPerformed
 
     private void B_Agregar_AgregarMotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_Agregar_AgregarMotoActionPerformed
@@ -286,11 +285,9 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
         }
 
         try {
-            // Comprobar si la motocicleta ya existe
-            // Tocar
-
-            if (motoDAO.buscarMoto(TF_matricula_AgregarMoto.getText()) == null) {
+            if (motoDAO.buscarMoto(TF_matricula_AgregarMoto.getText()) != null) {
                 JOptionPane.showMessageDialog(this, "La motocicleta ya existe en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
         } catch (MotocicletaExcepcion ex) {
             Logger.getLogger(AgregarMoto_Grafico.class.getName()).log(Level.SEVERE, null, ex);
