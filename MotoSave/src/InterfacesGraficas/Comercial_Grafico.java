@@ -4,16 +4,15 @@
  */
 package InterfacesGraficas;
 
-import AccesoDatos.JDBC.JDBCMotocicletaDAO;
 import AccesoDatos.MotocicletaDAO;
+import Enumerados.metodoPersistencia;
 import Factorias.FactoriaDAO;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
-import java.sql.Connection;
-import INTERFACES.*;
+
 
 /**
  *
@@ -25,7 +24,7 @@ public class Comercial_Grafico extends javax.swing.JFrame {
     private static int mouseX, mouseY;
     private static boolean mousePressed;
     // Atributos clase
-    private String tipoPers;
+    private metodoPersistencia tipoPers;
     private MotocicletaDAO motoDAO;
 
     public Comercial_Grafico() {
@@ -35,7 +34,7 @@ public class Comercial_Grafico extends javax.swing.JFrame {
         actualizarComercialVentas();
     }
 
-    public Comercial_Grafico(String tipoPers_e) {
+    public Comercial_Grafico(metodoPersistencia tipoPers_e) {
         this.tipoPers = tipoPers_e;
         motoDAO = FactoriaDAO.crearMotocicletaDAO(tipoPers);
         initComponents();
@@ -75,6 +74,8 @@ public class Comercial_Grafico extends javax.swing.JFrame {
         L_motosave_MoficarMoto.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         L_motosave_MoficarMoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         L_motosave_MoficarMoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Drawable/MotoSave.png"))); // NOI18N
+
+        jPanel2.setBackground(java.awt.Color.darkGray);
 
         L_introduceMatricula_Inicio.setText("Introduce Matricula:");
 

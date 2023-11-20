@@ -7,6 +7,7 @@ package InterfacesGraficas;
 import AccesoDatos.JDBC.JDBCMotocicletaDAO;
 import AccesoDatos.MotocicletaDAO;
 import AccesoDatos.Serializar.SerializarMotocicletaDAO;
+import Enumerados.metodoPersistencia;
 import Factorias.FactoriaDAO;
 import INTERFACES.ConexionBBDD;
 import Modelo.Motocicleta;
@@ -32,7 +33,7 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
     private static boolean mousePressed;
     // Atributos clase
     private int idGaraje;
-    private String tipoPers;
+    private metodoPersistencia tipoPers;
     // Conexion y BDD
     private MotocicletaDAO motoDAO;
 
@@ -41,11 +42,11 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
         habilitarArrastre(this);
     }
 
-    public AgregarMoto_Grafico(int idGaraje_e, String tipoPers_e) {
-        this.tipoPers = Enumerados.tipoDAO.JDBC_MOTOCICLETA.toString();
+    public AgregarMoto_Grafico(int idGaraje_e, metodoPersistencia tipoPers_e) {
+        this.tipoPers = tipoPers_e;
         motoDAO = FactoriaDAO.crearMotocicletaDAO(tipoPers);
-
         idGaraje = idGaraje_e;
+        
         initComponents();
         cargarColoresCB();
         habilitarArrastre(this);
@@ -100,6 +101,8 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
                 .addComponent(L_motosave_AgregarMoto, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        jPanel2.setBackground(java.awt.Color.darkGray);
 
         L_infoAgregar_AgregarMoto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         L_infoAgregar_AgregarMoto.setText("Introduce los siguientes datos:");

@@ -4,6 +4,7 @@
  */
 package MotoSaveMain;
 
+import Enumerados.metodoPersistencia;
 import INTERFACES.*;
 import InterfacesGraficas.Administrador_Grafico;
 import InterfacesGraficas.Comercial_Grafico;
@@ -48,6 +49,7 @@ public class Login_Grafico extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(java.awt.Color.darkGray);
         setResizable(false);
 
         L_Logo_Motosave_login.setBackground(new java.awt.Color(0, 0, 0));
@@ -176,12 +178,12 @@ public class Login_Grafico extends javax.swing.JFrame {
         if (gesUser.admin(TF_Usuario_login.getText(), TF_password_login.getText())) {
 
             if (CB_tipoPers_Login.getSelectedItem().equals(Enumerados.metodoPersistencia.JDBC.toString())) {
-                Administrador_Grafico adminGrafico = new Administrador_Grafico(Enumerados.metodoPersistencia.JDBC.toString());
+                Administrador_Grafico adminGrafico = new Administrador_Grafico(metodoPersistencia.JDBC);
                 adminGrafico.setVisible(true);
                 adminGrafico.pack();
                 this.dispose();
             } else {
-                Administrador_Grafico adminGrafico = new Administrador_Grafico(Enumerados.metodoPersistencia.FICHEROS.toString());
+                Administrador_Grafico adminGrafico = new Administrador_Grafico(metodoPersistencia.FICHEROS);
                 adminGrafico.setVisible(true);
                 adminGrafico.pack();
                 this.dispose();
@@ -190,12 +192,12 @@ public class Login_Grafico extends javax.swing.JFrame {
         } else {
 
             if (CB_tipoPers_Login.getSelectedItem().equals(Enumerados.metodoPersistencia.JDBC.toString())) {
-                Comercial_Grafico comerGrafico = new Comercial_Grafico(Enumerados.metodoPersistencia.JDBC.toString());
+                Comercial_Grafico comerGrafico = new Comercial_Grafico(metodoPersistencia.JDBC);
                 comerGrafico.setVisible(true);
                 comerGrafico.pack();
                 this.dispose();
             } else {
-                Comercial_Grafico comerGrafico = new Comercial_Grafico(Enumerados.metodoPersistencia.FICHEROS.toString());
+                Comercial_Grafico comerGrafico = new Comercial_Grafico(metodoPersistencia.FICHEROS);
                 comerGrafico.setVisible(true);
                 comerGrafico.pack();
                 this.dispose();

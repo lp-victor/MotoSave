@@ -8,6 +8,7 @@ import AccesoDatos.GarajeDAO;
 import AccesoDatos.JDBC.*;
 import AccesoDatos.MotocicletaDAO;
 import AccesoDatos.Serializar.*;
+import Enumerados.metodoPersistencia;
 import Factorias.FactoriaDAO;
 import Modelo.Garaje;
 import Modelo.Motocicleta;
@@ -30,7 +31,6 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
     private static int mouseX, mouseY;
     private static boolean mousePressed;
     // Atributos clase
-    private String tipoPers;
     private Motocicleta moto;
     private GarajeDAO garajeDAO;
     private MotocicletaDAO motoDAO;
@@ -43,7 +43,7 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
         initComponents();
     }
 
-    public ModificarMoto_Grafico(Motocicleta moto, String tipoPers_e) {
+    public ModificarMoto_Grafico(Motocicleta moto, metodoPersistencia tipoPers_e) {
 
         motoDAO = FactoriaDAO.crearMotocicletaDAO(tipoPers_e);
         garajeDAO = FactoriaDAO.crearGarajeDAO(tipoPers_e);
@@ -106,6 +106,8 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(L_motosave_AgregarMoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        jPanel2.setBackground(java.awt.Color.darkGray);
 
         L_matricula_ModificarMoto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         L_matricula_ModificarMoto.setText("Matricula:");

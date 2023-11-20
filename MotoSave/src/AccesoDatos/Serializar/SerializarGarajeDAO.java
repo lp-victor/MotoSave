@@ -8,7 +8,6 @@ import AccesoDatos.GarajeDAO;
 import AuxSerializacion.myOOS;
 import Modelo.Garaje;
 import Modelo.GarajeExcepcion;
-import Modelo.Motocicleta;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -115,7 +114,6 @@ public class SerializarGarajeDAO implements GarajeDAO {
     public ArrayList<Garaje> listarGaraje() {
         ArrayList<Object> objects = new ArrayList();
 
-//         Hardcodeado a muerte ya nos rayaremos la cabeza
         f = new File(pathGarajesDATA);
 
         Object e;
@@ -124,7 +122,7 @@ public class SerializarGarajeDAO implements GarajeDAO {
             fis = new FileInputStream(f);
             ois = new ObjectInputStream(fis);
             while (true) {
-                e = ois.readObject();
+                e = (Garaje) ois.readObject();
                 objects.add(e);
 
             }

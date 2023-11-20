@@ -21,11 +21,8 @@ public class JDBCGarajeDAO implements GarajeDAO {
 
     private Connection con;
 
-    public JDBCGarajeDAO(Connection con_e) {
-        this.con = con_e;
-    }
-
     public JDBCGarajeDAO() {
+        this.con = ConexionBBDD.getCon();
     }
 
     @Override

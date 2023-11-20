@@ -10,6 +10,7 @@ import AccesoDatos.JDBC.JDBCMotocicletaDAO;
 import AccesoDatos.MotocicletaDAO;
 import AccesoDatos.Serializar.SerializarGarajeDAO;
 import AccesoDatos.Serializar.SerializarMotocicletaDAO;
+import Enumerados.metodoPersistencia;
 import Factorias.FactoriaDAO;
 import INTERFACES.ConexionBBDD;
 import Modelo.Garaje;
@@ -36,7 +37,7 @@ public class Administrador_Grafico extends javax.swing.JFrame {
     private static int mouseX, mouseY;
     private static boolean mousePressed;
     // Atributos clase.
-    private String tipoPers;
+    private metodoPersistencia tipoPers;
     private GarajeDAO garajeDAO;
     private MotocicletaDAO motoDAO;
     //Interfaces
@@ -51,7 +52,7 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         habilitarArrastre(this);
     }
 
-    public Administrador_Grafico(String tipoPers_e) {
+    public Administrador_Grafico(metodoPersistencia tipoPers_e) {
         motoDAO = FactoriaDAO.crearMotocicletaDAO(tipoPers_e);
         garajeDAO = FactoriaDAO.crearGarajeDAO(tipoPers_e);
         initComponents();
@@ -91,6 +92,7 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         L_T_nombreGaraje = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(java.awt.Color.darkGray);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -117,6 +119,7 @@ public class Administrador_Grafico extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 70, 500, 470));
 
+        P_panelUsuario_Incio.setBackground(java.awt.Color.darkGray);
         P_panelUsuario_Incio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
 
         B_agregar_Inicio.setText("Agregar Motocicleta");
