@@ -16,16 +16,14 @@ import javax.swing.JOptionPane;
 public class ConexionBBDD {
 
     private static Connection con;
-    private final String CONEXION = "jdbc:mysql://localhost:3306/";
-    private final String BBDD = "motosavebbdd";
-    private final String USUARIO = "root";
-    private final String PASS = null;
+    private static final String CONEXION = "jdbc:mysql://localhost:3306/";
+    private static final String BBDD = "motosavebbdd";
+    private static final String USUARIO = "root";
+    private static final String PASS = null;
 
-    public ConexionBBDD() {
-        conectarBBDD();
-    }
+    
 
-    public void conectarBBDD() {
+    public static void conectarBBDD() {
         try {
             con = DriverManager.getConnection(CONEXION + BBDD, USUARIO, PASS);
         } catch (SQLException e) {
@@ -46,7 +44,7 @@ public class ConexionBBDD {
         return true;
     }
 
-    public Connection getCon() {
+    public static Connection getCon() {
         return con;
     }
 }

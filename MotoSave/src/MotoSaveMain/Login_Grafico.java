@@ -16,16 +16,15 @@ import javax.swing.JOptionPane;
  */
 public class Login_Grafico extends javax.swing.JFrame {
 
-
     // Atributos clase
-    private ConexionBBDD conexionBD = new ConexionBBDD();
-    private Connection con = conexionBD.getCon();
-    private GestionUsuario gesUser = new GestionUsuario(con);
+    private GestionUsuario gesUser;
 
     /**
      * Creates new form Login_Grafico
      */
     public Login_Grafico() {
+        ConexionBBDD.conectarBBDD();
+        gesUser = new GestionUsuario();
         initComponents();
     }
 
@@ -175,9 +174,9 @@ public class Login_Grafico extends javax.swing.JFrame {
         // Primer IF controla el tipo de usuario
         // Segund IF controla el tipo de persistencia
         if (gesUser.admin(TF_Usuario_login.getText(), TF_password_login.getText())) {
-            
+
             if (CB_tipoPers_Login.getSelectedItem().equals(Enumerados.metodoPersistencia.JDBC.toString())) {
-                Administrador_Grafico adminGrafico = new Administrador_Grafico(con, Enumerados.metodoPersistencia.JDBC.toString());
+                Administrador_Grafico adminGrafico = new Administrador_Grafico(Enumerados.metodoPersistencia.JDBC.toString());
                 adminGrafico.setVisible(true);
                 adminGrafico.pack();
                 this.dispose();
@@ -187,24 +186,23 @@ public class Login_Grafico extends javax.swing.JFrame {
                 adminGrafico.pack();
                 this.dispose();
             }
-            
+
         } else {
-            
+
             if (CB_tipoPers_Login.getSelectedItem().equals(Enumerados.metodoPersistencia.JDBC.toString())) {
-                Comercial_Grafico comerGrafico = new Comercial_Grafico(con, Enumerados.metodoPersistencia.JDBC.toString());
+                Comercial_Grafico comerGrafico = new Comercial_Grafico(Enumerados.metodoPersistencia.JDBC.toString());
                 comerGrafico.setVisible(true);
                 comerGrafico.pack();
                 this.dispose();
             } else {
-                Comercial_Grafico comerGrafico = new Comercial_Grafico(con, Enumerados.metodoPersistencia.FICHEROS.toString());
+                Comercial_Grafico comerGrafico = new Comercial_Grafico(Enumerados.metodoPersistencia.FICHEROS.toString());
                 comerGrafico.setVisible(true);
                 comerGrafico.pack();
                 this.dispose();
             }
-            
+
         }
     }
-
 
     /**
      * @param args the command line arguments

@@ -4,8 +4,11 @@
  */
 package Factorias;
 
+import AccesoDatos.GarajeDAO;
 import AccesoDatos.JDBC.*;
+import AccesoDatos.MotocicletaDAO;
 import AccesoDatos.Serializar.*;
+import Enumerados.metodoPersistencia;
 import java.sql.Connection;
 
 /**
@@ -14,24 +17,24 @@ import java.sql.Connection;
  */
 public class FactoriaDAO {
 
-    public static Object crearObjetoDAO(String tipoPers, Connection con_e) {
+    public static MotocicletaDAO crearMotocicletaDAO(metodoPersistencia tipoPers) {
         switch (tipoPers) {
-            case "JDBC_GARAJE":
-                return new JDBCGarajeDAO(con_e);
-            case "JDBC_MOTOCICLETA":
-                return new JDBCMotocicletaDAO(con_e);
+            case FICHEROS:
+                return new SerializarMotocicletaDAO();
+            case JDBC:
+                return new JDBCMotocicletaDAO();
             default:
                 throw new AssertionError();
         }
+
     }
 
-    public static Object crearObjetoDAO(String tipoPers) {
+    public static GarajeDAO crearGarajeDAO(String tipoPers) {
         switch (tipoPers) {
             case "SERIALIZAR_GARAJE":
                 return new SerializarGarajeDAO();
-
-            case "SERIALIZAR_MOTOCICLETA":
-                return new SerializarMotocicletaDAO();
+            case "JDBC_GARAJE":
+                return new JDBCGarajeDAO();
             default:
                 throw new AssertionError();
         }

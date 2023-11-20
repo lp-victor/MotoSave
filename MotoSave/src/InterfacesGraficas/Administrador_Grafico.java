@@ -4,10 +4,13 @@
  */
 package InterfacesGraficas;
 
+import AccesoDatos.GarajeDAO;
 import AccesoDatos.JDBC.JDBCGarajeDAO;
 import AccesoDatos.JDBC.JDBCMotocicletaDAO;
+import AccesoDatos.MotocicletaDAO;
 import AccesoDatos.Serializar.SerializarGarajeDAO;
 import AccesoDatos.Serializar.SerializarMotocicletaDAO;
+import Factorias.FactoriaDAO;
 import INTERFACES.ConexionBBDD;
 import Modelo.Garaje;
 import Modelo.Motocicleta;
@@ -20,6 +23,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,11 +37,8 @@ public class Administrador_Grafico extends javax.swing.JFrame {
     private static boolean mousePressed;
     // Atributos clase.
     private String tipoPers;
-    private Connection con;
-    private JDBCGarajeDAO garajeDAO;
-    private JDBCMotocicletaDAO motoDAO;
-    private SerializarGarajeDAO serialGaraje;
-    private SerializarMotocicletaDAO serialMoto;
+    private GarajeDAO garajeDAO;
+    private MotocicletaDAO motoDAO;
     //Interfaces
     private AgregarMoto_Grafico agregarMoto_F = new AgregarMoto_Grafico();
     private ModificarMoto_Grafico modificarMoto_F;
@@ -49,26 +51,11 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         habilitarArrastre(this);
     }
 
-    public Administrador_Grafico(Connection con_e, String tipoPers_e) {
-        motoDAO = (JDBCMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.JDBC_MOTOCICLETA.toString(), con_e);
-        garajeDAO = (JDBCGarajeDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.JDBC_GARAJE.toString(), con_e);
-
-        this.con = con_e;
-        this.tipoPers = tipoPers_e;
-        initComponents();
-
-        llenarCBGaraje();
-        llenarCBMotos();
-
-        habilitarArrastre(this);
-    }
-
     public Administrador_Grafico(String tipoPers_e) {
-        serialGaraje = (SerializarGarajeDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.SERIALIZAR_GARAJE.toString());
-        serialMoto = (SerializarMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.SERIALIZAR_MOTOCICLETA.toString());
-
-        this.tipoPers = tipoPers_e;
+        motoDAO = FactoriaDAO.crearMotocicletaDAO(tipoPers_e);
+        garajeDAO = FactoriaDAO.crearGarajeDAO(tipoPers_e);
         initComponents();
+        this.tipoPers = tipoPers_e;
         llenarCBGaraje();
         llenarCBMotos();
 
@@ -306,10 +293,10 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         DefaultTableModel modeloTabla = estructuraTabla();
         Motocicleta moto = null;
 
-        if (tipoPers.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
+        try {
             moto = motoDAO.buscarMoto(TF_introMatricula_Inicio.getText());
-        } else {
-            moto = serialMoto.buscarMoto(TF_introMatricula_Inicio.getText());
+        } catch (MotocicletaExcepcion ex) {
+            Logger.getLogger(Administrador_Grafico.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (moto.getMatricula() == null) {
@@ -326,11 +313,8 @@ public class Administrador_Grafico extends javax.swing.JFrame {
             modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc, precio});
             T_infoMotos_Inicio.setModel(modeloTabla);
 
-            if (tipoPers.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
-                L_T_nombreGaraje.setText(garajeDAO.buscarGaraje(moto.getIdGaraje()).getSucursal());
-            } else {
-                L_T_nombreGaraje.setText(serialGaraje.buscarGaraje(moto.getIdGaraje()).getSucursal());
-            }
+            L_T_nombreGaraje.setText(garajeDAO.buscarGaraje(moto.getIdGaraje()).getSucursal());
+
         }
     }//GEN-LAST:event_B_buscar_InicioActionPerformed
 
@@ -340,16 +324,11 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         ArrayList<Motocicleta> motos = null;
         String sucursal = "";
         try {
-            if (tipoPers.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
-               aux = garajeDAO.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
-               motos = motoDAO.listarMotocicletasGaraje(aux);
-               sucursal = garajeDAO.buscarGaraje(aux).getSucursal();
-            } else {
-               aux = serialGaraje.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
-               serialMoto.listarMotocicletasGaraje(aux);
-               sucursal = serialGaraje.buscarGaraje(aux).getSucursal();
-            }
-            
+
+            aux = garajeDAO.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
+            motos = motoDAO.listarMotocicletasGaraje(aux);
+            sucursal = garajeDAO.buscarGaraje(aux).getSucursal();
+
             for (Motocicleta moto : motos) {
                 String matricula = moto.getMatricula();
                 String marca = moto.getMarca();
@@ -360,7 +339,7 @@ public class Administrador_Grafico extends javax.swing.JFrame {
 
                 modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc, precio});
             }
-            
+
             L_T_nombreGaraje.setText(sucursal);
             T_infoMotos_Inicio.setModel(modeloTabla);
         } catch (MotocicletaExcepcion ex) {
@@ -387,14 +366,9 @@ public class Administrador_Grafico extends javax.swing.JFrame {
 
     private void B_eliminar_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_eliminar_InicioActionPerformed
         // Hacer la doble confirmacion.
-        if (tipoPers.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
-            String[] motoSeleccionada = (String.valueOf(CB_motos_Inicio.getSelectedItem())).split("-");
-            motoDAO.bajaMoto(motoSeleccionada[1]);
-        } else {
-            // Falta terminar
-            String[] motoSeleccionada = (String.valueOf(CB_motos_Inicio.getSelectedItem())).split("-");
-            serialMoto = (SerializarMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.SERIALIZAR_MOTOCICLETA.toString());
-        }
+
+        String[] motoSeleccionada = (String.valueOf(CB_motos_Inicio.getSelectedItem())).split("-");
+        motoDAO.bajaMoto(motoSeleccionada[1]);
 
         actualizarCBMotos();
     }//GEN-LAST:event_B_eliminar_InicioActionPerformed
@@ -404,27 +378,26 @@ public class Administrador_Grafico extends javax.swing.JFrame {
     }//GEN-LAST:event_B_modificarMoto_InicioActionPerformed
 
     public void abrirAgregarMoto_grafico() {
-        if (tipoPers.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
-            int aux = garajeDAO.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
-            agregarMoto_F = new AgregarMoto_Grafico(aux, con, tipoPers);
-            agregarMoto_F.setVisible(true);
-            agregarMoto_F.pack();
-            agregarMoto_F.setLocationRelativeTo(this);
-        } else {
-            int aux = serialGaraje.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
-            agregarMoto_F = new AgregarMoto_Grafico(aux, tipoPers);
-            agregarMoto_F.setVisible(true);
-            agregarMoto_F.pack();
-            agregarMoto_F.setLocationRelativeTo(this);
-        }
+
+        int aux = garajeDAO.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
+        agregarMoto_F = new AgregarMoto_Grafico(aux, tipoPers);
+        agregarMoto_F.setVisible(true);
+        agregarMoto_F.pack();
+        agregarMoto_F.setLocationRelativeTo(this);
+
     }
 
     public void abrirModificarMoto_grafico() {
         // Seleccionamos la moto cogiendo la matricula del ComboBox haciendo split.
         String[] infoMotoSeleccionada = (String.valueOf(CB_motos_Inicio.getSelectedItem())).split("-");
-        Motocicleta motoSeleccionada = motoDAO.buscarMoto(infoMotoSeleccionada[1]);
+        Motocicleta motoSeleccionada = null;
+        try {
+            motoSeleccionada = motoDAO.buscarMoto(infoMotoSeleccionada[1]);
+        } catch (MotocicletaExcepcion ex) {
+            Logger.getLogger(Administrador_Grafico.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        modificarMoto_F = new ModificarMoto_Grafico(motoSeleccionada, con, tipoPers);
+        modificarMoto_F = new ModificarMoto_Grafico(motoSeleccionada, tipoPers);
         modificarMoto_F.setVisible(true);
         modificarMoto_F.pack();
         modificarMoto_F.setLocationRelativeTo(this);
@@ -470,11 +443,8 @@ public class Administrador_Grafico extends javax.swing.JFrame {
 
     private void llenarCBGaraje() {
         ArrayList<Garaje> garajes;
-        if (tipoPers.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
-            garajes = garajeDAO.listarGaraje();
-        } else {
-            garajes = serialGaraje.listarGaraje();
-        }
+
+        garajes = garajeDAO.listarGaraje();
 
         for (Garaje garaje : garajes) {
             CB_garajes_Inicio.addItem(garaje.getSucursal());
@@ -484,24 +454,13 @@ public class Administrador_Grafico extends javax.swing.JFrame {
     private void llenarCBMotos() {
         CB_motos_Inicio.removeAllItems();
 
-        if (tipoPers.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
-            try {
-                int aux = garajeDAO.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
-                for (Motocicleta moto : motoDAO.listarMotocicletasGaraje(aux)) {
-                    CB_motos_Inicio.addItem(moto.getMarca() + "-" + moto.getMatricula());
-                }
-            } catch (MotocicletaExcepcion ex) {
-                JOptionPane.showMessageDialog(this, "No hay Motocicletas en este Garaje");
+        try {
+            int aux = garajeDAO.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
+            for (Motocicleta moto : motoDAO.listarMotocicletasGaraje(aux)) {
+                CB_motos_Inicio.addItem(moto.getMarca() + "-" + moto.getMatricula());
             }
-        } else {
-            try {
-                int aux = serialGaraje.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
-                for (Motocicleta moto : serialMoto.listarMotocicletasGaraje(aux)) {
-                    CB_motos_Inicio.addItem(moto.getMarca() + "-" + moto.getMatricula());
-                }
-            } catch (MotocicletaExcepcion ex) {
-                JOptionPane.showMessageDialog(this, "No hay Motocicletas en este Garaje");
-            }
+        } catch (MotocicletaExcepcion ex) {
+            JOptionPane.showMessageDialog(this, "No hay Motocicletas en este Garaje");
         }
 
     }

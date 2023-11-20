@@ -1,6 +1,7 @@
 package AccesoDatos.JDBC;
 
 import AccesoDatos.MotocicletaDAO;
+import INTERFACES.ConexionBBDD;
 import Modelo.*;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -13,13 +14,11 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
 
     private Connection con;
 
-    public JDBCMotocicletaDAO(Connection con_e) {
-        this.con = con_e;
+    public JDBCMotocicletaDAO() {
+        this.con = ConexionBBDD.getCon();
     }
 
-    public JDBCMotocicletaDAO() {
-    }
-    
+  
     /** Da de alta una moto en la Base de Datos.
      * Este método tiene incluido el rollback.
      * @param Motocicleta

@@ -4,8 +4,11 @@
  */
 package InterfacesGraficas;
 
+import AccesoDatos.GarajeDAO;
 import AccesoDatos.JDBC.*;
+import AccesoDatos.MotocicletaDAO;
 import AccesoDatos.Serializar.*;
+import Factorias.FactoriaDAO;
 import Modelo.Garaje;
 import Modelo.Motocicleta;
 import Modelo.MotocicletaExcepcion;
@@ -29,10 +32,8 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
     // Atributos clase
     private String tipoPers;
     private Motocicleta moto;
-    private JDBCGarajeDAO garajeDAO;
-    private JDBCMotocicletaDAO motoDAO;
-    private SerializarGarajeDAO serialGaraje;
-    private SerializarMotocicletaDAO serialMoto;
+    private GarajeDAO garajeDAO;
+    private MotocicletaDAO motoDAO;
 
     //
     /**
@@ -42,18 +43,11 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
         initComponents();
     }
 
-    public ModificarMoto_Grafico(Motocicleta moto, Connection con_e, String tipoPers_e) {
+    public ModificarMoto_Grafico(Motocicleta moto, String tipoPers_e) {
 
-        if (tipoPers_e.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
-            motoDAO = (JDBCMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.JDBC_MOTOCICLETA.toString(), con_e);
-            garajeDAO = (JDBCGarajeDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.JDBC_GARAJE.toString(), con_e);
-        } else {
-            serialMoto = (SerializarMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.SERIALIZAR_MOTOCICLETA.toString());
-            serialGaraje = (SerializarGarajeDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.SERIALIZAR_GARAJE.toString());
-        }
-
+        motoDAO = FactoriaDAO.crearMotocicletaDAO(tipoPers_e);
+        garajeDAO = FactoriaDAO.crearGarajeDAO(tipoPers_e);
         this.moto = moto;
-        this.tipoPers = tipoPers_e;
 
         initComponents();
         cargarInfoMoto();
@@ -313,19 +307,11 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
 
         Motocicleta motoModificada = new Motocicleta(sucursal2Id(sucursal), matricula, moto.getMarca(), moto.getModelo(), color, cilindrada, precio);
 
-        // Guardamos la moto dependiendo del tipo de persistencia que se haya seleccionado en el login.
-        if (tipoPers.equals(Enumerados.tipoDAO.JDBC_MOTOCICLETA.toString())) {
-            try {
-                motoDAO.modificarMoto(motoModificada);
-            } catch (MotocicletaExcepcion e) {
-                JOptionPane.showMessageDialog(this, "No se ha podido moficar la motocicleta.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            try {
-                serialMoto.modificarMoto(motoModificada);
-            } catch (MotocicletaExcepcion e) {
-                JOptionPane.showMessageDialog(this, "No se ha podido moficar la motocicleta.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+        // Guardamos la moto dependiendo del tipo de persistencia que se haya seleccionado en el login.   
+        try {
+            motoDAO.modificarMoto(motoModificada);
+        } catch (MotocicletaExcepcion e) {
+            JOptionPane.showMessageDialog(this, "No se ha podido moficar la motocicleta.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         this.dispose();
@@ -370,21 +356,14 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
 
     // Devuelve un idGaraje dada una sucursal.
     private int sucursal2Id(String sucursal) {
-        if (tipoPers.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
-            ArrayList<Garaje> garajes_aux = garajeDAO.listarGaraje();
-            for (Garaje garaje : garajes_aux) {
-                if (garaje.getSucursal().equals(sucursal)) {
-                    return garaje.getIdGaraje();
-                }
-            }
-        } else {
-            ArrayList<Garaje> garajes_aux = serialGaraje.listarGaraje();
-            for (Garaje garaje : garajes_aux) {
-                if (garaje.getSucursal().equals(sucursal)) {
-                    return garaje.getIdGaraje();
-                }
+
+        ArrayList<Garaje> garajes_aux = garajeDAO.listarGaraje();
+        for (Garaje garaje : garajes_aux) {
+            if (garaje.getSucursal().equals(sucursal)) {
+                return garaje.getIdGaraje();
             }
         }
+
         return 0;
     }
 
@@ -393,12 +372,8 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
         ArrayList<String> sucursales = new ArrayList();
         ArrayList<Garaje> garajes_aux = null;
         
-        if (tipoPers.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
-            garajes_aux = garajeDAO.listarGaraje();
-        } else {
-            garajes_aux = serialGaraje.listarGaraje();
-        }
-        
+        garajes_aux = garajeDAO.listarGaraje();
+      
         for (Garaje garaje : garajes_aux) {
             if (garaje.getIdGaraje() == moto.getIdGaraje()) {
                 sucursales.add(garaje.getSucursal());

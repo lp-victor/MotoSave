@@ -5,6 +5,8 @@
 package InterfacesGraficas;
 
 import AccesoDatos.JDBC.JDBCMotocicletaDAO;
+import AccesoDatos.MotocicletaDAO;
+import Factorias.FactoriaDAO;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -24,7 +26,7 @@ public class Comercial_Grafico extends javax.swing.JFrame {
     private static boolean mousePressed;
     // Atributos clase
     private String tipoPers;
-    private JDBCMotocicletaDAO motoDAO;
+    private MotocicletaDAO motoDAO;
 
     public Comercial_Grafico() {
         initComponents();
@@ -33,9 +35,9 @@ public class Comercial_Grafico extends javax.swing.JFrame {
         actualizarComercialVentas();
     }
 
-    public Comercial_Grafico(Connection con_e, String tipoPers_e) {
+    public Comercial_Grafico(String tipoPers_e) {
         this.tipoPers = tipoPers_e;
-        motoDAO = new JDBCMotocicletaDAO(con_e);
+        motoDAO = FactoriaDAO.crearMotocicletaDAO(tipoPers);
         initComponents();
         habilitarArrastre(this);
         listarMotosGarajes();

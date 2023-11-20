@@ -15,11 +15,8 @@ public class GestionUsuario {
 
     private Connection con;
 
-    public GestionUsuario(Connection con_e) {
-        this.con = con_e;
-    }
-
     public GestionUsuario() {
+        this.con =ConexionBBDD.getCon();
     }
 
     public boolean verificarUsuario(String usuario, String pass) {
