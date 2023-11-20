@@ -5,9 +5,7 @@
 package InterfacesGraficas;
 
 import AccesoDatos.GarajeDAO;
-import AccesoDatos.JDBC.*;
 import AccesoDatos.MotocicletaDAO;
-import AccesoDatos.Serializar.*;
 import Enumerados.metodoPersistencia;
 import Factorias.FactoriaDAO;
 import Modelo.Garaje;
@@ -17,13 +15,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import javax.swing.JOptionPane;
-import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 
 /**
- *
- * @author victo
+ * @author victor, Israel, David
  */
 public class ModificarMoto_Grafico extends javax.swing.JFrame {
 
@@ -333,6 +329,12 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ChB_rematricular_ModificarMotoActionPerformed
 
+    /**
+     * Carga la información de la moto seleccionada en los campos
+     * correspondientes de la interfaz gráfica para su modificación. Establece
+     * la marca, modelo, matrícula, cilindrada, precio y la selección de colores
+     * disponibles.
+     */
     private void cargarInfoMoto() {
         L_Marca_modificarMoto.setText(moto.getMarca());
         L_Modelo_modificarMoto.setText(moto.getModelo());
@@ -343,6 +345,11 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
         TF_precio_ModificarMoto.setText(String.valueOf(moto.getPrecio()));
     }
 
+    /**
+     * Carga los colores disponibles en un ComboBox excluyendo el color actual
+     * de la moto para su modificación. Agrega los colores al ComboBox
+     * CB_color_ModificarMoto.
+     */
     private void cargarColoresCB() {
         String[] colores_aux = {"Rojo", "Azul", "Verde", "Negro", "Blanco", "Gris", "Amarillo"};
         String colorMoto = moto.getColor();
@@ -358,7 +365,15 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
         }
     }
 
-    // Devuelve un idGaraje dada una sucursal.
+    /**
+     * Convierte el nombre de una sucursal en su correspondiente ID de garaje.
+     * Busca y devuelve el ID del garaje asociado a la sucursal especificada.
+     *
+     * @param sucursal Nombre de la sucursal para obtener su ID de garaje
+     * correspondiente.
+     * @return El ID del garaje relacionado con la sucursal. Si no se encuentra,
+     * devuelve 0.
+     */
     private int sucursal2Id(String sucursal) {
 
         ArrayList<Garaje> garajes_aux = garajeDAO.listarGaraje();
@@ -371,13 +386,17 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
         return 0;
     }
 
-    // Carga primero la sucursal en la que se encuantra la moto y despues el resto.
+    /**
+     * Carga las sucursales en un ComboBox para seleccionar la sucursal del
+     * garaje al que pertenece la moto. Agrega las sucursales al ComboBox
+     * CB_sucursal_ModificarMoto.
+     */
     private void cargarSucursales() {
         ArrayList<String> sucursales = new ArrayList();
         ArrayList<Garaje> garajes_aux = null;
-        
+
         garajes_aux = garajeDAO.listarGaraje();
-      
+
         for (Garaje garaje : garajes_aux) {
             if (garaje.getIdGaraje() == moto.getIdGaraje()) {
                 sucursales.add(garaje.getSucursal());
@@ -393,6 +412,12 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Habilita la funcionalidad de arrastrar la ventana mediante el ratón.
+     *
+     * @param frame La ventana JFrame a la que se le habilita la funcionalidad
+     * de arrastre.
+     */
     public static void habilitarArrastre(JFrame frame) {
         frame.addMouseListener(new MouseAdapter() {
             @Override

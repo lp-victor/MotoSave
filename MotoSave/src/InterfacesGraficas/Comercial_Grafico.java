@@ -13,10 +13,8 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
- *
- * @author USER
+ * @author victor, Israel, David
  */
 public class Comercial_Grafico extends javax.swing.JFrame {
 
@@ -229,7 +227,7 @@ public class Comercial_Grafico extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -280,6 +278,12 @@ public class Comercial_Grafico extends javax.swing.JFrame {
         return modeloTabla;
     }
 
+    /**
+     * Lista todas las motocicletas de todos los garajes en la interfaz gráfica,
+     * utilizando un modelo de tabla por defecto para la visualización de datos.
+     * Actualiza el contenido de la tabla T_infoMotos_Comercial con la
+     * información de las motocicletas de los garajes.
+     */
     private void listarMotosGarajes() {
 
         DefaultTableModel modeloTabla = estructuraTabla();
@@ -288,12 +292,22 @@ public class Comercial_Grafico extends javax.swing.JFrame {
         T_infoMotos_Comercial.setModel(modeloTabla);
     }
 
+    /**
+     * Actualiza la información en la interfaz gráfica del panel comercial.
+     * Limpia los textos en los labels L_nombre_comercial y L_cartera_comercial.
+     */
     private void actualizarComercialVentas() {
         L_nombre_comercial.setText("");
         L_cartera_comercial.setText("");
 
     }
 
+    /**
+     * Habilita la funcionalidad de arrastrar la ventana mediante el ratón.
+     *
+     * @param frame La ventana JFrame a la que se le habilita la funcionalidad
+     * de arrastre.
+     */
     public static void habilitarArrastre(JFrame frame) {
         frame.addMouseListener(new MouseAdapter() {
             @Override

@@ -19,14 +19,13 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
- *
- * @author victo
+ * @author victor, Israel, David
  */
 public class SerializarGarajeDAO implements GarajeDAO {
 
     private String pathGarajesDATA = "./serializados/garajes.object";
 
-    File f ;
+    File f;
 
     //=========ENTRADA=============
     private FileInputStream fis = null;
@@ -35,6 +34,12 @@ public class SerializarGarajeDAO implements GarajeDAO {
     private FileOutputStream fos = null;
     private ObjectOutputStream oos = null;
 
+    /**
+     * Almacena un objeto Garaje en un archivo.
+     *
+     * @param garaje Objeto Garaje a almacenar.
+     * @return true si se almacena correctamente, false si ocurre algún error.
+     */
     @Override
     public boolean altaGaraje(Garaje garaje) {
         f = new File(pathGarajesDATA + "/" + garaje.getIdGaraje());
@@ -65,11 +70,23 @@ public class SerializarGarajeDAO implements GarajeDAO {
         return true;
     }
 
+    /**
+     * Elimina un garaje en el archivo según su ID.
+     *
+     * @param idGaraje ID del garaje a eliminar.
+     * @return true si se elimina correctamente, false si ocurre algún error.
+     */
     @Override
     public boolean bajaGaraje(int idGaraje) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     * Busca un garaje en el archivo según su ID.
+     *
+     * @param idGaraje ID del garaje a buscar.
+     * @return El garaje encontrado o null si no se encuentra.
+     */
     @Override
     public Garaje buscarGaraje(int idGaraje) {
         f = new File(pathGarajesDATA + "/" + idGaraje);
@@ -98,6 +115,14 @@ public class SerializarGarajeDAO implements GarajeDAO {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     * Obtiene la cantidad de plazas libres en un garaje.
+     *
+     * @param garaje El garaje del que se desea obtener la cantidad de plazas
+     * libres.
+     * @return La cantidad de plazas libres en el garaje o -1 si no se encuentra
+     * el garaje.
+     */
     @Override
     public int plazasLibres(Garaje garaje) {
         ArrayList<Garaje> garajes = listarGaraje();
@@ -110,6 +135,12 @@ public class SerializarGarajeDAO implements GarajeDAO {
         return -1; // Retorna -1 si no se encuentra el garaje
     }
 
+    /**
+     * Obtiene una lista de todos los garajes almacenados en el archivo.
+     *
+     * @return Una lista de garajes si se recuperan correctamente, null si hay
+     * un error.
+     */
     @Override
     public ArrayList<Garaje> listarGaraje() {
         ArrayList<Object> objects = new ArrayList();
@@ -145,6 +176,13 @@ public class SerializarGarajeDAO implements GarajeDAO {
         return garajes;
     }
 
+    /**
+     * Busca el ID de un garaje según su nombre.
+     *
+     * @param nombreGaraje Nombre del garaje a buscar.
+     * @return El ID del garaje encontrado o -1 si no se encuentra el garaje con
+     * el nombre dado.
+     */
     @Override
     public int buscarIdGaraje(String nombreGaraje) {
         ArrayList<Garaje> garajes = listarGaraje();
@@ -157,6 +195,10 @@ public class SerializarGarajeDAO implements GarajeDAO {
         return -1; // Retorna -1 si no se encuentra el garaje con el nombre dado
     }
 
+    /**
+     * Cierra los recursos de entrada/salida utilizados para la
+     * manipulación de archivos.
+     */
     private void cerrarRecursos() {
         try {
             if (fos != null) {

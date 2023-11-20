@@ -10,6 +10,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
+/**
+ * @author victor, Israel, David
+ */
+
 public class JDBCMotocicletaDAO implements MotocicletaDAO {
 
     private Connection con;
@@ -18,11 +22,12 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
         this.con = ConexionBBDD.getCon();
     }
 
-  
-    /** Da de alta una moto en la Base de Datos.
-     * Este método tiene incluido el rollback.
-     * @param Motocicleta
-     * @return boolean
+    /**
+     * Agrega una nueva motocicleta a la base de datos. Este método tiene
+     * incluido el rollback
+     *
+     * @param moto La motocicleta que se va a agregar.
+     * @return true si se agrega correctamente, false si hay un error.
      */
     @Override
     public boolean altaMoto(Motocicleta moto) {
@@ -37,22 +42,28 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
             pstm.setString(5, moto_aux.getColor());
             pstm.setInt(6, moto_aux.getCC());
             pstm.setInt(7, moto_aux.getPrecio());
-            
+
             pstm.executeUpdate();
             con.commit();
         } catch (SQLException e) {
             try {
                 con.rollback();
-            } catch (SQLException ex){
+            } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Error al realizar el rollback", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            
+
             JOptionPane.showMessageDialog(null, "Error al agregar la nueva moto", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         return true;
     }
 
+    /**
+     * Elimina una motocicleta de la base de datos basada en su matrícula.
+     *
+     * @param matricula La matrícula de la motocicleta que se desea eliminar.
+     * @return true si se elimina correctamente, false si hay un error.
+     */
     @Override
     public boolean bajaMoto(String matricula) {
         String delete = "DELETE FROM motos WHERE matricula = ?";
@@ -71,6 +82,13 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
         return true;
     }
 
+    /**
+     * Busca una motocicleta en la base de datos basada en su matrícula.
+     *
+     * @param matricula La matrícula de la motocicleta que se desea buscar.
+     * @return La motocicleta encontrada si se recupera correctamente, null si
+     * hay un error.
+     */
     @Override
     public Motocicleta buscarMoto(String matricula) {
         Motocicleta moto = new Motocicleta();
@@ -93,7 +111,7 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
             return null;
         }
     }
-    
+
     // Revisar modificar moto, idGaraje?, rematricular.
     @Override
     public void modificarMoto(Motocicleta moto) throws MotocicletaExcepcion {
@@ -114,9 +132,15 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
             JOptionPane.showMessageDialog(null, "Error: no se ha podido modificar la moto.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    
 
+    /**
+     * Cambia la ubicación de una motocicleta a otro garaje en la base de datos.
+     *
+     * @param moto La motocicleta que se va a mover.
+     * @param garaje El garaje al que se va a mover la motocicleta.
+     * @throws MotocicletaExcepcion si hay un error al mover la motocicleta de
+     * garaje.
+     */
     @Override
     public void cambiarDeGaraje(Motocicleta moto, Garaje garaje) throws MotocicletaExcepcion {
         String update = "UPDATE motos SET idGaraje = ? WHERE matricula = ?";
@@ -128,6 +152,13 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
         }
     }
 
+    /**
+     * Obtiene una lista de todas las motocicletas almacenadas en la base de
+     * datos.
+     *
+     * @return Una lista de motocicletas si se recuperan correctamente, null si
+     * hay un error.
+     */
     @Override
     public ArrayList<Motocicleta> listarMotocicletas() {
         ArrayList<Motocicleta> motos = new ArrayList();
@@ -152,6 +183,17 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
         return motos;
     }
 
+    /**
+     * Obtiene una lista de todas las motocicletas almacenadas en un garaje
+     * específico.
+     *
+     * @param idGaraje El ID del garaje del que se desean recuperar las
+     * motocicletas.
+     * @return Una lista de motocicletas si se recuperan correctamente, null si
+     * hay un error.
+     * @throws MotocicletaExcepcion si hay un error al recuperar las
+     * motocicletas del garaje.
+     */
     @Override
     public ArrayList<Motocicleta> listarMotocicletasGaraje(int idGaraje) throws MotocicletaExcepcion {
         ArrayList<Motocicleta> motos = new ArrayList();

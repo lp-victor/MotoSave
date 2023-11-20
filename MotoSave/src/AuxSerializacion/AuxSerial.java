@@ -16,8 +16,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
- *
- * @author victo
+ * @author victor, Israel, David
  */
 public class AuxSerial {
 

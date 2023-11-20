@@ -5,8 +5,7 @@
 package Enumerados;
 
 /**
- *
- * @author victo
+ * @author victor, Israel, David
  */
 public enum metodoPersistencia {
     

@@ -4,12 +4,9 @@
  */
 package InterfacesGraficas;
 
-import AccesoDatos.JDBC.JDBCMotocicletaDAO;
 import AccesoDatos.MotocicletaDAO;
-import AccesoDatos.Serializar.SerializarMotocicletaDAO;
 import Enumerados.metodoPersistencia;
 import Factorias.FactoriaDAO;
-import INTERFACES.ConexionBBDD;
 import Modelo.Motocicleta;
 import Modelo.MotocicletaExcepcion;
 import java.awt.event.MouseAdapter;
@@ -17,14 +14,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author David
+ * @author victor, Israel, David
  */
 public class AgregarMoto_Grafico extends javax.swing.JFrame {
 
@@ -46,7 +40,7 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
         this.tipoPers = tipoPers_e;
         motoDAO = FactoriaDAO.crearMotocicletaDAO(tipoPers);
         idGaraje = idGaraje_e;
-        
+
         initComponents();
         cargarColoresCB();
         habilitarArrastre(this);
@@ -329,6 +323,12 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Habilita la funcionalidad de arrastrar la ventana mediante el ratón.
+     *
+     * @param frame La ventana JFrame a la que se le habilita la funcionalidad
+     * de arrastre.
+     */
     public static void habilitarArrastre(JFrame frame) {
         frame.addMouseListener(new MouseAdapter() {
             @Override

@@ -11,8 +11,7 @@ import AccesoDatos.Serializar.*;
 import Enumerados.metodoPersistencia;
 
 /**
- *
- * @author victo
+ * @author victor, Israel, David
  */
 public class FactoriaDAO {
 

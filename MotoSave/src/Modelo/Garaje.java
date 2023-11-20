@@ -1,10 +1,8 @@
 package Modelo;
 
 import INTERFACES.Entradable;
-import Modelo.Motocicleta;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Garaje implements Serializable, Entradable {
 

@@ -8,12 +8,10 @@ import Enumerados.metodoPersistencia;
 import INTERFACES.*;
 import InterfacesGraficas.Administrador_Grafico;
 import InterfacesGraficas.Comercial_Grafico;
-import java.sql.Connection;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author USER
+ * @author victor, Israel, David
  */
 public class Login_Grafico extends javax.swing.JFrame {
 
@@ -52,12 +50,16 @@ public class Login_Grafico extends javax.swing.JFrame {
         setBackground(java.awt.Color.darkGray);
         setResizable(false);
 
+        jPanel1.setBackground(java.awt.Color.darkGray);
+
         L_Logo_Motosave_login.setBackground(new java.awt.Color(0, 0, 0));
         L_Logo_Motosave_login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Drawable/Logo_MotoSave2.png"))); // NOI18N
         L_Logo_Motosave_login.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Usuario");
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Contraseña");
 
         B_loguearse_login.setText("Acceder");
@@ -87,6 +89,7 @@ public class Login_Grafico extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Modo");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -172,37 +175,51 @@ public class Login_Grafico extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CB_tipoPers_LoginActionPerformed
 
+    /**
+     * Abre la pantalla correspondiente al tipo de usuario y persistencia
+     * seleccionados.
+     *
+     * Si el usuario es administrador, abre la interfaz de Administrador_Grafico
+     * según el tipo de persistencia seleccionada. Si el usuario es comercial,
+     * abre la interfaz de Comercial_Grafico según el tipo de persistencia
+     * seleccionada.
+     *
+     * @implNote Esta función controla el tipo de usuario y el método de
+     * persistencia seleccionado en la interfaz de login.
+     * @implSpec Los tipos de persistencia son: JDBC (base de datos) y FICHEROS
+     * (persistencia en archivos).
+     */
     private void abrirPantallaUsuario() {
-        // Primer IF controla el tipo de usuario
-        // Segund IF controla el tipo de persistencia
         if (gesUser.admin(TF_Usuario_login.getText(), TF_password_login.getText())) {
-
+            // Usuario administrador
             if (CB_tipoPers_Login.getSelectedItem().equals(Enumerados.metodoPersistencia.JDBC.toString())) {
+                // Persistencia mediante JDBC (base de datos)
                 Administrador_Grafico adminGrafico = new Administrador_Grafico(metodoPersistencia.JDBC);
                 adminGrafico.setVisible(true);
                 adminGrafico.pack();
                 this.dispose();
             } else {
+                // Persistencia en archivos
                 Administrador_Grafico adminGrafico = new Administrador_Grafico(metodoPersistencia.FICHEROS);
                 adminGrafico.setVisible(true);
                 adminGrafico.pack();
                 this.dispose();
             }
-
         } else {
-
+            // Usuario comercial
             if (CB_tipoPers_Login.getSelectedItem().equals(Enumerados.metodoPersistencia.JDBC.toString())) {
+                // Persistencia mediante JDBC (base de datos)
                 Comercial_Grafico comerGrafico = new Comercial_Grafico(metodoPersistencia.JDBC);
                 comerGrafico.setVisible(true);
                 comerGrafico.pack();
                 this.dispose();
             } else {
+                // Persistencia en archivos
                 Comercial_Grafico comerGrafico = new Comercial_Grafico(metodoPersistencia.FICHEROS);
                 comerGrafico.setVisible(true);
                 comerGrafico.pack();
                 this.dispose();
             }
-
         }
     }
 

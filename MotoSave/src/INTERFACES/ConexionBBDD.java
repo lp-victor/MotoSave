@@ -10,8 +10,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author victo
+ * @author victor, Israel, David
  */
 public class ConexionBBDD {
 

@@ -5,11 +5,7 @@
 package InterfacesGraficas;
 
 import AccesoDatos.GarajeDAO;
-import AccesoDatos.JDBC.JDBCGarajeDAO;
-import AccesoDatos.JDBC.JDBCMotocicletaDAO;
 import AccesoDatos.MotocicletaDAO;
-import AccesoDatos.Serializar.SerializarGarajeDAO;
-import AccesoDatos.Serializar.SerializarMotocicletaDAO;
 import Enumerados.metodoPersistencia;
 import Factorias.FactoriaDAO;
 import INTERFACES.ConexionBBDD;
@@ -22,14 +18,12 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author USER
+ * @author victor, Israel, David
  */
 public class Administrador_Grafico extends javax.swing.JFrame {
 
@@ -384,6 +378,11 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         abrirModificarMoto_grafico();
     }//GEN-LAST:event_B_modificarMoto_InicioActionPerformed
 
+    /**
+     * Abre la interfaz gráfica para agregar una motocicleta, obteniendo el
+     * identificador del garaje y el tipo de persistencia. Muestra la ventana de
+     * AgregarMoto_Grafico asociada a ese garaje y tipo de persistencia.
+     */
     public void abrirAgregarMoto_grafico() {
 
         int aux = garajeDAO.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
@@ -394,6 +393,11 @@ public class Administrador_Grafico extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Abre la interfaz gráfica para modificar una motocicleta. Obtiene la
+     * motocicleta seleccionada en el ComboBox y muestra la ventana de
+     * ModificarMoto_Grafico.
+     */
     public void abrirModificarMoto_grafico() {
         // Seleccionamos la moto cogiendo la matricula del ComboBox haciendo split.
         String[] infoMotoSeleccionada = (String.valueOf(CB_motos_Inicio.getSelectedItem())).split("-");
@@ -410,6 +414,12 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         modificarMoto_F.setLocationRelativeTo(this);
     }
 
+    /**
+     * Habilita la funcionalidad de arrastrar la ventana mediante el ratón.
+     *
+     * @param frame La ventana JFrame a la que se le habilita la funcionalidad
+     * de arrastre.
+     */
     public static void habilitarArrastre(JFrame frame) {
         frame.addMouseListener(new MouseAdapter() {
             @Override
@@ -437,6 +447,12 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Crea y devuelve un modelo de tabla por defecto con las columnas
+     * predefinidas.
+     *
+     * @return El modelo de tabla por defecto con las columnas establecidas.
+     */
     private DefaultTableModel estructuraTabla() {
         DefaultTableModel modeloTabla = new DefaultTableModel();
         modeloTabla.addColumn("Matrícula");
@@ -448,6 +464,10 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         return modeloTabla;
     }
 
+    /**
+     * Llena el ComboBox con los garajes disponibles, mostrando el String
+     * sucursal.
+     */
     private void llenarCBGaraje() {
         ArrayList<Garaje> garajes;
 
@@ -458,6 +478,10 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Llena el ComboBox con las motocicletas disponibles en el garaje
+     * seleccionado en el ComboBox de garajes.
+     */
     private void llenarCBMotos() {
         CB_motos_Inicio.removeAllItems();
 
@@ -472,6 +496,10 @@ public class Administrador_Grafico extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Actualiza el ComboBox de motocicletas según el garaje seleccionado en el
+     * ComboBox de garajes.
+     */
     public void actualizarCBMotos() {
         CB_motos_Inicio.removeAllItems();
 

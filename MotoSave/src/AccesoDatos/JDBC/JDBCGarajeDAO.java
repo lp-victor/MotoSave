@@ -8,14 +8,12 @@ import AccesoDatos.GarajeDAO;
 import INTERFACES.ConexionBBDD;
 import Modelo.Garaje;
 import Modelo.GarajeExcepcion;
-import Modelo.Motocicleta;
 import java.util.ArrayList;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author victo
+ * @author victor, Israel, David
  */
 public class JDBCGarajeDAO implements GarajeDAO {
 
@@ -25,6 +23,12 @@ public class JDBCGarajeDAO implements GarajeDAO {
         this.con = ConexionBBDD.getCon();
     }
 
+    /**
+     * Agrega un nuevo garaje a la base de datos.
+     *
+     * @param garaje El garaje a ser dado de alta.
+     * @return true si se agregó correctamente, false si hubo un error.
+     */
     @Override
     public boolean altaGaraje(Garaje garaje) {
         String insert = "INSERT INTO garajes('sucursal') VALUES (?)";
@@ -37,18 +41,30 @@ public class JDBCGarajeDAO implements GarajeDAO {
         return true;
     }
 
+    /**
+     * Elimina un garaje de la base de datos dado su ID.
+     *
+     * @param idGaraje El ID del garaje a ser eliminado.
+     * @return true si se eliminó correctamente, false si hubo un error.
+     */
     @Override
     public boolean bajaGaraje(int idGaraje) {
         String delete = "DELETE FROM garajes WHERE idGaraje = '?'";
         try (PreparedStatement pstm = con.prepareStatement(delete)) {
             pstm.setInt(1, idGaraje);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error: No se ha podido eliminar el garaje.","Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error: No se ha podido eliminar el garaje.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         return true;
     }
 
+    /**
+     * Busca y devuelve el ID de un garaje dado su nombre.
+     *
+     * @param nombreGaraje El nombre del garaje a buscar.
+     * @return El ID del garaje si se encontró, de lo contrario devuelve 0.
+     */
     @Override
     public int buscarIdGaraje(String nombreGaraje) {
         String query = "SELECT idGaraje FROM garajes WHERE sucursal = ?";
@@ -65,6 +81,12 @@ public class JDBCGarajeDAO implements GarajeDAO {
         return 0; // Evitar falso positivo
     }
 
+    /**
+     * Busca y devuelve un objeto Garaje dado su ID.
+     *
+     * @param idGaraje El ID del garaje a buscar.
+     * @return El objeto Garaje si se encontró, de lo contrario devuelve null.
+     */
     @Override
     public Garaje buscarGaraje(int idGaraje) {
         Garaje garaje = new Garaje();
@@ -89,6 +111,15 @@ public class JDBCGarajeDAO implements GarajeDAO {
         //Falta
     }
 
+    /**
+     * Obtiene la cantidad de plazas libres en un garaje específico.
+     *
+     * @param garaje El garaje del que se desea conocer las plazas libres.
+     * @return La cantidad de plazas libres si se obtiene correctamente, -1 si
+     * hay un error de conexión y -2 si no se encuentran datos.
+     * @throws GarajeExcepcion si hay una excepción al obtener las plazas
+     * libres.
+     */
     @Override
     public int plazasLibres(Garaje garaje) throws GarajeExcepcion {
         String query = "SELECT plazas FROM garajes WHERE idGaraje = ?";
@@ -106,6 +137,12 @@ public class JDBCGarajeDAO implements GarajeDAO {
         return -2;
     }
 
+    /**
+     * Obtiene una lista de todos los garajes existentes en la base de datos.
+     *
+     * @return Una lista de objetos Garaje si se obtienen correctamente, null si
+     * hay un error.
+     */
     @Override
     public ArrayList<Garaje> listarGaraje() {
         ArrayList<Garaje> garajes = new ArrayList();
@@ -119,7 +156,7 @@ public class JDBCGarajeDAO implements GarajeDAO {
                 garajes.add(aux);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"Error: No se han podido recuperar los garajes.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error: No se han podido recuperar los garajes.", "Error", JOptionPane.ERROR_MESSAGE);
             return null;
         }
         return garajes;

@@ -9,8 +9,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
 /**
- *
- * @author victo
+ * @author victor, Israel, David
  */
 public class myOOS extends ObjectOutputStream {
     

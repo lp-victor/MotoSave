@@ -1,10 +1,10 @@
 package INTERFACES;
 
-import AuxSerializacion.Serializacion;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.Scanner;
+
+/**
+ * @author victor, Israel, David
+ */
 
 public interface Entradable {
 
@@ -157,54 +157,5 @@ public interface Entradable {
         return true;
     }
 
-    /**
-     * M�todo que controla que el mel introducido por el usuario est� dentro del
-     * rango permitido. El m�todo utiliza Scanner.nextLine() para leer la
-     * entrada del usuario y verifica que el valor ingresado sea de exactamente
-     * 2 d�gitos y se encuentre dentro del rango de a�os permitido (1-12).
-     *
-     * @return Una cadena de texto que indica el mes introducido por el usuario.
-     */
-    public static String controlTecladoMes() {
-        String mes = "\u0000";
-        int opcion;
-        System.out.println("1 - Ene |  2 - Feb |  3 - Mar |  4 - Abr");
-        System.out.println("5 - May |  6 - Jun |  7 - Jul |  8 - Ago");
-        System.out.println("9 - Sep | 10 - Oct | 11 - Nov | 12 - Dic");
-        System.out.println("0 - Cancelar");
-        do {
-            System.out.print("Introduce el numero del mes que quieres consultar: ");
-            opcion = pedirEntero();
-            switch (opcion) {
-                case 1:
-                    return mes = "01";
-                case 2:
-                    return mes = "02";
-                case 3:
-                    return mes = "03";
-                case 4:
-                    return mes = "04";
-                case 5:
-                    return mes = "05";
-                case 6:
-                    return mes = "06";
-                case 7:
-                    return mes = "07";
-                case 8:
-                    return mes = "08";
-                case 9:
-                    return mes = "09";
-                case 10:
-                    return mes = "10";
-                case 11:
-                    return mes = "11";
-                case 12:
-                    return mes = "12";
-                default:
-                    System.out.println("Mes inv�lido");
-            }
-        } while (opcion != 0);
-        return mes;
-    }
 }
 

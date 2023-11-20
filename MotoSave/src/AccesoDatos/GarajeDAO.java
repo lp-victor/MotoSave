@@ -6,7 +6,6 @@ package AccesoDatos;
 
 import Modelo.Garaje;
 import Modelo.GarajeExcepcion;
-import Modelo.Motocicleta;
 import java.util.ArrayList;
 
 /**
