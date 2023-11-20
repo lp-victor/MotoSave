@@ -24,8 +24,7 @@ import java.util.ArrayList;
  */
 public class SerializarGarajeDAO implements GarajeDAO {
 
-    private static final String pathGarajesDATA = "./serializados";
-    private static String pathMotocicletasDATA = "./serializados/Motocicletas";
+    private static final String pathGarajesDATA = "./serializados/garajes.obj";
 
     private static File f = null;
     //=========ENTRADA=============
@@ -109,68 +108,74 @@ public class SerializarGarajeDAO implements GarajeDAO {
         }
         return -1; // Retorna -1 si no se encuentra el garaje
     }
-    
-/*
+
     @Override
     public ArrayList<Garaje> listarGaraje() {
         ArrayList<Garaje> garajes = null;
 
-        // Hardcodeado a muerte ya nos rayaremos la cabeza
-        for (int i = 1; i < 4; i++) {
-            f = new File(pathGarajesDATA + "/" + i);
+//         Hardcodeado a muerte ya nos rayaremos la cabeza
+//        for (int i = 1; i < 4; i++) {
+        f = new File(pathGarajesDATA);
 
-            Object e = new Object();
+        Garaje e;
+        ObjectInputStream ois;
+        FileInputStream fis;
 
-            try (FileInputStream fis = new FileInputStream(f); ObjectInputStream ois = new ObjectInputStream(fis)) {
-                while (true) {
-                    e = ois.readObject();
-                    garajes.add((Garaje) e);
+        try {
+            fis = new FileInputStream(f);
+            ois = new ObjectInputStream(fis);
+            while (true) {
+                e = (Garaje) ois.readObject();
+                if (e != null) {
+                    garajes.add(e);
                 }
-            } catch (FileNotFoundException ent) {
-                System.out.println("Error, el fichero no se encuentra");
-            } catch (ClassNotFoundException ent) {
-                System.out.println("Error, la clase no se encuentra");
-            } catch (IOException ent) {
-                System.out.println("Error, al leer el fichero");
-                ent.printStackTrace();
-            } finally {
-                cerrarRecursos();
             }
-        }
-
-        return garajes;
-    }*/
-
-         @Override
-    public ArrayList<Garaje> listarGaraje() {
-        ArrayList<Garaje> garajes = new ArrayList<>(); // Inicializar la lista de garajes
-
-        for (int i = 1; i < 4; i++) {
-            f = new File(pathGarajesDATA + "/" + i);
-
-            Object e = null;
-
-            try (FileInputStream fis = new FileInputStream(f); ObjectInputStream ois = new ObjectInputStream(fis)) {
-                while (true) {
-                    e = ois.readObject();
-                    if (e instanceof Garaje) {
-                        garajes.add((Garaje) e);
-                    }
-                }
-            } catch (FileNotFoundException ent) {
-                System.out.println("Error, el fichero no se encuentra");
-            } catch (ClassNotFoundException ent) {
-                System.out.println("Error, la clase no se encuentra");
-            } catch (IOException ent) {
-                System.out.println("Error, al leer el fichero");
-                ent.printStackTrace();
-            }finally {
+        } catch (FileNotFoundException ent) {
+            System.out.println("Error, el fichero no se encuentra");
+        } catch (ClassNotFoundException ent) {
+            System.out.println("Error, la clase no se encuentra");
+        } catch (IOException ent) {
+            System.out.println("Error, al leer el fichero");
+            ent.printStackTrace();
+        } finally {
             cerrarRecursos();
-        }
+//            }
         }
 
         return garajes;
-    } 
+    }
+//    @Override
+//    public ArrayList<Garaje> listarGaraje() {
+//        ArrayList<Garaje> garajes = new ArrayList<>(); // Inicializar la lista de garajes
+//
+////        for (int i = 1; i < 4; i++) {
+////            f = new File(pathGarajesDATA + "/" + i);
+//        f = new File(pathGarajesDATA);
+//        
+//        Object e = null;
+//
+//        try (FileInputStream fis = new FileInputStream(f); ObjectInputStream ois = new ObjectInputStream(fis)) {
+//            while (true) {
+//                e = ois.readObject();
+//                if (e instanceof Garaje) {
+//                    garajes.add((Garaje) e);
+//                }
+//            }
+//        } catch (FileNotFoundException ent) {
+//            System.out.println("Error, el fichero no se encuentra");
+//        } catch (ClassNotFoundException ent) {
+//            System.out.println("Error, la clase no se encuentra");
+//        } catch (IOException ent) {
+//            System.out.println("Error, al leer el fichero");
+//            ent.printStackTrace();
+//        } finally {
+//            cerrarRecursos();
+////            }
+//        }
+//
+//        return garajes;
+//    }
+
     @Override
     public int buscarIdGaraje(String nombreGaraje) {
         ArrayList<Garaje> garajes = listarGaraje();

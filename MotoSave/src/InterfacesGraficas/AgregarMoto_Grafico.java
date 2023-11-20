@@ -38,14 +38,18 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
     }
 
     public AgregarMoto_Grafico(int idGaraje_e, Connection con_e, String tipoPers_e) {
-        // Control tipo de metodo de persistencia
-        if (tipoPers_e.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
-            this.tipoPers = Enumerados.tipoDAO.JDBC_MOTOCICLETA.toString();
-            motoDAO = (JDBCMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(tipoPers, con_e);
-        } else {
-            this.tipoPers = Enumerados.tipoDAO.SERIALIZAR_MOTOCICLETA.toString();
-            serialMoto = (SerializarMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(tipoPers);
-        }
+        this.tipoPers = Enumerados.tipoDAO.JDBC_MOTOCICLETA.toString();
+        motoDAO = (JDBCMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(tipoPers, con_e);
+
+        idGaraje = idGaraje_e;
+        initComponents();
+        cargarColoresCB();
+        habilitarArrastre(this);
+    }
+
+    public AgregarMoto_Grafico(int idGaraje_e, String tipoPers_e) {
+        this.tipoPers = Enumerados.tipoDAO.SERIALIZAR_MOTOCICLETA.toString();
+        serialMoto = (SerializarMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(tipoPers);
 
         idGaraje = idGaraje_e;
         initComponents();

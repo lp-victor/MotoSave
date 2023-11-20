@@ -60,6 +60,9 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         if (tipoPers_e.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
             motoDAO = (JDBCMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.JDBC_MOTOCICLETA.toString(), con_e);
             garajeDAO = (JDBCGarajeDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.JDBC_GARAJE.toString(), con_e);
+
+            llenarCBGaraje();
+            llenarCBMotos();
         } else {
             serialMoto = (SerializarMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.SERIALIZAR_MOTOCICLETA.toString());
             serialGaraje = (SerializarGarajeDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.SERIALIZAR_GARAJE.toString());
@@ -68,8 +71,19 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         this.con = con_e;
         this.tipoPers = tipoPers_e;
         initComponents();
+
+        habilitarArrastre(this);
+    }
+
+    public Administrador_Grafico(String tipoPers_e) {
+        serialGaraje = (SerializarGarajeDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.SERIALIZAR_GARAJE.toString());
+        serialMoto = (SerializarMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.SERIALIZAR_MOTOCICLETA.toString());
+
+        this.tipoPers = tipoPers_e;
+        initComponents();
         llenarCBGaraje();
-        llenarCBMotos();
+//        llenarCBMotos();
+
         habilitarArrastre(this);
     }
 
@@ -382,11 +396,19 @@ public class Administrador_Grafico extends javax.swing.JFrame {
     }//GEN-LAST:event_B_modificarMoto_InicioActionPerformed
 
     public void abrirAgregarMoto_grafico() {
-        int aux = garajeDAO.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
-        agregarMoto_F = new AgregarMoto_Grafico(aux, con, tipoPers);
-        agregarMoto_F.setVisible(true);
-        agregarMoto_F.pack();
-        agregarMoto_F.setLocationRelativeTo(this);
+        if (tipoPers.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
+            int aux = garajeDAO.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
+            agregarMoto_F = new AgregarMoto_Grafico(aux, con, tipoPers);
+            agregarMoto_F.setVisible(true);
+            agregarMoto_F.pack();
+            agregarMoto_F.setLocationRelativeTo(this);
+        } else {
+            int aux = serialGaraje.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
+            agregarMoto_F = new AgregarMoto_Grafico(aux, con, tipoPers);
+            agregarMoto_F.setVisible(true);
+            agregarMoto_F.pack();
+            agregarMoto_F.setLocationRelativeTo(this);
+        }
     }
 
     public void abrirModificarMoto_grafico() {
@@ -438,7 +460,6 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         return modeloTabla;
     }
 
-    // Hacer con serializar
     private void llenarCBGaraje() {
         ArrayList<Garaje> garajes = null;
         if (tipoPers.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
@@ -446,7 +467,7 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         } else {
             garajes = serialGaraje.listarGaraje();
         }
-        
+
         for (Garaje garaje : garajes) {
             CB_garajes_Inicio.addItem(garaje.getSucursal());
         }

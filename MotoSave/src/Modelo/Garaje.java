@@ -9,13 +9,21 @@ import java.util.Objects;
 public class Garaje implements Serializable, Entradable {
 
     private int idGaraje;
-    private String sucursal = "Garaje";
+    private String sucursal;
     private int plazasLibres;
     ArrayList<Motocicleta> motos = new ArrayList();
 
     public Garaje() {
     }
 
+    public Garaje(int idGaraje, String sucursal, int plazasLibres) {
+        this.idGaraje = idGaraje;
+        this.sucursal = sucursal;
+        this.plazasLibres = plazasLibres;
+    }
+    
+    
+    
     public Garaje(String sucursal) {
         this.sucursal = sucursal;
     }

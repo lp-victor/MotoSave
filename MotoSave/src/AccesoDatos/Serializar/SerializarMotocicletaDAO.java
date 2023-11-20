@@ -15,10 +15,9 @@ import java.util.ArrayList;
 
 public class SerializarMotocicletaDAO implements MotocicletaDAO {
 
-    private static final String pathGarajesDATA = "./serializados";
-    private static String pathMotocicletasDATA = "./serializados/Motocicletas";
+    private static final String pathDATA = "./serializados/";
 
-    private static File f = null;
+    private static File f = new File(pathDATA);
     //=========ENTRADA=============
     private static FileInputStream fis = null;
     private static ObjectInputStream ois = null;
@@ -29,7 +28,7 @@ public class SerializarMotocicletaDAO implements MotocicletaDAO {
     @Override
     public boolean altaMoto(Motocicleta moto) {
         try {
-            oos = new ObjectOutputStream(new FileOutputStream(pathMotocicletasDATA, true));
+            oos = new ObjectOutputStream(new FileOutputStream(f.getPath()+moto.getIdGaraje()+".obj", true));
             oos.writeObject(moto);
             return true;
         } catch (IOException ex) {
@@ -99,7 +98,7 @@ public class SerializarMotocicletaDAO implements MotocicletaDAO {
     public ArrayList<Motocicleta> listarMotocicletas() {
         ArrayList<Motocicleta> motos = new ArrayList<>();
         try {
-            fis = new FileInputStream(pathMotocicletasDATA);
+            fis = new FileInputStream(pathDATA);
             ois = new ObjectInputStream(fis);
 
             while (true) {
@@ -130,7 +129,7 @@ public class SerializarMotocicletaDAO implements MotocicletaDAO {
 
     private void guardarMotos(ArrayList<Motocicleta> motos) {
         try {
-            fos = new FileOutputStream(pathMotocicletasDATA);
+            fos = new FileOutputStream(pathDATA);
             oos = new ObjectOutputStream(fos);
 
             for (Motocicleta moto : motos) {
