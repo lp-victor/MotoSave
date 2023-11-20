@@ -369,21 +369,36 @@ public class ModificarMoto_Grafico extends javax.swing.JFrame {
     }
 
     // Devuelve un idGaraje dada una sucursal.
-    // Hacer con serial
     private int sucursal2Id(String sucursal) {
-        ArrayList<Garaje> garajes_aux = garajeDAO.listarGaraje();
-        for (Garaje garaje : garajes_aux) {
-            if (garaje.getSucursal().equals(sucursal)) {
-                return garaje.getIdGaraje();
+        if (tipoPers.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
+            ArrayList<Garaje> garajes_aux = garajeDAO.listarGaraje();
+            for (Garaje garaje : garajes_aux) {
+                if (garaje.getSucursal().equals(sucursal)) {
+                    return garaje.getIdGaraje();
+                }
+            }
+        } else {
+            ArrayList<Garaje> garajes_aux = serialGaraje.listarGaraje();
+            for (Garaje garaje : garajes_aux) {
+                if (garaje.getSucursal().equals(sucursal)) {
+                    return garaje.getIdGaraje();
+                }
             }
         }
         return 0;
     }
 
-    // Hacer con serial
+    // Carga primero la sucursal en la que se encuantra la moto y despues el resto.
     private void cargarSucursales() {
-        ArrayList<Garaje> garajes_aux = garajeDAO.listarGaraje();
         ArrayList<String> sucursales = new ArrayList();
+        ArrayList<Garaje> garajes_aux = null;
+        
+        if (tipoPers.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
+            garajes_aux = garajeDAO.listarGaraje();
+        } else {
+            garajes_aux = serialGaraje.listarGaraje();
+        }
+        
         for (Garaje garaje : garajes_aux) {
             if (garaje.getIdGaraje() == moto.getIdGaraje()) {
                 sucursales.add(garaje.getSucursal());

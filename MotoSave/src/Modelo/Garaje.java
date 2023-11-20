@@ -11,7 +11,7 @@ public class Garaje implements Serializable, Entradable {
     private int idGaraje;
     private String sucursal;
     private int plazasLibres;
-//    ArrayList<Motocicleta> motos = new ArrayList();
+    ArrayList<Motocicleta> motos = new ArrayList();
 
     public Garaje() {
     }
@@ -19,16 +19,16 @@ public class Garaje implements Serializable, Entradable {
     public Garaje(int idGaraje, String sucursal, int plazasLibres) {
         this.idGaraje = idGaraje;
         this.sucursal = sucursal;
-        this.plazasLibres = plazasLibres;
+        this.plazasLibres = 10 - plazasLibres;
     }        
     
     public Garaje(String sucursal) {
         this.sucursal = sucursal;
     }
 
-//    public Garaje(ArrayList<Motocicleta> motos) {
-//        this.motos = motos;
-//    }
+    public Garaje(ArrayList<Motocicleta> motos) {
+        this.motos = motos;
+    }
 
     public int getIdGaraje() {
         return idGaraje;
@@ -54,17 +54,17 @@ public class Garaje implements Serializable, Entradable {
         this.plazasLibres = plazasLibres;
     }
 
-//    public ArrayList<Motocicleta> getMotos() {
-//        return motos;
-//    }
-//
-//    public void setMotos(ArrayList<Motocicleta> motos) {
-//        this.motos = motos;
-//    }
-//    
-//    public boolean estaVacio(){
-//        return this.motos.isEmpty();
-//    }
+    public ArrayList<Motocicleta> getMotos() {
+        return motos;
+    }
+
+    public void setMotos(ArrayList<Motocicleta> motos) {
+        this.motos = motos;
+    }
+    
+    public boolean estaVacio(){
+        return this.motos.isEmpty();
+    }
 
     @Override
     public String toString() {

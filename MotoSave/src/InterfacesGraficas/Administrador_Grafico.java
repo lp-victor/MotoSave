@@ -8,14 +8,10 @@ import AccesoDatos.JDBC.JDBCGarajeDAO;
 import AccesoDatos.JDBC.JDBCMotocicletaDAO;
 import AccesoDatos.Serializar.SerializarGarajeDAO;
 import AccesoDatos.Serializar.SerializarMotocicletaDAO;
-import InterfacesGraficas.AgregarMoto_Grafico;
 import INTERFACES.ConexionBBDD;
-import InterfacesGraficas.ModificarMoto_Grafico;
 import Modelo.Garaje;
 import Modelo.Motocicleta;
 import Modelo.MotocicletaExcepcion;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -24,7 +20,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -307,11 +302,16 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         B_buscar_InicioActionPerformed(evt);
     }//GEN-LAST:event_TF_introMatricula_InicioActionPerformed
 
-    // Hacer con serializar
     private void B_buscar_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_buscar_InicioActionPerformed
         DefaultTableModel modeloTabla = estructuraTabla();
+        Motocicleta moto = null;
 
-        Motocicleta moto = motoDAO.buscarMoto(TF_introMatricula_Inicio.getText());
+        if (tipoPers.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
+            moto = motoDAO.buscarMoto(TF_introMatricula_Inicio.getText());
+        } else {
+            moto = serialMoto.buscarMoto(TF_introMatricula_Inicio.getText());
+        }
+
         if (moto.getMatricula() == null) {
             JOptionPane.showMessageDialog(this, "No existe la motocicleta con matricula", "Error", JOptionPane.ERROR_MESSAGE);
             TF_introMatricula_Inicio.setText("");
@@ -325,18 +325,32 @@ public class Administrador_Grafico extends javax.swing.JFrame {
             //Salida
             modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc, precio});
             T_infoMotos_Inicio.setModel(modeloTabla);
-            L_T_nombreGaraje.setText(garajeDAO.buscarGaraje(moto.getIdGaraje()).getSucursal());
 
+            if (tipoPers.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
+                L_T_nombreGaraje.setText(garajeDAO.buscarGaraje(moto.getIdGaraje()).getSucursal());
+            } else {
+                L_T_nombreGaraje.setText(serialGaraje.buscarGaraje(moto.getIdGaraje()).getSucursal());
+            }
         }
     }//GEN-LAST:event_B_buscar_InicioActionPerformed
 
-    // Hacer para serializar
     private void B_listar_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_listar_InicioActionPerformed
         DefaultTableModel modeloTabla = estructuraTabla();
-
+        int aux = 0;
+        ArrayList<Motocicleta> motos = null;
+        String sucursal = "";
         try {
-            int aux = garajeDAO.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
-            for (Motocicleta moto : motoDAO.listarMotocicletasGaraje(aux)) {
+            if (tipoPers.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
+               aux = garajeDAO.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
+               motos = motoDAO.listarMotocicletasGaraje(aux);
+               sucursal = garajeDAO.buscarGaraje(aux).getSucursal();
+            } else {
+               aux = serialGaraje.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
+               serialMoto.listarMotocicletasGaraje(aux);
+               sucursal = serialGaraje.buscarGaraje(aux).getSucursal();
+            }
+            
+            for (Motocicleta moto : motos) {
                 String matricula = moto.getMatricula();
                 String marca = moto.getMarca();
                 String modelo = moto.getModelo();
@@ -346,7 +360,8 @@ public class Administrador_Grafico extends javax.swing.JFrame {
 
                 modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc, precio});
             }
-            L_T_nombreGaraje.setText(garajeDAO.buscarGaraje(aux).getSucursal());
+            
+            L_T_nombreGaraje.setText(sucursal);
             T_infoMotos_Inicio.setModel(modeloTabla);
         } catch (MotocicletaExcepcion ex) {
             JOptionPane.showMessageDialog(this, "No hay Motocicletas en este Garaje", "Error", JOptionPane.ERROR_MESSAGE);
@@ -466,7 +481,6 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         }
     }
 
-    // Hacer con serializar
     private void llenarCBMotos() {
         CB_motos_Inicio.removeAllItems();
 

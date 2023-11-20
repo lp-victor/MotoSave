@@ -45,9 +45,10 @@ public class SerializarMotocicletaDAO implements MotocicletaDAO {
         ArrayList<Motocicleta> motocicletas = listarMotocicletas();
         try {
             for (Motocicleta moto : motocicletas) {
+                int idGaraje_aux = moto.getIdGaraje();
                 if (moto.getMatricula().equals(matricula)) {
                     motocicletas.remove(moto);
-//                    guardarMotos(motocicletas);
+                    guardarMotos(motocicletas, idGaraje_aux); // No se si fufará hay que probarlo  
                     return true;
                 }
             }
@@ -58,14 +59,14 @@ public class SerializarMotocicletaDAO implements MotocicletaDAO {
     }
 
     @Override
-    public Motocicleta buscarMoto(String matricula) throws MotocicletaExcepcion {
+    public Motocicleta buscarMoto(String matricula)  {
         ArrayList<Motocicleta> motos = listarMotocicletas();
         for (Motocicleta moto : motos) {
             if (moto.getMatricula().equals(matricula)) {
                 return moto;
             }
         }
-        throw new MotocicletaExcepcion("La motocicleta no se encuentra en el sistema.");
+        return null;
     }
 
     @Override
@@ -92,7 +93,7 @@ public class SerializarMotocicletaDAO implements MotocicletaDAO {
         if (!encontrada) {
             throw new MotocicletaExcepcion("La motocicleta no se encuentra en el sistema.");
         }
-//        guardarMotos(motos);
+        guardarMotos(motos, garaje.getIdGaraje());
     }
 
     @Override
@@ -147,21 +148,21 @@ public class SerializarMotocicletaDAO implements MotocicletaDAO {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-//    private void guardarMotos(ArrayList<Motocicleta> motos) {
-//        f = new File(pathDATA+idGaraje+".object");
-//        try {
-//            fos = new FileOutputStream(pathDATA);
-//            oos = new ObjectOutputStream(fos);
-//
-//            for (Motocicleta moto : motos) {
-//                oos.writeObject(moto);
-//            }
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        } finally {
-//            cerrarRecursos();
-//        }
-//    }
+    private void guardarMotos(ArrayList<Motocicleta> motos, int idGaraje) {
+        f = new File(pathDATA+idGaraje+".object");
+        try {
+            fos = new FileOutputStream(pathDATA);
+            oos = new ObjectOutputStream(fos);
+
+            for (Motocicleta moto : motos) {
+                oos.writeObject(moto);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            cerrarRecursos();
+        }
+    }
 
     private void cerrarRecursos() {
         try {
