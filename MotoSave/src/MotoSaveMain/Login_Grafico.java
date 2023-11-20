@@ -182,7 +182,7 @@ public class Login_Grafico extends javax.swing.JFrame {
                 adminGrafico.pack();
                 this.dispose();
             } else {
-                Administrador_Grafico adminGrafico = new Administrador_Grafico(con, Enumerados.metodoPersistencia.FICHEROS.toString());
+                Administrador_Grafico adminGrafico = new Administrador_Grafico(Enumerados.metodoPersistencia.FICHEROS.toString());
                 adminGrafico.setVisible(true);
                 adminGrafico.pack();
                 this.dispose();

@@ -31,26 +31,26 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
     // Conexion y BDD
     private JDBCMotocicletaDAO motoDAO;
     private SerializarMotocicletaDAO serialMoto;
-
+    
     public AgregarMoto_Grafico() {
         initComponents();
         habilitarArrastre(this);
     }
-
+    
     public AgregarMoto_Grafico(int idGaraje_e, Connection con_e, String tipoPers_e) {
         this.tipoPers = Enumerados.tipoDAO.JDBC_MOTOCICLETA.toString();
         motoDAO = (JDBCMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(tipoPers, con_e);
-
+        
         idGaraje = idGaraje_e;
         initComponents();
         cargarColoresCB();
         habilitarArrastre(this);
     }
-
+    
     public AgregarMoto_Grafico(int idGaraje_e, String tipoPers_e) {
         this.tipoPers = Enumerados.tipoDAO.SERIALIZAR_MOTOCICLETA.toString();
         serialMoto = (SerializarMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(tipoPers);
-
+        
         idGaraje = idGaraje_e;
         initComponents();
         cargarColoresCB();
@@ -268,7 +268,7 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
         String Color = (String) CB_color_AgregarMoto.getSelectedItem();
         int cilindrada = 0;
         int precio = 0;
-
+        
         if ((TF_matricula_AgregarMoto.getText().isBlank()) || (TF_matricula_AgregarMoto.getText() == null)) {
             JOptionPane.showMessageDialog(this, "La matricula no puede estar vacia.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -282,10 +282,10 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
         if (TF_marca_AgregarMoto.getText().isBlank() || TF_modelo_AgregarMoto.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "La marca y el modelo no pueden estar vacios", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
+        
         Marca = TF_marca_AgregarMoto.getText();
         Modelo = TF_modelo_AgregarMoto.getText();
-
+        
         if (TF_CC_AgregarMoto.getText().isBlank() && TF_precio_AgregarMoto.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "La CC y el precio no pueden estar vacios", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -298,10 +298,13 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
         }
 
         // Comprobar si la motocicleta ya existe
-        if (motoDAO.buscarMoto(TF_matricula_AgregarMoto.getText()) == null) {
-            JOptionPane.showMessageDialog(this, "La motocicleta ya existe en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+        // Tocar
+        if (tipoPers.equals(Enumerados.tipoDAO.JDBC_MOTOCICLETA.toString())) {
+            if (motoDAO.buscarMoto(TF_matricula_AgregarMoto.getText()) == null) {
+                JOptionPane.showMessageDialog(this, "La motocicleta ya existe en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
-
+        
         Motocicleta newMoto = new Motocicleta(idGaraje, TF_matricula_AgregarMoto.getText(), Marca, Modelo, Color, cilindrada, precio);
         // Guardamos la moto dependiendo del tipo de persistencia que se haya seleccionado en el login.
         if (tipoPers.equals(Enumerados.tipoDAO.JDBC_MOTOCICLETA.toString())) {
@@ -310,6 +313,7 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Error al agregar la motocicleta.", "Error", JOptionPane.ERROR_MESSAGE);
             }
+            
         } else {
             if (serialMoto.altaMoto(newMoto)) {
                 JOptionPane.showMessageDialog(this, "La motocicleta se agrego exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -326,14 +330,14 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
     private void TF_matricula_AgregarMotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_matricula_AgregarMotoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TF_matricula_AgregarMotoActionPerformed
-
+    
     private void cargarColoresCB() {
         String[] colores = {"Rojo", "Azul", "Verde", "Negro", "Blanco", "Gris", "Amarillo"};
         for (String color : colores) {
             CB_color_AgregarMoto.addItem(color);
         }
     }
-
+    
     public static void habilitarArrastre(JFrame frame) {
         frame.addMouseListener(new MouseAdapter() {
             @Override
@@ -342,13 +346,13 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
                 mouseX = e.getX();
                 mouseY = e.getY();
             }
-
+            
             @Override
             public void mouseReleased(MouseEvent e) {
                 mousePressed = false;
             }
         });
-
+        
         frame.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
@@ -360,7 +364,7 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
             }
         });
     }
-
+    
     private void textoGaraje() {
         L_garaje_AgregarMoto.setText(String.valueOf(idGaraje).toUpperCase());
     }

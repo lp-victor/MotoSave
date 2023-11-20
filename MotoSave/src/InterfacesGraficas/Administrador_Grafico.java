@@ -51,26 +51,19 @@ public class Administrador_Grafico extends javax.swing.JFrame {
      */
     public Administrador_Grafico() {
         initComponents();
-        llenarCBGaraje();
-        llenarCBMotos();
         habilitarArrastre(this);
     }
 
     public Administrador_Grafico(Connection con_e, String tipoPers_e) {
-        if (tipoPers_e.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
-            motoDAO = (JDBCMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.JDBC_MOTOCICLETA.toString(), con_e);
-            garajeDAO = (JDBCGarajeDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.JDBC_GARAJE.toString(), con_e);
-
-            llenarCBGaraje();
-            llenarCBMotos();
-        } else {
-            serialMoto = (SerializarMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.SERIALIZAR_MOTOCICLETA.toString());
-            serialGaraje = (SerializarGarajeDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.SERIALIZAR_GARAJE.toString());
-        }
+        motoDAO = (JDBCMotocicletaDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.JDBC_MOTOCICLETA.toString(), con_e);
+        garajeDAO = (JDBCGarajeDAO) Factorias.FactoriaDAO.crearObjetoDAO(Enumerados.tipoDAO.JDBC_GARAJE.toString(), con_e);
 
         this.con = con_e;
         this.tipoPers = tipoPers_e;
         initComponents();
+
+        llenarCBGaraje();
+        llenarCBMotos();
 
         habilitarArrastre(this);
     }
@@ -82,7 +75,7 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         this.tipoPers = tipoPers_e;
         initComponents();
         llenarCBGaraje();
-//        llenarCBMotos();
+        llenarCBMotos();
 
         habilitarArrastre(this);
     }
@@ -404,7 +397,7 @@ public class Administrador_Grafico extends javax.swing.JFrame {
             agregarMoto_F.setLocationRelativeTo(this);
         } else {
             int aux = serialGaraje.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
-            agregarMoto_F = new AgregarMoto_Grafico(aux, con, tipoPers);
+            agregarMoto_F = new AgregarMoto_Grafico(aux, tipoPers);
             agregarMoto_F.setVisible(true);
             agregarMoto_F.pack();
             agregarMoto_F.setLocationRelativeTo(this);
@@ -461,7 +454,7 @@ public class Administrador_Grafico extends javax.swing.JFrame {
     }
 
     private void llenarCBGaraje() {
-        ArrayList<Garaje> garajes = null;
+        ArrayList<Garaje> garajes;
         if (tipoPers.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
             garajes = garajeDAO.listarGaraje();
         } else {
@@ -476,22 +469,37 @@ public class Administrador_Grafico extends javax.swing.JFrame {
     // Hacer con serializar
     private void llenarCBMotos() {
         CB_motos_Inicio.removeAllItems();
-        try {
-            int aux = garajeDAO.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
-            for (Motocicleta moto : motoDAO.listarMotocicletasGaraje(aux)) {
-                CB_motos_Inicio.addItem(moto.getMarca() + "-" + moto.getMatricula());
+
+        if (tipoPers.equals(Enumerados.metodoPersistencia.JDBC.toString())) {
+            try {
+                int aux = garajeDAO.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
+                for (Motocicleta moto : motoDAO.listarMotocicletasGaraje(aux)) {
+                    CB_motos_Inicio.addItem(moto.getMarca() + "-" + moto.getMatricula());
+                }
+            } catch (MotocicletaExcepcion ex) {
+                JOptionPane.showMessageDialog(this, "No hay Motocicletas en este Garaje");
             }
-        } catch (MotocicletaExcepcion ex) {
-            JOptionPane.showMessageDialog(this, "No hay Motocicletas en este Garaje");
+        } else {
+            try {
+                int aux = serialGaraje.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
+                for (Motocicleta moto : serialMoto.listarMotocicletasGaraje(aux)) {
+                    CB_motos_Inicio.addItem(moto.getMarca() + "-" + moto.getMatricula());
+                }
+            } catch (MotocicletaExcepcion ex) {
+                JOptionPane.showMessageDialog(this, "No hay Motocicletas en este Garaje");
+            }
         }
+
     }
 
     public void actualizarCBMotos() {
         CB_motos_Inicio.removeAllItems();
+
         String garajeSeleccionado = (String) CB_garajes_Inicio.getSelectedItem();
         if (garajeSeleccionado != null) {
             llenarCBMotos();
         }
+
     }
 
     /**

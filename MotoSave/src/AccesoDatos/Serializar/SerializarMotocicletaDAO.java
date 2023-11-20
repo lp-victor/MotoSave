@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 public class SerializarMotocicletaDAO implements MotocicletaDAO {
 
-    private static final String pathDATA = "./serializados/";
+    private static String pathDATA = "./serializados/";
 
-    private static File f = new File(pathDATA);
+    private static File f = null;
     //=========ENTRADA=============
     private static FileInputStream fis = null;
     private static ObjectInputStream ois = null;
@@ -27,8 +27,9 @@ public class SerializarMotocicletaDAO implements MotocicletaDAO {
 
     @Override
     public boolean altaMoto(Motocicleta moto) {
+        f = new File(pathDATA + moto.getIdGaraje() + ".object");
         try {
-            oos = new ObjectOutputStream(new FileOutputStream(f.getPath()+moto.getIdGaraje()+".obj", true));
+            oos = new ObjectOutputStream(new FileOutputStream(f, true));
             oos.writeObject(moto);
             return true;
         } catch (IOException ex) {
@@ -46,7 +47,7 @@ public class SerializarMotocicletaDAO implements MotocicletaDAO {
             for (Motocicleta moto : motocicletas) {
                 if (moto.getMatricula().equals(matricula)) {
                     motocicletas.remove(moto);
-                    guardarMotos(motocicletas);
+//                    guardarMotos(motocicletas);
                     return true;
                 }
             }
@@ -91,7 +92,7 @@ public class SerializarMotocicletaDAO implements MotocicletaDAO {
         if (!encontrada) {
             throw new MotocicletaExcepcion("La motocicleta no se encuentra en el sistema.");
         }
-        guardarMotos(motos);
+//        guardarMotos(motos);
     }
 
     @Override
@@ -119,7 +120,26 @@ public class SerializarMotocicletaDAO implements MotocicletaDAO {
 
     @Override
     public ArrayList<Motocicleta> listarMotocicletasGaraje(int idGaraje) throws MotocicletaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Motocicleta> motos = new ArrayList<>();
+        f = new File(pathDATA+idGaraje+".object");
+        try {
+            fis = new FileInputStream(f);
+            ois = new ObjectInputStream(fis);
+
+            while (true) {
+                try {
+                    Motocicleta moto = (Motocicleta) ois.readObject();
+                    motos.add(moto);
+                } catch (EOFException e) {
+                    break; // Se alcanzó el final del archivo
+                }
+            }
+        } catch (IOException | ClassNotFoundException ex) {
+            ex.printStackTrace(); // Manejo básico de excepciones para depuración
+        } finally {
+            cerrarRecursos();
+        }
+        return motos;
     }
 
     @Override
@@ -127,20 +147,21 @@ public class SerializarMotocicletaDAO implements MotocicletaDAO {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    private void guardarMotos(ArrayList<Motocicleta> motos) {
-        try {
-            fos = new FileOutputStream(pathDATA);
-            oos = new ObjectOutputStream(fos);
-
-            for (Motocicleta moto : motos) {
-                oos.writeObject(moto);
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } finally {
-            cerrarRecursos();
-        }
-    }
+//    private void guardarMotos(ArrayList<Motocicleta> motos) {
+//        f = new File(pathDATA+idGaraje+".object");
+//        try {
+//            fos = new FileOutputStream(pathDATA);
+//            oos = new ObjectOutputStream(fos);
+//
+//            for (Motocicleta moto : motos) {
+//                oos.writeObject(moto);
+//            }
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        } finally {
+//            cerrarRecursos();
+//        }
+//    }
 
     private void cerrarRecursos() {
         try {

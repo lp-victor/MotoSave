@@ -9,6 +9,7 @@ import AuxSerializacion.myOOS;
 import Modelo.Garaje;
 import Modelo.GarajeExcepcion;
 import Modelo.Motocicleta;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,15 +25,16 @@ import java.util.ArrayList;
  */
 public class SerializarGarajeDAO implements GarajeDAO {
 
-    private static final String pathGarajesDATA = "./serializados/garajes.obj";
+    private String pathGarajesDATA = "./serializados/garajes.object";
 
-    private static File f = null;
+    File f ;
+
     //=========ENTRADA=============
-    private static FileInputStream fis = null;
-    private static ObjectInputStream ois = null;
+    private FileInputStream fis = null;
+    private ObjectInputStream ois = null;
     //=========SALIDA=============
-    private static FileOutputStream fos = null;
-    private static ObjectOutputStream oos = null;
+    private FileOutputStream fos = null;
+    private ObjectOutputStream oos = null;
 
     @Override
     public boolean altaGaraje(Garaje garaje) {
@@ -111,70 +113,39 @@ public class SerializarGarajeDAO implements GarajeDAO {
 
     @Override
     public ArrayList<Garaje> listarGaraje() {
-        ArrayList<Garaje> garajes = null;
+        ArrayList<Object> objects = new ArrayList();
 
 //         Hardcodeado a muerte ya nos rayaremos la cabeza
-//        for (int i = 1; i < 4; i++) {
         f = new File(pathGarajesDATA);
 
-        Garaje e;
-        ObjectInputStream ois;
-        FileInputStream fis;
+        Object e;
 
         try {
             fis = new FileInputStream(f);
             ois = new ObjectInputStream(fis);
             while (true) {
-                e = (Garaje) ois.readObject();
-                if (e != null) {
-                    garajes.add(e);
-                }
+                e = ois.readObject();
+                objects.add(e);
+
             }
+        } catch (EOFException ent) {
+            System.out.println("Fichero leido");
         } catch (FileNotFoundException ent) {
             System.out.println("Error, el fichero no se encuentra");
         } catch (ClassNotFoundException ent) {
             System.out.println("Error, la clase no se encuentra");
         } catch (IOException ent) {
-            System.out.println("Error, al leer el fichero");
+            System.out.println("Error, al leer el fichero XXX");
             ent.printStackTrace();
-        } finally {
-            cerrarRecursos();
-//            }
+        }
+        ArrayList<Garaje> garajes = new ArrayList();
+
+        for (Object object : objects) {
+            garajes.add((Garaje) object);
         }
 
         return garajes;
     }
-//    @Override
-//    public ArrayList<Garaje> listarGaraje() {
-//        ArrayList<Garaje> garajes = new ArrayList<>(); // Inicializar la lista de garajes
-//
-////        for (int i = 1; i < 4; i++) {
-////            f = new File(pathGarajesDATA + "/" + i);
-//        f = new File(pathGarajesDATA);
-//        
-//        Object e = null;
-//
-//        try (FileInputStream fis = new FileInputStream(f); ObjectInputStream ois = new ObjectInputStream(fis)) {
-//            while (true) {
-//                e = ois.readObject();
-//                if (e instanceof Garaje) {
-//                    garajes.add((Garaje) e);
-//                }
-//            }
-//        } catch (FileNotFoundException ent) {
-//            System.out.println("Error, el fichero no se encuentra");
-//        } catch (ClassNotFoundException ent) {
-//            System.out.println("Error, la clase no se encuentra");
-//        } catch (IOException ent) {
-//            System.out.println("Error, al leer el fichero");
-//            ent.printStackTrace();
-//        } finally {
-//            cerrarRecursos();
-////            }
-//        }
-//
-//        return garajes;
-//    }
 
     @Override
     public int buscarIdGaraje(String nombreGaraje) {
