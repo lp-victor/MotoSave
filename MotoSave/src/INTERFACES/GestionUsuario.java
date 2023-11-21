@@ -4,6 +4,7 @@
  */
 package INTERFACES;
 
+import Modelo.Usuario;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
@@ -71,4 +72,37 @@ public class GestionUsuario {
         return false;
     }
 
+    
+     public Usuario buscarUsuario(String usuario) {
+        String query = "SELECT * FROM usuarios WHERE nombre= ? ";
+        Usuario aux=null;
+        try (PreparedStatement pstm = con.prepareStatement(query)) {
+            pstm.setString(1, usuario);
+     
+            ResultSet res = pstm.executeQuery();                 
+            aux.setUser(res.getString("nombre"));
+            aux.setIdGaraje(res.getInt("idGaraje"));
+            aux.setIdUsuario(res.getInt("idUsuario"));
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al comprobar el usuario", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+       return aux;
+    }
+     
+     public int buscarVentasUsuario(String usuario) {
+        String query = "SELECT SUM(precio) FROM ventas WHERE idUsuario= ? ";
+        int aux=0;
+        try (PreparedStatement pstm = con.prepareStatement(query)) {
+            pstm.setString(1, usuario);
+     
+            ResultSet res = pstm.executeQuery();                 
+            aux=res.getInt("SUM(precio)");
+           
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al comprobar el usuario", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+       return aux;
+    }
 }

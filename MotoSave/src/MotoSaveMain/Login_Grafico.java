@@ -8,6 +8,7 @@ import Enumerados.metodoPersistencia;
 import INTERFACES.*;
 import InterfacesGraficas.Administrador_Grafico;
 import InterfacesGraficas.Comercial_Grafico;
+import Modelo.Usuario;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,7 +18,7 @@ public class Login_Grafico extends javax.swing.JFrame {
 
     // Atributos clase
     private GestionUsuario gesUser;
-
+    private Usuario user;
     /**
      * Creates new form Login_Grafico
      */
@@ -25,6 +26,8 @@ public class Login_Grafico extends javax.swing.JFrame {
         ConexionBBDD.conectarBBDD();
         gesUser = new GestionUsuario();
         initComponents();
+        
+        
     }
 
     /**
@@ -165,6 +168,7 @@ public class Login_Grafico extends javax.swing.JFrame {
 
     private void B_loguearse_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_loguearse_loginActionPerformed
         if (gesUser.verificarUsuario(TF_Usuario_login.getText(), TF_password_login.getText())) {
+            user= gesUser.buscarUsuario(TF_Usuario_login.getText());// introducir el nombre del usuario
             abrirPantallaUsuario();
         } else {
             JOptionPane.showMessageDialog(null, "El usuario o contraseña es incorrecto.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -209,13 +213,13 @@ public class Login_Grafico extends javax.swing.JFrame {
             // Usuario comercial
             if (CB_tipoPers_Login.getSelectedItem().equals(Enumerados.metodoPersistencia.JDBC.toString())) {
                 // Persistencia mediante JDBC (base de datos)
-                Comercial_Grafico comerGrafico = new Comercial_Grafico(metodoPersistencia.JDBC);
+                Comercial_Grafico comerGrafico = new Comercial_Grafico(metodoPersistencia.JDBC,user);
                 comerGrafico.setVisible(true);
                 comerGrafico.pack();
                 this.dispose();
             } else {
                 // Persistencia en archivos
-                Comercial_Grafico comerGrafico = new Comercial_Grafico(metodoPersistencia.FICHEROS);
+                Comercial_Grafico comerGrafico = new Comercial_Grafico(metodoPersistencia.FICHEROS,user);
                 comerGrafico.setVisible(true);
                 comerGrafico.pack();
                 this.dispose();

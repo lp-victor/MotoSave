@@ -224,5 +224,32 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
     public void moverMoto(Motocicleta moto, Garaje garaje) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    
+    @Override
+    public boolean venderMoto(Motocicleta moto, int idUsuario) {
+        Motocicleta moto_aux = moto;
+        String insert = "INSERT INTO ventas VALUES (?, ?, ?, ?, CURRENT_DATE)"; // Utiliza CURRENT_DATE para obtener la fecha actual
+        try (PreparedStatement pstm = con.prepareStatement(insert)) {
+            con.setAutoCommit(false);
+            pstm.setInt(1, idUsuario);
+            pstm.setInt(2, moto_aux.getIdGaraje());
+            pstm.setString(3, moto_aux.getMatricula());
+            pstm.setInt(4, moto_aux.getPrecio());
+                   
+            pstm.executeUpdate();
+            con.commit();
+        } catch (SQLException e) {
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al realizar el rollback", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            JOptionPane.showMessageDialog(null, "Error al agregar la nueva moto", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
 
 }

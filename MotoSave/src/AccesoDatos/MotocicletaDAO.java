@@ -3,6 +3,7 @@ package AccesoDatos;
 import Modelo.Garaje;
 import Modelo.Motocicleta;
 import Modelo.MotocicletaExcepcion;
+
 import java.util.ArrayList;
 
 /**
@@ -26,6 +27,8 @@ public abstract interface MotocicletaDAO {
     public abstract ArrayList<Motocicleta> listarMotocicletasGaraje(int idGaraje) throws MotocicletaExcepcion; // Tira excepcion si el garaje está vacio.
    
     public abstract void moverMoto(Motocicleta moto, Garaje garaje);
+    
+    public abstract boolean venderMoto(Motocicleta moto, int idUsuario);
     
 
 }

@@ -5,6 +5,7 @@ import AuxSerializacion.myOOS;
 import Modelo.Garaje;
 import Modelo.Motocicleta;
 import Modelo.MotocicletaExcepcion;
+import Modelo.Usuario;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -253,6 +254,11 @@ public class SerializarMotocicletaDAO implements MotocicletaDAO {
         } catch (IOException e) {
             System.err.println("Error al cerrar los recursos: " + e.getMessage());
         }
+    }
+
+    @Override
+    public boolean venderMoto(Motocicleta moto, int idUsuario) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

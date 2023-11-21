@@ -7,9 +7,16 @@ package InterfacesGraficas;
 import AccesoDatos.MotocicletaDAO;
 import Enumerados.metodoPersistencia;
 import Factorias.FactoriaDAO;
+import INTERFACES.GestionUsuario;
+import Modelo.Motocicleta;
+import Modelo.MotocicletaExcepcion;
+import Modelo.Usuario;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,6 +31,8 @@ public class Comercial_Grafico extends javax.swing.JFrame {
     // Atributos clase
     private metodoPersistencia tipoPers;
     private MotocicletaDAO motoDAO;
+    private Usuario user;
+    private GestionUsuario gesUser;
 
     public Comercial_Grafico() {
         initComponents();
@@ -32,13 +41,14 @@ public class Comercial_Grafico extends javax.swing.JFrame {
         actualizarComercialVentas();
     }
 
-    public Comercial_Grafico(metodoPersistencia tipoPers_e) {
+    public Comercial_Grafico(metodoPersistencia tipoPers_e, Usuario user) {
         this.tipoPers = tipoPers_e;
         motoDAO = FactoriaDAO.crearMotocicletaDAO(tipoPers);
         initComponents();
         habilitarArrastre(this);
         listarMotosGarajes();
         actualizarComercialVentas();
+        this.user=user;
     }
 
     /**
@@ -55,7 +65,7 @@ public class Comercial_Grafico extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         L_introduceMatricula_Inicio = new javax.swing.JLabel();
         TF_introMatricula_comercial = new javax.swing.JTextField();
-        B_comprar_moto = new javax.swing.JButton();
+        B_vender_moto = new javax.swing.JButton();
         B_motos_vendidas = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         L_nombre_comercial = new javax.swing.JLabel();
@@ -89,10 +99,10 @@ public class Comercial_Grafico extends javax.swing.JFrame {
             }
         });
 
-        B_comprar_moto.setText("Comprar Motocicleta");
-        B_comprar_moto.addActionListener(new java.awt.event.ActionListener() {
+        B_vender_moto.setText("Vender Motocicleta");
+        B_vender_moto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                B_comprar_motoActionPerformed(evt);
+                B_vender_motoActionPerformed(evt);
             }
         });
 
@@ -148,7 +158,7 @@ public class Comercial_Grafico extends javax.swing.JFrame {
                                 .addComponent(L_cartera_comercial, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(67, 67, 67)
-                        .addComponent(B_comprar_moto, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(B_vender_moto, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -171,7 +181,7 @@ public class Comercial_Grafico extends javax.swing.JFrame {
                     .addComponent(L_introduceMatricula_Inicio)
                     .addComponent(TF_introMatricula_comercial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addComponent(B_comprar_moto)
+                .addComponent(B_vender_moto)
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
@@ -242,9 +252,18 @@ public class Comercial_Grafico extends javax.swing.JFrame {
 
     }//GEN-LAST:event_TF_introMatricula_comercialActionPerformed
 
-    private void B_comprar_motoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_comprar_motoActionPerformed
-
-    }//GEN-LAST:event_B_comprar_motoActionPerformed
+    private void B_vender_motoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_vender_motoActionPerformed
+        Motocicleta aux =null;
+        try {
+            aux = motoDAO.buscarMoto(TF_introMatricula_comercial.getText());
+        } catch (MotocicletaExcepcion ex) {
+            Logger.getLogger(Comercial_Grafico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(aux!=null){
+            motoDAO.venderMoto(aux,user.getIdUsuario()); 
+        }
+        
+    }//GEN-LAST:event_B_vender_motoActionPerformed
 
     private void B_motos_vendidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_motos_vendidasActionPerformed
         DefaultTableModel modeloTabla = estructuraTabla();
@@ -287,7 +306,19 @@ public class Comercial_Grafico extends javax.swing.JFrame {
     private void listarMotosGarajes() {
 
         DefaultTableModel modeloTabla = estructuraTabla();
+        ArrayList<Motocicleta> motos;
+        motos=motoDAO.listarMotocicletas();
+       
+         for (Motocicleta moto :motos) {
+            String matricula = moto.getMatricula();
+            String marca = moto.getMarca();
+            String modelo = moto.getModelo();
+            String color = moto.getColor();
+            String cc = String.valueOf(moto.getCC());
+            int precio = moto.getPrecio();
 
+            modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc, precio});
+         }
         //recorrer todos los garajes y listar todas las motos.
         T_infoMotos_Comercial.setModel(modeloTabla);
     }
@@ -297,8 +328,8 @@ public class Comercial_Grafico extends javax.swing.JFrame {
      * Limpia los textos en los labels L_nombre_comercial y L_cartera_comercial.
      */
     private void actualizarComercialVentas() {
-        L_nombre_comercial.setText("");
-        L_cartera_comercial.setText("");
+        L_nombre_comercial.setText(user.getUser());
+        L_cartera_comercial.setText(String.valueOf(gesUser.buscarVentasUsuario(user.getUser())));
 
     }
 
@@ -372,8 +403,8 @@ public class Comercial_Grafico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton B_comprar_moto;
     private javax.swing.JButton B_motos_vendidas;
+    private javax.swing.JButton B_vender_moto;
     private javax.swing.JLabel L_cartera_comercial;
     private javax.swing.JLabel L_introduceMatricula_Inicio;
     private javax.swing.JLabel L_motosave_MoficarMoto;
