@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
 /**
  * @author victor, Israel, David
  */
-
 public class JDBCMotocicletaDAO implements MotocicletaDAO {
 
     private Connection con;
@@ -224,32 +223,87 @@ public class JDBCMotocicletaDAO implements MotocicletaDAO {
     public void moverMoto(Motocicleta moto, Garaje garaje) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    
+
     @Override
     public boolean venderMoto(Motocicleta moto, int idUsuario) {
         Motocicleta moto_aux = moto;
         String insert = "INSERT INTO ventas VALUES (?, ?, ?, ?, CURRENT_DATE)"; // Utiliza CURRENT_DATE para obtener la fecha actual
         try (PreparedStatement pstm = con.prepareStatement(insert)) {
-            con.setAutoCommit(false);
             pstm.setInt(1, idUsuario);
             pstm.setInt(2, moto_aux.getIdGaraje());
             pstm.setString(3, moto_aux.getMatricula());
             pstm.setInt(4, moto_aux.getPrecio());
-                   
-            pstm.executeUpdate();
-            con.commit();
-        } catch (SQLException e) {
-            try {
-                con.rollback();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error al realizar el rollback", "Error", JOptionPane.ERROR_MESSAGE);
-            }
 
-            JOptionPane.showMessageDialog(null, "Error al agregar la nueva moto", "Error", JOptionPane.ERROR_MESSAGE);
+            pstm.executeUpdate();
+
+        } catch (SQLException e) {           
+            JOptionPane.showMessageDialog(null, "Error al vender la moto", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         return true;
+    }
+
+    @Override
+    public ArrayList<Motocicleta> listarMotosVendidas(int idUsuario) {
+        ArrayList<Motocicleta> motos = new ArrayList();
+        String query = "SELECT mv.idGaraje, mv.matricula, mv.marca, mv.modelo, mv.color, mv.cc, mv.precio FROM motos_vendidas mv INNER JOIN VENTAS v ON mv.idGaraje = v.idGaraje WHERE v.idUsuario = ? GROUP BY mv.matricula";
+
+        try (PreparedStatement pstm = con.prepareStatement(query)) {
+            pstm.setInt(1, idUsuario);
+            ResultSet res = pstm.executeQuery();
+
+            while (res.next()) {
+                Motocicleta moto = new Motocicleta();
+                moto.setIdGaraje(res.getInt("idGaraje"));
+                moto.setMatricula(res.getString("matricula"));
+                moto.setMarca(res.getString("marca"));
+                moto.setModelo(res.getString("modelo"));
+                moto.setColor(res.getString("color"));
+                moto.setCC(res.getInt("cc"));
+                moto.setPrecio(res.getInt("precio"));
+                motos.add(moto);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: No se han podido recuperar las motos vendidas.", "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        return motos;
+    }
+    
+    @Override
+    public ArrayList<Motocicleta> listarMotosVendidasFecha(int idUsuario, int anio, int mes) {
+        ArrayList<Motocicleta> motos = new ArrayList();
+        String query = "SELECT mv.idGaraje, mv.matricula, mv.marca, mv.modelo, mv.color, mv.cc, mv.precio "
+                + "FROM motos_vendidas mv "
+                + "INNER JOIN VENTAS v ON mv.idGaraje = v.idGaraje "
+                + "WHERE v.idUsuario = ? "
+                + "AND YEAR(v.fecha) = ? "
+                + "AND MONTH(v.fecha) = ? "
+                + "GROUP BY mv.matricula";
+
+        try (PreparedStatement pstm = con.prepareStatement(query)) {
+            pstm.setInt(1, idUsuario);
+            pstm.setInt(2, anio);
+            pstm.setInt(3, mes);
+
+            ResultSet res = pstm.executeQuery();
+
+            while (res.next()) {
+                Motocicleta moto = new Motocicleta();
+                moto.setIdGaraje(res.getInt("idGaraje"));
+                moto.setMatricula(res.getString("matricula"));
+                moto.setMarca(res.getString("marca"));
+                moto.setModelo(res.getString("modelo"));
+                moto.setColor(res.getString("color"));
+                moto.setCC(res.getInt("cc"));
+                moto.setPrecio(res.getInt("precio"));
+                motos.add(moto);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: No se han podido recuperar las motos vendidas.", "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        return motos;
     }
 
 }

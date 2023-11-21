@@ -30,5 +30,8 @@ public abstract interface MotocicletaDAO {
     
     public abstract boolean venderMoto(Motocicleta moto, int idUsuario);
     
+    public abstract ArrayList<Motocicleta> listarMotosVendidas(int idUsuario);
+    
+    public ArrayList<Motocicleta> listarMotosVendidasFecha(int idUsuario, int anio, int mes);
 
 }

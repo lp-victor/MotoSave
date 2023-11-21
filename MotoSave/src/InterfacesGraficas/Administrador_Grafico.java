@@ -9,6 +9,7 @@ import AccesoDatos.MotocicletaDAO;
 import Enumerados.metodoPersistencia;
 import Factorias.FactoriaDAO;
 import INTERFACES.ConexionBBDD;
+import INTERFACES.GestionUsuario;
 import Modelo.Garaje;
 import Modelo.Motocicleta;
 import Modelo.MotocicletaExcepcion;
@@ -35,6 +36,7 @@ public class Administrador_Grafico extends javax.swing.JFrame {
     private metodoPersistencia tipoPers;
     private GarajeDAO garajeDAO;
     private MotocicletaDAO motoDAO;
+    private GestionUsuario gesUser;
     //Interfaces
     private AgregarMoto_Grafico agregarMoto_F = new AgregarMoto_Grafico();
     private ModificarMoto_Grafico modificarMoto_F;
@@ -50,11 +52,12 @@ public class Administrador_Grafico extends javax.swing.JFrame {
     public Administrador_Grafico(metodoPersistencia tipoPers_e) {
         motoDAO = FactoriaDAO.crearMotocicletaDAO(tipoPers_e);
         garajeDAO = FactoriaDAO.crearGarajeDAO(tipoPers_e);
-        initComponents();
+        gesUser = new GestionUsuario();
         this.tipoPers = tipoPers_e;
+
+        initComponents();
         llenarCBGaraje();
         llenarCBMotos();
-
         habilitarArrastre(this);
     }
 
@@ -85,6 +88,16 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         S_separador_Inicio = new javax.swing.JSeparator();
         L_motosave_Inicio = new javax.swing.JLabel();
         L_T_nombreGaraje = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        CB_comercial_admin = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        CB_mes_admin = new javax.swing.JComboBox<>();
+        CB_anio_admin = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        TF_totalVentas_Administrador = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(java.awt.Color.darkGray);
@@ -279,6 +292,100 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         L_T_nombreGaraje.setText("Garaje Nombre");
         getContentPane().add(L_T_nombreGaraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 260, 30));
 
+        jPanel1.setBackground(java.awt.Color.darkGray);
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("ESTADISTICAS DE LA EMPRESA");
+
+        CB_comercial_admin.setForeground(new java.awt.Color(255, 255, 255));
+        CB_comercial_admin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1-Luis", "2-Alberto", "3-Manuel" }));
+        CB_comercial_admin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CB_comercial_adminActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Comercial:");
+
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Mes:");
+
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Año:");
+
+        CB_mes_admin.setForeground(new java.awt.Color(255, 255, 255));
+        CB_mes_admin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        CB_mes_admin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CB_mes_adminActionPerformed(evt);
+            }
+        });
+
+        CB_anio_admin.setForeground(new java.awt.Color(255, 255, 255));
+        CB_anio_admin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023" }));
+        CB_anio_admin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CB_anio_adminActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Total de ventas:");
+
+        TF_totalVentas_Administrador.setEditable(false);
+        TF_totalVentas_Administrador.setForeground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(27, 27, 27)
+                        .addComponent(CB_comercial_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(CB_mes_admin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(CB_anio_admin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(TF_totalVentas_Administrador, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(206, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CB_comercial_admin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(CB_mes_admin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CB_anio_admin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(TF_totalVentas_Administrador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 920, 100));
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -395,7 +502,20 @@ public class Administrador_Grafico extends javax.swing.JFrame {
 
     private void B_modificarMoto_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_modificarMoto_InicioActionPerformed
         abrirModificarMoto_grafico();
+        actualizarCBMotos();
     }//GEN-LAST:event_B_modificarMoto_InicioActionPerformed
+
+    private void CB_comercial_adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_comercial_adminActionPerformed
+        cargarInfoComercial();
+    }//GEN-LAST:event_CB_comercial_adminActionPerformed
+
+    private void CB_mes_adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_mes_adminActionPerformed
+        cargarInfoComercial();
+    }//GEN-LAST:event_CB_mes_adminActionPerformed
+
+    private void CB_anio_adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_anio_adminActionPerformed
+        cargarInfoComercial();
+    }//GEN-LAST:event_CB_anio_adminActionPerformed
 
     /**
      * Abre la interfaz gráfica para agregar una motocicleta, obteniendo el
@@ -409,7 +529,8 @@ public class Administrador_Grafico extends javax.swing.JFrame {
         agregarMoto_F.setVisible(true);
         agregarMoto_F.pack();
         agregarMoto_F.setLocationRelativeTo(this);
-
+        
+        actualizarCBMotos();
     }
 
     /**
@@ -464,6 +585,32 @@ public class Administrador_Grafico extends javax.swing.JFrame {
                 }
             }
         });
+    }
+
+    private void cargarInfoComercial() {
+        DefaultTableModel modeloTabla = estructuraTabla();
+
+        String[] comercialSelecionado = (String.valueOf(CB_comercial_admin.getSelectedItem())).split("-");
+        String mes = String.valueOf(CB_mes_admin.getSelectedItem());
+        String anio = String.valueOf(CB_anio_admin.getSelectedItem());
+        TF_totalVentas_Administrador.setText(String.valueOf(gesUser.buscarVentasUsuario(Integer.parseInt(comercialSelecionado[0]), Integer.parseInt(mes), Integer.parseInt(anio))));
+
+        ArrayList<Motocicleta> motosVendidas = motoDAO.listarMotosVendidasFecha(Integer.parseInt(comercialSelecionado[0]), Integer.parseInt(anio), Integer.parseInt(mes));
+        if (motosVendidas != null) {
+            for (Motocicleta moto : motosVendidas) {
+                String matricula = moto.getMatricula();
+                String marca = moto.getMarca();
+                String modelo = moto.getModelo();
+                String color = moto.getColor();
+                String cc = String.valueOf(moto.getCC());
+                int precio = moto.getPrecio();
+
+                modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc, precio});
+            }
+        }
+        L_T_nombreGaraje.setText(comercialSelecionado[1]);
+        T_infoMotos_Inicio.setModel(modeloTabla);
+
     }
 
     /**
@@ -572,7 +719,10 @@ public class Administrador_Grafico extends javax.swing.JFrame {
     private javax.swing.JButton B_listar_Inicio;
     private javax.swing.JButton B_modificarMoto_Inicio;
     private javax.swing.JButton B_salir_Inicio;
+    private javax.swing.JComboBox<String> CB_anio_admin;
+    private javax.swing.JComboBox<String> CB_comercial_admin;
     private javax.swing.JComboBox<String> CB_garajes_Inicio;
+    private javax.swing.JComboBox<String> CB_mes_admin;
     private javax.swing.JComboBox<String> CB_motos_Inicio;
     private javax.swing.JLabel L_T_nombreGaraje;
     private javax.swing.JLabel L_introduceMatricula_Inicio;
@@ -582,7 +732,14 @@ public class Administrador_Grafico extends javax.swing.JFrame {
     private javax.swing.JPanel P_panelUsuario_Incio;
     private javax.swing.JSeparator S_separador_Inicio;
     private javax.swing.JTextField TF_introMatricula_Inicio;
+    private javax.swing.JTextField TF_totalVentas_Administrador;
     private javax.swing.JTable T_infoMotos_Inicio;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

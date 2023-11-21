@@ -18,7 +18,6 @@ public class Login_Grafico extends javax.swing.JFrame {
 
     // Atributos clase
     private GestionUsuario gesUser;
-    private Usuario user;
     /**
      * Creates new form Login_Grafico
      */
@@ -26,8 +25,7 @@ public class Login_Grafico extends javax.swing.JFrame {
         ConexionBBDD.conectarBBDD();
         gesUser = new GestionUsuario();
         initComponents();
-        
-        
+               
     }
 
     /**
@@ -168,8 +166,7 @@ public class Login_Grafico extends javax.swing.JFrame {
 
     private void B_loguearse_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_loguearse_loginActionPerformed
         if (gesUser.verificarUsuario(TF_Usuario_login.getText(), TF_password_login.getText())) {
-            user= gesUser.buscarUsuario(TF_Usuario_login.getText());// introducir el nombre del usuario
-            abrirPantallaUsuario();
+            abrirPantallaUsuario(gesUser.buscarUsuario(TF_Usuario_login.getText()));
         } else {
             JOptionPane.showMessageDialog(null, "El usuario o contraseña es incorrecto.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -193,7 +190,7 @@ public class Login_Grafico extends javax.swing.JFrame {
      * @implSpec Los tipos de persistencia son: JDBC (base de datos) y FICHEROS
      * (persistencia en archivos).
      */
-    private void abrirPantallaUsuario() {
+    private void abrirPantallaUsuario(Usuario user) {
         if (gesUser.admin(TF_Usuario_login.getText(), TF_password_login.getText())) {
             // Usuario administrador
             if (CB_tipoPers_Login.getSelectedItem().equals(Enumerados.metodoPersistencia.JDBC.toString())) {

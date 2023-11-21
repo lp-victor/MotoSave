@@ -9,20 +9,12 @@ package Modelo;
  * @author victo
  */
 public class Usuario {
-    
+
     private boolean admin;
     private String user;
     private String pass;
     private int idGaraje;
     private int idUsuario;
-
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
 
     public Usuario(boolean admin, String user, String pass, int idGaraje) {
         this.admin = admin;
@@ -37,6 +29,14 @@ public class Usuario {
     }
 
     public Usuario() {
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public boolean isAdmin() {
@@ -70,5 +70,5 @@ public class Usuario {
     public void setIdGaraje(int idGaraje) {
         this.idGaraje = idGaraje;
     }
-    
+
 }

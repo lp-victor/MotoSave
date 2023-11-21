@@ -4,6 +4,7 @@
  */
 package InterfacesGraficas;
 
+import AccesoDatos.GarajeDAO;
 import AccesoDatos.MotocicletaDAO;
 import Enumerados.metodoPersistencia;
 import Factorias.FactoriaDAO;
@@ -15,9 +16,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerListModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,6 +37,7 @@ public class Comercial_Grafico extends javax.swing.JFrame {
     // Atributos clase
     private metodoPersistencia tipoPers;
     private MotocicletaDAO motoDAO;
+    private GarajeDAO garajeDAO;
     private Usuario user;
     private GestionUsuario gesUser;
 
@@ -44,11 +51,14 @@ public class Comercial_Grafico extends javax.swing.JFrame {
     public Comercial_Grafico(metodoPersistencia tipoPers_e, Usuario user) {
         this.tipoPers = tipoPers_e;
         motoDAO = FactoriaDAO.crearMotocicletaDAO(tipoPers);
+        garajeDAO = FactoriaDAO.crearGarajeDAO(tipoPers);
+        this.user = user;
+        this.gesUser = new GestionUsuario();
+
         initComponents();
         habilitarArrastre(this);
         listarMotosGarajes();
         actualizarComercialVentas();
-        this.user=user;
     }
 
     /**
@@ -72,8 +82,13 @@ public class Comercial_Grafico extends javax.swing.JFrame {
         L_cartera_comercial = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         S_separador_Inicio = new javax.swing.JSeparator();
-        jPanel3 = new javax.swing.JPanel();
+        B_ListarMotos_Comercial = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        CB_anio_Comercial = new javax.swing.JComboBox<>();
+        CB_mes_Comercial = new javax.swing.JComboBox<>();
+        jPanel3 = new javax.swing.JPanel();
+        L_Motocicletas_Comercial = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         T_infoMotos_Comercial = new javax.swing.JTable();
 
@@ -99,6 +114,7 @@ public class Comercial_Grafico extends javax.swing.JFrame {
             }
         });
 
+        B_vender_moto.setForeground(new java.awt.Color(0, 0, 0));
         B_vender_moto.setText("Vender Motocicleta");
         B_vender_moto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,6 +122,7 @@ public class Comercial_Grafico extends javax.swing.JFrame {
             }
         });
 
+        B_motos_vendidas.setForeground(new java.awt.Color(0, 0, 0));
         B_motos_vendidas.setText("Motocicletas Vendidas");
         B_motos_vendidas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,39 +144,66 @@ public class Comercial_Grafico extends javax.swing.JFrame {
 
         S_separador_Inicio.setForeground(new java.awt.Color(204, 204, 204));
 
+        B_ListarMotos_Comercial.setForeground(new java.awt.Color(0, 0, 0));
+        B_ListarMotos_Comercial.setText("Listar Motos");
+        B_ListarMotos_Comercial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                B_ListarMotos_ComercialActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Mes:");
+
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Año:");
+
+        CB_anio_Comercial.setForeground(new java.awt.Color(255, 255, 255));
+        CB_anio_Comercial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023" }));
+
+        CB_mes_Comercial.setForeground(new java.awt.Color(255, 255, 255));
+        CB_mes_Comercial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(S_separador_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(B_motos_vendidas, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(23, 23, 23)
+                .addComponent(L_introduceMatricula_Inicio)
+                .addGap(34, 34, 34)
+                .addComponent(TF_introMatricula_comercial, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(B_vender_moto, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(S_separador_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(L_introduceMatricula_Inicio)
-                        .addGap(34, 34, 34)
-                        .addComponent(TF_introMatricula_comercial, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(L_nombre_comercial, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(53, 53, 53))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(L_nombre_comercial, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(L_cartera_comercial, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(B_vender_moto, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(L_cartera_comercial, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(B_ListarMotos_Comercial, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(B_motos_vendidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(CB_mes_Comercial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(CB_anio_Comercial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,13 +211,19 @@ public class Comercial_Grafico extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(L_nombre_comercial))
+                    .addComponent(L_nombre_comercial)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(L_cartera_comercial))
-                .addGap(18, 18, 18)
-                .addComponent(B_motos_vendidas)
+                    .addComponent(L_cartera_comercial)
+                    .addComponent(CB_anio_Comercial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CB_mes_Comercial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(B_ListarMotos_Comercial)
+                    .addComponent(B_motos_vendidas))
                 .addGap(18, 18, 18)
                 .addComponent(S_separador_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -182,13 +232,14 @@ public class Comercial_Grafico extends javax.swing.JFrame {
                     .addComponent(TF_introMatricula_comercial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(B_vender_moto)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 65, 367, 270));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel3.setText("MOTOCICLETAS");
+        L_Motocicletas_Comercial.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        L_Motocicletas_Comercial.setForeground(new java.awt.Color(255, 255, 255));
+        L_Motocicletas_Comercial.setText("MOTOCICLETAS");
 
         T_infoMotos_Comercial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -228,14 +279,14 @@ public class Comercial_Grafico extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(177, 177, 177))))
+                        .addComponent(L_Motocicletas_Comercial)
+                        .addGap(180, 180, 180))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(L_Motocicletas_Comercial, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
                 .addContainerGap())
@@ -253,39 +304,67 @@ public class Comercial_Grafico extends javax.swing.JFrame {
     }//GEN-LAST:event_TF_introMatricula_comercialActionPerformed
 
     private void B_vender_motoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_vender_motoActionPerformed
-        Motocicleta aux =null;
+        Motocicleta aux = null;
         try {
             aux = motoDAO.buscarMoto(TF_introMatricula_comercial.getText());
         } catch (MotocicletaExcepcion ex) {
             Logger.getLogger(Comercial_Grafico.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(aux!=null){
-            motoDAO.venderMoto(aux,user.getIdUsuario()); 
+        if (aux != null) {
+            motoDAO.venderMoto(aux, user.getIdUsuario());
+            JOptionPane.showMessageDialog(this, "Motocicleta vendida!");
+            TF_introMatricula_comercial.setText("");
+            listarMotosGarajes();
         }
-        
     }//GEN-LAST:event_B_vender_motoActionPerformed
 
     private void B_motos_vendidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_motos_vendidasActionPerformed
         DefaultTableModel modeloTabla = estructuraTabla();
+        ArrayList<Motocicleta> motosVendidas = null;
+        if (CB_mes_Comercial.getSelectedItem().equals(String.valueOf(0))) {
+            motosVendidas = motoDAO.listarMotosVendidas(user.getIdUsuario());
+        } else {
+            motosVendidas = motoDAO.listarMotosVendidasFecha(user.getIdUsuario(), Integer.parseInt((String) CB_anio_Comercial.getSelectedItem()), Integer.parseInt((String) CB_mes_Comercial.getSelectedItem()));
+        }
 
-//        try {
-//            int aux = garajeAux.buscarIdGaraje(String.valueOf(CB_garajes_Inicio.getSelectedItem()));
-//            for (Motocicleta moto : motoAux.listarMotocicletasGaraje(aux)) {
-//                String matricula = moto.getMatricula();
-//                String marca = moto.getMarca();
-//                String modelo = moto.getModelo();
-//                String color = moto.getColor();
-//                String cc = String.valueOf(moto.getCC());
-//
-//                modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc});
-//            }
-//            L_T_nombreGaraje.setText(garajeAux.buscarGaraje(aux).getSucursal());
-//            T_infoMotos_Inicio.setModel(modeloTabla);
-//        } catch (MotocicletaExcepcion ex) {
-//            JOptionPane.showMessageDialog(this, "No hay Motocicletas en este Garaje");
-//        }
+        if (motosVendidas != null) {
+            for (Motocicleta moto : motosVendidas) {
+                String matricula = moto.getMatricula();
+                String marca = moto.getMarca();
+                String modelo = moto.getModelo();
+                String color = moto.getColor();
+                String cc = String.valueOf(moto.getCC());
+                String precio = String.valueOf(moto.getPrecio());
+
+                modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc, precio});
+            }
+            L_Motocicletas_Comercial.setText("Motocicletas Vendidas");
+            actualizarComercialVentas();
+            T_infoMotos_Comercial.setModel(modeloTabla);
+        }
+
+        CB_anio_Comercial.setSelectedItem((int) 0);
+        CB_mes_Comercial.setSelectedItem((int) 0);
     }//GEN-LAST:event_B_motos_vendidasActionPerformed
 
+    private void B_ListarMotos_ComercialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ListarMotos_ComercialActionPerformed
+        DefaultTableModel modeloTabla = estructuraTabla();
+
+        for (Motocicleta moto : motoDAO.listarMotocicletas()) {
+            String matricula = moto.getMatricula();
+            String marca = moto.getMarca();
+            String modelo = moto.getModelo();
+            String color = moto.getColor();
+            String cc = String.valueOf(moto.getCC());
+            String precio = String.valueOf(moto.getPrecio());
+
+            modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc, precio});
+        }
+        L_Motocicletas_Comercial.setText("Motocicletas Disponibles");
+        T_infoMotos_Comercial.setModel(modeloTabla);
+    }//GEN-LAST:event_B_ListarMotos_ComercialActionPerformed
+
+    // Poner columna con idSucursal
     private DefaultTableModel estructuraTabla() {
         DefaultTableModel modeloTabla = new DefaultTableModel();
         modeloTabla.addColumn("Matrícula");
@@ -307,9 +386,10 @@ public class Comercial_Grafico extends javax.swing.JFrame {
 
         DefaultTableModel modeloTabla = estructuraTabla();
         ArrayList<Motocicleta> motos;
-        motos=motoDAO.listarMotocicletas();
-       
-         for (Motocicleta moto :motos) {
+
+        motos = motoDAO.listarMotocicletas();
+
+        for (Motocicleta moto : motos) {
             String matricula = moto.getMatricula();
             String marca = moto.getMarca();
             String modelo = moto.getModelo();
@@ -318,7 +398,7 @@ public class Comercial_Grafico extends javax.swing.JFrame {
             int precio = moto.getPrecio();
 
             modeloTabla.addRow(new Object[]{matricula, marca, modelo, color, cc, precio});
-         }
+        }
         //recorrer todos los garajes y listar todas las motos.
         T_infoMotos_Comercial.setModel(modeloTabla);
     }
@@ -329,7 +409,11 @@ public class Comercial_Grafico extends javax.swing.JFrame {
      */
     private void actualizarComercialVentas() {
         L_nombre_comercial.setText(user.getUser());
-        L_cartera_comercial.setText(String.valueOf(gesUser.buscarVentasUsuario(user.getUser())));
+        if (CB_mes_Comercial.getSelectedItem().equals(String.valueOf(0))) {
+            L_cartera_comercial.setText(String.valueOf(gesUser.buscarVentasUsuario(user.getIdUsuario())));
+        } else {
+            L_cartera_comercial.setText(String.valueOf(gesUser.buscarVentasUsuario(user.getIdUsuario(), Integer.parseInt((String) CB_mes_Comercial.getSelectedItem()), Integer.parseInt((String) CB_anio_Comercial.getSelectedItem()))));
+        }
 
     }
 
@@ -403,8 +487,12 @@ public class Comercial_Grafico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton B_ListarMotos_Comercial;
     private javax.swing.JButton B_motos_vendidas;
     private javax.swing.JButton B_vender_moto;
+    private javax.swing.JComboBox<String> CB_anio_Comercial;
+    private javax.swing.JComboBox<String> CB_mes_Comercial;
+    private javax.swing.JLabel L_Motocicletas_Comercial;
     private javax.swing.JLabel L_cartera_comercial;
     private javax.swing.JLabel L_introduceMatricula_Inicio;
     private javax.swing.JLabel L_motosave_MoficarMoto;
@@ -413,6 +501,7 @@ public class Comercial_Grafico extends javax.swing.JFrame {
     private javax.swing.JTextField TF_introMatricula_comercial;
     private javax.swing.JTable T_infoMotos_Comercial;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;

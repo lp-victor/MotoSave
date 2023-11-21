@@ -258,16 +258,19 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
 
         if ((TF_matricula_AgregarMoto.getText().isBlank()) || (TF_matricula_AgregarMoto.getText() == null)) {
             JOptionPane.showMessageDialog(this, "La matricula no puede estar vacia.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         // Verificar si la matrícula cumple formato
         if (!INTERFACES.Entradable.validarMatricula(TF_matricula_AgregarMoto.getText())) {
             JOptionPane.showMessageDialog(this, "La matricula no cumple con el formato requerido. Ej: 1234ABC", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         //controlar que la marca, el modelo no esten vacios
         if (TF_marca_AgregarMoto.getText().isBlank() || TF_modelo_AgregarMoto.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "La marca y el modelo no pueden estar vacios", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         Marca = TF_marca_AgregarMoto.getText();
@@ -275,6 +278,7 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
 
         if (TF_CC_AgregarMoto.getText().isBlank() && TF_precio_AgregarMoto.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "La CC y el precio no pueden estar vacios", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         // Control CC y Precio
         if (INTERFACES.Entradable.esInt(TF_CC_AgregarMoto.getText()) && INTERFACES.Entradable.esInt(TF_precio_AgregarMoto.getText())) {
@@ -282,6 +286,7 @@ public class AgregarMoto_Grafico extends javax.swing.JFrame {
             precio = Integer.parseInt(TF_precio_AgregarMoto.getText());
         } else {
             JOptionPane.showMessageDialog(this, "Solo puede introducir numeros en los campos 'CC' y 'Precio'.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         try {
