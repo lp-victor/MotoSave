@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.motosave;
+package com.Motosave.motosave;
+
+import persistencia.HibernateConfig;
 
 /**
  *
@@ -12,5 +14,8 @@ public class Motosave {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
+        
+        HibernateConfig hc = new HibernateConfig();
+        
     }
 }

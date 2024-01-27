@@ -1,89 +1,67 @@
 
 package Modelos;
 
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapKeyColumn;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author victo
  */
+@Entity
+@Table(name = "venta")
 public class Venta {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id_venta;
+    
+    @Temporal(TemporalType.DATE)
+    private Date fecha_venta;
+    //private enum descuento;
+    
+    // Relación con Comercial (una venta pertenece a un comercial)
+    @ManyToOne
+    @JoinColumn(name = "comercial_id")
+    private Comercial comercial;
+    private String n_bastidor_moto;
+    private double precio_moto; // precio_moto = precio_compra * beneficio.
+    
+    @ElementCollection // Necesario para mapear una coleccion de elementos en hibernate.
+    @CollectionTable(name = "info_cliente", joinColumns = @JoinColumn(name = "id_venta"))
+    @MapKeyColumn(name = "Info")
+    @Column(name = "Detalles")
+    private Map<String, String> datos_cliente = new HashMap<>();
+    private double precio_final; //precio_final = precio_moto * descuento.
 
-    private double porcBeneficio = 1.40;
-
-    private Cliente comprador;
-    private Usuario vendedor;
-    private Concesionario lugarVenta;
-    private Motocicleta motocicletaVendida;
-    private double descuento;
-    private double totalVenta;
-
-    public Venta(Cliente comprador, Usuario vendedor, Concesionario lugarVenta, Motocicleta motocicletaVendida, double descuento) {
-        this.comprador = comprador;
-        this.vendedor = vendedor;
-        this.lugarVenta = lugarVenta;
-        this.descuento = descuento;
-        this.motocicletaVendida = motocicletaVendida;
-        setTotalVenta();
-    }
-
-    public double getPorcBeneficio() {
-        return porcBeneficio;
-    }
-
-    public void setPorcBeneficio(double porcBeneficio) {
-        this.porcBeneficio = porcBeneficio;
-    }
-
-    public Cliente getComprador() {
-        return comprador;
-    }
-
-    public void setComprador(Cliente comprador) {
-        this.comprador = comprador;
-    }
-
-    public Usuario getVendedor() {
-        return vendedor;
-    }
-
-    public void setVendedor(Usuario vendedor) {
-        this.vendedor = vendedor;
-    }
-
-    public Concesionario getLugarVenta() {
-        return lugarVenta;
-    }
-
-    public void setLugarVenta(Concesionario lugarVenta) {
-        this.lugarVenta = lugarVenta;
-    }
-
-    public Motocicleta getMotocicletaVendida() {
-        return motocicletaVendida;
-    }
-
-    public void setMotocicletaVendida(Motocicleta motocicletaVendida) {
-        this.motocicletaVendida = motocicletaVendida;
-    }
-
-    public double getDescuento() {
-        return descuento;
-    }
-
-    public void setDescuento(double descuento) {
-        this.descuento = descuento;
-    }
-
-    public double getTotalVenta() {
-        return totalVenta;
-    }
-
-    private void setTotalVenta() {
-        this.totalVenta = (motocicletaVendida.getPrecioCosteMoto() * porcBeneficio) - ((motocicletaVendida.getPrecioCosteMoto() * porcBeneficio) * descuento);;
-    }
-
-    @Override
-    public String toString() {
-        return "Venta{" + "porcBeneficio=" + porcBeneficio + ", comprador=" + comprador + ", vendedor=" + vendedor + ", lugarVenta=" + lugarVenta + ", motocicletaVendida=" + motocicletaVendida + ", descuento=" + descuento + ", totalVenta=" + totalVenta + '}';
+    // Lo unico que introduce el comercial es el mapa de los datos del cliente, el resto de datos se autogestionan en el back.
+    public Venta(Comercial comercial, String n_bastidor_moto, double precio_moto, Map<String, String> datos_cliente, double precio_final) {
+        this.fecha_venta = new Date();
+        this.comercial = comercial; 
+        this.n_bastidor_moto = n_bastidor_moto;
+        this.precio_moto = precio_moto;
+        this.datos_cliente = datos_cliente;
+        this.precio_final = precio_final;
     }
     
+    public String getFormattedFecha() {
+        // Formatear la fecha según el formato AA-mm-DD
+        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+        return sdf.format(fecha_venta);
+    }
 }
