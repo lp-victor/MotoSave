@@ -1,5 +1,6 @@
 package Modelos;
 
+import DATA.LOAD;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,8 +17,6 @@ import jakarta.persistence.Table;
 @Table(name = "motocicleta")
 public class Motocicleta {
     
-    private final String modelo_n_bastidor = "1VID826MS33A";
-    private final double beneficio = 1.35;
 
     // Relación con Concesionario (muchas motos pertenecen a un concesionario)
     @ManyToOne
@@ -26,9 +25,9 @@ public class Motocicleta {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_moto;
+    private int id_moto = 0;
     
-    private String n_bastidor;
+//  private String n_bastidor;
     private String marca;
     private String modelo;
     private String color;
@@ -44,7 +43,7 @@ public class Motocicleta {
         this.color = color;
         this.cc = cc;
         this.precio_compra = precio_compra;
-        this.precio_venta = precio_compra * beneficio;
+        this.precio_venta = precio_compra * LOAD.beneficio;
     }
 
 //    private String generarNumeroBastidorAleatorio() {

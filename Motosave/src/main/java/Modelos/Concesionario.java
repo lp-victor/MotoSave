@@ -34,8 +34,7 @@ public class Concesionario {
     @OneToMany(mappedBy = "concesionario")
     private ArrayList<Motocicleta> inventario;
 
-    public Concesionario(int id_concesionario, String ubicacion, ArrayList<Comercial> comerciales, ArrayList<Motocicleta> inventario) {
-        this.id_concesionario = id_concesionario;
+    public Concesionario(String ubicacion, ArrayList<Comercial> comerciales, ArrayList<Motocicleta> inventario) {
         this.ubicacion = ubicacion;
         this.comerciales = comerciales;
         this.inventario = inventario;

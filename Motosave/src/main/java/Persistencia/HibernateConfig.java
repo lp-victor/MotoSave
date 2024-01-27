@@ -1,9 +1,9 @@
-
 package persistencia;
 
 import jakarta.persistence.*;
 
 public class HibernateConfig {
+
     private EntityManagerFactory factory;
     private EntityManager entityManager;
 
@@ -22,8 +22,8 @@ public class HibernateConfig {
     public EntityManager getEntityManager() {
         return entityManager = new HibernateConfig().getFactory().createEntityManager();
     }
-    
-    public void closeConnection(){
+
+    public void closeConnection() {
         entityManager.close();
         factory.close();
     }

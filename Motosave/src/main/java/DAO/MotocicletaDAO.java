@@ -4,10 +4,27 @@
  */
 package DAO;
 
+import Modelos.Motocicleta;
+import jakarta.persistence.EntityManager;
+import java.util.ArrayList;
+import persistencia.HibernateConfig;
+
 /**
  *
  * @author victo
  */
 public interface MotocicletaDAO {
-    
+
+    public abstract void guardarMoto(Motocicleta moto, EntityManager em);
+
+    public abstract void actualizarMoto(Motocicleta moto, EntityManager em);
+
+    public abstract void eliminarMoto(Motocicleta moto, EntityManager em);
+
+    public abstract Motocicleta obtenerMotoId(int id_moto, EntityManager em);
+
+    public abstract ArrayList<Motocicleta> listarMotos(EntityManager em);
+
+    public abstract ArrayList<Motocicleta> listarMotosConcesionario(int id_concesionario, EntityManager em);
+
 }

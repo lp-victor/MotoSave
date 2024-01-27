@@ -4,10 +4,34 @@
  */
 package ImplementacionesDAO;
 
+import DAO.ConcesionarioDAO;
+import Modelos.Concesionario;
+import jakarta.persistence.EntityManager;
+
 /**
  *
  * @author victo
  */
-public class ImpConcesionarioDAO {
-    
+public class ImpConcesionarioDAO implements ConcesionarioDAO {
+
+    @Override
+    public void agregarConcesionario(Concesionario conc, EntityManager entityManager) {
+
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(conc);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    @Override
+    public void eliminarConcesionario(EntityManager em) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

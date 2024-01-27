@@ -4,10 +4,16 @@
  */
 package DAO;
 
+import Modelos.Concesionario;
+import jakarta.persistence.EntityManager;
+
 /**
  *
  * @author victo
  */
 public interface ConcesionarioDAO {
+    
+    public abstract void agregarConcesionario(Concesionario conc, EntityManager em);
+    public abstract void eliminarConcesionario(EntityManager em);
     
 }
