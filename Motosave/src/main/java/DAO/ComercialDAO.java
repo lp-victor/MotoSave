@@ -8,6 +8,6 @@ package DAO;
  *
  * @author victo
  */
-public interface ComcercialDAO {
+public interface ComercialDAO {
     
 }

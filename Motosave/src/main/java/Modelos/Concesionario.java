@@ -32,6 +32,9 @@ public class Concesionario {
     @OneToMany(mappedBy = "concesionario")
     private List<Motocicleta> inventario;
 
+    public Concesionario() {
+    }
+
     public Concesionario(String ubicacion) {
         this.ubicacion = ubicacion;  
         this.comerciales = new ArrayList<>();  
@@ -72,7 +75,7 @@ public class Concesionario {
 
     @Override
     public String toString() {
-        return "Concesionario{" + "id_concesionario=" + id_concesionario + ", ubicacion=" + ubicacion + ", comerciales=" + comerciales + ", inventario=" + inventario + '}';
+        return "Concesionario{" + "id_concesionario=" + id_concesionario + ", ubicacion=" + ubicacion + '}';
     }
 
     public void agregarMotocicleta(Motocicleta moto,EntityManager entityManager) {

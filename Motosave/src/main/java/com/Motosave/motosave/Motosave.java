@@ -19,8 +19,7 @@ public class Motosave {
     public static void main(String[] args) {
         //EL arraylist podemos quitarlo de los modelos ya que las tabalas hacen esa funcion de 
         //relacion con las motos y los conesionarios mediante la id.
-        
-        
+
 //        HibernateConfig hibernateConfig = new HibernateConfig();
 //
 //        EntityManager em = hibernateConfig.getEntityManager();
@@ -41,45 +40,45 @@ public class Motosave {
 //        motoDAO.guardarMoto(moto1, em);
 //
 //        hibernateConfig.closeConnection();
-
         HibernateConfig hibernateConfig = new HibernateConfig();
         EntityManager em = hibernateConfig.getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
 
-        try {
-            transaction.begin();
 
-            // Crear concesionarios
-            Concesionario c1 = new Concesionario("Madrid");
-            Concesionario c2 = new Concesionario("Sevilla");
+        ImpConcesionarioDAO conceDao = new ImpConcesionarioDAO();
+        ImpMotocicletaDAO motoDAO = new ImpMotocicletaDAO();
 
-            Motocicleta moto1 = new Motocicleta("Yamaha", "T-Max", "Negro", 660, 9850);
-            Motocicleta moto2 = new Motocicleta("Honda", "CBR", "Rojo", 1200, 11000);
+        Motocicleta m1 = null;
+        ArrayList<Motocicleta> motos = null;
 
-           
-            // Guardar el concesionario y la motocicleta en la base de datos
-            ImpConcesionarioDAO conceDao = new ImpConcesionarioDAO();
-            conceDao.agregarConcesionario(c1, em);
-            conceDao.agregarConcesionario(c2, em);
-             
-            c1.agregarMotocicleta(moto1,em);
-            c2.agregarMotocicleta(moto2,em);
+        motos = motoDAO.listarMotosConcesionario(1,em);
 
-            //he metido los metodos de guardar motos en la bse de  datos en un metodo en concesioanrio para que las guarde.
-//            ImpMotocicletaDAO motoDAO = new ImpMotocicletaDAO();
-//            motoDAO.guardarMoto(moto1, em);
-//            motoDAO.guardarMoto(moto2, em);
-
-            transaction.commit();
-            System.out.println("Transacción completada con éxito.");
-
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            em.close();
+        for (Motocicleta moto : motos) {
+            System.out.println(moto.toString());
         }
+
     }
 }
+
+//            // Crear concesionarios
+//            Concesionario c1 = new Concesionario("Madrid");
+//            Concesionario c2 = new Concesionario("Sevilla");
+//
+//            Motocicleta moto1 = new Motocicleta("Yamaha", "T-Max", "Negro", 660, 9850);
+//            Motocicleta moto2 = new Motocicleta("Honda", "CBR", "Rojo", 1200, 11000);
+//
+//            // Guardar el concesionario y la motocicleta en la base de datos
+//            conceDao.agregarConcesionario(c1, em);
+//            conceDao.agregarConcesionario(c2, em);
+//
+//            c1.agregarMotocicleta(moto1, em);
+//            c2.agregarMotocicleta(moto2, em);
+//
+//            //he metido los metodos de guardar motos en la bse de  datos en un metodo en concesioanrio para que las guarde.
+//            motoDAO.guardarMoto(moto1, em);
+//            motoDAO.guardarMoto(moto2, em);
+//
+//            motos = motoDAO.listarMotos(em);
+//
+//            m1 = motoDAO.obtenerMotoId(1, em);
+//            transaction.commit();
+//            System.out.println("Transacción completada con éxito.");

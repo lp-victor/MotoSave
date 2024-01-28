@@ -22,16 +22,22 @@ public class LOAD {
     public static String modelo_n_bastidor = "1VID826MS33A";
     public static double beneficio = 1.35;
     
-//    Concesionario Granada = new Concesionario("Granada", new ArrayList<Comercial>(), new ArrayList<Motocicleta>());
-//    Concesionario Madrid = new Concesionario("Madrid", new ArrayList<Comercial>(), new ArrayList<Motocicleta>());
-//    Concesionario Barcelona = new Concesionario("Barcelona", new ArrayList<Comercial>(), new ArrayList<Motocicleta>());
+    Concesionario Granada = new Concesionario("Granada");
+    Concesionario Madrid = new Concesionario("Madrid");
+    Concesionario Barcelona = new Concesionario("Barcelona");
+    
+    
+    
     
     public LOAD(EntityManager entityManager) {
-//       concDAO.agregarConcesionario(Granada, entityManager);
-//       concDAO.agregarConcesionario(Madrid, entityManager);
-//       concDAO.agregarConcesionario(Barcelona, entityManager);
+        
+       concDAO.agregarConcesionario(Granada, entityManager);
+       concDAO.agregarConcesionario(Madrid, entityManager);
+       concDAO.agregarConcesionario(Barcelona, entityManager);
        
     }
+    
+
 
     
 }

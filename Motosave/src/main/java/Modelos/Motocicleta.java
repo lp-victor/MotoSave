@@ -14,15 +14,14 @@ public class Motocicleta {
     
 
     // Relación con Concesionario (muchas motos pertenecen a un concesionario)
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "concesionario_id")
     private Concesionario concesionario;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_moto = 0;
+    private int id_moto;
     
-//  private String n_bastidor;
     private String marca;
     private String modelo;
     private String color;
@@ -30,22 +29,17 @@ public class Motocicleta {
     private double precio_venta;
     private double precio_compra;
 
+    public Motocicleta() {
+    }
+    
     public Motocicleta(String marca, String modelo, String color, int cc, double precio_compra) {
-//        this.n_bastidor = generarNumeroBastidorAleatorio();
         this.marca = marca;
         this.modelo = modelo;
         this.color = color;
         this.cc = cc;
         this.precio_compra = precio_compra;
-        this.precio_venta = precio_compra * LOAD.beneficio;
+        this.precio_venta = Math.round(precio_compra * LOAD.beneficio);
     }
-
-//    private String generarNumeroBastidorAleatorio() {
-//        // Añadir al numero de bastidor el id_moto para que sea diferente el numero de bastidor
-//        // Falta un get del id moto para que le llegue a esta función y genere el nº de bastidor
-//        
-//        return  modelo_n_bastidor + ;
-//    }
 
     public Concesionario getConcesionario() {
         return concesionario;
@@ -110,6 +104,12 @@ public class Motocicleta {
     public void setPrecio_compra(double precio_compra) {
         this.precio_compra = precio_compra;
     }
+
+    @Override
+    public String toString() {
+        return "Motocicleta{" + "id_moto=" + id_moto + ", marca=" + marca + ", modelo=" + modelo + ", color=" + color + ", cc=" + cc + ", precio_venta=" + precio_venta + ", precio_compra=" + precio_compra + '}';
+    }
+    
     
     
 }

@@ -8,6 +8,8 @@ import DAO.MotocicletaDAO;
 import Modelos.Concesionario;
 import Modelos.Motocicleta;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import persistencia.HibernateConfig;
 
@@ -17,19 +19,6 @@ import persistencia.HibernateConfig;
  */
 public class ImpMotocicletaDAO implements MotocicletaDAO {
 
-//    @Override
-//    public void guardarMoto(Motocicleta moto, EntityManager entityManager) {
-//        
-//        try (entityManager) {
-//            entityManager.getTransaction().begin();
-//            entityManager.persist(moto);
-//            entityManager.getTransaction().commit();
-//            System.out.println("Transacción completada con éxito.");
-//        } catch (Exception e) {
-//            entityManager.getTransaction().rollback();
-//            e.printStackTrace();
-//        }
-//    }
     @Override
     public void guardarMoto(Motocicleta moto, EntityManager entityManager) {
         try {
@@ -64,15 +53,25 @@ public class ImpMotocicletaDAO implements MotocicletaDAO {
 
     @Override
     public Motocicleta obtenerMotoId(int id_moto, EntityManager entityManager) {
-        try (entityManager) {
-            return entityManager.find(Motocicleta.class, id_moto);
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        try {
+            Motocicleta motocicleta = entityManager.find(Motocicleta.class, id_moto);
+            transaction.commit();
+            return motocicleta;
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw e;
         }
     }
 
     @Override
     public ArrayList<Motocicleta> listarMotos(EntityManager entityManager) {
         try {
-            return new ArrayList(entityManager.createQuery("FROM Moto", Motocicleta.class).getResultList());
+            return new ArrayList<>(entityManager.createQuery("SELECT m FROM Motocicleta m", Motocicleta.class).getResultList());
         } finally {
             entityManager.close();
         }
@@ -82,9 +81,9 @@ public class ImpMotocicletaDAO implements MotocicletaDAO {
     public ArrayList<Motocicleta> listarMotosConcesionario(int id_concesionario, EntityManager entityManager) {
         try {
             // Consulta para obtener todas las motos asociadas a un concesionario específico
-            String jpql = "SELECT m FROM Moto m JOIN m.concesionario c WHERE c.id = :concesionarioId";
+            String jpql = "SELECT m FROM Motocicleta m JOIN m.concesionario c WHERE c.id = :id_concesionario";
             return new ArrayList(entityManager.createQuery(jpql, Motocicleta.class)
-                    .setParameter("concesionarioId", id_concesionario)
+                    .setParameter("id_concesionario", id_concesionario)
                     .getResultList());
         } finally {
             entityManager.close();
