@@ -4,6 +4,7 @@
  */
 package DAO;
 
+import Modelos.Concesionario;
 import Modelos.Motocicleta;
 import jakarta.persistence.EntityManager;
 import java.util.ArrayList;

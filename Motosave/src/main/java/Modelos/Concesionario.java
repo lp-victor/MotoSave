@@ -4,13 +4,10 @@
  */
 package Modelos;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import ImplementacionesDAO.ImpMotocicletaDAO;
+import jakarta.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -22,22 +19,23 @@ public class Concesionario {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_concesionario")
     private int id_concesionario;
     
     private String ubicacion;
     
      // Relación con Comercial (un concesionario tiene muchos comerciales)
     @OneToMany(mappedBy = "concesionario")
-    private ArrayList<Comercial> comerciales;
+    private List<Comercial> comerciales;
     
     // Relación con Moto (un concesionario tiene muchas motos)
     @OneToMany(mappedBy = "concesionario")
-    private ArrayList<Motocicleta> inventario;
+    private List<Motocicleta> inventario;
 
-    public Concesionario(String ubicacion, ArrayList<Comercial> comerciales, ArrayList<Motocicleta> inventario) {
-        this.ubicacion = ubicacion;
-        this.comerciales = comerciales;
-        this.inventario = inventario;
+    public Concesionario(String ubicacion) {
+        this.ubicacion = ubicacion;  
+        this.comerciales = new ArrayList<>();  
+        this.inventario = new ArrayList<>();
     }
 
     public int getId_concesionario() {
@@ -56,7 +54,7 @@ public class Concesionario {
         this.ubicacion = ubicacion;
     }
 
-    public ArrayList<Comercial> getComerciales() {
+    public List<Comercial> getComerciales() {
         return comerciales;
     }
 
@@ -64,7 +62,7 @@ public class Concesionario {
         this.comerciales = comerciales;
     }
 
-    public ArrayList<Motocicleta> getInventario() {
+    public List<Motocicleta> getInventario() {
         return inventario;
     }
 
@@ -75,6 +73,19 @@ public class Concesionario {
     @Override
     public String toString() {
         return "Concesionario{" + "id_concesionario=" + id_concesionario + ", ubicacion=" + ubicacion + ", comerciales=" + comerciales + ", inventario=" + inventario + '}';
+    }
+
+    public void agregarMotocicleta(Motocicleta moto,EntityManager entityManager) {
+        moto.setConcesionario(this);
+        inventario.add(moto);
+        ImpMotocicletaDAO motoDAO = new ImpMotocicletaDAO();
+        motoDAO.guardarMoto(moto, entityManager);
+            
+    }
+    
+    public void agregarComercial(Comercial comercial) {
+        comercial.setConcesionario(this);
+        comerciales.add(comercial);
     }
     
 }

@@ -22,10 +22,10 @@ public class ImpConcesionarioDAO implements ConcesionarioDAO {
             entityManager.persist(conc);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
             e.printStackTrace();
-        } finally {
-            entityManager.close();
         }
     }
 

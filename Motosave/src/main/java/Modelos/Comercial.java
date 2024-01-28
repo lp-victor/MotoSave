@@ -44,8 +44,7 @@ public class Comercial {
     private String apellido;
     private double salario; // Campo calculado con las ventas realizadas
 
-    public Comercial(Concesionario concesionario, String usuario, String contraseña, String NIF, String nombre, String apellido) {
-        this.concesionario = concesionario;
+    public Comercial(String usuario, String contraseña, String NIF, String nombre, String apellido) {
         this.usuario = usuario;
         setContraseña(contraseña);
         this.NIF = NIF;

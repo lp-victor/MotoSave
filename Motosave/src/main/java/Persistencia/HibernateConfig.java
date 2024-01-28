@@ -20,7 +20,7 @@ public class HibernateConfig {
     }
 
     public EntityManager getEntityManager() {
-        return entityManager = new HibernateConfig().getFactory().createEntityManager();
+        return factory.createEntityManager();
     }
 
     public void closeConnection() {

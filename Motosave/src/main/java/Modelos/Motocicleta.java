@@ -1,13 +1,8 @@
 package Modelos;
 
 import DATA.LOAD;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 
 /**
  *
@@ -35,8 +30,7 @@ public class Motocicleta {
     private double precio_venta;
     private double precio_compra;
 
-    public Motocicleta(Concesionario concesionario,  String marca, String modelo, String color, int cc, double precio_compra) {
-        this.concesionario = concesionario;
+    public Motocicleta(String marca, String modelo, String color, int cc, double precio_compra) {
 //        this.n_bastidor = generarNumeroBastidorAleatorio();
         this.marca = marca;
         this.modelo = modelo;
@@ -52,6 +46,70 @@ public class Motocicleta {
 //        
 //        return  modelo_n_bastidor + ;
 //    }
+
+    public Concesionario getConcesionario() {
+        return concesionario;
+    }
+
+    public void setConcesionario(Concesionario concesionario) {
+        this.concesionario = concesionario;
+    }
+
+    public int getId_moto() {
+        return id_moto;
+    }
+
+    public void setId_moto(int id_moto) {
+        this.id_moto = id_moto;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public int getCc() {
+        return cc;
+    }
+
+    public void setCc(int cc) {
+        this.cc = cc;
+    }
+
+    public double getPrecio_venta() {
+        return precio_venta;
+    }
+
+    public void setPrecio_venta(double precio_venta) {
+        this.precio_venta = precio_venta;
+    }
+
+    public double getPrecio_compra() {
+        return precio_compra;
+    }
+
+    public void setPrecio_compra(double precio_compra) {
+        this.precio_compra = precio_compra;
+    }
     
     
 }
