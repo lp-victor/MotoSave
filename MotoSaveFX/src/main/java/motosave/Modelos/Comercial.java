@@ -13,10 +13,6 @@ import java.util.ArrayList;
 @Table(name = "comercial")
 public class Comercial {
 
-    // Salario base para poder calcular un plus por ventas.
-    // 100€ x 10 motos vendidas o % por nº de ventas.
-    private final double salarioBase = 1400;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_comercial;
@@ -27,8 +23,6 @@ public class Comercial {
     private Concesionario concesionario;
 
     // Relación con Venta (un comercial realiza muchas ventas)
-    @OneToMany(mappedBy = "comercial")
-    private ArrayList<Venta> ventas;
 
     private String usuario;
     private String contraseña; // Encriptarlos MD-5
@@ -63,14 +57,6 @@ public class Comercial {
 
     public void setConcesionario(Concesionario concesionario) {
         this.concesionario = concesionario;
-    }
-
-    public ArrayList<Venta> getVentas() {
-        return ventas;
-    }
-
-    public void setVentas(ArrayList<Venta> ventas) {
-        this.ventas = ventas;
     }
 
     public String getUsuario() {
@@ -116,5 +102,7 @@ public class Comercial {
     private void setContraseña(String contraseña) {
         this.contraseña = Encriptador.encriptarContraseña(contraseña);
     }
+
+
 
 }

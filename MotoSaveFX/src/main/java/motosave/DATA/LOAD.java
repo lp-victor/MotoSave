@@ -7,13 +7,17 @@ package motosave.DATA;
 import motosave.ImplementacionesDAO.ImpConcesionarioDAO;
 import motosave.Modelos.Concesionario;
 import jakarta.persistence.EntityManager;
+import motosave.Persistencia.HibernateConfig;
 
 /**
  *
  * @author victo
  */
 public class LOAD {
-    
+
+    // Salario base para poder calcular un plus por ventas.
+    // 100€ x 10 motos vendidas o % por nº de ventas.
+    // private final double salarioBase = 1400;
     ImpConcesionarioDAO concDAO = new ImpConcesionarioDAO();
             
     public static String modelo_n_bastidor = "1VID826MS33A";
@@ -22,8 +26,13 @@ public class LOAD {
     Concesionario Granada = new Concesionario("Granada");
     Concesionario Madrid = new Concesionario("Madrid");
     Concesionario Barcelona = new Concesionario("Barcelona");
+
+    // Persistencia
+    public static HibernateConfig hibernateConfig;
+    public static EntityManager em;
     
-    
+    public LOAD (){
+    }
     
     
     public LOAD(EntityManager entityManager) {
@@ -34,7 +43,17 @@ public class LOAD {
        
     }
     
+    public static void cargarEntityManager () {
+        hibernateConfig = new HibernateConfig();
+        em = hibernateConfig.getEntityManager();
+    }
 
+    public static EntityManager getEntityManagerCargado () {
+        return em;
+    }
 
-    
+    public static void cerrarEntityManager(){
+        em.close();
+    }
+
 }

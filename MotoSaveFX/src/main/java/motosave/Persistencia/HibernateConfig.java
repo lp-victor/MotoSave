@@ -10,7 +10,7 @@ public class HibernateConfig {
     private EntityManager entityManager;
 
     public HibernateConfig() {
-        this.setFactory(Persistence.createEntityManagerFactory("persistence_ms"));
+        this.setFactory(Persistence.createEntityManagerFactory("persistence"));
     }
 
     public void setFactory(EntityManagerFactory factory) {

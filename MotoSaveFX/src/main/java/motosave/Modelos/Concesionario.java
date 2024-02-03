@@ -25,20 +25,13 @@ public class Concesionario {
     private String ubicacion;
     
      // Relación con Comercial (un concesionario tiene muchos comerciales)
-    @OneToMany(mappedBy = "concesionario")
-    private List<Comercial> comerciales;
-    
-    // Relación con Moto (un concesionario tiene muchas motos)
-    @OneToMany(mappedBy = "concesionario")
-    private List<Motocicleta> inventario;
+
 
     public Concesionario() {
     }
 
     public Concesionario(String ubicacion) {
-        this.ubicacion = ubicacion;  
-        this.comerciales = new ArrayList<>();  
-        this.inventario = new ArrayList<>();
+        this.ubicacion = ubicacion;
     }
 
     public int getId_concesionario() {
@@ -57,30 +50,9 @@ public class Concesionario {
         this.ubicacion = ubicacion;
     }
 
-    public List<Comercial> getComerciales() {
-        return comerciales;
-    }
-
-    public void setComerciales(ArrayList<Comercial> comerciales) {
-        this.comerciales = comerciales;
-    }
-
-    public List<Motocicleta> getInventario() {
-        return inventario;
-    }
-
-    public void setInventario(ArrayList<Motocicleta> inventario) {
-        this.inventario = inventario;
-    }
-
     @Override
     public String toString() {
         return "Concesionario{" + "id_concesionario=" + id_concesionario + ", ubicacion=" + ubicacion + '}';
     }
 
-    public void agregarComercial(Comercial comercial) {
-        comercial.setConcesionario(this);
-        comerciales.add(comercial);
-    }
-    
 }

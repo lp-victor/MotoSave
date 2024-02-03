@@ -26,37 +26,80 @@ public class Venta {
     
     // Relación con Comercial (una venta pertenece a un comercial)
     @ManyToOne
-    @JoinColumn(name = "comercial_id")
+    @JoinColumn(name = "id_comercial")
     private Comercial comercial;
 
     @ManyToOne
-    @JoinColumn(name = "motocicleta_id")
-    private int id_moto;
-    private double precio_moto; // precio_moto = precio_compra * beneficio.
-    
-    @ElementCollection // Necesario para mapear una coleccion de elementos en hibernate.
-    @CollectionTable(name = "info_cliente", joinColumns = @JoinColumn(name = "id_venta"))
-    @MapKeyColumn(name = "Info")
-    @Column(name = "Detalles")
-    private Map<String, String> datos_cliente = new HashMap<>();
+    @JoinColumn(name = "id_moto")
+    private Motocicleta moto;
+
     private double precio_final; //precio_final = precio_moto * descuento.
+
+    @ManyToOne
+    @JoinColumn(name = "id_cliente")
+    private Cliente cliente;
 
     public Venta() {
     }
 
-    // Lo unico que introduce el comercial es el mapa de los datos del cliente, el resto de datos se autogestionan en el back.
-    public Venta(Comercial comercial, int id_moto, double precio_moto, Map<String, String> datos_cliente, double precio_final) {
-        this.fecha_venta = new Date();
+    public Venta(int id_venta, Date fecha_venta, Comercial comercial, Motocicleta moto, double precio_final, Cliente cliente) {
+        this.id_venta = id_venta;
+        this.fecha_venta = fecha_venta;
         this.comercial = comercial;
-        this.id_moto = id_moto;
-        this.precio_moto = precio_moto;
-        this.datos_cliente = datos_cliente;
+        this.moto = moto;
+        this.precio_final = precio_final;
+        this.cliente = cliente;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public int getId_venta() {
+        return id_venta;
+    }
+
+
+    public Date getFecha_venta() {
+        return fecha_venta;
+    }
+
+    public void setFecha_venta(Date fecha_venta) {
+        this.fecha_venta = getFormattedFecha();
+    }
+
+    public Comercial getComercial() {
+        return comercial;
+    }
+
+    public void setComercial(Comercial comercial) {
+        this.comercial = comercial;
+    }
+
+    public Motocicleta getMoto() {
+        return moto;
+    }
+
+    public void setMoto(Motocicleta moto) {
+        this.moto = moto;
+    }
+
+    public double getPrecio_final() {
+        return precio_final;
+    }
+
+    public void setPrecio_final(double precio_final) {
         this.precio_final = precio_final;
     }
 
-    public String getFormattedFecha() {
+    public Date getFormattedFecha() {
         // Formatear la fecha según el formato AA-mm-DD
         SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
-        return sdf.format(fecha_venta);
+        Date date = new Date(sdf.format(fecha_venta));
+        return date;
     }
 }

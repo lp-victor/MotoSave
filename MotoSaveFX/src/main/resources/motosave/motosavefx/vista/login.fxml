@@ -26,9 +26,9 @@
       </Pane>
       <Pane layoutX="13.0" layoutY="12.0" prefHeight="894.0" prefWidth="527.0" style="-fx-background-color: #374452; -fx-background-radius: 20;">
          <children>
-            <TextField fx:id="usuarioName" layoutX="117.0" layoutY="299.0" prefHeight="35.0" prefWidth="279.0" style="-fx-background-color: #30445B; -fx-border-color: #6783A0; -fx-border-radius: 5;-fx-textFill=#000000;" />
-            <PasswordField fx:id="passFieldEntrada" layoutX="117.0" layoutY="388.0" prefHeight="35.0" prefWidth="279.0" style="-fx-background-color: #30445B; -fx-border-color: #6783A0; -fx-border-radius: 5; -fx-textFill=#000000;" />
-            <Button fx:id="boton_acceder" layoutX="117.0" layoutY="476.0" mnemonicParsing="false" onAction="#botonLogin" prefHeight="40.0" prefWidth="279.0" style="-fx-background-color: #00B86B; -fx-border-radius: 5;" text="Login" textFill="#faf5f5">
+            <TextField fx:id="TF_usuario" layoutX="117.0" layoutY="299.0" prefHeight="35.0" prefWidth="279.0" style="-fx-background-color: #30445B; -fx-border-color: #6783A0; -fx-border-radius: 5;-fx-textFill= #000000;" />
+            <PasswordField fx:id="PF_contrasena" layoutX="117.0" layoutY="388.0" prefHeight="35.0" prefWidth="279.0" style="-fx-background-color: #30445B; -fx-border-color: #6783A0; -fx-border-radius: 5; -fx-textFill= #000000;" />
+            <Button fx:id="boton_acceder" layoutX="117.0" layoutY="476.0" mnemonicParsing="false" onAction="#loggear" prefHeight="40.0" prefWidth="279.0" style="-fx-background-color: #00B86B; -fx-border-radius: 5;" text="Login" textFill="#faf5f5">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
@@ -67,6 +67,16 @@
                   <Font size="18.0" />
                </font>
             </Button>
+            <Label fx:id="L_control_vacios" layoutX="156.0" layoutY="435.0" style="visibility: hidden;" text="Completa todos los campos." textFill="#b80000">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="L_control_correcto" layoutX="138.0" layoutY="435.0" style="visibility: hidden;" text="Usuario o contraseña incorrectos." textFill="#b80000">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

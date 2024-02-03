@@ -10,9 +10,12 @@ module motosave.motosavefx {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires jakarta.persistence;
+    requires org.hibernate.orm.core; // Para que cargue las dependencias del hibernate.
 
     opens motosave.motosavefx to javafx.fxml;
     exports motosave.motosavefx;
     exports motosave.motosavefx.controlador;
     opens motosave.motosavefx.controlador to javafx.fxml;
+
+    opens motosave.Modelos to org.hibernate.orm.core; // Para que habrá el controlador el JavaFX.
 }

@@ -4,10 +4,14 @@
  */
 package motosave.DAO;
 
+import jakarta.persistence.EntityManager;
+
 /**
  *
  * @author victo
  */
 public interface ComercialDAO {
-    
+
+    public abstract boolean loggearComercial (EntityManager em, String contraseña, String usuario);
+
 }

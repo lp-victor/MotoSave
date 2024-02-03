@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class ImpMotocicletaDAO implements MotocicletaDAO {
 
     @Override
-    public void guardarMoto(Motocicleta moto, EntityManager entityManager) {
+    public void guardarMoto(Motocicleta moto, EntityManager entityManager) { // Crear motocicleta (para el admin va a ser comprar moto)
         try {
             entityManager.getTransaction().begin();
 

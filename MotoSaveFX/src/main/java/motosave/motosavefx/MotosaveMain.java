@@ -1,11 +1,13 @@
 package motosave.motosavefx;
 
+import jakarta.persistence.EntityManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import motosave.motosavefx.controlador.LoginController;
+import motosave.DATA.LOAD;
+import motosave.Persistencia.HibernateConfig;
 
 import java.io.IOException;
 
@@ -17,6 +19,9 @@ public class MotosaveMain extends Application {
 //        stage.setTitle("Hello!");
 //        stage.setScene(scene);
 //        stage.show();
+
+        // Cargo el em cuando arranque el programa
+        LOAD.cargarEntityManager();
 
         try {
             // Cargar el archivo FXML
@@ -41,4 +46,5 @@ public class MotosaveMain extends Application {
     public static void main(String[] args) {
         launch();
     }
+
 }

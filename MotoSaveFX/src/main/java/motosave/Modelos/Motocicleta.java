@@ -14,12 +14,15 @@ public class Motocicleta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_moto;
-    
+
+    @ManyToOne
+    @JoinColumn(name = "id_concesionario")
+    private Concesionario concesionario;
+
     private String marca;
     private String modelo;
     private String color;
     private int cc;
-    private double precio_venta;
     private double precio_compra;
 
     public Motocicleta() {
@@ -31,7 +34,6 @@ public class Motocicleta {
         this.color = color;
         this.cc = cc;
         this.precio_compra = precio_compra;
-        this.precio_venta = Math.round(precio_compra * LOAD.beneficio);
     }
 
     public int getId_moto() {
@@ -40,6 +42,14 @@ public class Motocicleta {
 
     public void setId_moto(int id_moto) {
         this.id_moto = id_moto;
+    }
+
+    public Concesionario getConcesionario() {
+        return concesionario;
+    }
+
+    public void setConcesionario(Concesionario concesionario) {
+        this.concesionario = concesionario;
     }
 
     public String getMarca() {
@@ -74,14 +84,6 @@ public class Motocicleta {
         this.cc = cc;
     }
 
-    public double getPrecio_venta() {
-        return precio_venta;
-    }
-
-    public void setPrecio_venta(double precio_venta) {
-        this.precio_venta = precio_venta;
-    }
-
     public double getPrecio_compra() {
         return precio_compra;
     }
@@ -92,7 +94,7 @@ public class Motocicleta {
 
     @Override
     public String toString() {
-        return "Motocicleta{" + "id_moto=" + id_moto + ", marca=" + marca + ", modelo=" + modelo + ", color=" + color + ", cc=" + cc + ", precio_venta=" + precio_venta + ", precio_compra=" + precio_compra + '}';
+        return "Motocicleta{" + "id_moto=" + id_moto + ", marca=" + marca + ", modelo=" + modelo + ", color=" + color + ", cc=" + cc + ", precio_compra=" + precio_compra + '}';
     }
     
     
