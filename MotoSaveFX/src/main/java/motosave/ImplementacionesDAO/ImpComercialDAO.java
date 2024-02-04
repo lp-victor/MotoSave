@@ -35,6 +35,8 @@ public class ImpComercialDAO implements ComercialDAO {
             }
         } catch (NoResultException e) {
             return false;
+        } finally {
+            em.close();
         }
     }
 }

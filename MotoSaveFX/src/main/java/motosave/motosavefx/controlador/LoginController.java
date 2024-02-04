@@ -4,13 +4,20 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import motosave.DATA.LOAD;
+import motosave.ImplementacionesDAO.ImpAdministradorDAO;
 import motosave.ImplementacionesDAO.ImpComercialDAO;
 import motosave.Modelos.Comercial;
+import motosave.Persistencia.miEntityManager;
 import motosave.motosavefx.MotosaveMain;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -18,12 +25,9 @@ public class LoginController implements Initializable {
 
     Comercial comercial;
     ImpComercialDAO comDAO;
+    ImpAdministradorDAO adminDAO;
 
 
-    @FXML
-    private Button boton_acceder1;
-    @FXML
-    private Button boton_acceder;
     @FXML
     private Label L_control_correcto;
     @FXML
@@ -32,12 +36,17 @@ public class LoginController implements Initializable {
     private PasswordField PF_contrasena;
     @FXML
     private TextField TF_usuario;
+    @FXML
+    private Button BTN_registrarse;
+    @FXML
+    private Button BTN_acceder;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comercial = new Comercial();
         comDAO = new ImpComercialDAO();
+        adminDAO = new ImpAdministradorDAO();
     }
 
     @FXML
@@ -49,8 +58,10 @@ public class LoginController implements Initializable {
             L_control_vacios.setVisible(true);
             L_control_correcto.setVisible(false);
         } else {
-            if (comDAO.loggearComercial(LOAD.getEntityManagerCargado(), PF_contrasena.getText(), TF_usuario.getText())) {
-                Platform.exit();
+            if (comDAO.loggearComercial(miEntityManager.getEntityManager(), PF_contrasena.getText(), TF_usuario.getText())) {
+                iniciarComercial();
+            } else if (adminDAO.loggearAdmin(miEntityManager.getEntityManager(), PF_contrasena.getText(), TF_usuario.getText())) {
+
             } else {
                 L_control_vacios.setVisible(false);
                 L_control_correcto.setVisible(true);
@@ -58,7 +69,51 @@ public class LoginController implements Initializable {
         }
     }
 
-    @FXML
-    public void botonLogin(ActionEvent actionEvent) {
+    private void iniciarComercial(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Comercial_Ventas.fxml"));
+
+            Parent root = loader.load();
+
+            ComercialVentasController controller = loader.getController();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+
+            stage.setScene(scene);
+            stage.show();
+            stage.setResizable(false);
+
+            Stage myStage = (Stage) this.BTN_acceder.getScene().getWindow();
+            myStage.close();
+
+        } catch (IOException ex) {
+
+        }
     }
+
+    private void iniciarAdmin(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Comercial_Ventas.fxml"));
+
+            Parent root = loader.load();
+
+            ComercialVentasController controller = loader.getController();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+
+            stage.setScene(scene);
+            stage.show();
+            stage.setResizable(false);
+
+            Stage myStage = (Stage) this.BTN_acceder.getScene().getWindow();
+            myStage.close();
+
+        } catch (IOException ex) {
+
+        }
+    }
+
+
 }

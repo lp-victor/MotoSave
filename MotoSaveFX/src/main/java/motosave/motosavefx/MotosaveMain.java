@@ -1,31 +1,28 @@
 package motosave.motosavefx;
 
-import jakarta.persistence.EntityManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import motosave.DATA.LOAD;
-import motosave.Persistencia.HibernateConfig;
 
 import java.io.IOException;
 
 public class MotosaveMain extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(MotosaveMain.class.getResource("/motosave/motosavefx/vista/login.fxml"));
+//        FXMLLoader fxmlLoader = new FXMLLoader(MotosaveMain.class.getResource("/motosave/motosavefx/vista/Login.fxml"));
 //        Scene scene = new Scene(fxmlLoader.load(), 1440, 920);
 //        stage.setTitle("Hello!");
 //        stage.setScene(scene);
 //        stage.show();
 
         // Cargo el em cuando arranque el programa
-        LOAD.cargarEntityManager();
 
         try {
             // Cargar el archivo FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Login.fxml"));
             Parent root = loader.load();
 
             // Configurar la escena

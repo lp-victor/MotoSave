@@ -4,10 +4,14 @@
  */
 package motosave.DAO;
 
+import jakarta.persistence.EntityManager;
+
 /**
  *
  * @author victo
  */
 public interface AdminstradorDAO {
-    
+
+    public abstract boolean loggearAdmin(EntityManager em, String password, String usuario);
+
 }

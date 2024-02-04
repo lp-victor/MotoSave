@@ -23,7 +23,6 @@ public class Comercial {
     private Concesionario concesionario;
 
     // Relación con Venta (un comercial realiza muchas ventas)
-
     private String usuario;
     private String contraseña; // Encriptarlos MD-5
 
@@ -102,6 +101,8 @@ public class Comercial {
     private void setContraseña(String contraseña) {
         this.contraseña = Encriptador.encriptarContraseña(contraseña);
     }
+
+    // Singleton
 
 
 

@@ -7,7 +7,6 @@ package motosave.DATA;
 import motosave.ImplementacionesDAO.ImpConcesionarioDAO;
 import motosave.Modelos.Concesionario;
 import jakarta.persistence.EntityManager;
-import motosave.Persistencia.HibernateConfig;
 
 /**
  *
@@ -27,10 +26,6 @@ public class LOAD {
     Concesionario Madrid = new Concesionario("Madrid");
     Concesionario Barcelona = new Concesionario("Barcelona");
 
-    // Persistencia
-    public static HibernateConfig hibernateConfig;
-    public static EntityManager em;
-    
     public LOAD (){
     }
     
@@ -41,19 +36,6 @@ public class LOAD {
        concDAO.agregarConcesionario(Madrid, entityManager);
        concDAO.agregarConcesionario(Barcelona, entityManager);
        
-    }
-    
-    public static void cargarEntityManager () {
-        hibernateConfig = new HibernateConfig();
-        em = hibernateConfig.getEntityManager();
-    }
-
-    public static EntityManager getEntityManagerCargado () {
-        return em;
-    }
-
-    public static void cerrarEntityManager(){
-        em.close();
     }
 
 }

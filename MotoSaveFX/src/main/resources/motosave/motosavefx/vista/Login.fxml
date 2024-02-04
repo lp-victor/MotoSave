@@ -12,7 +12,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="920.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="motosave.motosavefx.controlador.LoginController">
+<AnchorPane fx:id="P_login" prefHeight="920.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="motosave.motosavefx.controlador.LoginController">
    <children>
       <Pane layoutX="-1.0" layoutY="-1.0" prefHeight="920.0" prefWidth="1441.0" style="-fx-background-color: #1F2A36;">
          <children>
@@ -28,7 +28,7 @@
          <children>
             <TextField fx:id="TF_usuario" layoutX="117.0" layoutY="299.0" prefHeight="35.0" prefWidth="279.0" style="-fx-background-color: #30445B; -fx-border-color: #6783A0; -fx-border-radius: 5;-fx-textFill= #000000;" />
             <PasswordField fx:id="PF_contrasena" layoutX="117.0" layoutY="388.0" prefHeight="35.0" prefWidth="279.0" style="-fx-background-color: #30445B; -fx-border-color: #6783A0; -fx-border-radius: 5; -fx-textFill= #000000;" />
-            <Button fx:id="boton_acceder" layoutX="117.0" layoutY="476.0" mnemonicParsing="false" onAction="#loggear" prefHeight="40.0" prefWidth="279.0" style="-fx-background-color: #00B86B; -fx-border-radius: 5;" text="Login" textFill="#faf5f5">
+            <Button fx:id="BTN_acceder" layoutX="117.0" layoutY="476.0" mnemonicParsing="false" onAction="#loggear" prefHeight="40.0" prefWidth="279.0" style="-fx-background-color: #00B86B; -fx-border-radius: 5;" text="Login" textFill="#faf5f5">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
@@ -57,12 +57,12 @@
             </Label>
             <Separator layoutX="94.0" layoutY="603.0" prefHeight="27.0" prefWidth="142.0" />
             <Separator layoutX="287.0" layoutY="603.0" prefHeight="27.0" prefWidth="142.0" />
-            <Label layoutX="260.0" layoutY="608.0" text="Or" textFill="#faf7f7">
+            <Label layoutX="260.0" layoutY="608.0" text="O" textFill="#faf7f7">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="boton_acceder1" layoutX="117.0" layoutY="672.0" mnemonicParsing="false" onAction="#botonLogin" prefHeight="40.0" prefWidth="279.0" style="-fx-border-color: #6783A0; -fx-background-color: transparent; -fx-border-radius: 5;" text="Signup" textFill="#00b86b">
+            <Button fx:id="BTN_registrarse" layoutX="117.0" layoutY="672.0" mnemonicParsing="false" onAction="#botonLogin" prefHeight="40.0" prefWidth="279.0" style="-fx-border-color: #6783A0; -fx-background-color: transparent; -fx-border-radius: 5;" text="Signup" textFill="#00b86b">
                <font>
                   <Font size="18.0" />
                </font>
