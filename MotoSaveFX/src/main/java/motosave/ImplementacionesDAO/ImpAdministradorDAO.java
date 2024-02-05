@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 import motosave.DAO.AdminstradorDAO;
+import motosave.DATA.Encriptador;
 import motosave.Modelos.Administrador;
 import motosave.Modelos.Comercial;
 
@@ -18,12 +19,14 @@ import motosave.Modelos.Comercial;
 public class ImpAdministradorDAO implements AdminstradorDAO {
 
     @Override
-    public boolean loggearAdmin(EntityManager em, String password, String usuario) {
+    public boolean loggearAdmin(EntityManager em, String password, String nombre) {
         try {
             // Crea una consulta JPQL para buscar un comercial por usuario y contraseña
-            String jpql = "SELECT a FROM Administrador a WHERE a.usuario = :usuario AND a.contraseña = :contraseña";
+            String jpql = "SELECT a FROM Administrador a WHERE a.nombre = :nombre AND a.contraseña = :contraseña";
             Query query = em.createQuery(jpql);
-            query.setParameter("usuario", usuario);
+            query.setParameter("nombre", nombre);
+            // Como no se puede revertir el hash, tienes que encriptar de nuevo para comprobar si los hashes son iguales
+            //query.setParameter("contraseña", Encriptador.encriptarContraseña(password));
             query.setParameter("contraseña", password);
 
             // Ejecuta la consulta y obtiene el resultado
@@ -36,8 +39,6 @@ public class ImpAdministradorDAO implements AdminstradorDAO {
             }
         } catch (NoResultException e) {
             return false;
-        } finally {
-            em.close();
         }
     }
 

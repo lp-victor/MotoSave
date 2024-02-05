@@ -3,6 +3,7 @@ package motosave.motosavefx.controlador;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,6 +37,8 @@ public class ComercialVentasController implements Initializable {
     private TextField TF_direccion;
     @FXML
     private Label L_sede_comercial;
+    @FXML
+    private Pane P_comercialVentas;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

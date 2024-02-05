@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import motosave.DATA.LOAD;
+import motosave.ImplementacionesDAO.ImpAdministradorDAO;
+import motosave.Modelos.Administrador;
 
 import java.io.IOException;
 
@@ -18,7 +20,7 @@ public class MotosaveMain extends Application {
 //        stage.setScene(scene);
 //        stage.show();
 
-        // Cargo el em cuando arranque el programa
+
 
         try {
             // Cargar el archivo FXML

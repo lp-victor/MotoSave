@@ -15,12 +15,12 @@ public class miEntityManager {
     // De esta forma nos aseguramos que tenemos una instancia única y no la repetimos
     public static EntityManager getEntityManager() {
         if (entityManager == null) {
-            synchronized (miEntityManager.class) {
+            //synchronized (miEntityManager.class) {
                 if (entityManager == null) {
                     EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
                     entityManager = emf.createEntityManager();
                 }
-            }
+           //}
         }
         return entityManager;
     }

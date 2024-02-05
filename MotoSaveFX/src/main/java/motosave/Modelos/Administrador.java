@@ -35,6 +35,7 @@ public class Administrador {
 
     // Getters y setters
 
+
     public int getId() {
         return id;
     }

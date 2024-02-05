@@ -20,8 +20,6 @@ public class ComercialEstadisticasController implements Initializable {
     @FXML
     private Label L_bienvenido;
     @FXML
-    private Pane TL_bienvenido;
-    @FXML
     private Button BTN_salir;
     @FXML
     private Button BTN_estadisticas;
@@ -33,6 +31,8 @@ public class ComercialEstadisticasController implements Initializable {
     private Label L_indentificacion_comercial;
     @FXML
     private BarChart BC_barra_liquido;
+    @FXML
+    private Pane P_comercialEstadisticas;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

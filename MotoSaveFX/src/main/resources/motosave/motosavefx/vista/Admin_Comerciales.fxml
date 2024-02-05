@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -61,37 +62,25 @@
          <effect>
             <BoxBlur height="4.77" width="0.0" />
          </effect></Separator>
-      <ComboBox layoutX="865.0" layoutY="163.0" prefHeight="25.0" prefWidth="170.0" style="-fx-background-radius: 10; -fx-background-color: white;" visibleRowCount="3" />
+      <ComboBox fx:id="CmB_concesionario" layoutX="865.0" layoutY="163.0" prefHeight="25.0" prefWidth="170.0" style="-fx-background-radius: 10; -fx-background-color: white;" visibleRowCount="3" />
       <Label layoutX="694.0" layoutY="162.0" prefHeight="17.0" prefWidth="130.0" text="Concesionario" textFill="#f4f3f3">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Button layoutX="1164.0" layoutY="440.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: #00b86b;" text="Agregar" textFill="WHITE">
+      <Button fx:id="BTN_agregar" layoutX="1164.0" layoutY="440.0" mnemonicParsing="false" onAction="#agregarComercial" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: #00b86b;" text="Agregar" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <TextField layoutX="575.0" layoutY="246.0" prefHeight="25.0" prefWidth="178.0" />
-      <TextField layoutX="575.0" layoutY="395.0" prefHeight="25.0" prefWidth="178.0" />
-      <TextField layoutX="960.0" layoutY="246.0" prefHeight="25.0" prefWidth="320.0" />
-      <TextField layoutX="575.0" layoutY="294.0" prefHeight="25.0" prefWidth="178.0" />
+      <TextField fx:id="TF_nombre" layoutX="575.0" layoutY="246.0" prefHeight="25.0" prefWidth="178.0" />
+      <TextField fx:id="TF_apellidos" layoutX="575.0" layoutY="294.0" prefHeight="25.0" prefWidth="178.0" />
       <Label layoutX="429.0" layoutY="245.0" prefHeight="17.0" prefWidth="130.0" text="Nombre" textFill="#f4f3f3">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
       <Label layoutX="429.0" layoutY="293.0" prefHeight="17.0" prefWidth="130.0" text="Apellidos" textFill="#f4f3f3">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="834.0" layoutY="245.0" prefHeight="27.0" prefWidth="56.0" text="Email" textFill="#f4f3f3">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="429.0" layoutY="394.0" prefHeight="27.0" prefWidth="87.0" text="Telefono" textFill="#f4f3f3">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -125,28 +114,34 @@
             </Lighting>
          </effect>
       </TableView>
-      <Label layoutX="831.0" layoutY="344.0" prefHeight="27.0" prefWidth="164.0" text="Contraseña" textFill="#f4f3f3">
+      <Label layoutX="825.0" layoutY="341.0" prefHeight="27.0" prefWidth="203.0" text="Confirmar Contraseña" textFill="#f4f3f3">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="429.0" layoutY="344.0" prefHeight="17.0" prefWidth="130.0" text="Direccion" textFill="#f4f3f3">
+      <Label layoutX="825.0" layoutY="245.0" prefHeight="27.0" prefWidth="32.0" text="NIF" textFill="#f4f3f3">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="575.0" layoutY="345.0" prefHeight="25.0" prefWidth="178.0" />
-      <Label layoutX="832.0" layoutY="293.0" prefHeight="27.0" prefWidth="32.0" text="NIF" textFill="#f4f3f3">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <TextField layoutX="960.0" layoutY="294.0" prefHeight="25.0" prefWidth="138.0" />
-      <TextField layoutX="960.0" layoutY="345.0" prefHeight="25.0" prefWidth="138.0" />
-      <Button layoutX="1164.0" layoutY="845.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: #ff0000;" text="Eliminar" textFill="WHITE">
+      <TextField fx:id="TF_NIF" layoutX="1033.0" layoutY="246.0" prefHeight="25.0" prefWidth="178.0" />
+      <Button fx:id="BTN_eliminar" layoutX="1164.0" layoutY="845.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: #ff0000;" text="Eliminar" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
+      <TextField fx:id="TF_usuario" layoutX="575.0" layoutY="342.0" prefHeight="25.0" prefWidth="178.0" />
+      <Label layoutX="429.0" layoutY="341.0" prefHeight="17.0" prefWidth="130.0" text="Usuario" textFill="#f4f3f3">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="825.0" layoutY="293.0" prefHeight="27.0" prefWidth="164.0" text="Contraseña" textFill="#f4f3f3">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="PF_pass1" layoutX="1035.0" layoutY="294.0" prefHeight="25.0" prefWidth="178.0" />
+      <PasswordField fx:id="PF_pass2" layoutX="1035.0" layoutY="342.0" prefHeight="25.0" prefWidth="178.0" />
    </children>
 </Pane>

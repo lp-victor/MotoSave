@@ -24,8 +24,7 @@ public class Comercial {
 
     // Relación con Venta (un comercial realiza muchas ventas)
     private String usuario;
-    private String contraseña; // Encriptarlos MD-5
-
+    private String contraseña;
     private String NIF;
     private String nombre;
     private String apellido;
@@ -34,9 +33,10 @@ public class Comercial {
     public Comercial() {
     }
 
-    public Comercial(String usuario, String contraseña, String NIF, String nombre, String apellido) {
+    public Comercial(Concesionario concesionario, String usuario, String contraseña, String NIF, String nombre, String apellido) {
+        this.concesionario = concesionario;
         this.usuario = usuario;
-        setContraseña(contraseña);
+        setContrasena(contraseña); // La contraseña se encripta segun se crea el comercial
         this.NIF = NIF;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -98,11 +98,10 @@ public class Comercial {
         this.salario = salario;
     }
 
-    private void setContraseña(String contraseña) {
+    public void setContrasena(String contraseña) {
         this.contraseña = Encriptador.encriptarContraseña(contraseña);
     }
 
-    // Singleton
 
 
 

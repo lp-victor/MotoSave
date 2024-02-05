@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import motosave.DATA.LOAD;
 import motosave.ImplementacionesDAO.ImpAdministradorDAO;
@@ -40,6 +41,8 @@ public class LoginController implements Initializable {
     private Button BTN_registrarse;
     @FXML
     private Button BTN_acceder;
+    @FXML
+    private AnchorPane P_login;
 
 
     @Override
@@ -54,6 +57,7 @@ public class LoginController implements Initializable {
         L_control_vacios.setVisible(false);
         L_control_correcto.setVisible(false);
 
+
         if (PF_contrasena.getText().isEmpty() || TF_usuario.getText().isEmpty()) {
             L_control_vacios.setVisible(true);
             L_control_correcto.setVisible(false);
@@ -61,7 +65,7 @@ public class LoginController implements Initializable {
             if (comDAO.loggearComercial(miEntityManager.getEntityManager(), PF_contrasena.getText(), TF_usuario.getText())) {
                 iniciarComercial();
             } else if (adminDAO.loggearAdmin(miEntityManager.getEntityManager(), PF_contrasena.getText(), TF_usuario.getText())) {
-
+                iniciarAdmin();
             } else {
                 L_control_vacios.setVisible(false);
                 L_control_correcto.setVisible(true);
@@ -94,11 +98,11 @@ public class LoginController implements Initializable {
 
     private void iniciarAdmin(){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Comercial_Ventas.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Admin_Comerciales.fxml"));
 
             Parent root = loader.load();
 
-            ComercialVentasController controller = loader.getController();
+            AdminComercialesController controller = loader.getController();
 
             Scene scene = new Scene(root);
             Stage stage = new Stage();
@@ -115,5 +119,7 @@ public class LoginController implements Initializable {
         }
     }
 
-
+    @FXML
+    public void botonLogin(ActionEvent actionEvent) {
+    }
 }

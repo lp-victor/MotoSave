@@ -30,6 +30,11 @@ public class Concesionario {
     public Concesionario() {
     }
 
+    public Concesionario(int id_concesionario, String ubicacion) {
+        this.id_concesionario = id_concesionario;
+        this.ubicacion = ubicacion;
+    }
+
     public Concesionario(String ubicacion) {
         this.ubicacion = ubicacion;
     }
