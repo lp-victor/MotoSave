@@ -1,18 +1,23 @@
 package motosave.motosavefx.controlador;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import motosave.ImplementacionesDAO.ImpComercialDAO;
 import motosave.Modelos.Comercial;
 import motosave.Modelos.Concesionario;
 import motosave.Persistencia.miEntityManager;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -40,6 +45,8 @@ public class AdminComercialesController implements Initializable {
     private Button BTN_agregar;
     @FXML
     private Button BTN_eliminar;
+    @FXML
+    private Button BTN_salir;
 
 
     @Override
@@ -54,5 +61,29 @@ public class AdminComercialesController implements Initializable {
         comercial = new Comercial(c1, TF_usuario.getText(), PF_pass1.getText(), TF_NIF.getText(), TF_nombre.getText(), TF_apellidos.getText());
 
         comDAO.anadirComercial(miEntityManager.getEntityManager(), comercial);
+    }
+
+    @FXML
+    public void salir_ventana(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Login.fxml"));
+
+            Parent root = loader.load();
+
+            ComercialVentasController controller = loader.getController();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+
+            stage.setScene(scene);
+            stage.show();
+            stage.setResizable(false);
+
+            Stage myStage = (Stage) this.BTN_salir.getScene().getWindow();
+            myStage.close();
+
+        } catch (IOException ex) {
+
+        }
     }
 }

@@ -31,29 +31,19 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="63.0" layoutY="809.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="195.0" style="-fx-background-color: #1F2A36; -fx-background-radius: 15;" text="Salir" textFill="#ff604c">
+            <Button fx:id="BTN_salir" layoutX="63.0" layoutY="809.0" mnemonicParsing="false" onAction="#salir_ventana" prefHeight="47.0" prefWidth="195.0" style="-fx-background-color: #1F2A36; -fx-background-radius: 15;" text="Salir" textFill="RED">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <ImageView fitHeight="32.0" fitWidth="33.0" layoutX="47.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Union.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="32.0" fitWidth="33.0" layoutX="47.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Union.png" />
-               </image>
-            </ImageView>
             <Button layoutX="88.0" layoutY="403.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: left;" text="Comerciales" textFill="#00b86b">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <ImageView fitHeight="32.0" fitWidth="33.0" layoutX="47.0" layoutY="407.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="36.0" layoutX="97.0" layoutY="818.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Union.png" />
+                  <Image url="@../../../media/exit_icon.png" />
                </image>
             </ImageView>
          </children>

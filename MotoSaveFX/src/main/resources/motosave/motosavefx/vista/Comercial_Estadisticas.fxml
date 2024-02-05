@@ -28,7 +28,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="BTN_salir" alignment="CENTER_RIGHT" layoutX="80.0" layoutY="824.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #1f2a36; -fx-background-radius: 15;" text="Salir    " textFill="RED">
+            <Button fx:id="BTN_salir" alignment="CENTER_RIGHT" layoutX="80.0" layoutY="824.0" mnemonicParsing="false" onAction="#salir_ventana" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #1f2a36; -fx-background-radius: 15;" text="Salir    " textFill="RED">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -61,7 +61,7 @@
          </effect></Separator>
       <Pane layoutX="360.0" layoutY="303.0" prefHeight="470.0" prefWidth="500.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
          <children>
-            <BarChart fx:id="BC_barra_liquido" layoutX="-3.0" layoutY="66.0" prefHeight="404.0" prefWidth="500.0">
+            <BarChart fx:id="BC_barra_liquido" layoutX="-3.0" layoutY="66.0" onDragDetected="#rellenar_liquido" prefHeight="404.0" prefWidth="500.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" tickLabelFill="WHITE" />
               </xAxis>
@@ -78,7 +78,7 @@
       </Pane>
       <Pane layoutX="894.0" layoutY="303.0" prefHeight="470.0" prefWidth="500.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
          <children>
-            <LineChart fx:id="LC_barra_ventas" layoutX="-4.0" layoutY="66.0" prefHeight="404.0" prefWidth="500.0">
+            <LineChart fx:id="LC_barra_ventas" layoutX="-4.0" layoutY="66.0" onDragDetected="#rellenar_ventas" prefHeight="404.0" prefWidth="500.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
