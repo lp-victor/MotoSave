@@ -1,22 +1,24 @@
 package motosave.motosavefx.controlador;
 
-import javafx.application.Application;
-import javafx.application.Platform;
+
+import jakarta.persistence.EntityManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import motosave.DATA.LOAD;
 import motosave.ImplementacionesDAO.ImpAdministradorDAO;
 import motosave.ImplementacionesDAO.ImpComercialDAO;
 import motosave.Modelos.Comercial;
 import motosave.Persistencia.miEntityManager;
-import motosave.motosavefx.MotosaveMain;
+import org.w3c.dom.Entity;
 
 import java.io.IOException;
 import java.net.URL;
@@ -57,14 +59,15 @@ public class LoginController implements Initializable {
         L_control_vacios.setVisible(false);
         L_control_correcto.setVisible(false);
 
+        EntityManager em = miEntityManager.getEntityManager();
 
         if (PF_contrasena.getText().isEmpty() || TF_usuario.getText().isEmpty()) {
             L_control_vacios.setVisible(true);
             L_control_correcto.setVisible(false);
         } else {
-            if (comDAO.loggearComercial(miEntityManager.getEntityManager(), PF_contrasena.getText(), TF_usuario.getText())) {
+            if (comDAO.loggearComercial(em, PF_contrasena.getText(), TF_usuario.getText())) {
                 iniciarComercial();
-            } else if (adminDAO.loggearAdmin(miEntityManager.getEntityManager(), PF_contrasena.getText(), TF_usuario.getText())) {
+            } else if (adminDAO.loggearAdmin(em, PF_contrasena.getText(), TF_usuario.getText())) {
                 iniciarAdmin();
             } else {
                 L_control_vacios.setVisible(false);
