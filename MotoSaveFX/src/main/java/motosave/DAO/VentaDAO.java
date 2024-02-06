@@ -4,10 +4,17 @@
  */
 package motosave.DAO;
 
+import jakarta.persistence.EntityManager;
+import motosave.Modelos.Cliente;
+import motosave.Modelos.Comercial;
+import motosave.Modelos.Venta;
+
 /**
  *
  * @author victo
  */
 public interface VentaDAO {
-    
+
+    public abstract void realizarVenta(EntityManager em, Venta venta);
+
 }

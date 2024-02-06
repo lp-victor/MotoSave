@@ -7,6 +7,9 @@ package motosave.ImplementacionesDAO;
 import motosave.DAO.ConcesionarioDAO;
 import motosave.Modelos.Concesionario;
 import jakarta.persistence.EntityManager;
+import motosave.Persistencia.miEntityManager;
+
+import java.util.List;
 
 /**
  *
@@ -31,7 +34,20 @@ public class ImpConcesionarioDAO implements ConcesionarioDAO {
 
     @Override
     public void eliminarConcesionario(EntityManager em) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public List<String> listarNombreConcesionarios(EntityManager em) {
+        try {
+            // Consulta JPQL para obtener los nombres de los concesionarios
+            List<String> nombresConcesionarios = em.createQuery("SELECT c.ubicacion FROM Concesionario c", String.class)
+                    .getResultList();
+
+            return nombresConcesionarios;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }

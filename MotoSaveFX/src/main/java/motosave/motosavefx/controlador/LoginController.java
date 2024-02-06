@@ -30,7 +30,6 @@ public class LoginController implements Initializable {
     ImpComercialDAO comDAO;
     ImpAdministradorDAO adminDAO;
 
-
     @FXML
     private Label L_control_correcto;
     @FXML
@@ -39,8 +38,6 @@ public class LoginController implements Initializable {
     private PasswordField PF_contrasena;
     @FXML
     private TextField TF_usuario;
-    @FXML
-    private Button BTN_registrarse;
     @FXML
     private Button BTN_acceder;
     @FXML
@@ -122,7 +119,7 @@ public class LoginController implements Initializable {
         }
     }
 
-    @FXML
+    @Deprecated
     public void botonLogin(ActionEvent actionEvent) {
     }
 }

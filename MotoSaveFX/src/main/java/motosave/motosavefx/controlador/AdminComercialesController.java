@@ -26,7 +26,6 @@ public class AdminComercialesController implements Initializable {
     private Comercial comercial;
     private ImpComercialDAO comDAO;
 
-
     @FXML
     private ComboBox CmB_concesionario;
     @FXML
@@ -64,13 +63,13 @@ public class AdminComercialesController implements Initializable {
     }
 
     @FXML
-    public void salir_ventana(ActionEvent actionEvent) {
+    public void logOut(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Login.fxml"));
 
             Parent root = loader.load();
 
-            ComercialVentasController controller = loader.getController();
+            LoginController controller = loader.getController();
 
             Scene scene = new Scene(root);
             Stage stage = new Stage();

@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="P_comercialVentas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="920.0" prefWidth="1440.0" style="-fx-background-color: #1F2A36;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="motosave.motosavefx.controlador.ComercialVentasController">
+<Pane fx:id="P_comercialVentas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="920.0" prefWidth="1440.0" style="-fx-background-color: #1F2A36;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="motosave.motosavefx.controlador.AdminStockController">
    <children>
       <Pane prefHeight="920.0" prefWidth="311.0" style="-fx-background-color: #374452; -fx-background-radius: 0 30 30 0;">
          <children>

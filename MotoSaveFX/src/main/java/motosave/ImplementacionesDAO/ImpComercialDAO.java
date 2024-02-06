@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 import motosave.DAO.ComercialDAO;
+import motosave.DATA.ComercialLoggeado;
 import motosave.DATA.Encriptador;
 import motosave.Modelos.Comercial;
 
@@ -34,6 +35,7 @@ public class ImpComercialDAO implements ComercialDAO {
             Comercial comercial = (Comercial) query.getSingleResult();
 
             if ( comercial != null) {
+                ComercialLoggeado.setComercialLoggeado(comercial);
                 return true;
             } else {
                 return false;

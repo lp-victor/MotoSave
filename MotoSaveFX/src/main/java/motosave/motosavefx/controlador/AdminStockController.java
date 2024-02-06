@@ -34,4 +34,6 @@ public class AdminStockController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+
+
 }

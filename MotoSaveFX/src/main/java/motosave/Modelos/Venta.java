@@ -42,8 +42,7 @@ public class Venta {
     public Venta() {
     }
 
-    public Venta(int id_venta, Date fecha_venta, Comercial comercial, Motocicleta moto, double precio_final, Cliente cliente) {
-        this.id_venta = id_venta;
+    public Venta(Date fecha_venta, Comercial comercial, Motocicleta moto, double precio_final, Cliente cliente) {
         this.fecha_venta = fecha_venta;
         this.comercial = comercial;
         this.moto = moto;

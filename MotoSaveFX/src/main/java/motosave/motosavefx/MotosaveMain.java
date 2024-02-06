@@ -26,7 +26,7 @@ public class MotosaveMain extends Application {
             Parent root = loader.load();
 
             // Configurar la escena
-            Scene scene = new Scene(root, 1440, 920);
+            Scene scene = new Scene(root, 1440, 919);
 
             // Configurar el escenario principal
             stage.setTitle("Login Motosave");

@@ -14,5 +14,13 @@ public class Cliente {
     private int telefono;
     private String direccion;
 
+    public Cliente() {}
 
+    public Cliente(String nombre, String apellido, String correo, int telefono, String direccion) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.direccion = direccion;
+    }
 }

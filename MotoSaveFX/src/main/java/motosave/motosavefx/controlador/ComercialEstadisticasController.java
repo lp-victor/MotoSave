@@ -1,5 +1,6 @@
 package motosave.motosavefx.controlador;
 
+import jakarta.persistence.EntityManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,11 +11,17 @@ import javafx.scene.chart.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import motosave.Modelos.Venta;
+import motosave.Persistencia.miEntityManager;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ComercialEstadisticasController implements Initializable {
@@ -46,13 +53,13 @@ public class ComercialEstadisticasController implements Initializable {
     }
 
     @FXML
-    public void salir_ventana(ActionEvent actionEvent) {
+    public void logOut(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Login.fxml"));
 
             Parent root = loader.load();
 
-            ComercialVentasController controller = loader.getController();
+            LoginController controller = loader.getController();
 
             Scene scene = new Scene(root);
             Stage stage = new Stage();
@@ -69,6 +76,8 @@ public class ComercialEstadisticasController implements Initializable {
         }
     }
 
+
+
     @FXML
     public void rellenar_ventas() {
 
@@ -78,8 +87,12 @@ public class ComercialEstadisticasController implements Initializable {
         set1.getData().add(new XYChart.Data("Febrero", 23));
         set1.getData().add(new XYChart.Data("Marzo", 13));
         set1.getData().add(new XYChart.Data("Abril", 31));
-        set1.getData().add(new XYChart.Data("Mayo", 42));
+        set1.getData().add(new XYChart.Data("Mayo", 102));
         set1.getData().add(new XYChart.Data("Junio", 29));
+        set1.getData().add(new XYChart.Data("Julio", 43));
+        set1.getData().add(new XYChart.Data("Agosto", 1));
+        set1.getData().add(new XYChart.Data("Septiembre", 65));
+        set1.getData().add(new XYChart.Data("Octubre", 24));
 
         BC_barra_liquido.getData().addAll(set1);
     }
@@ -98,4 +111,75 @@ public class ComercialEstadisticasController implements Initializable {
 
         LC_barra_ventas.getData().addAll(set1);
     }
+
+    @FXML
+    public void abrir_ventas(ActionEvent actionEvent) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Comercial_Ventas.fxml"));
+
+                Parent root = loader.load();
+
+                ComercialVentasController controller = loader.getController();
+
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+
+                stage.setScene(scene);
+                stage.show();
+                stage.setResizable(false);
+
+                Stage myStage = (Stage) this.BTN_ventas.getScene().getWindow();
+                myStage.close();
+
+            } catch (IOException ex) {
+            }
+    }
+
+    // Falta hacer el DAO de ventas para esto
+//    public void actualizarLineChartVentasPorSeleccion(ComboBox<String> comboBox) {
+//        String seleccion = comboBox.getSelectionModel().getSelectedItem();
+//        EntityManager em = miEntityManager.getEntityManager();
+//
+//        try {
+//            // Preparar la consulta base
+//            String jpql = "SELECT v.fechaVenta, COUNT(v) FROM Venta v WHERE v.fechaVenta >= :fechaInicio GROUP BY v.fechaVenta ORDER BY v.fechaVenta";
+//
+//            // Calcular fecha de inicio basada en la selección
+//            LocalDate fechaInicio = LocalDate.now(); // Valor por defecto para evitar warning
+//            switch (seleccion) {
+//                case "Última Semana":
+//                    fechaInicio = LocalDate.now().minusWeeks(1);
+//                    break;
+//                case "Último Mes":
+//                    fechaInicio = LocalDate.now().minusMonths(1);
+//                    break;
+//                case "Último Año":
+//                    fechaInicio = LocalDate.now().minusYears(1);
+//                    break;
+//            }
+//
+//            // Ejecutar consulta
+//            List<Object[]> resultados = em.createQuery(jpql, Object[].class)
+//                    .setParameter("fechaInicio", fechaInicio)
+//                    .getResultList();
+//
+//            // Preparar la serie de datos para la gráfica
+//            XYChart.Series<String, Number> serieVentas = new XYChart.Series<>();
+//            serieVentas.setName("Ventas"); // Este nombre aparecerá como leyenda en la gráfica
+//
+//            // Llenar la serie con los resultados de la consulta
+//            for (Object[] resultado : resultados) {
+//                LocalDate fecha = (LocalDate) resultado[0];
+//                Long cantidad = (Long) resultado[1];
+//                serieVentas.getData().add(new XYChart.Data<>(fecha.toString(), cantidad));
+//            }
+//
+//            // Actualizar la LineChart
+//            LC_barra_ventas.getData().clear();
+//            LC_barra_ventas.getData().add(serieVentas);
+//        } finally {
+//            em.close();
+//        }
+//    }
+
 }
