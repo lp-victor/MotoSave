@@ -21,7 +21,7 @@ public interface MotocicletaDAO {
 
     public abstract void eliminarMoto(Motocicleta moto, EntityManager em);
 
-    public abstract Motocicleta obtenerMotoId(int id_moto, EntityManager em);
+    public abstract Motocicleta obtenerMotoPorId(int id_moto, EntityManager em);
 
     public abstract ArrayList<Motocicleta> listarMotos(EntityManager em);
 

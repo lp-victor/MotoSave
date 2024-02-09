@@ -13,11 +13,19 @@ import motosave.Modelos.Administrador;
 import motosave.Modelos.Comercial;
 
 /**
- *
- * @author victo
+ * Implementación de la interfaz AdminstradorDAO.
+ * Proporciona métodos para autenticar y realizar operaciones relacionadas con los administradores en la base de datos.
  */
 public class ImpAdministradorDAO implements AdminstradorDAO {
 
+    /**
+     * Autentica un administrador en la base de datos mediante su nombre de usuario y contraseña.
+     *
+     * @param em El EntityManager utilizado para realizar la operación.
+     * @param password La contraseña del administrador.
+     * @param nombre El nombre de usuario del administrador.
+     * @return true si la autenticación es exitosa, false de lo contrario.
+     */
     @Override
     public boolean loggearAdmin(EntityManager em, String password, String nombre) {
         try {

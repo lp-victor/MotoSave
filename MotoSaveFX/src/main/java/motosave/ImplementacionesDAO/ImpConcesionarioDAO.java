@@ -12,11 +12,18 @@ import motosave.Persistencia.miEntityManager;
 import java.util.List;
 
 /**
- *
- * @author victo
+ * Implementación de la interfaz ConcesionarioDAO.
+ * Proporciona métodos para realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar)
+ * en la base de datos para la entidad Concesionario.
  */
 public class ImpConcesionarioDAO implements ConcesionarioDAO {
 
+    /**
+     * Agrega un nuevo concesionario a la base de datos.
+     *
+     * @param conc El concesionario que se va a agregar.
+     * @param entityManager El EntityManager utilizado para realizar la operación.
+     */
     @Override
     public void agregarConcesionario(Concesionario conc, EntityManager entityManager) {
 
@@ -37,6 +44,12 @@ public class ImpConcesionarioDAO implements ConcesionarioDAO {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * Lista los nombres de todos los concesionarios almacenados en la base de datos.
+     *
+     * @param em El EntityManager utilizado para realizar la operación.
+     * @return Una lista de los nombres de los concesionarios almacenados.
+     */
     @Override
     public List<String> listarNombreConcesionarios(EntityManager em) {
         try {

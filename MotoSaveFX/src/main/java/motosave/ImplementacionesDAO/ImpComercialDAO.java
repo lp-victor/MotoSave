@@ -16,11 +16,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author victo
+ * Implementación de la interfaz ComercialDAO.
+ * Proporciona métodos para realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar)
+ * en la base de datos para la entidad Comercial.
  */
 public class ImpComercialDAO implements ComercialDAO {
 
+    /**
+     * Verifica si un comercial puede iniciar sesión con el usuario y la contraseña proporcionados.
+     *
+     * @param em El EntityManager utilizado para realizar la operación.
+     * @param contrasena La contraseña del comercial.
+     * @param usuario El nombre de usuario del comercial.
+     * @return true si el comercial puede iniciar sesión, false de lo contrario.
+     */
     @Override
     public boolean loggearComercial(EntityManager em, String contrasena, String usuario) {
         try {
@@ -45,6 +54,12 @@ public class ImpComercialDAO implements ComercialDAO {
         }
     }
 
+    /**
+     * Agrega un nuevo comercial a la base de datos.
+     *
+     * @param em El EntityManager utilizado para realizar la operación.
+     * @param comercial El comercial que se va a agregar.
+     */
     @Override
     public void anadirComercial(EntityManager em, Comercial comercial) {
         try {
@@ -56,6 +71,12 @@ public class ImpComercialDAO implements ComercialDAO {
         }
     }
 
+    /**
+     * Modifica los datos de un comercial en la base de datos.
+     *
+     * @param em El EntityManager utilizado para realizar la operación.
+     * @param comercial El comercial con los nuevos datos.
+     */
     @Override
     public void modificarComercial(EntityManager em, Comercial comercial) {
         try {
@@ -76,6 +97,12 @@ public class ImpComercialDAO implements ComercialDAO {
         }
     }
 
+    /**
+     * Elimina un comercial de la base de datos.
+     *
+     * @param em El EntityManager utilizado para realizar la operación.
+     * @param comercial El comercial que se va a eliminar.
+     */
     @Override
     public void eliminarComercial(EntityManager em, Comercial comercial) {
         try {
@@ -90,6 +117,12 @@ public class ImpComercialDAO implements ComercialDAO {
         }
     }
 
+    /**
+     * Lista todos los comerciales almacenados en la base de datos.
+     *
+     * @param em El EntityManager utilizado para realizar la operación.
+     * @return Una lista de todos los comerciales almacenados.
+     */
     @Override
     public ArrayList<Comercial> listarComerciales(EntityManager em) {
         List<Comercial> comerciales = null;
