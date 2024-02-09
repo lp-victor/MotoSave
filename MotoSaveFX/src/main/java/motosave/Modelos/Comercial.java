@@ -39,6 +39,7 @@ public class Comercial {
         this.NIF = NIF;
         this.nombre = nombre;
         this.apellido = apellido;
+
     }
 
     public int getId_comercial() {

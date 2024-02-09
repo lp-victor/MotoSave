@@ -42,4 +42,15 @@ public class ImpAdministradorDAO implements AdminstradorDAO {
         }
     }
 
+    @Override
+    public void crearAdministrador(EntityManager em, Administrador admin) {
+        try {
+            em.getTransaction().begin();
+            em.persist(admin);
+            em.getTransaction().commit();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -46,6 +46,12 @@ public class AdminComercialesController implements Initializable {
     private Button BTN_eliminar;
     @FXML
     private Button BTN_salir;
+    @FXML
+    private TableView TV_comerciales;
+    @FXML
+    private Button BTN_dashboard;
+    @FXML
+    private Button BTN_stock;
 
 
     @Override
@@ -62,7 +68,7 @@ public class AdminComercialesController implements Initializable {
         comDAO.anadirComercial(miEntityManager.getEntityManager(), comercial);
     }
 
-    @FXML
+    @Deprecated
     public void logOut(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Login.fxml"));
@@ -84,5 +90,13 @@ public class AdminComercialesController implements Initializable {
         } catch (IOException ex) {
 
         }
+    }
+
+    @FXML
+    public void cerrar_sesion(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void eliminar_comercial(ActionEvent actionEvent) {
     }
 }

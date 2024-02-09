@@ -28,23 +28,21 @@ public class ComercialEstadisticasController implements Initializable {
     @FXML
     private ComboBox CB_tiempo;
     @FXML
-    private Button BTN_ventas;
-    @FXML
-    private Label L_bienvenido;
-    @FXML
     private Button BTN_salir;
-    @FXML
-    private Button BTN_estadisticas;
-    @FXML
-    private LineChart<?, ?> LC_barra_ventas;
-    @FXML
-    private Label L_sede_comercial;
-    @FXML
-    private Label L_indentificacion_comercial;
     @FXML
     private BarChart<?, ?> BC_barra_liquido;
     @FXML
     private Pane P_comercialEstadisticas;
+    @FXML
+    private Button BTN_ventas;
+    @FXML
+    private Label L_bienvenido;
+    @FXML
+    private LineChart LC_barra_ventas;
+    @FXML
+    private Label L_sede_comercial;
+    @FXML
+    private Label L_indentificacion_comercial;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -52,7 +50,7 @@ public class ComercialEstadisticasController implements Initializable {
         rellenar_ventas();
     }
 
-    @FXML
+    @Deprecated
     public void logOut(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Login.fxml"));
@@ -133,6 +131,10 @@ public class ComercialEstadisticasController implements Initializable {
 
             } catch (IOException ex) {
             }
+    }
+
+    @FXML
+    public void cerrar_sesion(ActionEvent actionEvent) {
     }
 
     // Falta hacer el DAO de ventas para esto

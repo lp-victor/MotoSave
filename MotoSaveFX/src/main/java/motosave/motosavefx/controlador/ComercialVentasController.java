@@ -27,9 +27,8 @@ import java.util.ResourceBundle;
 public class ComercialVentasController implements Initializable {
 
     ImpConcesionarioDAO concDAO;
+    String concesionarioSeleccionado = "";
 
-    @FXML
-    private Button BTN_ventas;
     @FXML
     private Button BTN_salir;
     @FXML
@@ -68,7 +67,7 @@ public class ComercialVentasController implements Initializable {
     }
 
 
-    @FXML
+    @Deprecated
     public void logOut(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Login.fxml"));
@@ -118,6 +117,7 @@ public class ComercialVentasController implements Initializable {
 
     @FXML
     public void seleccionar_concesionario(ActionEvent actionEvent) {
+        concesionarioSeleccionado = CmB_concesionarios.getSelectionModel().toString();
     }
 
     public void llenarComboBoxConcesionarios(ComboBox<String> comboBox) {
@@ -134,10 +134,12 @@ public class ComercialVentasController implements Initializable {
         if (comprobarDatosCliente()){
             Cliente cliente = new Cliente(TF_nombreCliente.getText(), TF_apellidosCliente.getText(), TF_correoCliente.getText(), Integer.getInteger(TF_telefonoCliente.getText()), TF_direccion.getText());
             Comercial comercial = ComercialLoggeado.getComercialLoggeado();
+
+            // Fecha de compra
             long miliseconds = System.currentTimeMillis();
             Date fecha_compra = new Date(miliseconds);
             // Moto seleccionada
-
+            // double precioFinal = moto.getPrecio_compra() *
         }
 
     }
@@ -155,5 +157,9 @@ public class ComercialVentasController implements Initializable {
             } else {
                 return true;
             }
+    }
+
+    @FXML
+    public void cerrar_sesion(ActionEvent actionEvent) {
     }
 }

@@ -5,6 +5,7 @@
 package motosave.DAO;
 
 import jakarta.persistence.EntityManager;
+import motosave.Modelos.Administrador;
 import motosave.Modelos.Comercial;
 
 /**
@@ -14,6 +15,8 @@ import motosave.Modelos.Comercial;
 public interface AdminstradorDAO {
 
     public abstract boolean loggearAdmin(EntityManager em, String password, String usuario);
+
+    public abstract void crearAdministrador(EntityManager em, Administrador admin);
 
 
 }

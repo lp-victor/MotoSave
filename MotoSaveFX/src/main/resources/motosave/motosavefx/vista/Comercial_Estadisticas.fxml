@@ -18,7 +18,7 @@
    <children>
       <Pane prefHeight="920.0" prefWidth="309.0" style="-fx-background-color: #374452; -fx-background-radius: 0 30 30 0;">
          <children>
-            <Button fx:id="BTN_estadisticas" layoutX="78.0" layoutY="248.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: left;" text="Estadísticas" textFill="#00b86b">
+            <Button layoutX="78.0" layoutY="248.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: left;" text="Estadísticas" textFill="#00b86b">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -28,7 +28,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="BTN_salir" alignment="CENTER_RIGHT" layoutX="80.0" layoutY="824.0" mnemonicParsing="false" onAction="#logOut" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #1f2a36; -fx-background-radius: 15;" text="Salir    " textFill="RED">
+            <Button fx:id="BTN_salir" alignment="CENTER_RIGHT" layoutX="80.0" layoutY="824.0" mnemonicParsing="false" onAction="#cerrar_sesion" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #1f2a36; -fx-background-radius: 15;" text="Salir    " textFill="RED">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
