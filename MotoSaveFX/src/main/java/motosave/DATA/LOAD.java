@@ -4,14 +4,22 @@
  */
 package motosave.DATA;
 
+import motosave.EnumeradosMoto.Colores;
+import motosave.EnumeradosMoto.Marcas;
+import motosave.EnumeradosMoto.ModelosHONDA;
+import motosave.Factory.FactoryMoto;
 import motosave.ImplementacionesDAO.ImpAdministradorDAO;
 import motosave.ImplementacionesDAO.ImpComercialDAO;
 import motosave.ImplementacionesDAO.ImpConcesionarioDAO;
+import motosave.ImplementacionesDAO.ImpMotocicletaDAO;
 import motosave.Modelos.Administrador;
 import motosave.Modelos.Comercial;
 import motosave.Modelos.Concesionario;
 import jakarta.persistence.EntityManager;
+import motosave.Modelos.Motocicleta;
 import motosave.Persistencia.miEntityManager;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -25,16 +33,18 @@ public class LOAD {
     ImpConcesionarioDAO concDAO = new ImpConcesionarioDAO();
     ImpAdministradorDAO adminDAO = new ImpAdministradorDAO();
     ImpComercialDAO comDAO = new ImpComercialDAO();
+    ImpMotocicletaDAO motoDAO = new ImpMotocicletaDAO();
 
     public static double beneficio = 1.35;
     
     Concesionario Granada = new Concesionario("Granada");
     Concesionario Madrid = new Concesionario("Madrid");
     Concesionario Barcelona = new Concesionario("Barcelona");
-
     Administrador administrador = new Administrador("admin", "admin");
-
     Comercial c1 = new Comercial(Madrid,"juan","1234","12345678A","Juan Alberto", "De los Rios");
+
+    FactoryMoto factoryMoto = new FactoryMoto();
+    ArrayList<Motocicleta> motos = factoryMoto.fabricarMoto(Marcas.HONDA.toString(),ModelosHONDA.CBR.toString(), Colores.AZUL.toString(),3);
 
     // Creacion de datos para poder
     public LOAD (){
@@ -45,6 +55,11 @@ public class LOAD {
         adminDAO.crearAdministrador(miEntityManager.getEntityManager(), administrador);
 
         comDAO.anadirComercial(miEntityManager.getEntityManager(),c1);
+
+        for (Motocicleta moto : motos) {
+            moto.setConcesionario(Madrid);
+            motoDAO.guardarMoto(moto, miEntityManager.getEntityManager());
+        }
     }
 
 

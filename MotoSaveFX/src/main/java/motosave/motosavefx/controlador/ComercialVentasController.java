@@ -117,7 +117,7 @@ public class ComercialVentasController implements Initializable {
 
     @FXML
     public void seleccionar_concesionario(ActionEvent actionEvent) {
-        concesionarioSeleccionado = CmB_concesionarios.getSelectionModel().toString();
+        concesionarioSeleccionado = CmB_concesionarios.getValue().toString();
     }
 
     public void llenarComboBoxConcesionarios(ComboBox<String> comboBox) {

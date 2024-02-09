@@ -63,4 +63,16 @@ public class ImpConcesionarioDAO implements ConcesionarioDAO {
         }
     }
 
+    public List<Concesionario> listarConcesionarios(EntityManager em) {
+        try {
+            // Consulta JPQL para obtener los nombres de los concesionarios
+            List<Concesionario> concesionarios = em.createQuery("SELECT c FROM Concesionario c", Concesionario.class)
+                    .getResultList();
+
+            return concesionarios;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }

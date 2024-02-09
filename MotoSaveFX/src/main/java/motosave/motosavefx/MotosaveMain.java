@@ -20,6 +20,8 @@ public class MotosaveMain extends Application {
 //        stage.setScene(scene);
 //        stage.show();
 
+        LOAD load = new LOAD();
+
         try {
             // Cargar el archivo FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Login.fxml"));

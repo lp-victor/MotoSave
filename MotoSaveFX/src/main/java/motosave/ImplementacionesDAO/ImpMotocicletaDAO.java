@@ -34,7 +34,6 @@ public class ImpMotocicletaDAO implements MotocicletaDAO {
             entityManager.persist(moto);
             entityManager.getTransaction().commit();
             System.out.println("Transacción completada con éxito.");
-
         } catch (Exception e) {
             e.printStackTrace();
         }
