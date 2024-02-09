@@ -1,11 +1,14 @@
 package motosave.motosavefx.controlador;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import motosave.DATA.MotocicletaCantidad;
 import motosave.ImplementacionesDAO.ImpConcesionarioDAO;
 import motosave.ImplementacionesDAO.ImpMotocicletaDAO;
 import motosave.Modelos.Concesionario;
@@ -13,14 +16,15 @@ import motosave.Modelos.Motocicleta;
 import motosave.Persistencia.miEntityManager;
 
 import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class AdminStockController implements Initializable {
 
+
     ImpConcesionarioDAO concDAO;
     ImpMotocicletaDAO motoDAO;
-    List<Motocicleta> motocicletasList = null;
+    MotocicletaCantidad motocicletaCantidad;
+    private ObservableList<MotocicletaCantidad> motocicletasConCantidadList = FXCollections.observableArrayList();
 
     @FXML
     private Button BTN_comerciales;
@@ -73,10 +77,13 @@ public class AdminStockController implements Initializable {
     @FXML
     private Label L_sede_comercial;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         concDAO = new ImpConcesionarioDAO();
         motoDAO = new ImpMotocicletaDAO();
+
+
 
         colMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
         colModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
@@ -110,8 +117,8 @@ public class AdminStockController implements Initializable {
      * Método para cargar concesionarios en el ComboBox.
      */
     private void cargarConcesionariosEnComboBox() {
-        List<Concesionario> concesionarios = concDAO.listarConcesionarios(miEntityManager.getEntityManager());//======== dao concesioanrio. obtener concesionarios
-        CmB_concesionarios_selecion.getItems().addItems(concesionarios);
+        List<Concesionario> concesionarios = concDAO.listarConcesionarios(miEntityManager.getEntityManager());
+        CmB_concesionarios_selecion.getItems().addAll(concesionarios);
     }
 
     /**
@@ -120,18 +127,29 @@ public class AdminStockController implements Initializable {
     private void cargarMotocicletasSegunConcesionarioSeleccionado() {
 
         Concesionario concesionarioSeleccionado = (Concesionario) CmB_concesionarios_selecion.getValue();    //=============CAmbiar nombre del combobox
-        List<Motocicleta> motocicletas = motoDAO(concesionarioSeleccionado); //===========DAO CONCESIONARIO POR ID O POR LO QUE ESTE en EL COMBOBOX
+        List<Motocicleta> motocicletas = motoDAO.listarMotosConcesionario(concesionarioSeleccionado.getId_concesionario(),miEntityManager.getEntityManager()); //===========DAO CONCESIONARIO POR ID O POR LO QUE ESTE en EL COMBOBOX
 
-        // Limpiar la tabla antes de agregar nuevos datos
-        T_tablaExistencias.getItems().clear();
+        // Usamos un Map para realizar un seguimiento de las motocicletas y sus cantidades
+        Map<Motocicleta, Integer> motocicletasConCantidad = new HashMap<>();
 
         for (Motocicleta motocicleta : motocicletas) {
-            int cantidad = calcularCantidad(motocicleta,motocicletas);
-            motocicleta.setUnidades(cantidad);
+            int cantidad = calcularCantidad(motocicleta, motocicletas);
+            motocicletasConCantidad.put(motocicleta, cantidad);
         }
 
-        motocicletasList.setAll(motocicletas);
-        T_tablaExistencias.setItems(motocicletasList);
+
+        T_tablaExistencias.getItems().clear();
+
+        List<MotocicletaCantidad> motocicletasCantList = new ArrayList<>();
+        for (Map.Entry<Motocicleta, Integer> entry : motocicletasConCantidad.entrySet()) {
+            Motocicleta motocicleta = entry.getKey();
+            int cantidad = entry.getValue();
+            MotocicletaCantidad motocicletaCantidad = new MotocicletaCantidad(motocicleta, cantidad);
+            motocicletasCantList.add(motocicletaCantidad);
+        }
+
+        motocicletasConCantidadList.addAll(motocicletasCantList);
+        T_tablaExistencias.setItems(motocicletasConCantidadList);
     }
 
     /**
