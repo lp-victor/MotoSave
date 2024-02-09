@@ -4,10 +4,9 @@
  */
 package motosave.ImplementacionesDAO;
 
+import jakarta.persistence.EntityManager;
 import motosave.DAO.ConcesionarioDAO;
 import motosave.Modelos.Concesionario;
-import jakarta.persistence.EntityManager;
-import motosave.Persistencia.miEntityManager;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class ImpConcesionarioDAO implements ConcesionarioDAO {
     /**
      * Agrega un nuevo concesionario a la base de datos.
      *
-     * @param conc El concesionario que se va a agregar.
+     * @param conc          El concesionario que se va a agregar.
      * @param entityManager El EntityManager utilizado para realizar la operación.
      */
     @Override

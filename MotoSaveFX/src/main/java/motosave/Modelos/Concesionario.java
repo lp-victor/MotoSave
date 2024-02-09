@@ -6,25 +6,21 @@ package motosave.Modelos;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- *
  * @author victo
  */
 @Entity
 @Table(name = "concesionario")
 public class Concesionario {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_concesionario")
     private int id_concesionario;
-    
+
     private String ubicacion;
-    
-     // Relación con Comercial (un concesionario tiene muchos comerciales)
+
+    // Relación con Comercial (un concesionario tiene muchos comerciales)
 
 
     public Concesionario() {

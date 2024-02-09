@@ -4,14 +4,13 @@
  */
 package motosave.DAO;
 
-import motosave.Modelos.Motocicleta;
 import jakarta.persistence.EntityManager;
+import motosave.Modelos.Motocicleta;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author victo
  */
 public interface MotocicletaDAO {

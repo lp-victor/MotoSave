@@ -5,11 +5,10 @@
 package motosave.EnumeradosMoto;
 
 /**
- *
  * @author victo
  */
 public enum Marcas {
-    
+
     HONDA, YAMAHA, BMW, DUCATI, KAWASAKI, SUZUKI, KTM, DAISVI
-    
+
 }

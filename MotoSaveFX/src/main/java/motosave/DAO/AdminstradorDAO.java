@@ -6,10 +6,8 @@ package motosave.DAO;
 
 import jakarta.persistence.EntityManager;
 import motosave.Modelos.Administrador;
-import motosave.Modelos.Comercial;
 
 /**
- *
  * @author victo
  */
 public interface AdminstradorDAO {

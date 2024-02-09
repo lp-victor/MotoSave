@@ -4,11 +4,10 @@
  */
 package motosave.ImplementacionesDAO;
 
-import motosave.DAO.MotocicletaDAO;
-import motosave.Modelos.Concesionario;
-import motosave.Modelos.Motocicleta;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import motosave.DAO.MotocicletaDAO;
+import motosave.Modelos.Motocicleta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,14 +16,13 @@ import java.util.List;
  * Implementación de la interfaz MotocicletaDAO.
  * Proporciona métodos para realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar)
  * en la base de datos para la entidad Motocicleta.
- *
  */
 public class ImpMotocicletaDAO implements MotocicletaDAO {
 
     /**
      * Guarda una motocicleta en la base de datos.
      *
-     * @param moto La motocicleta a guardar.
+     * @param moto          La motocicleta a guardar.
      * @param entityManager El EntityManager utilizado para realizar la operación.
      */
     @Override
@@ -48,7 +46,7 @@ public class ImpMotocicletaDAO implements MotocicletaDAO {
     /**
      * Elimina una motocicleta de la base de datos.
      *
-     * @param moto La motocicleta a eliminar.
+     * @param moto          La motocicleta a eliminar.
      * @param entityManager El EntityManager utilizado para realizar la operación.
      */
     @Override
@@ -70,7 +68,7 @@ public class ImpMotocicletaDAO implements MotocicletaDAO {
     /**
      * Obtiene una motocicleta de la base de datos por su ID.
      *
-     * @param id_moto El ID de la motocicleta a obtener.
+     * @param id_moto       El ID de la motocicleta a obtener.
      * @param entityManager El EntityManager utilizado para realizar la operación.
      * @return La motocicleta encontrada o null si no se encuentra.
      */
@@ -99,7 +97,7 @@ public class ImpMotocicletaDAO implements MotocicletaDAO {
     public ArrayList<Motocicleta> listarMotos(EntityManager entityManager) {
         try {
             return new ArrayList<>(entityManager.createQuery("SELECT m FROM Motocicleta m", Motocicleta.class).getResultList());
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -109,7 +107,7 @@ public class ImpMotocicletaDAO implements MotocicletaDAO {
      * Lista todas las motocicletas asociadas a un concesionario específico.
      *
      * @param id_concesionario_e El ID del concesionario del cual se desean obtener las motocicletas.
-     * @param entityManager El EntityManager utilizado para realizar la operación.
+     * @param entityManager      El EntityManager utilizado para realizar la operación.
      * @return Una lista de motocicletas asociadas al concesionario especificado.
      */
     @Override
@@ -120,8 +118,8 @@ public class ImpMotocicletaDAO implements MotocicletaDAO {
             List<Motocicleta> motos = (entityManager.createQuery(jpql, Motocicleta.class)
                     .setParameter("id_concesionario", id_concesionario_e)
                     .getResultList());
-            return  motos;
-        } catch (Exception e){
+            return motos;
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

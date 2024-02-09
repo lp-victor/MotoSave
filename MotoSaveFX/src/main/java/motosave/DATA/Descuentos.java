@@ -5,11 +5,10 @@
 package motosave.DATA;
 
 /**
- *
  * @author victo
  */
 public enum Descuentos {
-    
-    CINCO, DIEZ,QUINCE,VEINTE 
-    
+
+    CINCO, DIEZ, QUINCE, VEINTE
+
 }

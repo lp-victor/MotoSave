@@ -6,15 +6,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import motosave.DATA.LOAD;
-import motosave.ImplementacionesDAO.ImpAdministradorDAO;
-import motosave.Modelos.Administrador;
 
 import java.io.IOException;
 
 public class MotosaveMain extends Application {
+    public static void main(String[] args) {
+        launch();
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
 
+         LOAD load = new LOAD();
 
         try {
             // Cargar el archivo FXML
@@ -34,10 +37,6 @@ public class MotosaveMain extends Application {
             e.printStackTrace();
         }
 
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 
 }

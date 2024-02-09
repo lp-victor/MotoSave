@@ -5,11 +5,10 @@
 package motosave.EnumeradosMoto;
 
 /**
- *
  * @author victo
  */
 public enum Colores {
-    
+
     ROJO, NEGRO, AZUL, VERDE, BLANCO, NARANJA, AMARILLO, PLATEADO, GRIS
-    
+
 }

@@ -8,11 +8,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- *
  * @author victo
  */
 public class Encriptador {
-    
+
     public static String encriptarContraseña(String contraseña) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256"); // Crea una caja que encripta
@@ -21,7 +20,8 @@ public class Encriptador {
 
             for (byte b : hash) {
                 String hex = Integer.toHexString(0xff & b); // '0xff & b' se utiliza para quitar el signo al byte y evitar problemas con signos negativos
-                if (hex.length() == 1) hexString.append('0'); // Si la representacion hexadecimal es de solo un catacter, metemos un cero para asegurar que todas las representaciones tengan 2 caracteres
+                if (hex.length() == 1)
+                    hexString.append('0'); // Si la representacion hexadecimal es de solo un catacter, metemos un cero para asegurar que todas las representaciones tengan 2 caracteres
                 hexString.append(hex); // Concatenamos la representacion hexadecimal en el String hexadecimal
             }
 

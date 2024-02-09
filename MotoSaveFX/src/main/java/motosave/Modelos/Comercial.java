@@ -1,12 +1,9 @@
 package motosave.Modelos;
 
-import motosave.DATA.Encriptador;
 import jakarta.persistence.*;
-
-import java.util.ArrayList;
+import motosave.DATA.Encriptador;
 
 /**
- *
  * @author victo
  */
 @Entity
@@ -30,7 +27,8 @@ public class Comercial {
     private String apellido;
     private double salario; // Campo calculado con las ventas realizadas
 
-    public Comercial() {}
+    public Comercial() {
+    }
 
     public Comercial(Concesionario concesionario, String usuario, String contraseña, String NIF, String nombre, String apellido) {
         this.concesionario = concesionario;
@@ -101,8 +99,6 @@ public class Comercial {
     public void setContrasena(String contraseña) {
         this.contraseña = Encriptador.encriptarContraseña(contraseña);
     }
-
-
 
 
 }

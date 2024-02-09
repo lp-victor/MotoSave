@@ -48,7 +48,7 @@ public class AdminStockController implements Initializable {
     @FXML
     private ComboBox CmB_concesionarios_selecion;
     @FXML
-    private TableView T_tablaExistencias;
+    private TableView<MotocicletaCantidad> T_tablaExistencias;
     @FXML
     private TextField TF_cantidad;
     @FXML
@@ -72,18 +72,17 @@ public class AdminStockController implements Initializable {
     @FXML
     private Pane P_comercialVentas;
     @FXML
-    private TableColumn colMarca;
+    private TableColumn<MotocicletaCantidad, String> colMarca;
     @FXML
-    private TableColumn colModelo;
+    private TableColumn<MotocicletaCantidad, String> colModelo;
     @FXML
-    private TableColumn colColor;
+    private TableColumn<MotocicletaCantidad, String> colColor;
     @FXML
-    private TableColumn colUnidades;
+    private TableColumn<MotocicletaCantidad, Integer> colUnidades;
     @FXML
-    private TableColumn colPrecio;
+    private TableColumn<MotocicletaCantidad, Double> colPrecio;
     @FXML
-    private TableColumn colCilindrada;
-
+    private TableColumn<MotocicletaCantidad, Integer> colCilindrada;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -93,12 +92,12 @@ public class AdminStockController implements Initializable {
         motocicletasConCantidadList = FXCollections.observableArrayList();
 
         // Tabla y combobox superior
-        colMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
-        colModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
-        colColor.setCellValueFactory(new PropertyValueFactory<>("color"));
-        colCilindrada.setCellValueFactory(new PropertyValueFactory<>("cc"));
-        colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio_compra"));
-        colUnidades.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        colMarca.setCellValueFactory(new PropertyValueFactory<MotocicletaCantidad, String>("marca"));
+        colModelo.setCellValueFactory(new PropertyValueFactory<MotocicletaCantidad, String>("modelo"));
+        colColor.setCellValueFactory(new PropertyValueFactory<MotocicletaCantidad, String>("color"));
+        colCilindrada.setCellValueFactory(new PropertyValueFactory<MotocicletaCantidad, Integer>("cc"));
+        colPrecio.setCellValueFactory(new PropertyValueFactory<MotocicletaCantidad, Double>("precio_compra"));
+        colUnidades.setCellValueFactory(new PropertyValueFactory<MotocicletaCantidad, Integer>("cantidad"));
 
         cargarConcesionariosEnComboBox();
         CmB_concesionarios_selecion.setOnAction(event -> cargarMotocicletasSegunConcesionarioSeleccionado());
@@ -224,52 +223,59 @@ public class AdminStockController implements Initializable {
      * Método para cargar motocicletas según el concesionario seleccionado
      */
     private void cargarMotocicletasSegunConcesionarioSeleccionado() {
-
-        Concesionario concesionarioSeleccionado = (Concesionario) CmB_concesionarios_selecion.getValue();    //=============Cambiar nombre del combobox
+        Concesionario concesionarioSeleccionado = (Concesionario) CmB_concesionarios_selecion.getValue();
         System.out.println(concesionarioSeleccionado.getId_concesionario());
-        List<Motocicleta> motocicletas = motoDAO.listarMotosConcesionario(concesionarioSeleccionado.getId_concesionario(), miEntityManager.getEntityManager()); //===========DAO CONCESIONARIO POR ID O POR LO QUE ESTE en EL COMBOBOX
+        List<Motocicleta> motocicletas = motoDAO.listarMotosConcesionario(concesionarioSeleccionado.getId_concesionario(), miEntityManager.getEntityManager());
 
-        // Usamos un Map para realizar un seguimiento de las motocicletas y sus cantidades
+        // Inicializar el mapa para realizar el seguimiento de las motocicletas y sus cantidades
         Map<Motocicleta, Integer> motocicletasConCantidad = new HashMap<>();
 
+        // Contar motocicletas iguales
         for (Motocicleta motocicleta : motocicletas) {
-            int cantidad = calcularCantidad(motocicleta, motocicletas);
-            motocicletasConCantidad.put(motocicleta, cantidad);
+            boolean encontrada = false;
+            for (Motocicleta key : motocicletasConCantidad.keySet()) {
+                if (sonMotocicletasIguales(motocicleta, key)) {
+                    motocicletasConCantidad.put(key, motocicletasConCantidad.get(key) + 1);
+                    encontrada = true;
+                    break;
+                }
+            }
+            if (!encontrada) {
+                motocicletasConCantidad.put(motocicleta, 1);
+            }
         }
 
         T_tablaExistencias.getItems().clear();
+        ObservableList<MotocicletaCantidad> motocicletasCantList = FXCollections.observableArrayList();
 
-        List<MotocicletaCantidad> motocicletasCantList = new ArrayList<>();
+        // Convertir el mapa a una lista observable para la tabla
         for (Map.Entry<Motocicleta, Integer> entry : motocicletasConCantidad.entrySet()) {
-            Motocicleta motocicleta = entry.getKey();
-            int cantidad = entry.getValue();
-            MotocicletaCantidad motocicletaCantidad = new MotocicletaCantidad(motocicleta, cantidad);
+            MotocicletaCantidad motocicletaCantidad = new MotocicletaCantidad(entry.getKey(), entry.getValue()-1);
             motocicletasCantList.add(motocicletaCantidad);
         }
 
-        motocicletasConCantidadList.addAll(motocicletasCantList);
-        T_tablaExistencias.setItems(motocicletasConCantidadList);
+        T_tablaExistencias.setItems(motocicletasCantList);
     }
 
-    /**
-     * Calculo la cantidad con el metodo de son motocicletasIguales, si es True aumenta el cantidad para averiguarla.
-     *
-     * @param motocicleta
-     * @param motocicletas
-     * @return Int Cantidad de Motos Iguales
-     */
-    private int calcularCantidad(Motocicleta motocicleta, List<Motocicleta> motocicletas) {
-        int cantidad = 0;
-        for (Motocicleta otraMotocicleta : motocicletas) {
-            if (motocicleta.equals(otraMotocicleta)) {
-                continue;
-            }
-            if (sonMotocicletasIguales(motocicleta, otraMotocicleta)) {
-                cantidad++;
-            }
-        }
-        return cantidad;
-    }
+//    /**
+//     * Calculo la cantidad con el metodo de son motocicletasIguales, si es True aumenta el cantidad para averiguarla.
+//     *
+//     * @param motocicleta
+//     * @param motocicletas
+//     * @return Int Cantidad de Motos Iguales
+//     */
+//    private int calcularCantidad(Motocicleta motocicleta, List<Motocicleta> motocicletas) {
+//        int cantidad = 0;
+//        for (Motocicleta otraMotocicleta : motocicletas) {
+//            if (motocicleta.equals(otraMotocicleta)) {
+//                continue;
+//            }
+//            if (sonMotocicletasIguales(motocicleta, otraMotocicleta)) {
+//                cantidad++;
+//            }
+//        }
+//        return cantidad;
+//    }
 
     /**
      * Comprobar Motocicletas iguales. (Introduciendo el arraylist de las motos de un concesionarioy cada moto individual)

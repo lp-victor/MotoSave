@@ -1,10 +1,8 @@
 package motosave.Modelos;
 
 import jakarta.persistence.*;
-import motosave.DATA.LOAD;
 
 /**
- *
  * @author victo
  */
 @Entity
@@ -27,7 +25,7 @@ public class Motocicleta {
 
     public Motocicleta() {
     }
-    
+
     public Motocicleta(String marca, String modelo, String color, int cc, double precio_compra) {
         this.marca = marca;
         this.modelo = modelo;
@@ -96,7 +94,6 @@ public class Motocicleta {
     public String toString() {
         return "Motocicleta{" + "id_moto=" + id_moto + ", marca=" + marca + ", modelo=" + modelo + ", color=" + color + ", cc=" + cc + ", precio_compra=" + precio_compra + '}';
     }
-    
-    
-    
+
+
 }

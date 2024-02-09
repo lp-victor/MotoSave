@@ -1,7 +1,5 @@
 package motosave.motosavefx.controlador;
 
-import com.dlsc.formsfx.model.validators.RegexValidator;
-import jakarta.persistence.EntityManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +17,6 @@ import motosave.Persistencia.miEntityManager;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -131,7 +128,7 @@ public class ComercialVentasController implements Initializable {
     @FXML
     public void realizar_venta(ActionEvent actionEvent) {
 
-        if (comprobarDatosCliente()){
+        if (comprobarDatosCliente()) {
             Cliente cliente = new Cliente(TF_nombreCliente.getText(), TF_apellidosCliente.getText(), TF_correoCliente.getText(), Integer.getInteger(TF_telefonoCliente.getText()), TF_direccion.getText());
             Comercial comercial = ComercialLoggeado.getComercialLoggeado();
 
@@ -144,21 +141,21 @@ public class ComercialVentasController implements Initializable {
 
     }
 
-    private boolean comprobarDatosCliente (){
+    private boolean comprobarDatosCliente() {
         L_control_vacios.setVisible(false);
         L_control_telefono.setVisible(false);
 
-            if (TF_nombreCliente.getText().isEmpty() || TF_apellidosCliente.getText().isEmpty() || TF_correoCliente.getText().isEmpty() || TF_telefonoCliente.getText().isEmpty() || TF_direccion.getText().isEmpty()) {
-                L_control_vacios.setVisible(true);
-                return false;
-            } else if (! TF_telefonoCliente.getText().matches("^\\d+$")) {
-                L_control_telefono.setVisible(true);
-                return false;
-            } else {
-                L_control_vacios.setVisible(false);
-                L_control_telefono.setVisible(false);
-                return true;
-            }
+        if (TF_nombreCliente.getText().isEmpty() || TF_apellidosCliente.getText().isEmpty() || TF_correoCliente.getText().isEmpty() || TF_telefonoCliente.getText().isEmpty() || TF_direccion.getText().isEmpty()) {
+            L_control_vacios.setVisible(true);
+            return false;
+        } else if (!TF_telefonoCliente.getText().matches("^\\d+$")) {
+            L_control_telefono.setVisible(true);
+            return false;
+        } else {
+            L_control_vacios.setVisible(false);
+            L_control_telefono.setVisible(false);
+            return true;
+        }
     }
 
     @FXML

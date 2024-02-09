@@ -25,9 +25,9 @@ public class ImpComercialDAO implements ComercialDAO {
     /**
      * Verifica si un comercial puede iniciar sesión con el usuario y la contraseña proporcionados.
      *
-     * @param em El EntityManager utilizado para realizar la operación.
+     * @param em         El EntityManager utilizado para realizar la operación.
      * @param contrasena La contraseña del comercial.
-     * @param usuario El nombre de usuario del comercial.
+     * @param usuario    El nombre de usuario del comercial.
      * @return true si el comercial puede iniciar sesión, false de lo contrario.
      */
     @Override
@@ -43,7 +43,7 @@ public class ImpComercialDAO implements ComercialDAO {
             // Ejecuta la consulta y obtiene el resultado
             Comercial comercial = (Comercial) query.getSingleResult();
 
-            if ( comercial != null) {
+            if (comercial != null) {
                 ComercialLoggeado.setComercialLoggeado(comercial);
                 return true;
             } else {
@@ -57,7 +57,7 @@ public class ImpComercialDAO implements ComercialDAO {
     /**
      * Agrega un nuevo comercial a la base de datos.
      *
-     * @param em El EntityManager utilizado para realizar la operación.
+     * @param em        El EntityManager utilizado para realizar la operación.
      * @param comercial El comercial que se va a agregar.
      */
     @Override
@@ -66,7 +66,7 @@ public class ImpComercialDAO implements ComercialDAO {
             em.getTransaction().begin();
             em.persist(comercial);
             em.getTransaction().commit();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -74,7 +74,7 @@ public class ImpComercialDAO implements ComercialDAO {
     /**
      * Modifica los datos de un comercial en la base de datos.
      *
-     * @param em El EntityManager utilizado para realizar la operación.
+     * @param em        El EntityManager utilizado para realizar la operación.
      * @param comercial El comercial con los nuevos datos.
      */
     @Override
@@ -100,7 +100,7 @@ public class ImpComercialDAO implements ComercialDAO {
     /**
      * Elimina un comercial de la base de datos.
      *
-     * @param em El EntityManager utilizado para realizar la operación.
+     * @param em        El EntityManager utilizado para realizar la operación.
      * @param comercial El comercial que se va a eliminar.
      */
     @Override

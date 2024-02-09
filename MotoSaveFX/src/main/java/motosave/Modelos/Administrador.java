@@ -4,19 +4,18 @@
  */
 package motosave.Modelos;
 
-import motosave.DATA.Encriptador;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import motosave.DATA.Encriptador;
 
 /**
- *
  * @author victo
- */    
+ */
 @Entity
 public class Administrador {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

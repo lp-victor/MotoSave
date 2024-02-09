@@ -1,29 +1,25 @@
-
 package motosave.Modelos;
 
 import jakarta.persistence.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- *
  * @author victo
  */
 @Entity
 @Table(name = "venta")
 public class Venta {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_venta;
-    
+
     @Temporal(TemporalType.DATE)
     private Date fecha_venta;
     //private enum descuento;
-    
+
     // Relación con Comercial (una venta pertenece a un comercial)
     @ManyToOne
     @JoinColumn(name = "id_comercial")

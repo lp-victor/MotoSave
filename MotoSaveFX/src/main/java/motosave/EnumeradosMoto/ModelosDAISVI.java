@@ -5,11 +5,10 @@
 package motosave.EnumeradosMoto;
 
 /**
- *
  * @author victo
  */
 public enum ModelosDAISVI {
 
     SUPATRI, MSF, RUBENTURE, TRAVESEIRA, MS_TOURING, RAPID_LIM, BELMONTER
-    
+
 }

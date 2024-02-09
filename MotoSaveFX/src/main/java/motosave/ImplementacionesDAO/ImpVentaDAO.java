@@ -17,7 +17,7 @@ public class ImpVentaDAO implements VentaDAO {
     /**
      * Realiza una venta de motocicleta, persistiendo la venta en la base de datos.
      *
-     * @param em El EntityManager utilizado para realizar la operación.
+     * @param em    El EntityManager utilizado para realizar la operación.
      * @param venta La venta de motocicleta que se va a realizar y persistir.
      */
     @Override
@@ -26,7 +26,7 @@ public class ImpVentaDAO implements VentaDAO {
             em.getTransaction().begin();
             em.persist(venta);
             em.getTransaction().commit();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

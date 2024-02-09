@@ -6,13 +6,16 @@ public class ComercialLoggeado {
 
     private static Comercial comercial = null;
 
-    private ComercialLoggeado() {};
+    private ComercialLoggeado() {
+    }
 
-    public static Comercial getComercialLoggeado () {
+    ;
+
+    public static Comercial getComercialLoggeado() {
         return comercial;
     }
 
-    public static void setComercialLoggeado(Comercial comercial_e){
+    public static void setComercialLoggeado(Comercial comercial_e) {
         comercial = comercial_e;
     }
 

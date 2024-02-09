@@ -10,7 +10,6 @@ import jakarta.persistence.Query;
 import motosave.DAO.AdminstradorDAO;
 import motosave.DATA.Encriptador;
 import motosave.Modelos.Administrador;
-import motosave.Modelos.Comercial;
 
 /**
  * Implementación de la interfaz AdminstradorDAO.
@@ -21,9 +20,9 @@ public class ImpAdministradorDAO implements AdminstradorDAO {
     /**
      * Autentica un administrador en la base de datos mediante su nombre de usuario y contraseña.
      *
-     * @param em El EntityManager utilizado para realizar la operación.
+     * @param em       El EntityManager utilizado para realizar la operación.
      * @param password La contraseña del administrador.
-     * @param nombre El nombre de usuario del administrador.
+     * @param nombre   El nombre de usuario del administrador.
      * @return true si la autenticación es exitosa, false de lo contrario.
      */
     @Override
@@ -39,7 +38,7 @@ public class ImpAdministradorDAO implements AdminstradorDAO {
             // Ejecuta la consulta y obtiene el resultado
             Administrador admin = (Administrador) query.getSingleResult();
 
-            if ( admin != null) {
+            if (admin != null) {
                 return true;
             } else {
                 return false;
@@ -56,7 +55,7 @@ public class ImpAdministradorDAO implements AdminstradorDAO {
             em.getTransaction().begin();
             em.persist(admin);
             em.getTransaction().commit();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

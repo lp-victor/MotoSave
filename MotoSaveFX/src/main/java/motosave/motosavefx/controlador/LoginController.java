@@ -14,12 +14,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import motosave.DATA.Encriptador;
 import motosave.ImplementacionesDAO.ImpAdministradorDAO;
 import motosave.ImplementacionesDAO.ImpComercialDAO;
 import motosave.Modelos.Comercial;
 import motosave.Persistencia.miEntityManager;
-import org.w3c.dom.Entity;
 
 import java.io.IOException;
 import java.net.URL;
@@ -74,7 +72,7 @@ public class LoginController implements Initializable {
         }
     }
 
-    private void iniciarComercial(){
+    private void iniciarComercial() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Comercial_Ventas.fxml"));
 
@@ -97,7 +95,7 @@ public class LoginController implements Initializable {
         }
     }
 
-    private void iniciarAdmin(){
+    private void iniciarAdmin() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Admin_Dashboard.fxml"));
 

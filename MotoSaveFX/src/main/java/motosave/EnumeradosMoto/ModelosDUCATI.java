@@ -5,7 +5,6 @@
 package motosave.EnumeradosMoto;
 
 /**
- *
  * @author victo
  */
 public enum ModelosDUCATI {

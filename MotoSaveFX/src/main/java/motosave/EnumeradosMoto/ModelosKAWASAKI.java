@@ -5,11 +5,10 @@
 package motosave.EnumeradosMoto;
 
 /**
- *
  * @author victo
  */
 public enum ModelosKAWASAKI {
-    
+
     NINJA, ZH2, VERSYS, VULCAN, KLX, CONCOURS
-    
+
 }

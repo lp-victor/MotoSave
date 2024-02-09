@@ -17,7 +17,8 @@ module motosave.motosavefx {
     exports motosave.motosavefx.controlador;
     opens motosave.motosavefx.controlador to javafx.fxml;
 
-    opens motosave.DATA to javafx.base; // Para que pueda cargar los daots en las tablas.
-    opens motosave.Modelos to org.hibernate.orm.core, javafx.base; // Para que habrá el controlador el JavaFX.
+    // Para que pueda cargar los daots en las tablas.
+    opens motosave.Modelos to org.hibernate.orm.core, javafx.base;
+    opens motosave.DATA to javafx.base, org.hibernate.orm.core; // Para que habrá el controlador el JavaFX.
 
 }
