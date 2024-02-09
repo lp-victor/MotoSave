@@ -14,6 +14,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import motosave.DATA.Encriptador;
 import motosave.ImplementacionesDAO.ImpAdministradorDAO;
 import motosave.ImplementacionesDAO.ImpComercialDAO;
 import motosave.Modelos.Comercial;
@@ -92,17 +93,17 @@ public class LoginController implements Initializable {
             myStage.close();
 
         } catch (IOException ex) {
-
+            System.out.println("Error!");
         }
     }
 
     private void iniciarAdmin(){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Admin_Comerciales.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Admin_Dashboard.fxml"));
 
             Parent root = loader.load();
 
-            AdminComercialesController controller = loader.getController();
+            AdminDashboardController controller = loader.getController();
 
             Scene scene = new Scene(root);
             Stage stage = new Stage();
@@ -115,7 +116,7 @@ public class LoginController implements Initializable {
             myStage.close();
 
         } catch (IOException ex) {
-
+            System.out.println("Error!");
         }
     }
 

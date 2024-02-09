@@ -43,7 +43,7 @@ public class FactoryMoto {
                             throw new AssertionError();
                     }
                     break;
-                case "DUCATI":
+                case DUCATI:
                     switch (modelo) {
                         case "PANIGALE":
                             moto = new Motocicleta("DUCATI", "PANIGALE", color.toString(), 1100, 35200);
@@ -67,7 +67,7 @@ public class FactoryMoto {
                             throw new AssertionError();
                     }
                     break;
-                case "HONDA":
+                case HONDA:
                     switch (modelo) {
                         case "CRF":
                             moto = new Motocicleta("HONDA", "CRF", color.toString(), 300, 5870);
@@ -91,7 +91,7 @@ public class FactoryMoto {
                             throw new AssertionError();
                     }
                     break;
-                case "KAWASAKI":
+                case KAWASAKI:
                     switch (modelo) {
                         case "NINJA":
                             moto = new Motocicleta("KAWASAKI", "NINJA", color.toString(), 1000, 14999);
@@ -115,7 +115,7 @@ public class FactoryMoto {
                             throw new AssertionError();
                     }
                     break;
-                case "KTM":
+                case KTM:
                     switch (modelo) {
                         case "DUKE":
                             moto = new Motocicleta("KTM", "DUKE", color.toString(), 1390, 22900);
@@ -139,7 +139,7 @@ public class FactoryMoto {
                             throw new AssertionError();
                     }
                     break;
-                case "SUZUKI":
+                case SUZUKI:
                     switch (modelo) {
                         case "GSX":
                             moto = new Motocicleta("SUZUKI", "GSX", color.toString(), 1000, 18900);
@@ -160,7 +160,7 @@ public class FactoryMoto {
                             throw new AssertionError();
                     }
                     break;
-                case "YAMAHA":
+                case YAMAHA:
                     switch (modelo) {
                         case "YZF_R6":
                             moto = new Motocicleta("YAMAHA", "YZF_R6", color.toString(), 600, 15840);

@@ -11,6 +11,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implementación de la interfaz MotocicletaDAO.
@@ -107,18 +108,19 @@ public class ImpMotocicletaDAO implements MotocicletaDAO {
     /**
      * Lista todas las motocicletas asociadas a un concesionario específico.
      *
-     * @param id_concesionario El ID del concesionario del cual se desean obtener las motocicletas.
+     * @param id_concesionario_e El ID del concesionario del cual se desean obtener las motocicletas.
      * @param entityManager El EntityManager utilizado para realizar la operación.
      * @return Una lista de motocicletas asociadas al concesionario especificado.
      */
     @Override
-    public ArrayList<Motocicleta> listarMotosConcesionario(int id_concesionario, EntityManager entityManager) {
+    public List<Motocicleta> listarMotosConcesionario(int id_concesionario_e, EntityManager entityManager) {
         try {
             // Consulta para obtener todas las motos asociadas a un concesionario específico
-            String jpql = "SELECT m FROM Motocicleta m JOIN m.concesionario c WHERE c.id = :id_concesionario";
-            return new ArrayList(entityManager.createQuery(jpql, Motocicleta.class)
-                    .setParameter("id_concesionario", id_concesionario)
+            String jpql = "SELECT m FROM Motocicleta m JOIN m.concesionario c WHERE c.id_concesionario = :id_concesionario";
+            List<Motocicleta> motos = (entityManager.createQuery(jpql, Motocicleta.class)
+                    .setParameter("id_concesionario", id_concesionario_e)
                     .getResultList());
+            return  motos;
         } catch (Exception e){
             e.printStackTrace();
             return null;

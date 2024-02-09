@@ -8,6 +8,7 @@ import motosave.Modelos.Motocicleta;
 import jakarta.persistence.EntityManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -25,6 +26,6 @@ public interface MotocicletaDAO {
 
     public abstract ArrayList<Motocicleta> listarMotos(EntityManager em);
 
-    public abstract ArrayList<Motocicleta> listarMotosConcesionario(int id_concesionario, EntityManager em);
+    public abstract List<Motocicleta> listarMotosConcesionario(int id_concesionario, EntityManager em);
 
 }

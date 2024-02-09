@@ -46,7 +46,7 @@ public class LOAD {
     Comercial c1 = new Comercial(Madrid,"juan","1234","12345678A","Juan Alberto", "De los Rios");
 
     FactoryMoto factoryMoto = new FactoryMoto();
-    ArrayList<Motocicleta> motos = factoryMoto.fabricarMoto(HONDA,ModelosHONDA.CBR.toString(), AZUL ,3);
+    ArrayList<Motocicleta> motos = factoryMoto.fabricarMotos(HONDA,ModelosHONDA.CBR.toString(), AZUL ,3);
 
     // Creacion de datos para poder
     public LOAD (){

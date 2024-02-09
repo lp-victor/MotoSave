@@ -1,28 +1,17 @@
 package motosave.DATA;
 import motosave.Modelos.Motocicleta;
 
-public class MotocicletaCantidad {
+public class MotocicletaCantidad extends Motocicleta{
 
-    private Motocicleta motocicleta;
-    private int cantidad;
-    private double precio_final;
+    public int cantidad;
+    public double precio_final;
 
     public MotocicletaCantidad() {
     }
 
     public MotocicletaCantidad(Motocicleta motocicleta, int cantidad) {
-        this.motocicleta = motocicleta;
         this.cantidad = cantidad;
         setPrecio_final();
-    }
-
-
-    public Motocicleta getMotocicleta() {
-        return motocicleta;
-    }
-
-    public void setMotocicleta(Motocicleta motocicleta) {
-        this.motocicleta = motocicleta;
     }
 
     public int getCantidad() {
@@ -38,6 +27,6 @@ public class MotocicletaCantidad {
     }
 
     public void setPrecio_final() {
-        this.precio_final =motocicleta.getPrecio_compra()*LOAD.beneficio;
+        this.precio_final = super.getPrecio_compra()*LOAD.beneficio;
     }
 }

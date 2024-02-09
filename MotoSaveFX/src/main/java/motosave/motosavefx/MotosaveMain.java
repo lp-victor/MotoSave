@@ -16,8 +16,6 @@ public class MotosaveMain extends Application {
     public void start(Stage stage) throws IOException {
 
 
-        LOAD load = new LOAD();
-
         try {
             // Cargar el archivo FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Login.fxml"));

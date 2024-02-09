@@ -135,6 +135,26 @@ public class ComercialEstadisticasController implements Initializable {
 
     @FXML
     public void cerrar_sesion(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Login.fxml"));
+
+            Parent root = loader.load();
+
+            LoginController controller = loader.getController();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+
+            stage.setScene(scene);
+            stage.show();
+            stage.setResizable(false);
+
+            Stage myStage = (Stage) this.BTN_salir.getScene().getWindow();
+            myStage.close();
+
+        } catch (IOException ex) {
+            System.out.println("Error!");
+        }
     }
 
     // Falta hacer el DAO de ventas para esto

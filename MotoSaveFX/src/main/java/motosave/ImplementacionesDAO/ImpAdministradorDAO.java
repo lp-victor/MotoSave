@@ -34,8 +34,7 @@ public class ImpAdministradorDAO implements AdminstradorDAO {
             Query query = em.createQuery(jpql);
             query.setParameter("nombre", nombre);
             // Como no se puede revertir el hash, tienes que encriptar de nuevo para comprobar si los hashes son iguales
-            //query.setParameter("contraseña", Encriptador.encriptarContraseña(password));
-            query.setParameter("contraseña", password);
+            query.setParameter("contraseña", Encriptador.encriptarContraseña(password));
 
             // Ejecuta la consulta y obtiene el resultado
             Administrador admin = (Administrador) query.getSingleResult();
@@ -46,6 +45,7 @@ public class ImpAdministradorDAO implements AdminstradorDAO {
                 return false;
             }
         } catch (NoResultException e) {
+            System.out.println("Usuario incorrecto");
             return false;
         }
     }
