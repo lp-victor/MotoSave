@@ -155,6 +155,8 @@ public class ComercialVentasController implements Initializable {
                 L_control_telefono.setVisible(true);
                 return false;
             } else {
+                L_control_vacios.setVisible(false);
+                L_control_telefono.setVisible(false);
                 return true;
             }
     }

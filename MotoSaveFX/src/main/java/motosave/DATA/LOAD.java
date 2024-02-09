@@ -15,11 +15,13 @@ import motosave.ImplementacionesDAO.ImpMotocicletaDAO;
 import motosave.Modelos.Administrador;
 import motosave.Modelos.Comercial;
 import motosave.Modelos.Concesionario;
-import jakarta.persistence.EntityManager;
 import motosave.Modelos.Motocicleta;
 import motosave.Persistencia.miEntityManager;
 
 import java.util.ArrayList;
+
+import static motosave.EnumeradosMoto.Colores.*;
+import static motosave.EnumeradosMoto.Marcas.*;
 
 /**
  *
@@ -44,7 +46,7 @@ public class LOAD {
     Comercial c1 = new Comercial(Madrid,"juan","1234","12345678A","Juan Alberto", "De los Rios");
 
     FactoryMoto factoryMoto = new FactoryMoto();
-    ArrayList<Motocicleta> motos = factoryMoto.fabricarMoto(Marcas.HONDA.toString(),ModelosHONDA.CBR.toString(), Colores.AZUL.toString(),3);
+    ArrayList<Motocicleta> motos = factoryMoto.fabricarMoto(HONDA,ModelosHONDA.CBR.toString(), AZUL ,3);
 
     // Creacion de datos para poder
     public LOAD (){

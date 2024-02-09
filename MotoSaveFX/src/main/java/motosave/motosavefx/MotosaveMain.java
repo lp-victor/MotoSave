@@ -14,11 +14,7 @@ import java.io.IOException;
 public class MotosaveMain extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(MotosaveMain.class.getResource("/motosave/motosavefx/vista/Login.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), 1440, 920);
-//        stage.setTitle("Hello!");
-//        stage.setScene(scene);
-//        stage.show();
+
 
         LOAD load = new LOAD();
 
