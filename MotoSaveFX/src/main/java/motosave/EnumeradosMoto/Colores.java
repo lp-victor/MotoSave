@@ -9,6 +9,32 @@ package motosave.EnumeradosMoto;
  */
 public enum Colores {
 
-    ROJO, NEGRO, AZUL, VERDE, BLANCO, NARANJA, AMARILLO, PLATEADO, GRIS
+    ROJO, NEGRO, AZUL, VERDE, BLANCO, NARANJA, AMARILLO, PLATEADO, GRIS;
 
+    public Colores str2Color(String in){
+        switch (in){
+            case "ROJO":
+                return ROJO;
+            case "NEGRO":
+                return NEGRO;
+            case "AZUL":
+                return AZUL;
+            case "PLATEADO":
+                return PLATEADO;
+            case "VERDE":
+                return VERDE;
+            case "BLANCO":
+                return BLANCO;
+            case "NARANJA":
+                return NARANJA;
+            case "AMARILLO":
+                return AMARILLO;
+            case "GRIS":
+                return GRIS;
+            default:
+                System.out.println("Error.");
+                return null;
+
+        }
+    }
 }

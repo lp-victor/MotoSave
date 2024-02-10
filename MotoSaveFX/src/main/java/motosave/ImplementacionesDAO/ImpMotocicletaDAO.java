@@ -40,7 +40,17 @@ public class ImpMotocicletaDAO implements MotocicletaDAO {
 
     @Override
     public void actualizarMoto(Motocicleta moto, EntityManager entityManager) {
-        // Las motos no pueden ser actualizadas una vez creadas.
+        EntityTransaction transaction = null;
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            entityManager.merge(moto);
+
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

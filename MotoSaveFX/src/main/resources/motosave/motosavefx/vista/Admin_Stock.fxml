@@ -53,12 +53,11 @@
       </Label>
       <TableView fx:id="T_tablaExistencias" layoutX="400.0" layoutY="126.0" prefHeight="344.0" prefWidth="957.0" style="-fx-background-radius: 10;">
          <columns>
-            <TableColumn fx:id="colMarca" editable="false" prefWidth="183.0" text="Marca" />
-            <TableColumn fx:id="colModelo" editable="false" prefWidth="190.0" text="Modelo" />
-            <TableColumn fx:id="colColor" editable="false" prefWidth="164.0" text="Color" />
-            <TableColumn fx:id="colCilindrada" editable="false" prefWidth="139.0" text="Cilindrada" />
-            <TableColumn fx:id="colPrecio" editable="false" prefWidth="141.5999755859375" text="Precio/Und" />
-            <TableColumn fx:id="colUnidades" editable="false" prefWidth="138.0" text="Unds" />
+            <TableColumn fx:id="colMarca" editable="false" prefWidth="191.0" resizable="false" text="Marca" />
+            <TableColumn fx:id="colModelo" editable="false" prefWidth="191.0" resizable="false" text="Modelo" />
+            <TableColumn fx:id="colColor" editable="false" prefWidth="191.0" resizable="false" text="Color" />
+            <TableColumn fx:id="colCilindrada" editable="false" prefWidth="191.0" resizable="false" text="Cilindrada" />
+            <TableColumn fx:id="colPrecio" editable="false" prefWidth="191.0" resizable="false" text="Precio/Und" />
          </columns>
          <effect>
             <Lighting diffuseConstant="1.24" specularConstant="0.23" specularExponent="13.4" surfaceScale="2.78">
@@ -176,7 +175,7 @@
             </HBox>
             <HBox prefHeight="34.0" prefWidth="683.0">
                <children>
-                  <Label prefHeight="17.0" prefWidth="140.0" text="Concesionario:" textFill="#f4f3f3">
+                  <Label prefHeight="17.0" prefWidth="140.0" text="Concesionario" textFill="#f4f3f3">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -252,7 +251,7 @@
       </VBox>
       <HBox alignment="CENTER" layoutX="417.0" layoutY="831.0" prefHeight="40.0" prefWidth="923.0">
          <children>
-            <Button fx:id="BTN_modificar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#modificarModeloMoto" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: orange; -fx-text-alignment: start; visibility: hidden;" text="Modificar" textFill="WHITE">
+            <Button fx:id="BTN_modificar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#modificarModeloMoto" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: orange; -fx-text-alignment: start;" text="Modificar" textFill="WHITE" visible="false">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -260,7 +259,7 @@
                   <Insets left="50.0" right="50.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="BTN_eliminar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#eliminarModeloMoto" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: red; -fx-text-alignment: start; visibility: hidden;" text="Eliminar" textFill="WHITE">
+            <Button fx:id="BTN_eliminar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#eliminarModeloMoto" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: red; -fx-text-alignment: start;" text="Eliminar" textFill="WHITE" visible="false">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>

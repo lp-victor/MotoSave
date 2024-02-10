@@ -12,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import motosave.DATA.MotocicletaCantidad;
 import motosave.EnumeradosMoto.*;
 import motosave.Factory.FactoryMoto;
 import motosave.ImplementacionesDAO.ImpConcesionarioDAO;
@@ -31,9 +30,8 @@ public class AdminStockController implements Initializable {
 
     ImpConcesionarioDAO concDAO;
     ImpMotocicletaDAO motoDAO;
-    MotocicletaCantidad motocicletaCantidad;
     FactoryMoto factoriaMoto;
-    ObservableList<MotocicletaCantidad> motocicletasConCantidadList;
+    ObservableList<Motocicleta> motocicletasList;
 
     @FXML
     private Button BTN_comerciales;
@@ -46,58 +44,56 @@ public class AdminStockController implements Initializable {
     @FXML
     private Button BTN_dashboard;
     @FXML
-    private ComboBox CmB_concesionarios_selecion;
+    private ComboBox<Concesionario> CmB_concesionarios_selecion;
     @FXML
-    private TableView<MotocicletaCantidad> T_tablaExistencias;
+    private TableView<Motocicleta> T_tablaExistencias;
     @FXML
     private TextField TF_cantidad;
     @FXML
     private Button BTN_comprar;
     @FXML
-    private ComboBox CmB_concesionarios_anadir;
+    private ComboBox<Concesionario> CmB_concesionarios_anadir;
     @FXML
-    private ComboBox CmB_marca;
+    private ComboBox<Marcas> CmB_marca;
     @FXML
     private TextField TF_precio_total;
     @FXML
     private TextField TF_precio_unidad;
     @FXML
-    private ComboBox CmB_modelo;
+    private ComboBox<String> CmB_modelo;
     @FXML
     private Label L_indentificacion_comercial;
     @FXML
     private TextField TF_cilindrada;
     @FXML
-    private ComboBox CmB_color;
+    private ComboBox<Colores> CmB_color;
     @FXML
     private Pane P_comercialVentas;
     @FXML
-    private TableColumn<MotocicletaCantidad, String> colMarca;
+    private TableColumn<Motocicleta, String> colMarca;
     @FXML
-    private TableColumn<MotocicletaCantidad, String> colModelo;
+    private TableColumn<Motocicleta, String> colModelo;
     @FXML
-    private TableColumn<MotocicletaCantidad, String> colColor;
+    private TableColumn<Motocicleta, String> colColor;
     @FXML
-    private TableColumn<MotocicletaCantidad, Integer> colUnidades;
+    private TableColumn<Motocicleta, Double> colPrecio;
     @FXML
-    private TableColumn<MotocicletaCantidad, Double> colPrecio;
-    @FXML
-    private TableColumn<MotocicletaCantidad, Integer> colCilindrada;
+    private TableColumn<Motocicleta, Integer> colCilindrada;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         concDAO = new ImpConcesionarioDAO();
         motoDAO = new ImpMotocicletaDAO();
         factoriaMoto = new FactoryMoto();
-        motocicletasConCantidadList = FXCollections.observableArrayList();
+        motocicletasList = FXCollections.observableArrayList();
 
         // Tabla y combobox superior
-        colMarca.setCellValueFactory(new PropertyValueFactory<MotocicletaCantidad, String>("marca"));
-        colModelo.setCellValueFactory(new PropertyValueFactory<MotocicletaCantidad, String>("modelo"));
-        colColor.setCellValueFactory(new PropertyValueFactory<MotocicletaCantidad, String>("color"));
-        colCilindrada.setCellValueFactory(new PropertyValueFactory<MotocicletaCantidad, Integer>("cc"));
-        colPrecio.setCellValueFactory(new PropertyValueFactory<MotocicletaCantidad, Double>("precio_compra"));
-        colUnidades.setCellValueFactory(new PropertyValueFactory<MotocicletaCantidad, Integer>("cantidad"));
+        colMarca.setCellValueFactory(new PropertyValueFactory<Motocicleta, String>("marca"));
+        colModelo.setCellValueFactory(new PropertyValueFactory<Motocicleta, String>("modelo"));
+        colColor.setCellValueFactory(new PropertyValueFactory<Motocicleta, String>("color"));
+        colCilindrada.setCellValueFactory(new PropertyValueFactory<Motocicleta, Integer>("cc"));
+        colPrecio.setCellValueFactory(new PropertyValueFactory<Motocicleta, Double>("precio_compra"));
+
 
         cargarConcesionariosEnComboBox();
         CmB_concesionarios_selecion.setOnAction(event -> cargarMotocicletasSegunConcesionarioSeleccionado());
@@ -106,7 +102,8 @@ public class AdminStockController implements Initializable {
         llenarComboBoxMarcas();
         llenarComboBoxColores();
         llenarComboBoxConcesionarios(CmB_concesionarios_anadir);
-        /*Esta es la expresión lambda que define el comportamiento que se ejecutará cuando cambie la selección en el ComboBox. Toma tres parámetros:
+        /*Esta es la expresión lambda que define el comportamiento que se ejecutará cuando cambie la selección
+        en el ComboBox. Toma tres parámetros:
         observable: La propiedad observada (en este caso, la propiedad selectedItemProperty() del ComboBox).
         oldValue: El valor anterior seleccionado en el ComboBox.
         newValue: El nuevo valor seleccionado en el ComboBox.*/
@@ -114,6 +111,8 @@ public class AdminStockController implements Initializable {
             llenarComboBoxModelo((Marcas) newValue);
         });
         aplicarValidacionCantidad();
+
+        cargarSeleccionTabla();
 
     }
 
@@ -196,6 +195,15 @@ public class AdminStockController implements Initializable {
 
     @FXML
     public void modificarModeloMoto(ActionEvent actionEvent) {
+        Motocicleta motoModificada = T_tablaExistencias.getSelectionModel().getSelectedItem();
+        motoModificada.setColor(String.valueOf(CmB_color.getValue()));
+        motoModificada.setConcesionario((Concesionario) CmB_concesionarios_anadir.getValue());
+        System.out.println(motoModificada);
+        System.out.println(motoModificada.getId_moto());
+        motoDAO.actualizarMoto(motoModificada, miEntityManager.getEntityManager());
+
+        //cargarMotocicletasSegunConcesionarioSeleccionado();
+        resetStock();
 
     }
 
@@ -209,7 +217,73 @@ public class AdminStockController implements Initializable {
 
     }
 
-    // Tabla y comobox superior
+    private void resetStock() {
+        BTN_eliminar.setVisible(false);
+        BTN_modificar.setVisible(false);
+        BTN_comprar.setVisible(true);
+
+        CmB_marca.setDisable(false);
+        CmB_modelo.setDisable(false);
+        TF_cilindrada.setDisable(false);
+        TF_precio_unidad.setDisable(false);
+        TF_cantidad.setDisable(false);
+        TF_precio_total.setDisable(false);
+
+        TF_cilindrada.setText("");
+        TF_precio_unidad.setText("");
+        TF_cantidad.setText("");
+        TF_precio_total.setText("");
+
+        CmB_marca.getItems().clear();
+        CmB_modelo.getItems().clear();
+        CmB_concesionarios_anadir.getItems().clear();
+        CmB_color.getItems().clear();
+
+        llenarComboBoxColores();
+        llenarComboBoxMarcas();
+        llenarComboBoxConcesionarios(CmB_concesionarios_anadir);
+
+        T_tablaExistencias.refresh();
+
+    }
+
+    private void cargarSeleccionTabla() {
+        T_tablaExistencias.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                BTN_eliminar.setVisible(true);
+                BTN_modificar.setVisible(true);
+                BTN_comprar.setVisible(false);
+
+                CmB_marca.setDisable(true);
+                CmB_modelo.setDisable(true);
+                TF_cilindrada.setDisable(true);
+                TF_precio_unidad.setDisable(true);
+                TF_cantidad.setDisable(true);
+                TF_precio_total.setDisable(true);
+
+
+                // Acceder a los valores de la fila seleccionada
+
+                Concesionario seleccionado = (Concesionario) CmB_concesionarios_selecion.getValue();
+                CmB_marca.setValue(Marcas.BMW.str2Marcas(newValue.getMarca()));
+                CmB_modelo.setValue(newValue.getModelo());
+                CmB_concesionarios_anadir.setValue(newValue.getConcesionario());
+                CmB_color.setValue(Colores.GRIS.str2Color(newValue.getColor()));
+                TF_cilindrada.setText(String.valueOf(newValue.getCc()));
+                TF_precio_unidad.setText(String.valueOf(newValue.getPrecio_compra()));
+                TF_cantidad.setText(String.valueOf(contarMotosIguales(
+                        newValue,
+                        motoDAO.listarMotosConcesionario(
+                                seleccionado.getId_concesionario(),
+                                miEntityManager.getEntityManager()
+                        ))));
+                TF_precio_total.setText(String.valueOf(newValue.getPrecio_compra() * Double.parseDouble(TF_cantidad.getText())));
+
+
+            }
+        });
+
+    }
 
     /**
      * Método para cargar concesionarios en el ComboBox.
@@ -224,58 +298,31 @@ public class AdminStockController implements Initializable {
      */
     private void cargarMotocicletasSegunConcesionarioSeleccionado() {
         Concesionario concesionarioSeleccionado = (Concesionario) CmB_concesionarios_selecion.getValue();
-        System.out.println(concesionarioSeleccionado.getId_concesionario());
-        List<Motocicleta> motocicletas = motoDAO.listarMotosConcesionario(concesionarioSeleccionado.getId_concesionario(), miEntityManager.getEntityManager());
-
-        // Inicializar el mapa para realizar el seguimiento de las motocicletas y sus cantidades
-        Map<Motocicleta, Integer> motocicletasConCantidad = new HashMap<>();
-
-        // Contar motocicletas iguales
-        for (Motocicleta motocicleta : motocicletas) {
-            boolean encontrada = false;
-            for (Motocicleta key : motocicletasConCantidad.keySet()) {
-                if (sonMotocicletasIguales(motocicleta, key)) {
-                    motocicletasConCantidad.put(key, motocicletasConCantidad.get(key) + 1);
-                    encontrada = true;
-                    break;
-                }
-            }
-            if (!encontrada) {
-                motocicletasConCantidad.put(motocicleta, 1);
-            }
-        }
+        List<Motocicleta> motocicletas = motoDAO.listarMotosConcesionario(
+                concesionarioSeleccionado.getId_concesionario(), miEntityManager.getEntityManager()
+        );
 
         T_tablaExistencias.getItems().clear();
-        ObservableList<MotocicletaCantidad> motocicletasCantList = FXCollections.observableArrayList();
+        ObservableList<Motocicleta> motocicletasCantList = FXCollections.observableArrayList();
 
-        // Convertir el mapa a una lista observable para la tabla
-        for (Map.Entry<Motocicleta, Integer> entry : motocicletasConCantidad.entrySet()) {
-            MotocicletaCantidad motocicletaCantidad = new MotocicletaCantidad(entry.getKey(), entry.getValue()-1);
-            motocicletasCantList.add(motocicletaCantidad);
+        for (Motocicleta moto : motocicletas) {
+            motocicletasList.add(moto);
         }
 
-        T_tablaExistencias.setItems(motocicletasCantList);
+        T_tablaExistencias.setItems(motocicletasList);
     }
 
-//    /**
-//     * Calculo la cantidad con el metodo de son motocicletasIguales, si es True aumenta el cantidad para averiguarla.
-//     *
-//     * @param motocicleta
-//     * @param motocicletas
-//     * @return Int Cantidad de Motos Iguales
-//     */
-//    private int calcularCantidad(Motocicleta motocicleta, List<Motocicleta> motocicletas) {
-//        int cantidad = 0;
-//        for (Motocicleta otraMotocicleta : motocicletas) {
-//            if (motocicleta.equals(otraMotocicleta)) {
-//                continue;
-//            }
-//            if (sonMotocicletasIguales(motocicleta, otraMotocicleta)) {
-//                cantidad++;
-//            }
-//        }
-//        return cantidad;
-//    }
+    private int contarMotosIguales(Motocicleta moto, List<Motocicleta> listaMotos) {
+        int contador = 0;
+
+        for (Motocicleta motocicleta : listaMotos) {
+            if (sonMotocicletasIguales(moto, motocicleta)) {
+                contador++;
+            }
+        }
+
+        return contador;
+    }
 
     /**
      * Comprobar Motocicletas iguales. (Introduciendo el arraylist de las motos de un concesionarioy cada moto individual)
@@ -295,12 +342,12 @@ public class AdminStockController implements Initializable {
     }
 
     // Combobox y textfields inferiores.
-    public void llenarComboBoxMarcas() {
+    private void llenarComboBoxMarcas() {
         ObservableList<Marcas> marcasList = FXCollections.observableArrayList(Marcas.values());
         CmB_marca.setItems(marcasList);
     }
 
-    public void llenarComboBoxColores() {
+    private void llenarComboBoxColores() {
         ObservableList<Colores> coloresList = FXCollections.observableArrayList(Colores.values());
         CmB_color.setItems(coloresList);
     }
@@ -310,8 +357,8 @@ public class AdminStockController implements Initializable {
      *
      * @param comboBox El ComboBox donde se van a mostrar los nombres de los concesionarios.
      */
-    public void llenarComboBoxConcesionarios(ComboBox<String> comboBox) {
-        List<String> nombresConcesionarios = concDAO.listarNombreConcesionarios(miEntityManager.getEntityManager());
+    private void llenarComboBoxConcesionarios(ComboBox<Concesionario> comboBox) {
+        List<Concesionario> nombresConcesionarios = concDAO.listarConcesionarios(miEntityManager.getEntityManager());
         if (nombresConcesionarios != null) {
             comboBox.getItems().clear();
             comboBox.getItems().addAll(nombresConcesionarios);
@@ -323,39 +370,39 @@ public class AdminStockController implements Initializable {
      *
      * @param marcaSeleccionada La marca seleccionada.
      */
-    public void llenarComboBoxModelo(Marcas marcaSeleccionada) {
+    private void llenarComboBoxModelo(Marcas marcaSeleccionada) {
         if (marcaSeleccionada != null) {
             switch (marcaSeleccionada) {
                 case BMW:
-                    ObservableList<String> modelosBMWList = FXCollections.observableArrayList(Arrays.toString(ModelosBMW.values()));
+                    ObservableList<String> modelosBMWList = FXCollections.observableArrayList(Arrays.asList(ModelosBMW.values().toString()));
                     CmB_modelo.setItems(modelosBMWList);
                     break;
                 case DAISVI:
-                    ObservableList<ModelosDAISVI> modelosDaisviList = FXCollections.observableArrayList(Arrays.asList(ModelosDAISVI.values()));
+                    ObservableList<String> modelosDaisviList = FXCollections.observableArrayList(Arrays.asList(ModelosDAISVI.values().toString()));
                     CmB_modelo.setItems(modelosDaisviList);
                     break;
                 case DUCATI:
-                    ObservableList<ModelosDUCATI> modelosDucatiList = FXCollections.observableArrayList(Arrays.asList(ModelosDUCATI.values()));
+                    ObservableList<String> modelosDucatiList = FXCollections.observableArrayList(Arrays.asList(ModelosDUCATI.values().toString()));
                     CmB_modelo.setItems(modelosDucatiList);
                     break;
                 case HONDA:
-                    ObservableList<ModelosHONDA> modelosHondaList = FXCollections.observableArrayList(Arrays.asList(ModelosHONDA.values()));
+                    ObservableList<String> modelosHondaList = FXCollections.observableArrayList(Arrays.asList(ModelosHONDA.values().toString()));
                     CmB_modelo.setItems(modelosHondaList);
                     break;
                 case KAWASAKI:
-                    ObservableList<ModelosKAWASAKI> modelosKawasakiList = FXCollections.observableArrayList(Arrays.asList(ModelosKAWASAKI.values()));
+                    ObservableList<String> modelosKawasakiList = FXCollections.observableArrayList(Arrays.asList(ModelosKAWASAKI.values().toString()));
                     CmB_modelo.setItems(modelosKawasakiList);
                     break;
                 case KTM:
-                    ObservableList<ModelosKTM> modelosKtmList = FXCollections.observableArrayList(Arrays.asList(ModelosKTM.values()));
+                    ObservableList<String> modelosKtmList = FXCollections.observableArrayList(Arrays.asList(ModelosKTM.values().toString()));
                     CmB_modelo.setItems(modelosKtmList);
                     break;
                 case SUZUKI:
-                    ObservableList<ModelosSUZUKI> modelosSuzukiList = FXCollections.observableArrayList(Arrays.asList(ModelosSUZUKI.values()));
+                    ObservableList<String> modelosSuzukiList = FXCollections.observableArrayList(Arrays.asList(ModelosSUZUKI.values().toString()));
                     CmB_modelo.setItems(modelosSuzukiList);
                     break;
                 case YAMAHA:
-                    ObservableList<ModelosYAMAHA> modelosYamahaList = FXCollections.observableArrayList(Arrays.asList(ModelosYAMAHA.values()));
+                    ObservableList<String> modelosYamahaList = FXCollections.observableArrayList(Arrays.asList(ModelosYAMAHA.values().toString()));
                     CmB_modelo.setItems(modelosYamahaList);
                     break;
                 default:
@@ -406,7 +453,7 @@ public class AdminStockController implements Initializable {
     /**
      * Rellena los campos de cilindrada y precio por unidad basándose en la marca y el modelo seleccionados.
      */
-    public void rellenarCamposCilindradaYPrecio() {
+    private void rellenarCamposCilindradaYPrecio() {
         Marcas marcaSeleccionada = (Marcas) CmB_marca.getValue();
         String modeloSeleccionado = String.valueOf(CmB_modelo.getValue());
         Colores colorSelecionado = (Colores) CmB_color.getValue();
