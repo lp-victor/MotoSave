@@ -20,5 +20,5 @@ public interface ConcesionarioDAO {
 
     public abstract List<String> listarNombreConcesionarios(EntityManager em);
 
-
+    public abstract Concesionario buscarConcesionario(EntityManager em, int id_concesionario);
 }

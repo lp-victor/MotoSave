@@ -5,8 +5,10 @@
 package motosave.ImplementacionesDAO;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import motosave.DAO.ConcesionarioDAO;
 import motosave.Modelos.Concesionario;
+import motosave.Modelos.Motocicleta;
 
 import java.util.List;
 
@@ -59,6 +61,21 @@ public class ImpConcesionarioDAO implements ConcesionarioDAO {
             return nombresConcesionarios;
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    @Override
+    public Concesionario buscarConcesionario(EntityManager em, int id_concesionario) {
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
+        try {
+            Concesionario concesionario = em.find(Concesionario.class, id_concesionario);
+            transaction.commit();
+            return concesionario;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
         }
     }
 

@@ -95,10 +95,10 @@
       <TableView fx:id="TV_comerciales" layoutX="429.0" layoutY="578.0" prefHeight="240.0" prefWidth="892.0" style="-fx-background-radius: 10;">
         <columns>
           <TableColumn prefWidth="172.800048828125" text="Nombre" />
-          <TableColumn prefWidth="244.79998779296875" text="Apellidos" />
-            <TableColumn prefWidth="178.400146484375" text="Concesionario" />
-            <TableColumn prefWidth="111.199951171875" text="Ventas" />
-            <TableColumn prefWidth="182.4000244140625" text="Telefono" />
+          <TableColumn prefWidth="230.0" text="Apellidos" />
+            <TableColumn prefWidth="194.0" text="Concesionario" />
+            <TableColumn prefWidth="164.0" text="Telefono" />
+            <TableColumn prefWidth="131.0" text="Ventas" />
         </columns>
       </TableView>
       <Label layoutX="825.0" layoutY="341.0" prefHeight="27.0" prefWidth="203.0" text="Confirmar Contraseña" textFill="#f4f3f3">
