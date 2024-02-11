@@ -31,7 +31,7 @@ public class Venta {
 
     private double precio_final; //precio_final = precio_moto * descuento.
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 

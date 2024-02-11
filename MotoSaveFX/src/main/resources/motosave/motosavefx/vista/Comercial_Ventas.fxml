@@ -60,7 +60,7 @@
                   <Image url="@../../../images/stats_icon.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="177.0" fitWidth="186.0" layoutX="65.0" layoutY="23.0">
+            <ImageView fitHeight="177.0" fitWidth="186.0" layoutX="64.0" layoutY="24.0">
                <image>
                   <Image url="@../../../images/fotor-ai-2024020418187-removebg-preview.png" />
                </image>
@@ -80,7 +80,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="BTN_vender" layoutX="1147.0" layoutY="818.0" mnemonicParsing="false" onAction="#realizar_venta" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: #00b86b; -fx-text-alignment: left;" text="Vender" textFill="WHITE">
+      <Button fx:id="BTN_vender" layoutX="1147.0" layoutY="818.0" mnemonicParsing="false" onAction="#realizar_venta" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: #00b86b; -fx-text-alignment: start;" text="Vender" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -88,15 +88,14 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <TableView fx:id="T_tablaExistencias" layoutX="400.0" layoutY="126.0" prefHeight="383.0" prefWidth="957.0" style="-fx-background-radius: 10;">
+      <TableView fx:id="T_tablaExistencias" focusTraversable="false" layoutX="392.0" layoutY="126.0" prefHeight="383.0" prefWidth="970.0" stylesheets="@../../../styles/estilo.css">
         <columns>
-            <TableColumn fx:id="colUbicacion" prefWidth="170.0" text="Ubicación" />
-          <TableColumn fx:id="colMarca" prefWidth="150.0" text="Marca" />
-          <TableColumn fx:id="colModelo" prefWidth="170.0" text="Modelo" />
-            <TableColumn fx:id="colColor" prefWidth="181.0" text="Color" />
-            <TableColumn fx:id="colCilindrada" prefWidth="120.0" text="Cilindrada" />
-            <TableColumn fx:id="colPrecio" prefWidth="110.0" text="Precio" />
-            <TableColumn fx:id="colUnds" prefWidth="55.0" text="Unds" />
+            <TableColumn fx:id="colUbicacion" prefWidth="161.0" resizable="false" text="Ubicación" />
+          <TableColumn fx:id="colMarca" prefWidth="161.0" resizable="false" text="Marca" />
+          <TableColumn fx:id="colModelo" prefWidth="161.0" resizable="false" text="Modelo" />
+            <TableColumn fx:id="colColor" prefWidth="161.0" resizable="false" text="Color" />
+            <TableColumn fx:id="colCilindrada" prefWidth="161.0" resizable="false" text="Cilindrada" />
+            <TableColumn fx:id="colPrecio" prefWidth="161.0" resizable="false" text="Precio" />
         </columns>
          <effect>
             <Lighting diffuseConstant="1.24" specularConstant="0.23" specularExponent="13.4" surfaceScale="2.78">
@@ -109,13 +108,13 @@
             </Lighting>
          </effect>
       </TableView>
-      <TextField fx:id="TF_nombreCliente" layoutX="542.0" layoutY="637.0" prefHeight="25.0" prefWidth="178.0" />
-      <TextField fx:id="TF_telefonoCliente" layoutX="874.0" layoutY="705.0" prefHeight="25.0" prefWidth="157.0" />
-      <TextField fx:id="TF_correoCliente" layoutX="875.0" layoutY="637.0" prefHeight="25.0" prefWidth="320.0">
+      <TextField fx:id="TF_nombreCliente" layoutX="542.0" layoutY="637.0" prefHeight="25.0" prefWidth="178.0" text="Alberto" />
+      <TextField fx:id="TF_telefonoCliente" layoutX="874.0" layoutY="705.0" prefHeight="25.0" prefWidth="157.0" text="123456789" />
+      <TextField fx:id="TF_correoCliente" layoutX="875.0" layoutY="637.0" prefHeight="25.0" prefWidth="320.0" text="alberto@gmail.com">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></TextField>
-      <TextField fx:id="TF_apellidosCliente" layoutX="542.0" layoutY="705.0" prefHeight="25.0" prefWidth="178.0" />
+      <TextField fx:id="TF_apellidosCliente" layoutX="542.0" layoutY="705.0" prefHeight="25.0" prefWidth="178.0" text="Ruiz" />
       <Label layoutX="412.0" layoutY="636.0" prefHeight="17.0" prefWidth="130.0" text="Nombre" textFill="#f4f3f3">
          <font>
             <Font name="System Bold" size="18.0" />
@@ -141,7 +140,7 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <TextField fx:id="TF_direccion" layoutX="542.0" layoutY="772.0" prefHeight="25.0" prefWidth="490.0" />
+      <TextField fx:id="TF_direccion" layoutX="542.0" layoutY="772.0" prefHeight="25.0" prefWidth="490.0" text="C/Arcipreste de Hita N2 3ºB" />
       <Label layoutX="412.0" layoutY="771.0" prefHeight="17.0" prefWidth="130.0" text="Dirección" textFill="#f4f3f3">
          <font>
             <Font name="System Bold" size="18.0" />
@@ -182,7 +181,7 @@
             <Font name="System Bold" size="42.0" />
          </font>
       </Label>
-      <Button fx:id="BTN_limpiar" layoutX="682.0" layoutY="40.0" mnemonicParsing="false" onAction="#limpiarFiltro" style="-fx-background-color: transparent;" text="Limpiar" textFill="#00b86b">
+      <Button fx:id="BTN_limpiar" layoutX="682.0" layoutY="39.0" mnemonicParsing="false" onAction="#limpiarFiltro" style="-fx-background-color: transparent;" text="Restablecer" textFill="#00b86b">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

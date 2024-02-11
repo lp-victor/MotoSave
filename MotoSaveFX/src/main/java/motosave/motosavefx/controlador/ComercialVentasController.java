@@ -13,13 +13,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import motosave.DATA.ComercialLoggeado;
-import motosave.DATA.MotocicletaCantidad;
+import motosave.DATA.LOAD;
+import motosave.ImplementacionesDAO.ImpClienteDAO;
 import motosave.ImplementacionesDAO.ImpConcesionarioDAO;
 import motosave.ImplementacionesDAO.ImpMotocicletaDAO;
-import motosave.Modelos.Cliente;
-import motosave.Modelos.Comercial;
-import motosave.Modelos.Concesionario;
-import motosave.Modelos.Motocicleta;
+import motosave.ImplementacionesDAO.ImpVentaDAO;
+import motosave.Modelos.*;
 import motosave.Persistencia.miEntityManager;
 
 import java.io.IOException;
@@ -30,20 +29,29 @@ public class ComercialVentasController implements Initializable {
 
     ImpConcesionarioDAO concDAO;
     ImpMotocicletaDAO motoDAO;
+    ImpVentaDAO ventaDAO;
+    ImpClienteDAO clienteDAO;
     String concesionarioSeleccionado = "";
+    ObservableList<Motocicleta> motocicletasList;
 
+    @FXML
+    private Pane P_comercialVentas;
     @FXML
     private Button BTN_salir;
     @FXML
     private Button BTN_estadisticas;
     @FXML
-    private TableView<MotocicletaCantidad> T_tablaExistencias;
+    private Button BTN_limpiar;
+    @FXML
+    private Button BTN_vender;
     @FXML
     private Label L_indentificacion_comercial;
     @FXML
     private Label L_sede_comercial;
     @FXML
-    private Pane P_comercialVentas;
+    private Label L_control_telefono;
+    @FXML
+    private Label L_control_vacios;
     @FXML
     private ComboBox CmB_concesionarios;
     @FXML
@@ -53,36 +61,31 @@ public class ComercialVentasController implements Initializable {
     @FXML
     private TextField TF_apellidosCliente;
     @FXML
-    private Label L_control_telefono;
-    @FXML
-    private Button BTN_vender;
-    @FXML
     private TextField TF_telefonoCliente;
     @FXML
     private TextField TF_correoCliente;
     @FXML
-    private Label L_control_vacios;
+    private TableView<Motocicleta> T_tablaExistencias;
     @FXML
-    private TableColumn<MotocicletaCantidad, String> colMarca;
+    private TableColumn<Motocicleta, String> colMarca;
     @FXML
-    private TableColumn<MotocicletaCantidad, Integer> colUnds;
+    private TableColumn<Motocicleta, String> colModelo;
     @FXML
-    private TableColumn<MotocicletaCantidad, String> colModelo;
+    private TableColumn<Motocicleta, String> colColor;
     @FXML
-    private TableColumn<MotocicletaCantidad, String> colColor;
+    private TableColumn<Motocicleta, Integer> colCilindrada;
     @FXML
-    private TableColumn<MotocicletaCantidad, Integer> colCilindrada;
+    private TableColumn<Motocicleta, Double> colPrecio;
     @FXML
-    private TableColumn<MotocicletaCantidad, Double> colPrecio;
-    @FXML
-    private TableColumn<MotocicletaCantidad, String> colUbicacion;
-    @FXML
-    private Button BTN_limpiar;
+    private TableColumn<Motocicleta, String> colUbicacion;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         concDAO = new ImpConcesionarioDAO();
         motoDAO = new ImpMotocicletaDAO();
+        ventaDAO = new ImpVentaDAO();
+        clienteDAO = new ImpClienteDAO();
+        motocicletasList = FXCollections.observableArrayList();
 
         cargarDatos();
     }
@@ -143,17 +146,28 @@ public class ComercialVentasController implements Initializable {
 
     @FXML
     public void realizar_venta(ActionEvent actionEvent) {
+        Cliente cliente = clienteDAO.buscarCliente(miEntityManager.getEntityManager(), 1);
 
-        if (comprobarDatosCliente()) {
-            Cliente cliente = new Cliente(TF_nombreCliente.getText(), TF_apellidosCliente.getText(), TF_correoCliente.getText(), Integer.getInteger(TF_telefonoCliente.getText()), TF_direccion.getText());
-            Comercial comercial = ComercialLoggeado.getComercialLoggeado();
+        Motocicleta motoAVender = T_tablaExistencias.getSelectionModel().getSelectedItem();
 
-            // Fecha de compra
-            long miliseconds = System.currentTimeMillis();
-            Date fecha_compra = new Date(miliseconds);
-            // Moto seleccionada
-            // double precioFinal = moto.getPrecio_compra() *
-        }
+        //if (comprobarDatosCliente()) {
+
+            if (motoAVender != null) {
+                Comercial comercial = ComercialLoggeado.getComercialLoggeado();
+
+                // Fecha de compra
+                long miliseconds = System.currentTimeMillis();
+                Date fecha_compra = new Date(miliseconds);
+
+                Venta ventaRealizada = new Venta(fecha_compra, comercial, motoAVender, motoAVender.getPrecio_compra(), cliente);
+
+                ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaRealizada);
+            } else {
+
+            }
+        //} else {
+
+        //}
 
     }
 
@@ -188,85 +202,51 @@ public class ComercialVentasController implements Initializable {
 
     private void cargarDatos (){
         llenarComboBoxConcesionarios(CmB_concesionarios);
+
         CmB_concesionarios.setOnAction(event -> cargarMotocicletasSegunConcesionarioSeleccionado());
 
-        colUbicacion.setCellValueFactory(new PropertyValueFactory<MotocicletaCantidad, String>("concesionario"));
-        colMarca.setCellValueFactory(new PropertyValueFactory<MotocicletaCantidad, String>("marca"));
-        colModelo.setCellValueFactory(new PropertyValueFactory<MotocicletaCantidad, String>("modelo"));
-        colColor.setCellValueFactory(new PropertyValueFactory<MotocicletaCantidad, String>("color"));
-        colCilindrada.setCellValueFactory(new PropertyValueFactory<MotocicletaCantidad, Integer>("cc"));
-        colPrecio.setCellValueFactory(new PropertyValueFactory<MotocicletaCantidad, Double>("precio_final"));
-        colUnds.setCellValueFactory(new PropertyValueFactory<MotocicletaCantidad, Integer>("cantidad"));
+        colUbicacion.setCellValueFactory(new PropertyValueFactory<Motocicleta, String>("concesionario"));
+        colMarca.setCellValueFactory(new PropertyValueFactory<Motocicleta, String>("marca"));
+        colModelo.setCellValueFactory(new PropertyValueFactory<Motocicleta, String>("modelo"));
+        colColor.setCellValueFactory(new PropertyValueFactory<Motocicleta, String>("color"));
+        colCilindrada.setCellValueFactory(new PropertyValueFactory<Motocicleta, Integer>("cc"));
+        colPrecio.setCellValueFactory(new PropertyValueFactory<Motocicleta, Double>("precio_compra"));
 
         cargarMotocicletasGeneral();
     }
 
     private void cargarMotocicletasSegunConcesionarioSeleccionado() {
         Concesionario concesionarioSeleccionado = (Concesionario) CmB_concesionarios.getValue();
-        List<Motocicleta> motocicletas = motoDAO.listarMotosConcesionario(concesionarioSeleccionado.getId_concesionario(), miEntityManager.getEntityManager());
-
-        // Inicializar el mapa para realizar el seguimiento de las motocicletas y sus cantidades
-        Map<Motocicleta, Integer> motocicletasConCantidad = new HashMap<>();
-
-        // Contar motocicletas iguales
-        for (Motocicleta motocicleta : motocicletas) {
-            boolean encontrada = false;
-            for (Motocicleta key : motocicletasConCantidad.keySet()) {
-                if (sonMotocicletasIguales(motocicleta, key)) {
-                    motocicletasConCantidad.put(key, motocicletasConCantidad.get(key) + 1);
-                    encontrada = true;
-                    break;
-                }
-            }
-            if (!encontrada) {
-                motocicletasConCantidad.put(motocicleta, 1);
-            }
-        }
+        List<Motocicleta> motocicletas = motoDAO.listarMotosConcesionario(
+                concesionarioSeleccionado.getId_concesionario(), miEntityManager.getEntityManager()
+        );
 
         T_tablaExistencias.getItems().clear();
-        ObservableList<MotocicletaCantidad> motocicletasCantList = FXCollections.observableArrayList();
 
-        // Convertir el mapa a una lista observable para la tabla
-        for (Map.Entry<Motocicleta, Integer> entry : motocicletasConCantidad.entrySet()) {
-            MotocicletaCantidad motocicletaCantidad = new MotocicletaCantidad(entry.getKey(), entry.getValue()-1);
-            motocicletasCantList.add(motocicletaCantidad);
+        for (Motocicleta moto : motocicletas) {
+            // Cambiamos el precio de compra al precio de venta
+            double precioVenta = cambiarPrecioMoto(moto.getPrecio_compra());
+            moto.setPrecio_compra(precioVenta);
+            motocicletasList.add(moto);
         }
 
-        T_tablaExistencias.setItems(motocicletasCantList);
-        T_tablaExistencias.refresh();
+        T_tablaExistencias.setItems(motocicletasList);
     }
 
     private void cargarMotocicletasGeneral() {
+        Concesionario concesionarioSeleccionado = (Concesionario) CmB_concesionarios.getValue();
         List<Motocicleta> motocicletas = motoDAO.listarMotos(miEntityManager.getEntityManager());
 
-        // Inicializar el mapa para realizar el seguimiento de las motocicletas y sus cantidades
-        Map<Motocicleta, Integer> motocicletasConCantidad = new HashMap<>();
-
-        // Contar motocicletas iguales
-        for (Motocicleta motocicleta : motocicletas) {
-            boolean encontrada = false;
-            for (Motocicleta key : motocicletasConCantidad.keySet()) {
-                if (sonMotocicletasIguales(motocicleta, key)) {
-                    motocicletasConCantidad.put(key, motocicletasConCantidad.get(key) + 1);
-                    encontrada = true;
-                    break;
-                }
-            }
-            if (!encontrada) {
-                motocicletasConCantidad.put(motocicleta, 1);
-            }
-        }
-
         T_tablaExistencias.getItems().clear();
-        ObservableList<MotocicletaCantidad> motocicletasCantList = FXCollections.observableArrayList();
 
-        // Convertir el mapa a una lista observable para la tabla
-        for (Map.Entry<Motocicleta, Integer> entry : motocicletasConCantidad.entrySet()) {
-            MotocicletaCantidad motocicletaCantidad = new MotocicletaCantidad(entry.getKey(), entry.getValue()-1);
-            motocicletasCantList.add(motocicletaCantidad);
+        for (Motocicleta moto : motocicletas) {
+            // Cambiamos el precio de compra al precio de venta
+            double precioVenta = cambiarPrecioMoto(moto.getPrecio_compra());
+            moto.setPrecio_compra(precioVenta);
+            motocicletasList.add(moto);
         }
 
-        T_tablaExistencias.setItems(motocicletasCantList);
+        T_tablaExistencias.setItems(motocicletasList);
     }
 
     private boolean sonMotocicletasIguales(Motocicleta motocicleta1, Motocicleta motocicleta2) {
@@ -279,4 +259,15 @@ public class ComercialVentasController implements Initializable {
                 motocicleta1.getPrecio_compra() == motocicleta2.getPrecio_compra();
     }
 
+    private double cambiarPrecioMoto (double precio) {
+        precio = precio * LOAD.beneficio;
+        if(precio%1 != 0){
+            precio= Double.parseDouble(String.valueOf((int) precio));
+        }
+        return precio;
+    }
+
+    private void comprobarCliente (Cliente cliente) {
+        // Falta
+    }
 }
