@@ -80,7 +80,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="BTN_vender" layoutX="1147.0" layoutY="818.0" mnemonicParsing="false" onAction="#realizar_venta" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: #00b86b; -fx-text-alignment: start;" text="Vender" textFill="WHITE">
+      <Button fx:id="BTN_vender" layoutX="1147.0" layoutY="818.0" mnemonicParsing="false" onAction="#realizar_venta" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: #00b86b; -fx-text-alignment: left;" text="Vender" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

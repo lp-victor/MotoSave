@@ -21,7 +21,6 @@ public class ImpConcesionarioDAO implements ConcesionarioDAO {
 
     /**
      * Agrega un nuevo concesionario a la base de datos.
-     *
      * @param conc          El concesionario que se va a agregar.
      * @param entityManager El EntityManager utilizado para realizar la operación.
      */
@@ -47,7 +46,6 @@ public class ImpConcesionarioDAO implements ConcesionarioDAO {
 
     /**
      * Lista los nombres de todos los concesionarios almacenados en la base de datos.
-     *
      * @param em El EntityManager utilizado para realizar la operación.
      * @return Una lista de los nombres de los concesionarios almacenados.
      */
@@ -64,6 +62,12 @@ public class ImpConcesionarioDAO implements ConcesionarioDAO {
         }
     }
 
+    /**
+     * Buscar un Concesionario por el id_Concesionario
+     * @param em
+     * @param id_concesionario
+     * @return Concesionario
+     */
     @Override
     public Concesionario buscarConcesionario(EntityManager em, int id_concesionario) {
         EntityTransaction transaction = em.getTransaction();
@@ -79,6 +83,11 @@ public class ImpConcesionarioDAO implements ConcesionarioDAO {
         }
     }
 
+    /**
+     * Lista todos los concesionarios disponibles.
+     * @param em
+     * @return Lista de Concesionarios
+     */
     public List<Concesionario> listarConcesionarios(EntityManager em) {
         try {
             // Consulta JPQL para obtener los nombres de los concesionarios

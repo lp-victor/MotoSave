@@ -38,6 +38,11 @@ public class ImpMotocicletaDAO implements MotocicletaDAO {
         }
     }
 
+    /**
+     * Actualiza la moto que entra por parametro en la base de datos,
+     * @param moto
+     * @param entityManager
+     */
     @Override
     public void actualizarMoto(Motocicleta moto, EntityManager entityManager) {
         EntityTransaction transaction = null;

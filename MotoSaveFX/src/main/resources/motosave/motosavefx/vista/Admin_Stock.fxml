@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -51,21 +52,29 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="T_tablaExistencias" layoutX="400.0" layoutY="126.0" prefHeight="344.0" prefWidth="957.0" style="-fx-background-radius: 10;">
+      <TableView fx:id="T_tablaExistencias" layoutX="398.0" layoutY="126.0" prefHeight="344.0" prefWidth="970.0" stylesheets="@../../../styles/estilo.css">
          <columns>
-            <TableColumn fx:id="colMarca" editable="false" prefWidth="191.0" resizable="false" text="Marca" />
-            <TableColumn fx:id="colModelo" editable="false" prefWidth="191.0" resizable="false" text="Modelo" />
-            <TableColumn fx:id="colColor" editable="false" prefWidth="191.0" resizable="false" text="Color" />
-            <TableColumn fx:id="colCilindrada" editable="false" prefWidth="191.0" resizable="false" text="Cilindrada" />
-            <TableColumn fx:id="colPrecio" editable="false" prefWidth="191.0" resizable="false" text="Precio/Und" />
+            <TableColumn fx:id="colMarca" editable="false" prefWidth="193.0" resizable="false" text="Marca">
+               <styleClass>
+                  <String fx:value="column-header-background" />
+                  <String fx:value="bordeChangeIzquierda" />
+               </styleClass></TableColumn>
+            <TableColumn fx:id="colModelo" editable="false" prefWidth="194.0" resizable="false" styleClass="column-header-background" text="Modelo" />
+            <TableColumn fx:id="colColor" editable="false" prefWidth="194.0" resizable="false" styleClass="column-header-background" text="Color" />
+            <TableColumn fx:id="colCilindrada" editable="false" prefWidth="193.0" resizable="false" styleClass="column-header-background" text="Cilindrada" />
+            <TableColumn fx:id="colPrecio" editable="false" prefWidth="194.0" resizable="false" text="Precio/Und">
+               <styleClass>
+                  <String fx:value="column-header-background" />
+                  <String fx:value="bordeChangeDerecha" />
+               </styleClass></TableColumn>
          </columns>
          <effect>
-            <Lighting diffuseConstant="1.24" specularConstant="0.23" specularExponent="13.4" surfaceScale="2.78">
+            <Lighting diffuseConstant="1.44" specularConstant="0.37" specularExponent="31.01">
                <bumpInput>
                   <Shadow />
                </bumpInput>
                <light>
-                  <Light.Distant elevation="130.87" />
+                  <Light.Distant />
                </light>
             </Lighting>
          </effect>
@@ -97,7 +106,7 @@
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <ComboBox fx:id="CmB_marca" prefHeight="25.0" prefWidth="180.0" style="-fx-background-radius: 10; -fx-background-color: white;" styleClass="comboBox" visibleRowCount="3">
+                  <ComboBox fx:id="CmB_marca" prefHeight="25.0" prefWidth="180.0" styleClass="comboBox" stylesheets="@../../../styles/estilo.css" visibleRowCount="3">
                      <HBox.margin>
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
@@ -111,7 +120,7 @@
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="TF_cilindrada" editable="false" prefWidth="180.0" style="-fx-background-radius: 10; -fx-background-color: white;">
+                  <TextField fx:id="TF_cilindrada" editable="false" prefWidth="180.0" styleClass="text-field" stylesheets="@../../../styles/estilo.css">
                      <HBox.margin>
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
@@ -137,7 +146,7 @@
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <ComboBox fx:id="CmB_modelo" prefHeight="25.0" prefWidth="180.0" style="-fx-background-radius: 10; -fx-background-color: white;" styleClass="comboBox" visibleRowCount="3">
+                  <ComboBox fx:id="CmB_modelo" prefHeight="25.0" prefWidth="180.0" styleClass="comboBox" stylesheets="@../../../styles/estilo.css" visibleRowCount="3">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -157,7 +166,7 @@
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="TF_precio_unidad" editable="false" prefHeight="26.0" prefWidth="180.0" style="-fx-background-radius: 10; -fx-background-color: white;">
+                  <TextField fx:id="TF_precio_unidad" editable="false" prefHeight="26.0" prefWidth="180.0" styleClass="text-field" stylesheets="@../../../styles/estilo.css">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -183,7 +192,7 @@
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <ComboBox fx:id="CmB_concesionarios_anadir" prefHeight="25.0" prefWidth="180.0" style="-fx-background-radius: 10; -fx-background-color: white;" styleClass="comboBox" visibleRowCount="3">
+                  <ComboBox fx:id="CmB_concesionarios_anadir" prefHeight="25.0" prefWidth="180.0" styleClass="comboBox" stylesheets="@../../../styles/estilo.css" visibleRowCount="3">
                      <HBox.margin>
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
@@ -197,7 +206,7 @@
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="TF_cantidad" prefWidth="180.0" style="-fx-background-radius: 10; -fx-background-color: white;">
+                  <TextField fx:id="TF_cantidad" prefWidth="180.0" styleClass="text-field" stylesheets="@../../../styles/estilo.css">
                      <HBox.margin>
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
@@ -220,13 +229,13 @@
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <ComboBox fx:id="CmB_color" onAction="#cargarCilindradaPrecio" prefHeight="25.0" prefWidth="180.0" style="-fx-background-radius: 10; -fx-background-color: white;" styleClass="comboBox" visibleRowCount="3">
+                  <ComboBox fx:id="CmB_color" onAction="#cargarCilindradaPrecio" prefHeight="25.0" prefWidth="180.0" styleClass="comboBox" stylesheets="@../../../styles/estilo.css" visibleRowCount="3">
                      <HBox.margin>
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
                   </ComboBox>
                   <VBox prefHeight="37.0" prefWidth="150.0" />
-                  <Label prefHeight="27.0" prefWidth="140.0" text="Precio total" textFill="#f4f3f3">
+                  <Label prefHeight="27.0" prefWidth="140.0" text="PRECIO TOTAL" textFill="#f4f3f3">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -234,12 +243,12 @@
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="TF_precio_total" editable="false" prefWidth="180.0" style="-fx-background-radius: 10; -fx-background-color: white;">
+                  <TextField fx:id="TF_precio_total" editable="false" prefWidth="180.0" styleClass="text-field" stylesheets="@../../../styles/estilo.css">
                      <HBox.margin>
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold" size="16.0" />
                      </font>
                   </TextField>
                </children>
@@ -251,7 +260,7 @@
       </VBox>
       <HBox alignment="CENTER" layoutX="417.0" layoutY="831.0" prefHeight="40.0" prefWidth="923.0">
          <children>
-            <Button fx:id="BTN_modificar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#modificarModeloMoto" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: orange; -fx-text-alignment: start;" text="Modificar" textFill="WHITE" visible="false">
+            <Button fx:id="BTN_modificar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#modificarModeloMoto" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: orange;" text="Modificar" textFill="WHITE" visible="false">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -259,7 +268,7 @@
                   <Insets left="50.0" right="50.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="BTN_eliminar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#eliminarModeloMoto" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: red; -fx-text-alignment: start;" text="Eliminar" textFill="WHITE" visible="false">
+            <Button fx:id="BTN_eliminar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#eliminarModeloMoto" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: red;" text="Eliminar" textFill="WHITE" visible="false">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -267,7 +276,7 @@
                   <Insets left="50.0" right="50.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="BTN_comprar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#comprarModeloMoto" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: #00b86b; -fx-text-alignment: start;" text="Comprar" textFill="WHITE">
+            <Button fx:id="BTN_comprar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#comprarModeloMoto" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: #00b86b;" text="Comprar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -277,12 +286,12 @@
             </Button>
          </children>
       </HBox>
-      <Button layoutX="77.0" layoutY="316.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: left;" text="Stock" textFill="#00b86b">
+      <Button layoutX="77.0" layoutY="316.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: center-left;" text="Stock" textFill="#00b86b">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="BTN_dashboard" layoutX="76.0" layoutY="246.0" mnemonicParsing="false" onAction="#abrirDashboard" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: left;" text="Dashboard" textFill="#00b86b">
+      <Button fx:id="BTN_dashboard" layoutX="76.0" layoutY="246.0" mnemonicParsing="false" onAction="#abrirDashboard" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: center-left;" text="Dashboard" textFill="#00b86b">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -297,7 +306,7 @@
             <Image url="@../../../images/tieda_icon.png" />
          </image>
       </ImageView>
-      <Button fx:id="BTN_comerciales" layoutX="77.0" layoutY="384.0" mnemonicParsing="false" onAction="#abrirComerciales" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: left;" text="Comerciales" textFill="#00b86b">
+      <Button fx:id="BTN_comerciales" layoutX="77.0" layoutY="384.0" mnemonicParsing="false" onAction="#abrirComerciales" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: center-left;" text="Comerciales" textFill="#00b86b">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

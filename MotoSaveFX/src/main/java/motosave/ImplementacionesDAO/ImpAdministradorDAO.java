@@ -19,7 +19,6 @@ public class ImpAdministradorDAO implements AdminstradorDAO {
 
     /**
      * Autentica un administrador en la base de datos mediante su nombre de usuario y contraseña.
-     *
      * @param em       El EntityManager utilizado para realizar la operación.
      * @param password La contraseña del administrador.
      * @param nombre   El nombre de usuario del administrador.
@@ -49,6 +48,11 @@ public class ImpAdministradorDAO implements AdminstradorDAO {
         }
     }
 
+    /**
+     * Crea un Administrador  en la base de datos pasado por Parametro.
+     * @param em
+     * @param admin
+     */
     @Override
     public void crearAdministrador(EntityManager em, Administrador admin) {
         try {

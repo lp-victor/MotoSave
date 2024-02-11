@@ -48,6 +48,9 @@ public class LoginController implements Initializable {
         comercial = new Comercial();
         comDAO = new ImpComercialDAO();
         adminDAO = new ImpAdministradorDAO();
+
+        TF_usuario.setText("Admin");
+        PF_contrasena.setText("admin");
     }
 
     @FXML

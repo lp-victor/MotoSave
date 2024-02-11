@@ -19,7 +19,7 @@ public class FactoryMoto {
         Motocicleta moto = null;
         ArrayList<Motocicleta> motosCreadas = new ArrayList<>();
 
-        for (int i = 0; i <= cantidad; i++) {
+        for (int i = 0; i < cantidad; i++) {
             switch (marca) {
                 case BMW:
                     switch (modelo) {
