@@ -1,5 +1,9 @@
 package motosave.motosavefx.controlador;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,18 +18,21 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import motosave.Persistencia.miEntityManager;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ComercialEstadisticasController implements Initializable {
     @FXML
-    private ComboBox CB_tiempo;
+    private ComboBox<Date> CB_tiempo;
     @FXML
     private Button BTN_salir;
     @FXML
-    private BarChart<?, ?> BC_barra_liquido;
+    private BarChart<String, Number> BC_barra_liquido;
     @FXML
     private Pane P_comercialEstadisticas;
     @FXML
@@ -33,7 +40,7 @@ public class ComercialEstadisticasController implements Initializable {
     @FXML
     private Label L_bienvenido;
     @FXML
-    private LineChart LC_barra_ventas;
+    private LineChart<String, Number> LC_barra_ventas;
     @FXML
     private Label L_sede_comercial;
     @FXML
@@ -41,35 +48,20 @@ public class ComercialEstadisticasController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        rellenar_liquido();
-        rellenar_ventas();
+        //rellenar_liquido();
+        //rellenar_ventas();
     }
 
-    @Deprecated
-    public void logOut(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Login.fxml"));
+    @FXML
+    public void rellenarDatosDesdeBD(String tiempoSeleccionado) {
 
-            Parent root = loader.load();
-
-            LoginController controller = loader.getController();
-
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-
-            stage.setScene(scene);
-            stage.show();
-            stage.setResizable(false);
-
-            Stage myStage = (Stage) this.BTN_salir.getScene().getWindow();
-            myStage.close();
-
-        } catch (IOException ex) {
-
-        }
     }
 
+    private void llenarGraficosConDatos(List<miEntityManager> datos) {
 
+    }
+
+    /*
     @FXML
     public void rellenar_ventas() {
 
@@ -88,7 +80,6 @@ public class ComercialEstadisticasController implements Initializable {
 
         BC_barra_liquido.getData().addAll(set1);
     }
-
     @FXML
     public void rellenar_liquido() {
 
@@ -102,7 +93,7 @@ public class ComercialEstadisticasController implements Initializable {
         set1.getData().add(new XYChart.Data("6", 2900));
 
         LC_barra_ventas.getData().addAll(set1);
-    }
+    }*/
 
     @FXML
     public void abrir_ventas(ActionEvent actionEvent) {
@@ -124,6 +115,7 @@ public class ComercialEstadisticasController implements Initializable {
             myStage.close();
 
         } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -197,5 +189,12 @@ public class ComercialEstadisticasController implements Initializable {
 //            em.close();
 //        }
 //    }
+
+    // Cerrar la aplicación al presionar el botón salir
+    @FXML
+    public void cerrarAplicacion(ActionEvent actionEvent) {
+        Stage stage = (Stage) BTN_salir.getScene().getWindow();
+        stage.close();
+    }
 
 }
