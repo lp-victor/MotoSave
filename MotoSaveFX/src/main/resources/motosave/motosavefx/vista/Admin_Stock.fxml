@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -52,21 +51,13 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="T_tablaExistencias" layoutX="398.0" layoutY="126.0" prefHeight="344.0" prefWidth="970.0" stylesheets="@../../../styles/estilo.css">
+      <TableView fx:id="T_tablaExistencias" focusTraversable="false" layoutX="398.0" layoutY="126.0" prefHeight="344.0" prefWidth="970.0" stylesheets="@../../../styles/estilo.css">
          <columns>
-            <TableColumn fx:id="colMarca" editable="false" prefWidth="193.0" resizable="false" text="Marca">
-               <styleClass>
-                  <String fx:value="column-header-background" />
-                  <String fx:value="bordeChangeIzquierda" />
-               </styleClass></TableColumn>
-            <TableColumn fx:id="colModelo" editable="false" prefWidth="194.0" resizable="false" styleClass="column-header-background" text="Modelo" />
-            <TableColumn fx:id="colColor" editable="false" prefWidth="194.0" resizable="false" styleClass="column-header-background" text="Color" />
-            <TableColumn fx:id="colCilindrada" editable="false" prefWidth="193.0" resizable="false" styleClass="column-header-background" text="Cilindrada" />
-            <TableColumn fx:id="colPrecio" editable="false" prefWidth="194.0" resizable="false" text="Precio/Und">
-               <styleClass>
-                  <String fx:value="column-header-background" />
-                  <String fx:value="bordeChangeDerecha" />
-               </styleClass></TableColumn>
+            <TableColumn fx:id="colMarca" editable="false" prefWidth="193.0" resizable="false" text="Marca" />
+            <TableColumn fx:id="colModelo" editable="false" prefWidth="194.0" resizable="false" text="Modelo" />
+            <TableColumn fx:id="colColor" editable="false" prefWidth="194.0" resizable="false" text="Color" />
+            <TableColumn fx:id="colCilindrada" editable="false" prefWidth="193.0" resizable="false" text="Cilindrada" />
+            <TableColumn fx:id="colPrecio" editable="false" prefWidth="194.0" resizable="false" text="Precio/Und" />
          </columns>
          <effect>
             <Lighting diffuseConstant="1.44" specularConstant="0.37" specularExponent="31.01">
@@ -258,9 +249,17 @@
             </HBox>
          </children>
       </VBox>
-      <HBox alignment="CENTER" layoutX="417.0" layoutY="831.0" prefHeight="40.0" prefWidth="923.0">
+      <HBox alignment="CENTER" layoutX="372.0" layoutY="833.0" prefHeight="40.0" prefWidth="1021.0">
          <children>
-            <Button fx:id="BTN_modificar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#modificarModeloMoto" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: orange;" text="Modificar" textFill="WHITE" visible="false">
+            <Button fx:id="BTN_modificar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#modificarModeloMoto" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: orange;" text="Modificar" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="50.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="BTN_eliminar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#eliminarModeloMoto" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: red;" text="Eliminar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -268,7 +267,7 @@
                   <Insets left="50.0" right="50.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="BTN_eliminar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#eliminarModeloMoto" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: red;" text="Eliminar" textFill="WHITE" visible="false">
+            <Button fx:id="BTN_comprar1" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#restablecerDatosMotoSeleccion" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: #00b86b;" text="Restablecer" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -281,7 +280,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
                <HBox.margin>
-                  <Insets left="50.0" right="50.0" />
+                  <Insets left="50.0" />
                </HBox.margin>
             </Button>
          </children>

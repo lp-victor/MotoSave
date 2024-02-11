@@ -79,6 +79,8 @@ public class AdminStockController implements Initializable {
     private TableColumn<Motocicleta, Double> colPrecio;
     @FXML
     private TableColumn<Motocicleta, Integer> colCilindrada;
+    @FXML
+    private Button BTN_comprar1;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -232,6 +234,11 @@ public class AdminStockController implements Initializable {
         resetStock();
     }
 
+    /**
+     * Elimina la moto con el DAO de moto y cargando de la tabla la moto selecionada.
+     * Restablecemos los datos.
+     * @param actionEvent
+     */
     @FXML
     public void eliminarModeloMoto(ActionEvent actionEvent) {
         Motocicleta motoEliminar = T_tablaExistencias.getSelectionModel().getSelectedItem();
@@ -239,6 +246,18 @@ public class AdminStockController implements Initializable {
         resetStock();
     }
 
+    /**
+     * Boton para Restablecer los datos en blanco.
+     * @param actionEvent
+     */
+    @FXML
+    public void restablecerDatosMotoSeleccion(ActionEvent actionEvent) {
+        resetStock();
+    }
+
+    /**
+     * Metodo para calcular el precio final adquirido de los textField de precio y cantidad.
+     */
     private void mostrarPrecioFinalAutomatico(){
         TF_cantidad.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.isEmpty()) {
@@ -262,6 +281,10 @@ public class AdminStockController implements Initializable {
 
         });
     }
+
+    /**
+     * Restablecer los valores de los comboBox y TExtFields.
+     */
     private void resetStock() {
         BTN_eliminar.setVisible(false);
         BTN_modificar.setVisible(false);
@@ -293,6 +316,9 @@ public class AdminStockController implements Initializable {
         cargarMotocicletasSegunConcesionarioSeleccionado();
     }
 
+    /**
+     * Metodo de carga de Datos de la seleccion de la tabla a los ComboBox y TextField.
+     */
     private void cargarSeleccionTabla() {
         T_tablaExistencias.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -355,6 +381,12 @@ public class AdminStockController implements Initializable {
         T_tablaExistencias.setItems(motocicletasList);
     }
 
+    /**
+     * Cuenta las motos mientras carga las motos en la tabla.
+     * @param moto
+     * @param listaMotos
+     * @return Cantidad de motos, de la moto seleccionada o agregada.
+     */
     private int contarMotosIguales(Motocicleta moto, List<Motocicleta> listaMotos) {
         int contador = 0;
 
@@ -384,12 +416,17 @@ public class AdminStockController implements Initializable {
                 motocicleta1.getPrecio_compra() == motocicleta2.getPrecio_compra();
     }
 
-    // Combobox y textfields inferiores.
+    /**
+     * Rellena el comboBox de MArcas.
+     */
     private void llenarComboBoxMarcas() {
         ObservableList<Marcas> marcasList = FXCollections.observableArrayList(Marcas.values());
         CmB_marca.setItems(marcasList);
     }
 
+    /**
+     * Rellena el comboBox de Colores.
+     */
     private void llenarComboBoxColores() {
         ObservableList<Colores> coloresList = FXCollections.observableArrayList(Colores.values());
         CmB_color.setItems(coloresList);
@@ -525,23 +562,6 @@ public class AdminStockController implements Initializable {
         TextFormatter<String> textFormatter = new TextFormatter<>(filter);
         // Establecer el TextFormatter en el TextField
         TF_cantidad.setTextFormatter(textFormatter);
-        // Establecer el estilo del borde cuando se introduce un valor no válido
-        TF_cantidad.textProperty().addListener((observable, oldValue, newValue) -> {
-            comprobarCantidad(newValue);
-        });
-    }
-
-    /**
-     * Comprueba la cantidad introducida y establece el estilo del borde del TextField en rojo si no es válida.
-     *
-     * @param newValue La nueva cantidad introducida en el TextField.
-     */
-    private void comprobarCantidad(String newValue) {
-        if (!newValue.matches("\\d*")) {
-            TF_cantidad.setStyle("-fx-border-color: red;");
-        } else {
-            TF_cantidad.setStyle("-fx-border-color: inherit;");
-        }
     }
 
     /**
@@ -577,6 +597,7 @@ public class AdminStockController implements Initializable {
     private Motocicleta obtenerMotocicletaPorMarcaYModelo(Marcas marca, String modelo, Colores color) {
         return factoriaMoto.fabricarMotos(marca, modelo, color, 1).getFirst();
     }
+
 
 
 }
