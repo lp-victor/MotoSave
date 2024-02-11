@@ -109,9 +109,10 @@ public class ImpMotocicletaDAO implements MotocicletaDAO {
      * @return Una lista de todas las motocicletas almacenadas.
      */
     @Override
-    public ArrayList<Motocicleta> listarMotos(EntityManager entityManager) {
+    public List<Motocicleta> listarMotos(EntityManager entityManager) {
         try {
-            return new ArrayList<>(entityManager.createQuery("SELECT m FROM Motocicleta m", Motocicleta.class).getResultList());
+            List<Motocicleta> motos =new ArrayList<>(entityManager.createQuery("SELECT m FROM Motocicleta m", Motocicleta.class).getResultList());
+            return motos;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

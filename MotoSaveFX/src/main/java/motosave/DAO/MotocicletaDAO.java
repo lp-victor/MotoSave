@@ -23,7 +23,7 @@ public interface MotocicletaDAO {
 
     public abstract Motocicleta obtenerMotoPorId(int id_moto, EntityManager em);
 
-    public abstract ArrayList<Motocicleta> listarMotos(EntityManager em);
+    public abstract List<Motocicleta> listarMotos(EntityManager em);
 
     public abstract List<Motocicleta> listarMotosConcesionario(int id_concesionario, EntityManager em);
 

@@ -18,17 +18,17 @@
    <children>
       <Pane prefHeight="920.0" prefWidth="311.0" style="-fx-background-color: #374452; -fx-background-radius: 0 30 30 0;">
          <children>
-            <Button fx:id="BTN_dashboard" layoutX="76.0" layoutY="247.0" mnemonicParsing="false" onAction="#abrirDashboard" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: left;" text="Dashboard" textFill="#00b86b">
+            <Button fx:id="BTN_dashboard" layoutX="76.0" layoutY="247.0" mnemonicParsing="false" onAction="#abrirDashboard" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: center-left;" text="Dashboard" textFill="#00b86b">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="BTN_stock" layoutX="77.0" layoutY="316.0" mnemonicParsing="false" onAction="#abrirStock" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: left;" text="Stock" textFill="#00b86b">
+            <Button fx:id="BTN_stock" layoutX="77.0" layoutY="316.0" mnemonicParsing="false" onAction="#abrirStock" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: center- left;" text="Stock" textFill="#00b86b">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="77.0" layoutY="384.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: left;" text="Comerciales" textFill="#00b86b">
+            <Button layoutX="77.0" layoutY="384.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: center-left;" text="Comerciales" textFill="#00b86b">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -59,8 +59,8 @@
          <effect>
             <BoxBlur height="4.77" width="0.0" />
          </effect></Separator>
-      <ComboBox fx:id="CmB_concesionario" layoutX="865.0" layoutY="163.0" prefHeight="25.0" prefWidth="170.0" style="-fx-background-radius: 10; -fx-background-color: white;" styleClass="comboBox" visibleRowCount="3" />
-      <Label layoutX="694.0" layoutY="162.0" prefHeight="17.0" prefWidth="130.0" text="Concesionario" textFill="#f4f3f3">
+      <ComboBox fx:id="CmB_concesionario" layoutX="857.0" layoutY="163.0" prefHeight="25.0" prefWidth="170.0" style="-fx-background-radius: 10; -fx-background-color: white;" styleClass="comboBox" stylesheets="@../../../styles/estilo.css" visibleRowCount="3" />
+      <Label layoutX="688.0" layoutY="165.0" prefHeight="17.0" prefWidth="130.0" text="Concesionario" textFill="#f4f3f3">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -70,8 +70,8 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <TextField fx:id="TF_nombre" layoutX="575.0" layoutY="246.0" prefHeight="25.0" prefWidth="178.0" />
-      <TextField fx:id="TF_apellidos" layoutX="575.0" layoutY="294.0" prefHeight="25.0" prefWidth="178.0" />
+      <TextField fx:id="TF_nombre" layoutX="575.0" layoutY="246.0" prefHeight="25.0" prefWidth="178.0" stylesheets="@../../../styles/estilo.css" />
+      <TextField fx:id="TF_apellidos" layoutX="575.0" layoutY="294.0" prefHeight="25.0" prefWidth="178.0" stylesheets="@../../../styles/estilo.css" />
       <Label layoutX="429.0" layoutY="245.0" prefHeight="17.0" prefWidth="130.0" text="Nombre" textFill="#f4f3f3">
          <font>
             <Font name="System Bold" size="18.0" />
@@ -92,7 +92,7 @@
             <BoxBlur height="4.77" width="0.0" />
          </effect>
       </Separator>
-      <TableView fx:id="TV_comerciales" layoutX="429.0" layoutY="578.0" prefHeight="240.0" prefWidth="892.0" style="-fx-background-radius: 10;">
+      <TableView fx:id="TV_comerciales" layoutX="429.0" layoutY="578.0" prefHeight="240.0" prefWidth="892.0" stylesheets="@../../../styles/estilo.css">
         <columns>
           <TableColumn prefWidth="172.800048828125" text="Nombre" />
           <TableColumn prefWidth="230.0" text="Apellidos" />
@@ -111,13 +111,13 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="TF_NIF" layoutX="1033.0" layoutY="246.0" prefHeight="25.0" prefWidth="178.0" />
+      <TextField fx:id="TF_NIF" layoutX="1033.0" layoutY="246.0" prefHeight="25.0" prefWidth="178.0" stylesheets="@../../../styles/estilo.css" />
       <Button fx:id="BTN_eliminar" layoutX="1164.0" layoutY="845.0" mnemonicParsing="false" onAction="#eliminar_comercial" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: #ff0000;" text="Eliminar" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <TextField fx:id="TF_usuario" layoutX="575.0" layoutY="342.0" prefHeight="25.0" prefWidth="178.0" />
+      <TextField fx:id="TF_usuario" layoutX="575.0" layoutY="342.0" prefHeight="25.0" prefWidth="178.0" stylesheets="@../../../styles/estilo.css" />
       <Label layoutX="429.0" layoutY="341.0" prefHeight="17.0" prefWidth="130.0" text="Usuario" textFill="#f4f3f3">
          <font>
             <Font name="System Bold" size="18.0" />
@@ -128,8 +128,8 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <PasswordField fx:id="PF_pass1" layoutX="1035.0" layoutY="294.0" prefHeight="25.0" prefWidth="178.0" />
-      <PasswordField fx:id="PF_pass2" layoutX="1035.0" layoutY="342.0" prefHeight="25.0" prefWidth="178.0" />
+      <PasswordField fx:id="PF_pass1" layoutX="1035.0" layoutY="294.0" prefHeight="25.0" prefWidth="178.0" stylesheets="@../../../styles/estilo.css" />
+      <PasswordField fx:id="PF_pass2" layoutX="1035.0" layoutY="342.0" prefHeight="25.0" prefWidth="178.0" stylesheets="@../../../styles/estilo.css" />
       <ImageView fitHeight="30.0" fitWidth="36.0" layoutX="102.0" layoutY="831.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/exit_icon.png" />
