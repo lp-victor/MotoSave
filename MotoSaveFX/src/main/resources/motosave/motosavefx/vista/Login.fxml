@@ -4,8 +4,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,17 +19,34 @@
     <children>
         <Pane layoutX="-1.0" layoutY="-1.0" prefHeight="920.0" prefWidth="1441.0" style="-fx-background-color: #1F2A36;">
             <children>
-                <ImageView fitHeight="671.0" fitWidth="811.0" layoutX="656.0" layoutY="213.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="671.0" fitWidth="811.0" layoutX="656.0" layoutY="213.0" opacity="0.54" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/portada_traveseira-sin_fondow.png" />
                </image>
                <effect>
-                  <Blend />
+                  <Lighting diffuseConstant="1.11" specularConstant="0.75" specularExponent="38.35" surfaceScale="2.14">
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
                </effect></ImageView>
-            <ImageView fitHeight="298.0" fitWidth="696.0" layoutX="684.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="175.0" fitWidth="651.0" layoutX="676.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/MotoSaveCOMPLETO-removebg-preview.png" />
+                  <Image url="@../../../images/motosave_logo_nombre4.png" />
                </image>
+               <effect>
+                  <Lighting diffuseConstant="1.28" specularConstant="1.17" specularExponent="30.28" surfaceScale="3.61">
+                     <bumpInput>
+                        <Shadow height="21.06" radius="8.86" width="16.38" />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect>
             </ImageView>
             </children>
         </Pane>
