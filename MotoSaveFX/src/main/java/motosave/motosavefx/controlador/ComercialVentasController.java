@@ -55,16 +55,6 @@ public class ComercialVentasController implements Initializable {
     @FXML
     private ComboBox CmB_concesionarios;
     @FXML
-    private TextField TF_nombreCliente;
-    @FXML
-    private TextField TF_direccion;
-    @FXML
-    private TextField TF_apellidosCliente;
-    @FXML
-    private TextField TF_telefonoCliente;
-    @FXML
-    private TextField TF_correoCliente;
-    @FXML
     private TableView<Motocicleta> T_tablaExistencias;
     @FXML
     private TableColumn<Motocicleta, String> colMarca;
@@ -183,22 +173,22 @@ public class ComercialVentasController implements Initializable {
         comboBox.getItems().addAll(concesionarios);
     }
 
-    private boolean comprobarDatosCliente() {
-        L_control_vacios.setVisible(false);
-        L_control_telefono.setVisible(false);
-
-        if (TF_nombreCliente.getText().isEmpty() || TF_apellidosCliente.getText().isEmpty() || TF_correoCliente.getText().isEmpty() || TF_telefonoCliente.getText().isEmpty() || TF_direccion.getText().isEmpty()) {
-            L_control_vacios.setVisible(true);
-            return false;
-        } else if (!TF_telefonoCliente.getText().matches("^\\d+$")) {
-            L_control_telefono.setVisible(true);
-            return false;
-        } else {
-            L_control_vacios.setVisible(false);
-            L_control_telefono.setVisible(false);
-            return true;
-        }
-    }
+//    private boolean comprobarDatosCliente() {
+//        L_control_vacios.setVisible(false);
+//        L_control_telefono.setVisible(false);
+//
+//        if (TF_nombreCliente.getText().isEmpty() || TF_apellidosCliente.getText().isEmpty() || TF_correoCliente.getText().isEmpty() || TF_telefonoCliente.getText().isEmpty() || TF_direccion.getText().isEmpty()) {
+//            L_control_vacios.setVisible(true);
+//            return false;
+//        } else if (!TF_telefonoCliente.getText().matches("^\\d+$")) {
+//            L_control_telefono.setVisible(true);
+//            return false;
+//        } else {
+//            L_control_vacios.setVisible(false);
+//            L_control_telefono.setVisible(false);
+//            return true;
+//        }
+//    }
 
     private void cargarDatos (){
         llenarComboBoxConcesionarios(CmB_concesionarios);

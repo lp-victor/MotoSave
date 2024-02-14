@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
@@ -12,9 +13,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.BoxBlur?>
-<?import javafx.scene.effect.Light.Distant?>
-<?import javafx.scene.effect.Lighting?>
-<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -25,22 +23,25 @@
    <children>
       <Pane prefHeight="920.0" prefWidth="311.0" style="-fx-background-color: #374452; -fx-background-radius: 0 30 30 0;">
          <children>
-            <Button fx:id="BTN_salir" alignment="CENTER_RIGHT" layoutX="80.0" layoutY="824.0" mnemonicParsing="false" onAction="#cerrar_sesion" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #1f2a36; -fx-background-radius: 15;" text="Salir    " textFill="RED">
+            <Button fx:id="BTN_salir" alignment="CENTER_RIGHT" layoutX="80.0" layoutY="824.0" mnemonicParsing="false" onAction="#cerrar_sesion" prefHeight="45.0" prefWidth="150.0" styleClass="boton-salir" stylesheets="@../../../styles/estilo.css" text="Salir    " textFill="RED">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="56.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="54.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/dashboard_icon.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="56.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="55.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/tieda_icon.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="56.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="55.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/comerciales_icon.png" />
                </image>
@@ -66,8 +67,11 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <ComboBox fx:id="CB_tiempo" layoutX="471.0" layoutY="42.0" prefWidth="150.0" style="-fx-background-radius: 10; -fx-background-color: white;" visibleRowCount="3" />
-      <Label layoutX="734.0" layoutY="21.0" text="DASHBOARD" textFill="WHITE">
+      <ComboBox fx:id="CB_tiempo" layoutX="471.0" layoutY="42.0" prefWidth="150.0" stylesheets="@../../../styles/estilo.css" visibleRowCount="3">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ComboBox>
+      <Label layoutX="744.0" layoutY="18.0" text="DASHBOARD" textFill="WHITE">
          <font>
             <Font name="System Bold" size="42.0" />
          </font>
@@ -150,38 +154,37 @@
             <BoxBlur height="4.77" width="0.0" />
          </effect>
       </Separator>
-      <TableView fx:id="TV_comercialesVentas" layoutX="406.0" layoutY="570.0" prefHeight="297.0" prefWidth="936.0" style="-fx-background-radius: 10;">
+      <TableView fx:id="TV_comercialesVentas" layoutX="406.0" layoutY="570.0" prefHeight="297.0" prefWidth="936.0" stylesheets="@../../../styles/estilo.css">
          <columns>
-            <TableColumn prefWidth="196.0" text="Nombre" />
-            <TableColumn prefWidth="267.0" text="Apellidos" />
-            <TableColumn prefWidth="220.0" text="Concesionario" />
-            <TableColumn prefWidth="213.0" text="Ventas" />
+            <TableColumn prefWidth="196.0" resizable="false" text="Nombre" />
+            <TableColumn prefWidth="267.0" resizable="false" text="Apellidos" />
+            <TableColumn prefWidth="237.0" resizable="false" text="Concesionario" />
+            <TableColumn prefWidth="235.0" resizable="false" text="Ventas" />
          </columns>
-         <effect>
-            <Lighting diffuseConstant="1.24" specularConstant="0.23" specularExponent="13.4" surfaceScale="2.78">
-               <bumpInput>
-                  <Shadow />
-               </bumpInput>
-               <light>
-                  <Light.Distant elevation="130.87" />
-               </light>
-            </Lighting>
-         </effect>
       </TableView>
-      <Button fx:id="BTN_stock" layoutX="78.0" layoutY="316.0" mnemonicParsing="false" onAction="#abrirStock" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: center-left;" text="Stock" textFill="#00b86b">
+      <Button fx:id="BTN_stock" layoutX="78.0" layoutY="316.0" mnemonicParsing="false" onAction="#abrirStock" prefHeight="25.0" prefWidth="170.0" styleClass="boton-navBar" stylesheets="@../../../styles/estilo.css" text="Stock" textFill="#00b86b">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <Button layoutX="77.0" layoutY="246.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: center-left;" text="Dashboard" textFill="#00b86b">
+      <Button layoutX="77.0" layoutY="246.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" styleClass="boton-navBar" stylesheets="@../../../styles/estilo.css" text="Dashboard" textFill="#00b86b">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <Button fx:id="BTN_comerciales" layoutX="78.0" layoutY="384.0" mnemonicParsing="false" onAction="#abrirComerciales" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: center-left;" text="Comerciales" textFill="#00b86b">
+      <Button fx:id="BTN_comerciales" layoutX="78.0" layoutY="384.0" mnemonicParsing="false" onAction="#abrirComerciales" prefHeight="25.0" prefWidth="170.0" styleClass="boton-navBar" stylesheets="@../../../styles/estilo.css" text="Comerciales" textFill="#00b86b">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Label fx:id="L_indentificacion_comercial" layoutX="1289.0" layoutY="36.0" text="Administrador" textFill="WHITE">
          <font>

@@ -5,6 +5,7 @@ import jakarta.persistence.TypedQuery;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -52,7 +53,7 @@ public class ComercialEstadisticasController implements Initializable {
         //rellenar_ventas();
     }
 
-    @FXML
+    @Deprecated
     public void rellenarDatosDesdeBD(String tiempoSeleccionado) {
 
     }
@@ -191,10 +192,17 @@ public class ComercialEstadisticasController implements Initializable {
 //    }
 
     // Cerrar la aplicación al presionar el botón salir
-    @FXML
+    @Deprecated
     public void cerrarAplicacion(ActionEvent actionEvent) {
         Stage stage = (Stage) BTN_salir.getScene().getWindow();
         stage.close();
     }
 
+    @FXML
+    public void rellenar_ventas(Event event) {
+    }
+
+    @FXML
+    public void rellenar_liquido(Event event) {
+    }
 }

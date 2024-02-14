@@ -1,11 +1,10 @@
-
-.table-view .column-header-background {  
+.table-view .column-header-background {
     -fx-alignment: center;
     -fx-font-weight: bold;
     
 }
+
 .table-view .column-row-background { 
-    -fx-alignment: center;
     -fx-font-weight: bold;  
 }
 
@@ -16,24 +15,14 @@
     -fx-text-fill: #000000; 
 }
 
-
 .table-view .table-row-cell:selected, .table-view .table-row-cell:focused {
     -fx-background-color: #afc5dd; 
     -fx-text-fill: #000000; 
     -fx-font-weight: bold;
 }
 
-.table-view .cell {
-    -fx-alignment: center; 
-   
-}
-
-
-
-
-
 .combo-box-base {
-    -fx-background-radius: 10; 
+    -fx-background-radius: 2;
     -fx-background-color: #ffffff; 
 }
 
@@ -43,20 +32,56 @@
 
 .combo-box .list-cell {
     -fx-background-color: #ffffff; 
-    -fx-background-radius: 10; 
+    -fx-background-radius: 2;
     -fx-text-fill: #000000; 
     -fx-font-weight: bold; 
-    -fx-font-size: 14px; 
-    -fx-alignment: center;
+    -fx-font-size: 14px;
 }
-
-
-
 
 .text-field {
     -fx-background-color: #ffffff; 
-    -fx-background-radius: 10; 
+    -fx-background-radius: 2;
     -fx-font-weight: bold; 
     -fx-font-size: 14px; 
-    -fx-alignment: center;
+}
+
+.boton-restablecer-filtros{
+    -fx-background-color: transparent;
+}
+
+.boton-navBar{
+    -fx-background-color: transparent;
+    -fx-alignment: center-left;
+}
+
+.boton-salir{
+    -fx-background-color: #1F2A36;
+}
+
+.boton-accion {
+    -fx-background-color: #00b86b;
+}
+
+.boton-eliminar {
+    -fx-background-color: #FF0000;
+}
+
+.boton-navBar:hover {
+ -fx-background-color: #8595A7;
+}
+
+.boton-accion:hover {
+ -fx-background-color: #188D5C;
+}
+
+.boton-restablecer-filtros:hover {
+ -fx-background-color: #475360;
+}
+
+.boton-salir:hover{
+ -fx-background-color: #ECE9E7;
+}
+
+.boton-eliminar: hover {
+    -fx-background-color: #AA3939;
 }

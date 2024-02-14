@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -9,9 +10,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.BoxBlur?>
-<?import javafx.scene.effect.Light.Distant?>
-<?import javafx.scene.effect.Lighting?>
-<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -23,10 +21,13 @@
    <children>
       <Pane prefHeight="920.0" prefWidth="311.0" style="-fx-background-color: #374452; -fx-background-radius: 0 30 30 0;">
          <children>
-            <Button fx:id="BTN_salir" alignment="CENTER_RIGHT" layoutX="81.0" layoutY="824.0" mnemonicParsing="false" onAction="#cerrar_sesion" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #1f2a36; -fx-background-radius: 15;" text="Salir    " textFill="RED">
+            <Button fx:id="BTN_salir" alignment="CENTER_RIGHT" layoutX="81.0" layoutY="824.0" mnemonicParsing="false" onAction="#cerrar_sesion" prefHeight="45.0" prefWidth="150.0" styleClass="boton-salir" stylesheets="@../../../styles/estilo.css" text="Salir    " textFill="RED">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <ImageView fitHeight="30.0" fitWidth="36.0" layoutX="102.0" layoutY="831.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -45,13 +46,16 @@
             <BoxBlur height="4.77" width="0.0" />
          </effect>
       </Separator>
-      <ComboBox fx:id="CmB_concesionarios_selecion" layoutX="525.0" layoutY="42.0" prefWidth="150.0" style="-fx-background-radius: 10; -fx-background-color: white;" styleClass="comboBox" visibleRowCount="3" />
+      <ComboBox fx:id="CmB_concesionarios_selecion" layoutX="525.0" layoutY="42.0" prefWidth="150.0" stylesheets="@../../../styles/estilo.css" visibleRowCount="3">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ComboBox>
       <Label layoutX="365.0" layoutY="41.0" prefHeight="17.0" prefWidth="130.0" text="Concesionario:" textFill="#f4f3f3">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="T_tablaExistencias" focusTraversable="false" layoutX="398.0" layoutY="126.0" prefHeight="344.0" prefWidth="970.0" stylesheets="@../../../styles/estilo.css">
+      <TableView fx:id="T_tablaExistencias" focusTraversable="false" layoutX="395.0" layoutY="126.0" prefHeight="344.0" prefWidth="970.0" stylesheets="@../../../styles/estilo.css">
          <columns>
             <TableColumn fx:id="colMarca" editable="false" prefWidth="193.0" resizable="false" text="Marca" />
             <TableColumn fx:id="colModelo" editable="false" prefWidth="194.0" resizable="false" text="Modelo" />
@@ -59,16 +63,6 @@
             <TableColumn fx:id="colCilindrada" editable="false" prefWidth="193.0" resizable="false" text="Cilindrada" />
             <TableColumn fx:id="colPrecio" editable="false" prefWidth="194.0" resizable="false" text="Precio/Und" />
          </columns>
-         <effect>
-            <Lighting diffuseConstant="1.44" specularConstant="0.37" specularExponent="31.01">
-               <bumpInput>
-                  <Shadow />
-               </bumpInput>
-               <light>
-                  <Light.Distant />
-               </light>
-            </Lighting>
-         </effect>
       </TableView>
       <Separator layoutX="311.0" layoutY="507.0" prefHeight="5.0" prefWidth="1131.0">
          <effect>
@@ -101,6 +95,9 @@
                      <HBox.margin>
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ComboBox>
                   <VBox prefHeight="37.0" prefWidth="150.0" />
                   <Label prefWidth="140.0" text="Cilindrada" textFill="#f4f3f3">
@@ -118,6 +115,9 @@
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="DISAPPEAR" />
+                     </cursor>
                   </TextField>
                </children>
                <VBox.margin>
@@ -144,6 +144,9 @@
                      <HBox.margin>
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ComboBox>
                   <VBox prefHeight="37.0" prefWidth="150.0" />
                   <Label prefHeight="27.0" prefWidth="140.0" text="Precio unidad" textFill="#f4f3f3">
@@ -167,6 +170,9 @@
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="DISAPPEAR" />
+                     </cursor>
                   </TextField>
                </children>
                <VBox.margin>
@@ -187,6 +193,9 @@
                      <HBox.margin>
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ComboBox>
                   <VBox prefHeight="37.0" prefWidth="150.0" />
                   <Label prefHeight="27.0" prefWidth="140.0" text="Cantidad" textFill="#f4f3f3">
@@ -204,6 +213,9 @@
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
                   </TextField>
                </children>
                <VBox.margin>
@@ -224,6 +236,9 @@
                      <HBox.margin>
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ComboBox>
                   <VBox prefHeight="37.0" prefWidth="150.0" />
                   <Label prefHeight="27.0" prefWidth="140.0" text="PRECIO TOTAL" textFill="#f4f3f3">
@@ -241,6 +256,9 @@
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="DISAPPEAR" />
+                     </cursor>
                   </TextField>
                </children>
                <VBox.margin>
@@ -251,49 +269,67 @@
       </VBox>
       <HBox alignment="CENTER" layoutX="372.0" layoutY="833.0" prefHeight="40.0" prefWidth="1021.0">
          <children>
-            <Button fx:id="BTN_modificar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#modificarModeloMoto" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: orange;" text="Modificar" textFill="WHITE">
+            <Button fx:id="BTN_modificar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#modificarModeloMoto" prefHeight="40.0" prefWidth="157.0" styleClass="boton-accion" stylesheets="@../../../styles/estilo.css" text="Modificar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
                <HBox.margin>
                   <Insets right="50.0" />
                </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <Button fx:id="BTN_eliminar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#eliminarModeloMoto" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: red;" text="Eliminar" textFill="WHITE">
+            <Button fx:id="BTN_eliminar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#eliminarModeloMoto" prefHeight="40.0" prefWidth="157.0" styleClass="boton-eliminar" stylesheets="@../../../styles/estilo.css" text="Eliminar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
                <HBox.margin>
                   <Insets left="50.0" right="50.0" />
                </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <Button fx:id="BTN_comprar1" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#restablecerDatosMotoSeleccion" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: #00b86b;" text="Restablecer" textFill="WHITE">
+            <Button fx:id="BTN_comprar1" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#restablecerDatosMotoSeleccion" prefHeight="40.0" prefWidth="157.0" styleClass="boton-accion" stylesheets="@../../../styles/estilo.css" text="Restablecer" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
                <HBox.margin>
                   <Insets left="50.0" right="50.0" />
                </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <Button fx:id="BTN_comprar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#comprarModeloMoto" prefHeight="40.0" prefWidth="157.0" style="-fx-background-color: #00b86b;" text="Comprar" textFill="WHITE">
+            <Button fx:id="BTN_comprar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#comprarModeloMoto" prefHeight="40.0" prefWidth="157.0" styleClass="boton-accion" stylesheets="@../../../styles/estilo.css" text="Comprar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
          </children>
       </HBox>
-      <Button layoutX="77.0" layoutY="316.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: center-left;" text="Stock" textFill="#00b86b">
+      <Button layoutX="77.0" layoutY="316.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" styleClass="boton-navBar" stylesheets="@../../../styles/estilo.css" text="Stock" textFill="#00b86b">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <Button fx:id="BTN_dashboard" layoutX="76.0" layoutY="246.0" mnemonicParsing="false" onAction="#abrirDashboard" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: center-left;" text="Dashboard" textFill="#00b86b">
+      <Button fx:id="BTN_dashboard" layoutX="76.0" layoutY="246.0" mnemonicParsing="false" onAction="#abrirDashboard" prefHeight="40.0" prefWidth="170.0" styleClass="boton-navBar" stylesheets="@../../../styles/estilo.css" text="Dashboard" textFill="#00b86b">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="54.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -305,10 +341,13 @@
             <Image url="@../../../images/tieda_icon.png" />
          </image>
       </ImageView>
-      <Button fx:id="BTN_comerciales" layoutX="77.0" layoutY="384.0" mnemonicParsing="false" onAction="#abrirComerciales" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-alignment: center-left;" text="Comerciales" textFill="#00b86b">
+      <Button fx:id="BTN_comerciales" layoutX="77.0" layoutY="384.0" mnemonicParsing="false" onAction="#abrirComerciales" prefHeight="25.0" prefWidth="170.0" styleClass="boton-navBar" stylesheets="@../../../styles/estilo.css" text="Comerciales" textFill="#00b86b">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="54.0" layoutY="392.0" pickOnBounds="true" preserveRatio="true">
          <image>

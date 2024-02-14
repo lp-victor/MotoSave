@@ -19,7 +19,7 @@ public class Comercial {
     @JoinColumn(name = "id_concesionario")
     private Concesionario concesionario;
 
-    // Relación con Venta (un comercial realiza muchas ventas)
+
     private String usuario;
     private String contraseña;
     private String NIF;

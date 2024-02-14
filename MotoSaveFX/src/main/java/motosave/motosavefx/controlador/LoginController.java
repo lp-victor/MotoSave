@@ -120,8 +120,4 @@ public class LoginController implements Initializable {
             System.out.println("Error!");
         }
     }
-
-    @Deprecated
-    public void botonLogin(ActionEvent actionEvent) {
-    }
 }

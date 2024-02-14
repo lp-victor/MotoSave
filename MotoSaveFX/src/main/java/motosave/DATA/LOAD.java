@@ -29,9 +29,6 @@ import static motosave.EnumeradosMoto.Marcas.*;
 public class LOAD {
 
     public static double beneficio = 1.35;
-    // Salario base para poder calcular un plus por ventas.
-    // 100€ x 10 motos vendidas o % por nº de ventas.
-    // private final double salarioBase = 1400;
     ImpConcesionarioDAO concDAO = new ImpConcesionarioDAO();
     ImpAdministradorDAO adminDAO = new ImpAdministradorDAO();
     ImpComercialDAO comDAO = new ImpComercialDAO();
