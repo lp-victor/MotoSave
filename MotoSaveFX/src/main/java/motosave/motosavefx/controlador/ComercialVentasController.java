@@ -47,14 +47,6 @@ public class ComercialVentasController implements Initializable {
     @FXML
     private Button BTN_vender;
     @FXML
-    private Label L_indentificacion_comercial;
-    @FXML
-    private Label L_sede_comercial;
-    @FXML
-    private Label L_control_telefono;
-    @FXML
-    private Label L_control_vacios;
-    @FXML
     private ComboBox CmB_concesionarios;
     @FXML
     private TableView<Motocicleta> T_tablaExistencias;
@@ -80,6 +72,14 @@ public class ComercialVentasController implements Initializable {
     private TableColumn<Cliente, String> TC_cliente_direccion;
     @FXML
     private TableColumn<Cliente, String> TC_cliente_correo;
+    @FXML
+    private Label L_error_motocicleta;
+    @FXML
+    private Label L_error_cliente;
+    @FXML
+    private Label L_indentificacion_comercial;
+    @FXML
+    private Label L_sede_comercial;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -92,7 +92,7 @@ public class ComercialVentasController implements Initializable {
         comercial = ComercialLoggeado.getComercialLoggeado();
         L_indentificacion_comercial.setText(comercial.getNombre());
         L_sede_comercial.setText(String.valueOf(comercial.getConcesionario()));
-        System.out.println(motoDAO.listarMotocicletasVendidas(miEntityManager.getEntityManager()));
+
         cargarDatos();
     }
 
@@ -152,34 +152,45 @@ public class ComercialVentasController implements Initializable {
 
     @FXML
     public void realizar_venta(ActionEvent actionEvent) {
+        L_error_motocicleta.setVisible(false);
+        L_error_motocicleta.setVisible(false);
+
         Motocicleta motoAVender = T_tablaExistencias.getSelectionModel().getSelectedItem();
         if (motoAVender == null) {
-
+            L_error_motocicleta.setVisible(true);
         } else {
+            L_error_motocicleta.setVisible(false);
+            L_error_motocicleta.setVisible(false);
+
             Cliente cliente = T_tabla_clientes.getSelectionModel().getSelectedItem();
 
             if (cliente == null){
-                
+                L_error_cliente.setVisible(true);
             }  else {
+                L_error_motocicleta.setVisible(false);
+                L_error_motocicleta.setVisible(false);
+
                 Comercial comercial = ComercialLoggeado.getComercialLoggeado();
 
                 // Fecha de compra
                 long miliseconds = System.currentTimeMillis();
                 Date fecha_compra = new Date(miliseconds);
+                // Cambiamos el precio de la moto al precio por le que se realiza la venta.
+                motoAVender.setPrecio_compra(cambiarPrecioMoto(motoAVender.getPrecio_compra()));
+                motoDAO.actualizarMoto(motoAVender, miEntityManager.getEntityManager());
 
                 Venta ventaRealizada = new Venta(fecha_compra, comercial, motoAVender, motoAVender.getPrecio_compra(), cliente);
 
                 ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaRealizada);
             }
-
         }
     }
 
     @FXML
     public void limpiarFiltro(ActionEvent actionEvent) {
-        cargarMotocicletasGeneral();
         CmB_concesionarios.getItems().clear();
         llenarComboBoxConcesionarios(CmB_concesionarios);
+        cargarMotocicletasGeneral();
     }
 
     private void llenarComboBoxConcesionarios(ComboBox<Concesionario> comboBox) {
@@ -213,24 +224,26 @@ public class ComercialVentasController implements Initializable {
 
     private void cargarMotocicletasSegunConcesionarioSeleccionado() {
         Concesionario concesionarioSeleccionado = (Concesionario) CmB_concesionarios.getValue();
-        List<Motocicleta> motocicletas = motoDAO.listarMotosConcesionario(
-                concesionarioSeleccionado.getId_concesionario(), miEntityManager.getEntityManager()
-        );
+        List<Motocicleta> motocicletas = null;
 
+        if (concesionarioSeleccionado != null) {
+            motocicletas = motoDAO.listarMotosConcesionario(concesionarioSeleccionado.getId_concesionario(),
+                    miEntityManager.getEntityManager());
+        }
         T_tablaExistencias.getItems().clear();
 
-        for (Motocicleta moto : motocicletas) {
-            // Cambiamos el precio de compra al precio de venta
-            double precioVenta = cambiarPrecioMoto(moto.getPrecio_compra());
-            moto.setPrecio_compra(precioVenta);
-            motocicletasList.add(moto);
+        if ( motocicletas != null) {
+            for (Motocicleta moto : motocicletas) {
+                // Cambiamos el precio de compra al precio de venta
+                double precioVenta = cambiarPrecioMoto(moto.getPrecio_compra());
+                moto.setPrecio_compra(precioVenta);
+                motocicletasList.add(moto);
+            }
         }
-
         T_tablaExistencias.setItems(motocicletasList);
     }
 
     private void cargarMotocicletasGeneral() {
-        Concesionario concesionarioSeleccionado = (Concesionario) CmB_concesionarios.getValue();
         List<Motocicleta> motocicletas = motoDAO.listarMotos(miEntityManager.getEntityManager());
 
         T_tablaExistencias.getItems().clear();

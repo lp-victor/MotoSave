@@ -111,7 +111,8 @@ public class ImpMotocicletaDAO implements MotocicletaDAO {
     @Override
     public List<Motocicleta> listarMotos(EntityManager entityManager) {
         try {
-            List<Motocicleta> motos =new ArrayList<>(entityManager.createQuery("SELECT m FROM Motocicleta m", Motocicleta.class).getResultList());
+            String jpql = "SELECT m FROM Motocicleta m WHERE m.id_moto NOT IN (SELECT v.moto.id_moto FROM Venta v)";
+            List<Motocicleta> motos = entityManager.createQuery(jpql, Motocicleta.class).getResultList();
             return motos;
         } catch (Exception e) {
             e.printStackTrace();
@@ -130,10 +131,10 @@ public class ImpMotocicletaDAO implements MotocicletaDAO {
     public List<Motocicleta> listarMotosConcesionario(int id_concesionario_e, EntityManager entityManager) {
         try {
             // Consulta para obtener todas las motos asociadas a un concesionario específico
-            String jpql = "SELECT m FROM Motocicleta m JOIN m.concesionario c WHERE c.id_concesionario = :id_concesionario";
-            List<Motocicleta> motos = (entityManager.createQuery(jpql, Motocicleta.class)
+            String jpql = "SELECT m FROM Motocicleta m WHERE m.concesionario.id_concesionario = :id_concesionario AND m.id_moto NOT IN (SELECT v.moto.id_moto FROM Venta v)";
+            List<Motocicleta> motos = entityManager.createQuery(jpql, Motocicleta.class)
                     .setParameter("id_concesionario", id_concesionario_e)
-                    .getResultList());
+                    .getResultList();
             return motos;
         } catch (Exception e) {
             e.printStackTrace();

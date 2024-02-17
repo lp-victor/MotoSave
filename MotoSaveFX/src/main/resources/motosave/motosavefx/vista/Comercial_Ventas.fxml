@@ -150,12 +150,12 @@
             <TableColumn fx:id="TC_cliente_direccion" prefWidth="365.0" resizable="false" text="Dirección" />
         </columns>
       </TableView>
-      <Label layoutX="1019.0" layoutY="827.0" prefHeight="27.0" prefWidth="240.0" text="Selecciona una motocicleta." textFill="RED" visible="false">
+      <Label fx:id="L_error_motocicleta" layoutX="1019.0" layoutY="827.0" prefHeight="27.0" prefWidth="240.0" text="Selecciona una motocicleta." textFill="RED" visible="false">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="1019.0" layoutY="827.0" prefHeight="27.0" prefWidth="240.0" text="Selecciona un cliente." textFill="RED" visible="false">
+      <Label fx:id="L_error_cliente" layoutX="1019.0" layoutY="827.0" prefHeight="27.0" prefWidth="240.0" text="Selecciona un cliente." textFill="RED" visible="false">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
