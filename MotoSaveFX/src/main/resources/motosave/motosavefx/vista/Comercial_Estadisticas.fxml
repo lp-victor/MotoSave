@@ -71,7 +71,7 @@
          </effect></Separator>
       <Pane layoutX="360.0" layoutY="303.0" prefHeight="470.0" prefWidth="500.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
          <children>
-            <BarChart fx:id="BC_barra_liquido" disable="true" layoutX="-3.0" layoutY="66.0" onDragDetected="#rellenar_liquido" prefHeight="404.0" prefWidth="500.0">
+            <BarChart fx:id="BC_barra_liquido" disable="true" layoutX="-3.0" layoutY="66.0" prefHeight="404.0" prefWidth="500.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" tickLabelFill="WHITE" />
               </xAxis>
@@ -88,7 +88,7 @@
       </Pane>
       <Pane layoutX="894.0" layoutY="303.0" prefHeight="470.0" prefWidth="500.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
          <children>
-            <LineChart fx:id="LC_barra_ventas" disable="true" layoutX="-4.0" layoutY="66.0" onDragDetected="#rellenar_ventas" prefHeight="404.0" prefWidth="500.0">
+            <LineChart fx:id="LC_barra_ventas" disable="true" layoutX="-4.0" layoutY="66.0" prefHeight="404.0" prefWidth="500.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
