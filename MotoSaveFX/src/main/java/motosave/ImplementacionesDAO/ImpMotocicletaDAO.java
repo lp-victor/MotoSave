@@ -156,4 +156,16 @@ public class ImpMotocicletaDAO implements MotocicletaDAO {
         }*/
     }
 
+    @Override
+    public List<Motocicleta> listarMotocicletasVendidas(EntityManager em) {
+        try {
+            String jpql = "SELECT v.moto FROM Venta v";
+            List<Motocicleta> motosVendidas = em.createQuery(jpql, Motocicleta.class).getResultList();
+            return motosVendidas;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

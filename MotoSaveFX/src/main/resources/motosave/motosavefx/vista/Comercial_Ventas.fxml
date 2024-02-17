@@ -76,7 +76,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="BTN_vender" layoutX="813.0" layoutY="819.0" mnemonicParsing="false" onAction="#realizar_venta" prefHeight="40.0" prefWidth="157.0" styleClass="boton-accion" stylesheets="@../../../styles/estilo.css" text="Vender" textFill="WHITE">
+      <Button fx:id="BTN_vender" layoutX="799.0" layoutY="820.0" mnemonicParsing="false" onAction="#realizar_venta" prefHeight="40.0" prefWidth="157.0" styleClass="boton-accion" stylesheets="@../../../styles/estilo.css" text="Vender" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -94,7 +94,7 @@
             <TableColumn fx:id="colPrecio" prefWidth="164.0" resizable="false" text="Precio" />
         </columns>
       </TableView>
-      <Label layoutX="777.0" layoutY="544.0" prefHeight="32.0" prefWidth="229.0" text="SELECCIONA CLIENTE" textFill="#f4f3f3">
+      <Label layoutX="777.0" layoutY="541.0" prefHeight="32.0" prefWidth="229.0" text="SELECCIONA CLIENTE" textFill="#f4f3f3">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
@@ -129,7 +129,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="823.0" layoutY="17.0" text="VENTA" textAlignment="CENTER" textFill="WHITE">
+      <Label layoutX="807.0" layoutY="24.0" text="VENTA" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="42.0" />
          </font>
@@ -142,14 +142,23 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <TableView layoutX="392.0" layoutY="578.0" prefHeight="218.0" prefWidth="970.0" stylesheets="@../../../styles/estilo.css">
+      <TableView fx:id="T_tabla_clientes" focusTraversable="false" layoutX="392.0" layoutY="580.0" prefHeight="218.0" prefWidth="970.0" stylesheets="@../../../styles/estilo.css">
         <columns>
-          <TableColumn prefWidth="91.0" resizable="false" text="Nombre" />
-          <TableColumn prefWidth="121.0" resizable="false" text="Apellido" />
-            <TableColumn prefWidth="312.0" resizable="false" text="Correo" />
-            <TableColumn prefWidth="134.0" resizable="false" text="Teléfono" />
-            <TableColumn prefWidth="311.0" resizable="false" text="Dirección" />
+          <TableColumn fx:id="TC_cliente_nombre" prefWidth="154.0" resizable="false" text="Nombre" />
+            <TableColumn fx:id="TC_cliente_correo" prefWidth="345.0" resizable="false" text="Correo" />
+            <TableColumn fx:id="TC_cliente_telefono" prefWidth="105.0" resizable="false" text="Teléfono" />
+            <TableColumn fx:id="TC_cliente_direccion" prefWidth="365.0" resizable="false" text="Dirección" />
         </columns>
       </TableView>
+      <Label layoutX="1019.0" layoutY="827.0" prefHeight="27.0" prefWidth="240.0" text="Selecciona una motocicleta." textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="1019.0" layoutY="827.0" prefHeight="27.0" prefWidth="240.0" text="Selecciona un cliente." textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

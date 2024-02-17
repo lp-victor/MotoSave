@@ -33,6 +33,7 @@ public class ComercialVentasController implements Initializable {
     ImpClienteDAO clienteDAO;
     String concesionarioSeleccionado = "";
     ObservableList<Motocicleta> motocicletasList;
+    ObservableList<Cliente> clientesList;
 
     @FXML
     private Pane P_comercialVentas;
@@ -68,6 +69,16 @@ public class ComercialVentasController implements Initializable {
     private TableColumn<Motocicleta, Double> colPrecio;
     @FXML
     private TableColumn<Motocicleta, String> colUbicacion;
+    @FXML
+    private TableView<Cliente> T_tabla_clientes;
+    @FXML
+    private TableColumn<Cliente, String> TC_cliente_nombre;
+    @FXML
+    private TableColumn<Cliente, Integer> TC_cliente_telefono;
+    @FXML
+    private TableColumn<Cliente, String> TC_cliente_direccion;
+    @FXML
+    private TableColumn<Cliente, String> TC_cliente_correo;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -76,7 +87,8 @@ public class ComercialVentasController implements Initializable {
         ventaDAO = new ImpVentaDAO();
         clienteDAO = new ImpClienteDAO();
         motocicletasList = FXCollections.observableArrayList();
-
+        clientesList = FXCollections.observableArrayList();
+        System.out.println(motoDAO.listarMotocicletasVendidas(miEntityManager.getEntityManager()));
         cargarDatos();
     }
 
@@ -136,13 +148,15 @@ public class ComercialVentasController implements Initializable {
 
     @FXML
     public void realizar_venta(ActionEvent actionEvent) {
-        Cliente cliente = clienteDAO.buscarCliente(miEntityManager.getEntityManager(), 1);
-
         Motocicleta motoAVender = T_tablaExistencias.getSelectionModel().getSelectedItem();
+        if (motoAVender == null) {
 
-        //if (comprobarDatosCliente()) {
+        } else {
+            Cliente cliente = T_tabla_clientes.getSelectionModel().getSelectedItem();
 
-            if (motoAVender != null) {
+            if (cliente == null){
+                
+            }  else {
                 Comercial comercial = ComercialLoggeado.getComercialLoggeado();
 
                 // Fecha de compra
@@ -152,13 +166,9 @@ public class ComercialVentasController implements Initializable {
                 Venta ventaRealizada = new Venta(fecha_compra, comercial, motoAVender, motoAVender.getPrecio_compra(), cliente);
 
                 ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaRealizada);
-            } else {
-
             }
-        //} else {
 
-        //}
-
+        }
     }
 
     @FXML
@@ -173,28 +183,12 @@ public class ComercialVentasController implements Initializable {
         comboBox.getItems().addAll(concesionarios);
     }
 
-//    private boolean comprobarDatosCliente() {
-//        L_control_vacios.setVisible(false);
-//        L_control_telefono.setVisible(false);
-//
-//        if (TF_nombreCliente.getText().isEmpty() || TF_apellidosCliente.getText().isEmpty() || TF_correoCliente.getText().isEmpty() || TF_telefonoCliente.getText().isEmpty() || TF_direccion.getText().isEmpty()) {
-//            L_control_vacios.setVisible(true);
-//            return false;
-//        } else if (!TF_telefonoCliente.getText().matches("^\\d+$")) {
-//            L_control_telefono.setVisible(true);
-//            return false;
-//        } else {
-//            L_control_vacios.setVisible(false);
-//            L_control_telefono.setVisible(false);
-//            return true;
-//        }
-//    }
-
     private void cargarDatos (){
         llenarComboBoxConcesionarios(CmB_concesionarios);
 
         CmB_concesionarios.setOnAction(event -> cargarMotocicletasSegunConcesionarioSeleccionado());
 
+        // Tabla existencias
         colUbicacion.setCellValueFactory(new PropertyValueFactory<Motocicleta, String>("concesionario"));
         colMarca.setCellValueFactory(new PropertyValueFactory<Motocicleta, String>("marca"));
         colModelo.setCellValueFactory(new PropertyValueFactory<Motocicleta, String>("modelo"));
@@ -203,6 +197,14 @@ public class ComercialVentasController implements Initializable {
         colPrecio.setCellValueFactory(new PropertyValueFactory<Motocicleta, Double>("precio_compra"));
 
         cargarMotocicletasGeneral();
+
+        // Tabla clientes
+        TC_cliente_nombre.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nombre"));
+        TC_cliente_correo.setCellValueFactory(new PropertyValueFactory<Cliente, String>("correo"));
+        TC_cliente_telefono.setCellValueFactory(new PropertyValueFactory<Cliente, Integer>("telefono"));
+        TC_cliente_direccion.setCellValueFactory(new PropertyValueFactory<Cliente, String>("direccion"));
+
+        cargarClientes();
     }
 
     private void cargarMotocicletasSegunConcesionarioSeleccionado() {
@@ -239,16 +241,6 @@ public class ComercialVentasController implements Initializable {
         T_tablaExistencias.setItems(motocicletasList);
     }
 
-    private boolean sonMotocicletasIguales(Motocicleta motocicleta1, Motocicleta motocicleta2) {
-        // Implementa la lógica de comparación para tus atributos relevantes (excluyendo el ID)
-        // Retorna true si son iguales, false en caso contrario
-        return motocicleta1.getMarca().equals(motocicleta2.getMarca()) &&
-                motocicleta1.getModelo().equals(motocicleta2.getModelo()) &&
-                motocicleta1.getColor().equals(motocicleta2.getColor()) &&
-                motocicleta1.getCc() == motocicleta2.getCc() &&
-                motocicleta1.getPrecio_compra() == motocicleta2.getPrecio_compra();
-    }
-
     private double cambiarPrecioMoto (double precio) {
         precio = precio * LOAD.beneficio;
         if(precio%1 != 0){
@@ -257,7 +249,16 @@ public class ComercialVentasController implements Initializable {
         return precio;
     }
 
-    private void comprobarCliente (Cliente cliente) {
-        // Falta
+    private void cargarClientes() {
+        List<Cliente> clientes = clienteDAO.listarClientes(miEntityManager.getEntityManager());
+
+        T_tabla_clientes.getItems().clear();
+
+        for (Cliente cliente : clientes) {
+            clientesList.add(cliente);
+        }
+
+        T_tabla_clientes.setItems(clientesList);
     }
+
 }

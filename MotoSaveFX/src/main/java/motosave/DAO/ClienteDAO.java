@@ -3,6 +3,8 @@ package motosave.DAO;
 import jakarta.persistence.EntityManager;
 import motosave.Modelos.Cliente;
 
+import java.util.List;
+
 public interface ClienteDAO {
 
     public abstract void anadirCliente(EntityManager em, Cliente nuevoCliente);
@@ -11,4 +13,5 @@ public interface ClienteDAO {
 
     public abstract Cliente buscarClienteCorreo(EntityManager em, String correo);
 
+    public abstract List<Cliente> listarClientes (EntityManager em);
 }

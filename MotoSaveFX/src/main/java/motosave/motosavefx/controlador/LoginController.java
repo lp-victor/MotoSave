@@ -94,6 +94,7 @@ public class LoginController implements Initializable {
             myStage.close();
 
         } catch (IOException ex) {
+            ex.printStackTrace();
             System.out.println("Error!");
         }
     }
@@ -117,6 +118,7 @@ public class LoginController implements Initializable {
             myStage.close();
 
         } catch (IOException ex) {
+            ex.printStackTrace();
             System.out.println("Error!");
         }
     }

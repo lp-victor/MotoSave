@@ -8,14 +8,8 @@ import motosave.EnumeradosMoto.ModelosDAISVI;
 import motosave.EnumeradosMoto.ModelosHONDA;
 import motosave.EnumeradosMoto.ModelosYAMAHA;
 import motosave.Factory.FactoryMoto;
-import motosave.ImplementacionesDAO.ImpAdministradorDAO;
-import motosave.ImplementacionesDAO.ImpComercialDAO;
-import motosave.ImplementacionesDAO.ImpConcesionarioDAO;
-import motosave.ImplementacionesDAO.ImpMotocicletaDAO;
-import motosave.Modelos.Administrador;
-import motosave.Modelos.Comercial;
-import motosave.Modelos.Concesionario;
-import motosave.Modelos.Motocicleta;
+import motosave.ImplementacionesDAO.*;
+import motosave.Modelos.*;
 import motosave.Persistencia.miEntityManager;
 
 import java.util.ArrayList;
@@ -33,12 +27,28 @@ public class LOAD {
     ImpAdministradorDAO adminDAO = new ImpAdministradorDAO();
     ImpComercialDAO comDAO = new ImpComercialDAO();
     ImpMotocicletaDAO motoDAO = new ImpMotocicletaDAO();
+    ImpClienteDAO clienteDAO = new ImpClienteDAO();
+
+    // =============== CARGA DE LA BASE DE DATOS ===============
+
+    // Concesionarios
     Concesionario Granada = new Concesionario("Granada");
     Concesionario Madrid = new Concesionario("Madrid");
     Concesionario Barcelona = new Concesionario("Barcelona");
+
+    // Usuarios
     Administrador administrador = new Administrador("admin", "admin");
     Comercial c1 = new Comercial(Madrid, "juan", "1234", "12345678A", "Juan Alberto", "De los Rios");
 
+    // Clientes
+
+    Cliente cliente1 = new Cliente("MotoTodo","mototodo@yahoo.com",916370127,"C/ Mar oceana 10, Las Rozas");
+    Cliente cliente2 = new Cliente("SpeedMotos","speedmotos@gmail.com",914567897,"Avenida Principe de Asturias 17, Fuencarral");
+    Cliente cliente3 = new Cliente("Moto Racing","motoracing@gmail.com",919456785,"C/ Mar de plata 11, Poligono Marconi, Parla");
+    Cliente cliente4 = new Cliente("Moto Ocasion","moto.ocasion@hotmail.com",913456784,"C/ Real 34, Nave 6, Colmenar Viejo");
+
+
+    // Motos
     FactoryMoto factoryMoto = new FactoryMoto();
     ArrayList<Motocicleta> motos = factoryMoto.fabricarMotos(HONDA, ModelosHONDA.CBR.toString(), AZUL, 3);
     ArrayList<Motocicleta> motos1 = factoryMoto.fabricarMotos(HONDA, ModelosHONDA.CBR.toString(), AZUL, 6);
@@ -77,6 +87,11 @@ public class LOAD {
             moto4.setConcesionario(Madrid);
             motoDAO.guardarMoto(moto4, miEntityManager.getEntityManager());
         }
+
+        clienteDAO.anadirCliente(miEntityManager.getEntityManager(), cliente1);
+        clienteDAO.anadirCliente(miEntityManager.getEntityManager(), cliente2);
+        clienteDAO.anadirCliente(miEntityManager.getEntityManager(), cliente3);
+        clienteDAO.anadirCliente(miEntityManager.getEntityManager(), cliente4);
 
     }
 

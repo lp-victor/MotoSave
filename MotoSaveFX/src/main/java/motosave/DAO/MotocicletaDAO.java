@@ -27,4 +27,5 @@ public interface MotocicletaDAO {
 
     public abstract List<Motocicleta> listarMotosConcesionario(int id_concesionario, EntityManager em);
 
+    public abstract List<Motocicleta> listarMotocicletasVendidas (EntityManager em);
 }

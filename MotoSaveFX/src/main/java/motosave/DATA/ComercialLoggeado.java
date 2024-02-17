@@ -8,9 +8,6 @@ public class ComercialLoggeado {
 
     private ComercialLoggeado() {
     }
-
-    ;
-
     public static Comercial getComercialLoggeado() {
         return comercial;
     }
