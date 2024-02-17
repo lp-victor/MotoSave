@@ -89,7 +89,6 @@ public class AdminStockController implements Initializable {
         factoriaMoto = new FactoryMoto();
         motocicletasList = FXCollections.observableArrayList();
 
-
         colMarca.setCellValueFactory(new PropertyValueFactory<Motocicleta, String>("marca"));
         colModelo.setCellValueFactory(new PropertyValueFactory<Motocicleta, String>("modelo"));
         colColor.setCellValueFactory(new PropertyValueFactory<Motocicleta, String>("color"));

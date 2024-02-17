@@ -19,6 +19,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import motosave.Modelos.Comercial;
 import motosave.Persistencia.miEntityManager;
 
 import java.io.IOException;
@@ -46,9 +47,12 @@ public class ComercialEstadisticasController implements Initializable {
     private Label L_sede_comercial;
     @FXML
     private Label L_indentificacion_comercial;
+    private Comercial comercial;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        L_indentificacion_comercial.setText(comercial.getNombre());
+        L_sede_comercial.setText(String.valueOf(comercial.getConcesionario()));
         //rellenar_liquido();
         //rellenar_ventas();
     }

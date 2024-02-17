@@ -48,7 +48,8 @@ public class AdminComercialesController implements Initializable {
     private Button BTN_dashboard;
     @FXML
     private Button BTN_stock;
-
+    @FXML
+    private Label L_indentificacion_comercial;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

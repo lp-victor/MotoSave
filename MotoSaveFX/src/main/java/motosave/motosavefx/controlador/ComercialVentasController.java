@@ -34,6 +34,7 @@ public class ComercialVentasController implements Initializable {
     String concesionarioSeleccionado = "";
     ObservableList<Motocicleta> motocicletasList;
     ObservableList<Cliente> clientesList;
+    private Comercial comercial;
 
     @FXML
     private Pane P_comercialVentas;
@@ -88,6 +89,9 @@ public class ComercialVentasController implements Initializable {
         clienteDAO = new ImpClienteDAO();
         motocicletasList = FXCollections.observableArrayList();
         clientesList = FXCollections.observableArrayList();
+        comercial = ComercialLoggeado.getComercialLoggeado();
+        L_indentificacion_comercial.setText(comercial.getNombre());
+        L_sede_comercial.setText(String.valueOf(comercial.getConcesionario()));
         System.out.println(motoDAO.listarMotocicletasVendidas(miEntityManager.getEntityManager()));
         cargarDatos();
     }
