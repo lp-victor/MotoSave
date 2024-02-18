@@ -10,7 +10,11 @@ import motosave.ImplementacionesDAO.*;
 import motosave.Modelos.*;
 import motosave.Persistencia.miEntityManager;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import static motosave.EnumeradosMoto.Colores.*;
 import static motosave.EnumeradosMoto.Marcas.*;
@@ -20,12 +24,15 @@ import static motosave.EnumeradosMoto.Marcas.*;
  */
 public class LOAD {
 
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     public static double beneficio = 1.35;
     ImpConcesionarioDAO concDAO = new ImpConcesionarioDAO();
     ImpAdministradorDAO adminDAO = new ImpAdministradorDAO();
     ImpComercialDAO comDAO = new ImpComercialDAO();
     ImpMotocicletaDAO motoDAO = new ImpMotocicletaDAO();
     ImpClienteDAO clienteDAO = new ImpClienteDAO();
+
+    ImpVentaDAO ventaDAO = new ImpVentaDAO();
 
     // =============== CARGA DE LA BASE DE DATOS ===============
 
@@ -36,7 +43,9 @@ public class LOAD {
 
     // Usuarios
     Administrador administrador = new Administrador("admin", "admin");
-    Comercial c1 = new Comercial(Madrid, "juan", "1234", "12345678A", "Juan Alberto", "De los Rios");
+    Comercial c1 = new Comercial(Madrid, "isra", "1234", "12345678A", "Israel", "Ramirez Sanchez");
+    Comercial c2 = new Comercial(Granada, "david", "1234", "12345678B", "David", "Gonzalez Vilches");
+    Comercial c3 = new Comercial(Barcelona, "victor", "1234", "12345678C", "Victor", "Lopez Jimenez");
 
     // Clientes
 
@@ -79,7 +88,7 @@ public class LOAD {
     ArrayList<Motocicleta> motos28 = factoryMoto.fabricarMotos(KTM, ModelosKTM.DUKE.toString(),NARANJA, 5);
     ArrayList<Motocicleta> motos29 = factoryMoto.fabricarMotos(KTM, ModelosKTM.RC.toString(), NEGRO, 5);
 
-    // Creacion de datos para poder
+    // Creacion de datos para poder usar la aplicacion
     public LOAD() {
         concDAO.agregarConcesionario(Granada, miEntityManager.getEntityManager());
         concDAO.agregarConcesionario(Madrid, miEntityManager.getEntityManager());
@@ -88,7 +97,8 @@ public class LOAD {
         adminDAO.crearAdministrador(miEntityManager.getEntityManager(), administrador);
 
         comDAO.anadirComercial(miEntityManager.getEntityManager(), c1);
-
+        comDAO.anadirComercial(miEntityManager.getEntityManager(), c2);
+        comDAO.anadirComercial(miEntityManager.getEntityManager(), c3);
 
 
         for (Motocicleta moto : motos) {
@@ -218,7 +228,92 @@ public class LOAD {
         clienteDAO.anadirCliente(miEntityManager.getEntityManager(), cliente3);
         clienteDAO.anadirCliente(miEntityManager.getEntityManager(), cliente4);
 
+        // ===================== FECHAS =====================
+        // Obtiene la fecha actual
+        Calendar calendar = Calendar.getInstance();
+
+        // Hace 1 mes
+                calendar.add(Calendar.MONTH, -1);
+                Date haceUnMes = calendar.getTime();
+
+        // Restablece la fecha actual
+                calendar.setTime(new Date());
+
+        // Hace 6 meses
+                calendar.add(Calendar.MONTH, -6);
+                Date haceSeisMeses = calendar.getTime();
+
+        // Restablece la fecha actual
+                calendar.setTime(new Date());
+
+        // Hace 8 meses
+                calendar.add(Calendar.MONTH, -8);
+                Date haceOchoMeses = calendar.getTime();
+
+        // Hace 2 años
+        calendar.add(Calendar.MONTH, -17);
+        Date haceDosAnios = calendar.getTime();
+
+        // Restablece la fecha actual
+        calendar.setTime(new Date());
+
+        Venta ventaHaceUnMes1 = new Venta(haceUnMes, c1, motos1.get(3), cambiarPrecioMoto (motos1.get(3).getPrecio_compra()), cliente1);
+        Venta ventaHaceUnMes2 = new Venta(haceUnMes, c1, motos4.get(1), cambiarPrecioMoto (motos4.get(1).getPrecio_compra()), cliente2);
+        Venta ventaHaceUnMes3 = new Venta(haceUnMes, c3, motos2.get(4), cambiarPrecioMoto (motos2.get(4).getPrecio_compra()), cliente3);
+        Venta ventaHaceUnMes4 = new Venta(haceUnMes, c2, motos7.get(2), cambiarPrecioMoto (motos7.get(2).getPrecio_compra()), cliente4);
+        Venta ventaHaceUnMes5 = new Venta(haceUnMes, c3, motos13.get(2), cambiarPrecioMoto (motos13.get(2).getPrecio_compra()), cliente3);
+
+        Venta ventaHaceSeisMeses1 = new Venta(haceSeisMeses, c3, motos29.get(2), cambiarPrecioMoto (motos29.get(2).getPrecio_compra()), cliente2);
+        Venta ventaHaceSeisMeses2 = new Venta(haceSeisMeses, c1, motos26.get(2), cambiarPrecioMoto (motos26.get(2).getPrecio_compra()), cliente1);
+        Venta ventaHaceSeisMeses3 = new Venta(haceSeisMeses, c3, motos23.get(2), cambiarPrecioMoto (motos23.get(2).getPrecio_compra()), cliente1);
+        Venta ventaHaceSeisMeses4 = new Venta(haceSeisMeses, c3, motos22.get(2), cambiarPrecioMoto (motos22.get(2).getPrecio_compra()), cliente2);
+        Venta ventaHaceSeisMeses5 = new Venta(haceSeisMeses, c1, motos21.get(2), cambiarPrecioMoto (motos21.get(2).getPrecio_compra()), cliente3);
+
+        Venta ventaHaceOchoMeses1 = new Venta(haceOchoMeses, c2, motos12.get(1), cambiarPrecioMoto (motos12.get(1).getPrecio_compra()), cliente4);
+        Venta ventaHaceOchoMeses2 = new Venta(haceOchoMeses, c3, motos5.get(3), cambiarPrecioMoto (motos5.get(3).getPrecio_compra()), cliente2);
+        Venta ventaHaceOchoMeses3 = new Venta(haceOchoMeses, c2, motos16.get(2), cambiarPrecioMoto (motos16.get(2).getPrecio_compra()), cliente3);
+        Venta ventaHaceOchoMeses4 = new Venta(haceOchoMeses, c3, motos17.get(1), cambiarPrecioMoto (motos17.get(1).getPrecio_compra()), cliente1);
+        Venta ventaHaceOchoMeses5 = new Venta(haceOchoMeses, c2, motos12.get(4), cambiarPrecioMoto (motos12.get(4).getPrecio_compra()), cliente2);
+        Venta ventaHaceOchoMeses6 = new Venta(haceOchoMeses, c1, motos11.getFirst(), cambiarPrecioMoto (motos11.getFirst().getPrecio_compra()), cliente1);
+
+        Venta ventahaceDosAnios1 = new Venta(haceDosAnios, c3, motos5.get(2), cambiarPrecioMoto (motos5.get(2).getPrecio_compra()), cliente2);
+        Venta ventahaceDosAnios2 = new Venta(haceDosAnios, c2, motos16.get(3), cambiarPrecioMoto (motos16.get(3).getPrecio_compra()), cliente3);
+        Venta ventahaceDosAnios3 = new Venta(haceDosAnios, c3, motos17.get(2), cambiarPrecioMoto (motos17.get(2).getPrecio_compra()), cliente1);
+        Venta ventahaceDosAnios4 = new Venta(haceDosAnios, c2, motos12.get(3), cambiarPrecioMoto (motos12.get(3).getPrecio_compra()), cliente2);
+        Venta ventahaceDosAnios5 = new Venta(haceDosAnios, c1, motos10.getFirst(), cambiarPrecioMoto (motos10.getFirst().getPrecio_compra()), cliente1);
+
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaHaceUnMes1);
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaHaceUnMes2);
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaHaceUnMes3);
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaHaceUnMes4);
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaHaceUnMes5);
+
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaHaceSeisMeses1);
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaHaceSeisMeses2);
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaHaceSeisMeses3);
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaHaceSeisMeses4);
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaHaceSeisMeses5);
+
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaHaceOchoMeses1);
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaHaceOchoMeses2);
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaHaceOchoMeses3);
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaHaceOchoMeses4);
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaHaceOchoMeses5);
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaHaceOchoMeses6);
+
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventahaceDosAnios1);
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventahaceDosAnios2);
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventahaceDosAnios3);
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventahaceDosAnios4);
+        ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventahaceDosAnios5);
+
     }
 
-
+    private double cambiarPrecioMoto (double precio) {
+        precio = precio * LOAD.beneficio;
+        if(precio%1 != 0){
+            precio= Double.parseDouble(String.valueOf((int) precio));
+        }
+        return precio;
+    }
 }

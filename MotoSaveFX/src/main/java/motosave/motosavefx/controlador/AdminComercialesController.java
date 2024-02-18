@@ -75,6 +75,10 @@ public class AdminComercialesController implements Initializable {
     private Label L_error_campos;
     @FXML
     private Label L_error_contrasenas;
+    @FXML
+    private Label L_error_usuario;
+    @FXML
+    private Label L_error_NIF;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -102,6 +106,8 @@ public class AdminComercialesController implements Initializable {
         L_error_concesionario.setVisible(false);
         L_error_campos.setVisible(false);
         L_error_contrasenas.setVisible(false);
+        L_error_NIF.setVisible(false);
+        L_error_usuario.setVisible(false);
 
         Concesionario concesionario = CmB_concesionario.getValue();
         if (concesionario == null) {
@@ -110,10 +116,16 @@ public class AdminComercialesController implements Initializable {
             L_error_campos.setVisible(true);
         }else if (!PF_pass1.getText().equals(PF_pass2.getText())){
             L_error_contrasenas.setVisible(true);
+        } else if (comDAO.buscarUsuarioComercial(miEntityManager.getEntityManager(), TF_usuario.getText())) {
+            L_error_usuario.setVisible(true);
+        } else if (comDAO.buscarNIFComercial(miEntityManager.getEntityManager(), TF_NIF.getText())) {
+            L_error_NIF.setVisible(true);
         } else {
             L_error_concesionario.setVisible(false);
             L_error_campos.setVisible(false);
             L_error_contrasenas.setVisible(false);
+            L_error_NIF.setVisible(false);
+            L_error_usuario.setVisible(false);
 
             comercial = new Comercial(concesionario, TF_usuario.getText(), PF_pass1.getText(), TF_NIF.getText(), TF_nombre.getText(), TF_apellidos.getText());
             comDAO.anadirComercial(miEntityManager.getEntityManager(), comercial);

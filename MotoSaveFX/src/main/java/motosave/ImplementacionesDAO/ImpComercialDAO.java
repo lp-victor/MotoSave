@@ -69,21 +69,35 @@ public class ImpComercialDAO implements ComercialDAO {
         }
     }
 
-    /**
-     * Modifica los datos de un comercial en la base de datos.
-     * @param em        El EntityManager utilizado para realizar la operación.
-     * @param comercial El comercial con los nuevos datos.
-     */
     @Override
-    public void modificarComercial(EntityManager em, Comercial comercial) {
+    public boolean buscarUsuarioComercial(EntityManager em, String usuario_e) {
         try {
-            em.getTransaction().begin();
-            if (comercial != null) {
-                em.merge(comercial);
-            }
-            em.getTransaction().commit();
+            String jpql = "SELECT c FROM Comercial c WHERE c.usuario = :usuario";
+            Query query = em.createQuery(jpql)
+                    .setParameter("usuario", usuario_e);
+            Comercial resultado = (Comercial) query.getSingleResult();
+            return resultado != null;
+        } catch (NoResultException e) {
+            return false;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean buscarNIFComercial(EntityManager em, String NIF_e) {
+        try {
+            String jpql = "SELECT c FROM Comercial c WHERE c.NIF = :NIF";
+            Query query = em.createQuery(jpql)
+                    .setParameter("NIF", NIF_e);
+            Comercial resultado = (Comercial) query.getSingleResult();
+            return resultado != null;
+        } catch (NoResultException e) {
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

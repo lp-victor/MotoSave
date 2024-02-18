@@ -18,7 +18,8 @@ public interface ComercialDAO {
 
     public abstract void anadirComercial(EntityManager em, Comercial comercial);
 
-    public abstract void modificarComercial(EntityManager em, Comercial comercial);
+    public abstract boolean buscarNIFComercial(EntityManager em, String usuario);
+    public abstract boolean buscarUsuarioComercial(EntityManager em, String NIF);
 
     public abstract void eliminarComercial(EntityManager em, Comercial comercial);
 

@@ -190,7 +190,7 @@
             <Image url="@../../../images/user_icon.png" />
          </image>
       </ImageView>
-      <Label fx:id="L_error_campos" layoutX="429.0" layoutY="404.0" prefHeight="27.0" prefWidth="240.0" text="Rellena todos los campos." textFill="RED" visible="false">
+      <Label fx:id="L_error_campos" layoutX="907.0" layoutY="447.0" prefHeight="27.0" prefWidth="240.0" text="Rellena todos los campos." textFill="RED" visible="false">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -201,6 +201,16 @@
          </font>
       </Label>
       <Label fx:id="L_error_contrasenas" layoutX="818.0" layoutY="404.0" prefHeight="27.0" prefWidth="265.0" text="Las contraseñas no coinciden." textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="L_error_usuario" layoutX="429.0" layoutY="397.0" prefHeight="27.0" prefWidth="240.0" text="Usuario existente." textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="L_error_NIF" layoutX="1232.0" layoutY="248.0" prefHeight="27.0" prefWidth="240.0" text="NIF existente." textFill="RED" visible="false">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
