@@ -29,7 +29,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ImageView fitHeight="30.0" fitWidth="36.0" layoutX="102.0" layoutY="831.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="36.0" layoutX="103.0" layoutY="832.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/exit_icon.png" />
                </image>
@@ -79,7 +79,7 @@
             <Image url="@../../../images/user_icon.png" />
          </image>
       </ImageView>
-      <VBox layoutX="432.0" layoutY="567.0" prefHeight="230.0" prefWidth="890.0">
+      <VBox layoutX="435.0" layoutY="541.0" prefHeight="230.0" prefWidth="890.0">
          <children>
             <HBox prefHeight="34.0" prefWidth="697.0">
                <children>

@@ -77,66 +77,39 @@
             <Font name="System Bold" size="42.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" layoutX="327.0" layoutY="152.0" prefHeight="334.0" prefWidth="1093.0">
+      <HBox alignment="CENTER" layoutX="352.0" layoutY="123.0" prefHeight="371.0" prefWidth="1048.0">
          <children>
-            <Pane prefHeight="334.0" prefWidth="350.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
+            <Pane prefHeight="371.0" prefWidth="445.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
                <children>
-                  <BarChart fx:id="BC_barra_liquido" layoutY="78.0" prefHeight="256.0" prefWidth="352.0">
+                  <BarChart fx:id="BC_barra_liquido" layoutY="56.0" prefHeight="317.0" prefWidth="446.0">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" tickLabelFill="WHITE" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis side="LEFT" tickLabelFill="WHITE" />
+                      <NumberAxis prefHeight="255.0" prefWidth="74.0" side="LEFT" tickLabelFill="WHITE" />
                     </yAxis>
                   </BarChart>
-                  <Label layoutX="39.0" layoutY="21.0" text="Liquido" textFill="WHITE">
+                  <Label layoutX="38.0" layoutY="14.0" text="Liquido" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
                </children>
                <HBox.margin>
-                  <Insets />
+                  <Insets right="50.0" />
                </HBox.margin>
             </Pane>
-            <Pane prefHeight="334.0" prefWidth="231.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
-               <HBox.margin>
-                  <Insets left="30.0" right="30.0" />
-               </HBox.margin>
+            <Pane prefHeight="371.0" prefWidth="445.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
                <children>
-                  <Label layoutX="23.0" layoutY="29.0" text="Más ventas del año:" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="L_mas_ventas" alignment="CENTER" layoutX="80.0" layoutY="85.0" text="...." textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="29.0" layoutY="152.0" text="Más valor del año:" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="L_mas_liquido" alignment="CENTER" layoutX="80.0" layoutY="224.0" text="...." textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <Pane prefHeight="334.0" prefWidth="350.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
-               <children>
-                  <LineChart fx:id="LC_ventas" layoutX="2.0" layoutY="78.0" prefHeight="256.0" prefWidth="350.0">
+                  <LineChart fx:id="LC_ventas" layoutX="2.0" layoutY="56.0" prefHeight="317.0" prefWidth="446.0">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis side="LEFT" tickLabelFill="#f7f4f4" />
+                      <NumberAxis prefHeight="255.0" prefWidth="52.0" side="LEFT" tickLabelFill="#f7f4f4" />
                     </yAxis>
                   </LineChart>
-                  <Label layoutX="39.0" layoutY="21.0" text="Ventas/Unds" textFill="WHITE">
+                  <Label layoutX="35.0" layoutY="14.0" text="Ventas/Unds" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -154,12 +127,12 @@
             <Insets right="10.0" />
          </opaqueInsets>
       </HBox>
-      <Separator layoutX="309.0" layoutY="526.0" prefHeight="16.0" prefWidth="1131.0">
+      <Separator layoutX="309.0" layoutY="585.0" prefHeight="16.0" prefWidth="1131.0">
          <effect>
             <BoxBlur height="4.77" width="0.0" />
          </effect>
       </Separator>
-      <TableView fx:id="TV_comerciales" layoutX="406.0" layoutY="570.0" prefHeight="297.0" prefWidth="936.0" stylesheets="@../../../styles/estilo.css">
+      <TableView fx:id="TV_comerciales" layoutX="408.0" layoutY="622.0" prefHeight="256.0" prefWidth="936.0" stylesheets="@../../../styles/estilo.css">
          <columns>
             <TableColumn fx:id="C_concesionario" prefWidth="191.0" resizable="false" text="Concesionario" />
             <TableColumn fx:id="C_nombre" prefWidth="220.0" resizable="false" text="Nombre" />
@@ -202,5 +175,29 @@
             <Image url="@../../../images/user_icon.png" />
          </image>
       </ImageView>
+      <Pane layoutX="479.0" layoutY="515.0" prefHeight="52.0" prefWidth="795.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
+         <children>
+            <Label layoutX="25.0" layoutY="11.0" text="Más ventas del año:" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="L_mas_ventas" alignment="CENTER" layoutX="252.0" layoutY="11.0" text="...." textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="417.0" layoutY="11.0" text="Más valor del año:" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="L_mas_liquido" alignment="CENTER" layoutX="638.0" layoutY="11.0" text="...." textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
    </children>
 </Pane>

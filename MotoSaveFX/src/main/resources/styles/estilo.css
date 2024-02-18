@@ -21,6 +21,14 @@
     -fx-font-weight: bold;
 }
 
+.tableEspecial .table-row-cell {
+    -fx-cell-size: 30px; 
+}
+
+.tableEspecial .table-cell {
+    -fx-alignment: center-left;
+}
+
 .combo-box-base {
     -fx-background-radius: 2;
     -fx-background-color: #ffffff; 
@@ -82,6 +90,6 @@
  -fx-background-color: #ECE9E7;
 }
 
-.boton-eliminar: hover {
+.boton-eliminar:hover {
     -fx-background-color: #AA3939;
 }

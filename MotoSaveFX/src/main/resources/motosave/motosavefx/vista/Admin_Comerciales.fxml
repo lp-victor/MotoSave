@@ -133,7 +133,7 @@
             <BoxBlur height="4.77" width="0.0" />
          </effect>
       </Separator>
-      <TableView fx:id="TV_comerciales" focusTraversable="false" layoutX="429.0" layoutY="578.0" prefHeight="240.0" prefWidth="892.0" stylesheets="@../../../styles/estilo.css">
+      <TableView fx:id="TV_comerciales" focusTraversable="false" layoutX="429.0" layoutY="578.0" prefHeight="240.0" prefWidth="892.0" styleClass="tableEspecial" stylesheets="@../../../styles/estilo.css">
         <columns>
           <TableColumn fx:id="C_nombre" prefWidth="168.0" resizable="false" text="Nombre" />
           <TableColumn fx:id="C_apellidos" minWidth="0.0" prefWidth="187.0" resizable="false" text="Apellidos" />
