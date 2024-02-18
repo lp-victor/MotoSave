@@ -17,7 +17,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import motosave.DATA.ComercialLoggeado;
 import motosave.ImplementacionesDAO.ImpComercialDAO;
+import motosave.ImplementacionesDAO.ImpVentaDAO;
 import motosave.Modelos.Comercial;
 import motosave.Modelos.Concesionario;
 import motosave.Modelos.Venta;
@@ -26,19 +28,21 @@ import motosave.Persistencia.miEntityManager;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class AdminDashboardController implements Initializable {
 
     ImpComercialDAO comDAO;
+    ImpVentaDAO ventaDAO;
 
     ObservableList<Comercial> comercialesList ;
+
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final String[] NOMBRES_MESES = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
     @FXML
-    private LineChart LC_ventas;
-    @FXML
-    private ComboBox CB_tiempo;
+    private ComboBox<String> CB_tiempo;
     @FXML
     private Button BTN_comerciales;
     @FXML
@@ -50,35 +54,46 @@ public class AdminDashboardController implements Initializable {
     @FXML
     private Pane P_comercialEstadisticas;
     @FXML
-    private BarChart BC_barra_liquido;
-    @FXML
     private Label L_mas_liquido;
     @FXML
     private Label L_mas_ventas;
     @FXML
-    private TableColumn C_nombre;
+    private TableColumn<Comercial, String> C_nombre;
     @FXML
-    private TableColumn C_concesionario;
+    private TableColumn<Comercial, Concesionario> C_concesionario;
     @FXML
-    private TableColumn C_apellidos;
+    private TableColumn<Comercial, String> C_apellidos;
     @FXML
-    private TableColumn C_NIF;
+    private TableColumn<Comercial, String> C_NIF;
     @FXML
-    private TableColumn C_usuario;
+    private TableColumn<Comercial, String> C_usuario;
     @FXML
-    private TableView TV_comerciales;
+    private TableView<Comercial> TV_comerciales;
+    @FXML
+    private BarChart<Number, String> BC_ventas;
+    @FXML
+    private LineChart<String, Number> LC_liquido;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comDAO = new ImpComercialDAO();
+        ventaDAO = new ImpVentaDAO();
         comercialesList = FXCollections.observableArrayList();
 
         cargarDatos ();
+
+        TV_comerciales.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                rellenarVentasAnio();
+            }
+        });
+
+        CB_tiempo.setOnAction(event -> rellenarVentasAnio());
     }
 
 
     private void cargarDatos (){
-        //llenarComboBoxAnios();
+        llenarComboBoxAnios();
 
         // Tabla existencias
         C_nombre.setCellValueFactory(new PropertyValueFactory<Comercial, String>("nombre"));
@@ -105,75 +120,180 @@ public class AdminDashboardController implements Initializable {
     }
 
     // ============================ POR TERMINAR ====================================
-//    private void llenarComboBoxAnios(){
-//        CB_tiempo.getItems().addAll("2024", "2023", "2022");
-//        CB_tiempo.setOnAction(event -> rellenarGraficosDatos());
-//    }
-//    private List<Venta> obtenerVentasPorAnio(String anio) {
-//        List<Venta> ventasPorAnio = new ArrayList<>();
-//
-//        LocalDate fechaInicio = LocalDate.parse(anio + "-01-01", FORMATTER);
-//        LocalDate fechaFin = LocalDate.parse(anio + "-12-31", FORMATTER);
-//
-//        List<Venta> todasLasVentas = ventadao.listarVentasComercial(miEntity, comercial.getId_comercial());
-//
-//        for (Venta venta : todasLasVentas) {
-//            LocalDate fechaVenta = convertirALocalDate(venta.getFecha_venta());
-//            if (!fechaVenta.isBefore(fechaInicio) && !fechaVenta.isAfter(fechaFin)) {
-//                ventasPorAnio.add(venta);
-//            }
-//        }
-//
-//        return ventasPorAnio;
-//    }
-//
-//    private void rellenarVentasAnio() {
-//        List<Venta> ventasAnio = obtenerVentasPorAnio(CB_tiempo.getValue());
-//        rellenarVentasPorAnioBarChart(ventasAnio);
-//        rellenarVentasPorAnoLineChart(ventasAnio);
-//    }
-//
-//    private void rellenarVentasPorAnioBarChart(List<Venta> ventas) {
-//        int[] contadorMeses = new int[12];
-//
-//        for (Venta venta : ventas) {
-//            LocalDate fechaVenta = convertirALocalDate(venta.getFecha_venta());
-//            contadorMeses[fechaVenta.getMonthValue() - 1]++;
-//        }
-//
-//        XYChart.Series<Number, String> set = new XYChart.Series<>();
-//        for (int i = 0; i < contadorMeses.length; i++) {
-//            set.getData().add(new XYChart.Data<>(contadorMeses[i], NOMBRES_MESES[i]));
-//        }
-//
-//        Platform.runLater(() -> {
-//            BC_barra_ventas.getData().clear();
-//            BC_barra_ventas.getData().add(set);
-//        });
-//    }
-//
-//    private void rellenarVentasPorAnoLineChart(List<Venta> ventas) {
-//        XYChart.Series<String, Number> series = new XYChart.Series<>();
-//        series.setName("Ingresos Mensuales"); // Cambiamos "Ventas Mensuales" por "Ingresos Mensuales"
-//
-//        double[] ingresosMeses = new double[12];
-//        for (Venta venta : ventas) {
-//            LocalDate fechaVenta = convertirALocalDate(venta.getFecha_venta());
-//            int mes = fechaVenta.getMonthValue() - 1;
-//            ingresosMeses[mes] += venta.getPrecio_final(); // Sumamos el precio final de cada venta al mes correspondiente
-//        }
-//
-//        // Asume que NOMBRES_MESES es un array que contiene los nombres de los meses.
-//        for (int i = 0; i < ingresosMeses.length; i++) {
-//            series.getData().add(new XYChart.Data<>(NOMBRES_MESES[i], ingresosMeses[i]));
-//        }
-//
-//        // Asegura que la actualización de la UI se haga en el hilo de la aplicación de JavaFX
-//        Platform.runLater(() -> {
-//            LC_barra_liquido.getData().clear(); // Limpia datos anteriores
-//            LC_barra_liquido.getData().add(series); // Añade la nueva serie de datos
-//        });
-//    }
+
+    private void llenarComboBoxAnios(){
+        CB_tiempo.getItems().addAll("2024", "2023", "2022");
+    }
+
+    private void rellenarVentasAnio() {
+        Comercial comercialSeleccionado = (Comercial) TV_comerciales.getSelectionModel().getSelectedItem();
+        String anioSeleccionado = CB_tiempo.getValue();
+        List<Venta> ventasAnio;
+
+        if(comercialSeleccionado != null) {
+            // Si hay un comercial seleccionado, obtener ventas solo para ese comercial
+            ventasAnio = obtenerVentasPorAnioComercial(anioSeleccionado, comercialSeleccionado);
+        } else {
+            // Si no hay selección, obtener ventas de todos los comerciales
+            ventasAnio = obtenerVentasPorAnioTodosComerciales(anioSeleccionado);
+        }
+
+        rellenarVentasPorAnioBarChart(ventasAnio, comercialSeleccionado);
+        rellenarVentasPorAnoLineChart(ventasAnio, comercialSeleccionado);
+    }
+
+    private List<Venta> obtenerVentasPorAnioTodosComerciales(String anio) {
+        // Lista para almacenar las ventas por año
+        List<Venta> ventasPorAnio = new ArrayList<>();
+        // Map para almacenar el conteo de ventas por comercial
+
+
+        LocalDate fechaInicio = LocalDate.parse(anio + "-01-01", FORMATTER);
+        LocalDate fechaFin = LocalDate.parse(anio + "-12-31", FORMATTER);
+
+        List<Venta> todasLasVentas = ventaDAO.listarVentasGeneral(miEntityManager.getEntityManager());
+
+        for (Venta venta : todasLasVentas) {
+            LocalDate fechaVenta = convertirALocalDate(venta.getFecha_venta());
+            if (!fechaVenta.isBefore(fechaInicio) && !fechaVenta.isAfter(fechaFin)) {
+                ventasPorAnio.add(venta);
+            }
+        }
+
+        return ventasPorAnio;
+    }
+
+    private List<Venta> obtenerVentasPorAnioComercial(String anio, Comercial comercial) {
+        List<Venta> todasLasVentasComercial = null;
+        List<Venta> ventasPorAnio = new ArrayList<>();
+
+        LocalDate fechaInicio = LocalDate.parse(anio + "-01-01", FORMATTER);
+        LocalDate fechaFin = LocalDate.parse(anio + "-12-31", FORMATTER);
+
+        if(comercial != null) {
+           todasLasVentasComercial = ventaDAO.listarVentasComercial(miEntityManager.getEntityManager(), comercial.getId_comercial());
+        }
+        if (todasLasVentasComercial != null) {
+            for (Venta venta : todasLasVentasComercial) {
+                LocalDate fechaVenta = convertirALocalDate(venta.getFecha_venta());
+                if (!fechaVenta.isBefore(fechaInicio) && !fechaVenta.isAfter(fechaFin)) {
+                    ventasPorAnio.add(venta);
+                }
+            }
+        }
+        return ventasPorAnio;
+    }
+
+    private void rellenarVentasPorAnioBarChart(List<Venta> ventas, Comercial comercialSeleccionado) {
+        Map<Comercial, int[]> ventasPorComercialYMes = new HashMap<>(); // Hashmap con los comerciales y sus ventas por mes
+
+        for (Venta venta : ventas) {
+            LocalDate fechaVenta = convertirALocalDate(venta.getFecha_venta()); // Transformamos la fecha al formato yy-MM-dd
+            int[] contadorMeses = ventasPorComercialYMes.getOrDefault(comercialSeleccionado, new int[12]); // Recoge o crea un array de ventas
+                                                                                                          // para cada comercial (default int[12])
+
+            contadorMeses[fechaVenta.getMonthValue() - 1]++; // Rellena el numero ventas por mes (resta 1 para que los valores
+                                                            //  coincidan con los correspondientes en el Array)
+
+            ventasPorComercialYMes.put(comercialSeleccionado, contadorMeses); // Completa el HashMap
+        }
+
+        Platform.runLater(() -> { // Controla que la tabla solo se actualize en el hilo de JavaFX
+            BC_ventas.getData().clear(); // Limpia los datos anteriores si hubiere
+            if(comercialSeleccionado == null) {
+                ventasPorComercialYMes.forEach((comercial, ventasMes) -> {
+                    XYChart.Series<Number, String> set = new XYChart.Series<>();
+
+                    if (comercial != null){
+                        set.setName(comercial.getNombre()); // Establece la leyenda (comercial)
+                    }
+
+                    for (int i = 0; i < ventasMes.length; i++) {
+                        set.getData().add(new XYChart.Data<>(ventasMes[i], NOMBRES_MESES[i]));
+                    }
+
+                    BC_ventas.getData().add(set); // Añade los datos formateados a la tabla
+                });
+            } else {
+
+                XYChart.Series<Number, String> set = new XYChart.Series<>();
+                set.setName(comercialSeleccionado.getNombre()); // Usa el nombre del comercial seleccionado
+
+                int[] contadorMeses = ventasPorComercialYMes.get(comercialSeleccionado.getId_comercial());
+                for (int i = 0; i < contadorMeses.length; i++) {
+                    XYChart.Data<Number, String> data = new XYChart.Data<>(contadorMeses[i], NOMBRES_MESES[i]);
+                    set.getData().add(data);
+                }
+                BC_ventas.getData().add(set);
+            }
+        });
+    }
+
+    private void rellenarVentasPorAnoLineChart(List<Venta> ventas, Comercial comercialSeleccionado) {
+        Map<Comercial, double[]> ingresosPorComercialYMes = new HashMap<>();
+
+        // Agrupar ingresos por comercial y mes
+        for (Venta venta : ventas) {
+            Comercial comercial = venta.getComercial(); // Obtén el comercial de cada venta
+            if (comercialSeleccionado == null || comercial.equals(comercialSeleccionado)) {
+                LocalDate fechaVenta = convertirALocalDate(venta.getFecha_venta());
+                double[] ingresosMeses = ingresosPorComercialYMes.computeIfAbsent(comercial, k -> new double[12]);
+                ingresosMeses[fechaVenta.getMonthValue() - 1] += venta.getPrecio_final(); // Suma los ingresos
+            }
+        }
+
+        Platform.runLater(() -> {
+            LC_liquido.getData().clear();
+            if (comercialSeleccionado == null) {
+                // Caso para todos los comerciales: agregue una serie por comercial
+                ingresosPorComercialYMes.forEach((comercial, ingresosMeses) -> {
+                    XYChart.Series<String, Number> seriesComercial = new XYChart.Series<>();
+                    seriesComercial.setName(comercial.getNombre());
+                    for (int i = 0; i < ingresosMeses.length; i++) {
+                        seriesComercial.getData().add(new XYChart.Data<>(NOMBRES_MESES[i], ingresosMeses[i]));
+                    }
+                    LC_liquido.getData().add(seriesComercial);
+                });
+            } else {
+                // Caso para un comercial específico
+                double[] ingresosComercialSeleccionado = ingresosPorComercialYMes.getOrDefault(comercialSeleccionado, new double[12]);
+                XYChart.Series<String, Number> seriesComercial = new XYChart.Series<>();
+                seriesComercial.setName(comercialSeleccionado.getNombre());
+                for (int i = 0; i < ingresosComercialSeleccionado.length; i++) {
+                    seriesComercial.getData().add(new XYChart.Data<>(NOMBRES_MESES[i], ingresosComercialSeleccionado[i]));
+                }
+                LC_liquido.getData().add(seriesComercial);
+            }
+        });
+    }
+
+    private List<Venta> obtenerVentasPorAnio(String anio, Comercial comercial) {
+        List<Venta> ventasPorAnio = new ArrayList<>();
+
+        LocalDate fechaInicio = LocalDate.parse(anio + "-01-01", FORMATTER);
+        LocalDate fechaFin = LocalDate.parse(anio + "-12-31", FORMATTER);
+
+        List<Venta> todasLasVentas = ventaDAO.listarVentasComercial(miEntityManager.getEntityManager(), comercial.getId_comercial());
+
+        for (Venta venta : todasLasVentas) {
+            LocalDate fechaVenta = convertirALocalDate(venta.getFecha_venta());
+            if (!fechaVenta.isBefore(fechaInicio) && !fechaVenta.isAfter(fechaFin)) {
+                ventasPorAnio.add(venta);
+            }
+        }
+
+        return ventasPorAnio;
+    }
+
+    private LocalDate convertirALocalDate(Date fecha) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(fecha);
+        int year = cal.get(Calendar.YEAR);
+        // En Calendar, el mes comienza desde 0, por lo tanto se añade 1.
+        int month = cal.get(Calendar.MONTH) + 1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        return LocalDate.of(year, month, day);
+    }
 
 // ====================================================================
     @FXML

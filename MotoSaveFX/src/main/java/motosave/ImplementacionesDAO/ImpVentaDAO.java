@@ -40,7 +40,7 @@ public class ImpVentaDAO implements VentaDAO {
     @Override
     public List<Venta> listarVentasGeneral(EntityManager em) {
         try {
-            List<Venta> ventas = em.createQuery("SELECT m FROM venta m", Venta.class).getResultList();
+            List<Venta> ventas = em.createQuery("FROM Venta", Venta.class).getResultList();
             return ventas;
         } catch (Exception e) {
             e.printStackTrace();

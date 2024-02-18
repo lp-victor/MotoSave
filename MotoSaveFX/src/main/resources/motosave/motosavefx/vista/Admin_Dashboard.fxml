@@ -81,15 +81,15 @@
          <children>
             <Pane prefHeight="371.0" prefWidth="445.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
                <children>
-                  <BarChart fx:id="BC_barra_liquido" layoutY="56.0" prefHeight="317.0" prefWidth="446.0">
+                  <BarChart fx:id="BC_ventas" layoutY="56.0" prefHeight="317.0" prefWidth="446.0">
                     <xAxis>
-                      <CategoryAxis side="BOTTOM" tickLabelFill="WHITE" />
+                      <NumberAxis side="BOTTOM" tickLabelFill="WHITE" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis prefHeight="255.0" prefWidth="74.0" side="LEFT" tickLabelFill="WHITE" />
+                      <CategoryAxis prefHeight="255.0" prefWidth="74.0" side="LEFT" tickLabelFill="WHITE" />
                     </yAxis>
                   </BarChart>
-                  <Label layoutX="38.0" layoutY="14.0" text="Liquido" textFill="WHITE">
+                  <Label layoutX="38.0" layoutY="14.0" text="Ventas" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -101,7 +101,7 @@
             </Pane>
             <Pane prefHeight="371.0" prefWidth="445.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
                <children>
-                  <LineChart fx:id="LC_ventas" layoutX="2.0" layoutY="56.0" prefHeight="317.0" prefWidth="446.0">
+                  <LineChart fx:id="LC_liquido" layoutX="2.0" layoutY="56.0" prefHeight="317.0" prefWidth="446.0">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
@@ -109,7 +109,7 @@
                       <NumberAxis prefHeight="255.0" prefWidth="52.0" side="LEFT" tickLabelFill="#f7f4f4" />
                     </yAxis>
                   </LineChart>
-                  <Label layoutX="35.0" layoutY="14.0" text="Ventas/Unds" textFill="WHITE">
+                  <Label layoutX="35.0" layoutY="14.0" text="Liquido" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
