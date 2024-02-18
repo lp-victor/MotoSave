@@ -94,7 +94,17 @@ public class AdminStockController implements Initializable {
         colColor.setCellValueFactory(new PropertyValueFactory<Motocicleta, String>("color"));
         colCilindrada.setCellValueFactory(new PropertyValueFactory<Motocicleta, Integer>("cc"));
         colPrecio.setCellValueFactory(new PropertyValueFactory<Motocicleta, Double>("precio_compra"));
-
+        colPrecio.setCellFactory(column -> new TableCell<Motocicleta, Double>() {
+            @Override
+            protected void updateItem(Double item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setText(null);
+                } else {
+                    setText(String.format("%d", item.intValue())); // Formatea el double a int para la visualización
+                }
+            }
+        });
 
         cargarConcesionariosEnComboBox();
         CmB_concesionarios_selecion.setOnAction(event -> cargarMotocicletasSegunConcesionarioSeleccionado());
@@ -268,8 +278,8 @@ public class AdminStockController implements Initializable {
                     precioUnidad = 0;
                 }
                 double precioTotal = precioUnidad * cantidad;
-                if(precioTotal%1==0){
-                    TF_precio_total.setText(String.valueOf((int)precioTotal)+" €");
+                if((precioTotal % 1) == 0){
+                    TF_precio_total.setText((int)precioTotal+" €");
                 }else{
                     TF_precio_total.setText(String.format("%.2f", precioTotal));
                 }
@@ -345,7 +355,13 @@ public class AdminStockController implements Initializable {
                                 seleccionado.getId_concesionario(),
                                 miEntityManager.getEntityManager()
                         ))));
-                TF_precio_total.setText(String.valueOf(newValue.getPrecio_compra() * Double.parseDouble(TF_cantidad.getText())));
+                double precioAux=newValue.getPrecio_compra() * Double.parseDouble(TF_cantidad.getText());
+                if(precioAux%1==0){
+                    TF_precio_total.setText((int)precioAux+" €");
+                }else{
+                    TF_precio_total.setText(precioAux+" €");
+                }
+
 
 
             }

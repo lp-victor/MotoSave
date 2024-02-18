@@ -184,7 +184,7 @@ public class ComercialVentasController implements Initializable {
                 long miliseconds = System.currentTimeMillis();
                 Date fecha_compra = new Date(miliseconds);
 
-                motoAVender.setPrecio_compra(motoAVender.getPrecio_compra() * LOAD.beneficio);
+                motoAVender.setPrecio_compra(cambiarPrecioMoto(motoAVender.getPrecio_compra()));
                 Venta ventaRealizada = new Venta(fecha_compra, comercial, motoAVender, motoAVender.getPrecio_compra(), cliente);
 
                 ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaRealizada);
