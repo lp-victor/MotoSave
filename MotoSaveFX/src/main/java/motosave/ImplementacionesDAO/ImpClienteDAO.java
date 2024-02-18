@@ -71,7 +71,6 @@ public class ImpClienteDAO implements ClienteDAO {
     public List<Cliente> listarClientes(EntityManager em) {
         try {
             List<Cliente> clientes = (em.createQuery("FROM Cliente", Cliente.class).getResultList());
-            System.out.println(clientes);
             return clientes;
         } catch (Exception e) {
             e.printStackTrace();

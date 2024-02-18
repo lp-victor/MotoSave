@@ -73,13 +73,20 @@ public class ComercialVentasController implements Initializable {
     @FXML
     private TableColumn<Cliente, String> TC_cliente_correo;
     @FXML
+    private Label L_indentificacion_comercial;
+    @FXML
+    private Label L_sede_comercial;
+    @FXML
+    private Label L_control_telefono;
+    @FXML
+    private Label L_control_vacios;
+    @FXML
     private Label L_error_motocicleta;
     @FXML
     private Label L_error_cliente;
     @FXML
-    private Label L_indentificacion_comercial;
-    @FXML
-    private Label L_sede_comercial;
+    private Label L_precio_total;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -91,7 +98,7 @@ public class ComercialVentasController implements Initializable {
         clientesList = FXCollections.observableArrayList();
         comercial = ComercialLoggeado.getComercialLoggeado();
         L_indentificacion_comercial.setText(comercial.getNombre());
-        L_sede_comercial.setText(String.valueOf(comercial.getConcesionario()));
+        L_sede_comercial.setText(String.valueOf(comercial.getConcesionario().getUbicacion()));
 
         cargarDatos();
     }
@@ -153,14 +160,15 @@ public class ComercialVentasController implements Initializable {
     @FXML
     public void realizar_venta(ActionEvent actionEvent) {
         L_error_motocicleta.setVisible(false);
-        L_error_motocicleta.setVisible(false);
+        L_error_cliente.setVisible(false);
 
         Motocicleta motoAVender = T_tablaExistencias.getSelectionModel().getSelectedItem();
         if (motoAVender == null) {
             L_error_motocicleta.setVisible(true);
+
         } else {
             L_error_motocicleta.setVisible(false);
-            L_error_motocicleta.setVisible(false);
+            L_error_cliente.setVisible(false);
 
             Cliente cliente = T_tabla_clientes.getSelectionModel().getSelectedItem();
 
@@ -168,20 +176,21 @@ public class ComercialVentasController implements Initializable {
                 L_error_cliente.setVisible(true);
             }  else {
                 L_error_motocicleta.setVisible(false);
-                L_error_motocicleta.setVisible(false);
+                L_error_cliente.setVisible(false);
 
                 Comercial comercial = ComercialLoggeado.getComercialLoggeado();
 
                 // Fecha de compra
                 long miliseconds = System.currentTimeMillis();
                 Date fecha_compra = new Date(miliseconds);
-                // Cambiamos el precio de la moto al precio por le que se realiza la venta.
-                motoAVender.setPrecio_compra(cambiarPrecioMoto(motoAVender.getPrecio_compra()));
-                motoDAO.actualizarMoto(motoAVender, miEntityManager.getEntityManager());
 
+                motoAVender.setPrecio_compra(motoAVender.getPrecio_compra() * LOAD.beneficio);
                 Venta ventaRealizada = new Venta(fecha_compra, comercial, motoAVender, motoAVender.getPrecio_compra(), cliente);
 
                 ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaRealizada);
+
+                cargarMotocicletasGeneral();
+                L_precio_total.setText("Vendida!");
             }
         }
     }
@@ -191,6 +200,9 @@ public class ComercialVentasController implements Initializable {
         CmB_concesionarios.getItems().clear();
         llenarComboBoxConcesionarios(CmB_concesionarios);
         cargarMotocicletasGeneral();
+        L_precio_total.setVisible(false);
+        L_error_motocicleta.setVisible(false);
+        L_error_cliente.setVisible(false);
     }
 
     private void llenarComboBoxConcesionarios(ComboBox<Concesionario> comboBox) {
@@ -234,9 +246,6 @@ public class ComercialVentasController implements Initializable {
 
         if ( motocicletas != null) {
             for (Motocicleta moto : motocicletas) {
-                // Cambiamos el precio de compra al precio de venta
-                double precioVenta = cambiarPrecioMoto(moto.getPrecio_compra());
-                moto.setPrecio_compra(precioVenta);
                 motocicletasList.add(moto);
             }
         }
@@ -249,9 +258,6 @@ public class ComercialVentasController implements Initializable {
         T_tablaExistencias.getItems().clear();
 
         for (Motocicleta moto : motocicletas) {
-            // Cambiamos el precio de compra al precio de venta
-            double precioVenta = cambiarPrecioMoto(moto.getPrecio_compra());
-            moto.setPrecio_compra(precioVenta);
             motocicletasList.add(moto);
         }
 
@@ -276,6 +282,17 @@ public class ComercialVentasController implements Initializable {
         }
 
         T_tabla_clientes.setItems(clientesList);
+    }
+
+    @FXML
+    private void calcularPrecioTotal() {
+        Motocicleta motocicleta = T_tablaExistencias.getSelectionModel().getSelectedItem();
+        if (motocicleta != null){
+            L_precio_total.setVisible(true);
+            L_precio_total.setText("Precio total: " + cambiarPrecioMoto(motocicleta.getPrecio_compra()));
+            L_error_motocicleta.setVisible(false);
+            L_error_cliente.setVisible(false);
+        }
     }
 
 }

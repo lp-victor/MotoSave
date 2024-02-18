@@ -69,17 +69,23 @@
          <effect>
             <BoxBlur height="4.77" width="0.0" />
          </effect></Separator>
-      <Pane layoutX="360.0" layoutY="303.0" prefHeight="470.0" prefWidth="500.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
+      <Pane layoutX="360.0" layoutY="303.0" prefHeight="495.0" prefWidth="500.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
          <children>
-            <BarChart fx:id="BC_barra_liquido" disable="true" layoutX="-3.0" layoutY="66.0" prefHeight="404.0" prefWidth="500.0">
-              <xAxis>
-                <CategoryAxis side="BOTTOM" tickLabelFill="WHITE" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" tickLabelFill="WHITE" />
-              </yAxis>
+            <BarChart fx:id="BC_barra_ventas" disable="true" layoutX="-3.0" layoutY="66.0" prefHeight="404.0" prefWidth="500.0" verticalZeroLineVisible="false">
+               <xAxis>
+                  <NumberAxis minorTickCount="0" prefHeight="10.0" prefWidth="428.0" side="LEFT" tickLabelFill="WHITE">
+                     <tickLabelFont>
+                        <Font size="12.0" />
+                     </tickLabelFont></NumberAxis>
+               </xAxis>
+               <yAxis>
+                  <CategoryAxis prefHeight="363.0" prefWidth="80.0" side="LEFT" tickLabelFill="WHITE">
+                     <tickLabelFont>
+                        <Font size="12.0" />
+                     </tickLabelFont></CategoryAxis>
+               </yAxis>
             </BarChart>
-            <Label layoutX="39.0" layoutY="21.0" text="Liquido" textFill="WHITE">
+            <Label layoutX="39.0" layoutY="21.0" text="Ventas" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -88,7 +94,7 @@
       </Pane>
       <Pane layoutX="894.0" layoutY="303.0" prefHeight="470.0" prefWidth="500.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
          <children>
-            <LineChart fx:id="LC_barra_ventas" disable="true" layoutX="-4.0" layoutY="66.0" prefHeight="404.0" prefWidth="500.0">
+            <LineChart fx:id="LC_barra_liquido" disable="true" layoutX="-4.0" layoutY="66.0" prefHeight="404.0" prefWidth="500.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -96,19 +102,19 @@
                 <NumberAxis side="LEFT" tickLabelFill="#f7f4f4" />
               </yAxis>
             </LineChart>
-            <Label layoutX="38.0" layoutY="23.0" text="Ventas" textFill="WHITE">
+            <Label layoutX="38.0" layoutY="23.0" text="Liquido" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Label layoutX="360.0" layoutY="44.0" text="Filtrar:" textFill="WHITE">
+      <Label layoutX="360.0" layoutY="44.0" text="Año:" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <ComboBox fx:id="CB_tiempo" layoutX="471.0" layoutY="42.0" prefWidth="150.0" stylesheets="@../../../styles/estilo.css" visibleRowCount="3">
+      <ComboBox fx:id="CB_tiempo" layoutX="419.0" layoutY="41.0" prefHeight="32.0" prefWidth="107.0" stylesheets="@../../../styles/estilo.css" visibleRowCount="3">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></ComboBox>
@@ -117,7 +123,7 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <Label fx:id="L_bienvenido" layoutX="391.0" layoutY="199.0" text="Bienvenido ..." textFill="WHITE">
+      <Label fx:id="L_bienvenido" layoutX="391.0" layoutY="199.0" prefHeight="30.0" prefWidth="233.0" text="Bienvenido ..." textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
@@ -137,5 +143,15 @@
             <Image url="@../../../images/user_icon.png" />
          </image>
       </ImageView>
+      <Label fx:id="L_ventas_anuales" layoutX="391.0" layoutY="802.0" prefHeight="30.0" prefWidth="288.0" text="Ventas anuales:" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="L_liquido_anual" layoutX="915.0" layoutY="802.0" prefHeight="30.0" prefWidth="288.0" text="Liquido anual:" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

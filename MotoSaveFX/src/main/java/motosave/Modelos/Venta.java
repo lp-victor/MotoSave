@@ -18,7 +18,6 @@ public class Venta {
 
     @Temporal(TemporalType.DATE)
     private Date fecha_venta;
-    //private enum descuento;
 
     // Relación con Comercial (una venta pertenece a un comercial)
     @ManyToOne
@@ -64,7 +63,7 @@ public class Venta {
     }
 
     public void setFecha_venta(Date fecha_venta) {
-        this.fecha_venta = getFormattedFecha();
+        this.fecha_venta = fecha_venta;
     }
 
     public Comercial getComercial() {
@@ -92,9 +91,18 @@ public class Venta {
     }
 
     public Date getFormattedFecha() {
-        // Formatear la fecha según el formato AA-mm-DD
-        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
-        Date date = new Date(sdf.format(fecha_venta));
-        return date;
+        return fecha_venta;
+    }
+
+    @Override
+    public String toString() {
+        return "Venta{" +
+                "id_venta=" + id_venta +
+                ", fecha_venta=" + fecha_venta +
+                ", comercial=" + comercial +
+                ", moto=" + moto +
+                ", precio_final=" + precio_final +
+                ", cliente=" + cliente +
+                '}';
     }
 }

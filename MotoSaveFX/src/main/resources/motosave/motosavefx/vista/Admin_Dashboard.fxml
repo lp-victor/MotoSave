@@ -62,25 +62,26 @@
          <effect>
             <BoxBlur height="4.77" width="0.0" />
          </effect></Separator>
-      <Label layoutX="362.0" layoutY="42.0" text="Filtrar:" textFill="WHITE">
+      <Label layoutX="362.0" layoutY="42.0" text="Año:" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <ComboBox fx:id="CB_tiempo" layoutX="471.0" layoutY="42.0" prefWidth="150.0" stylesheets="@../../../styles/estilo.css" visibleRowCount="3">
+      <ComboBox fx:id="CB_tiempo" layoutX="442.0" layoutY="40.0" prefWidth="150.0" stylesheets="@../../../styles/estilo.css" visibleRowCount="3">
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor></ComboBox>
+         </cursor>
+      </ComboBox>
       <Label layoutX="744.0" layoutY="18.0" text="DASHBOARD" textFill="WHITE">
          <font>
             <Font name="System Bold" size="42.0" />
          </font>
       </Label>
-      <HBox layoutX="327.0" layoutY="152.0" prefHeight="334.0" prefWidth="1093.0">
+      <HBox alignment="CENTER" layoutX="327.0" layoutY="152.0" prefHeight="334.0" prefWidth="1093.0">
          <children>
             <Pane prefHeight="334.0" prefWidth="350.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
                <children>
-                  <BarChart fx:id="BC_barra_liquido" layoutY="78.0" onDragDetected="#rellenar_liquido" prefHeight="256.0" prefWidth="352.0">
+                  <BarChart fx:id="BC_barra_liquido" layoutY="78.0" prefHeight="256.0" prefWidth="352.0">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" tickLabelFill="WHITE" />
                     </xAxis>
@@ -95,35 +96,39 @@
                   </Label>
                </children>
                <HBox.margin>
-                  <Insets left="10.0" right="10.0" />
+                  <Insets />
                </HBox.margin>
             </Pane>
-            <Pane prefHeight="334.0" prefWidth="350.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
+            <Pane prefHeight="334.0" prefWidth="231.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
+               <HBox.margin>
+                  <Insets left="30.0" right="30.0" />
+               </HBox.margin>
                <children>
-                  <BarChart fx:id="BC_barra_gastos" layoutY="78.0" onDragDetected="#rellenar_liquido" prefHeight="256.0" prefWidth="352.0">
-                     <xAxis>
-                        <CategoryAxis side="BOTTOM" tickLabelFill="WHITE" />
-                     </xAxis>
-                     <yAxis>
-                        <NumberAxis side="LEFT" tickLabelFill="WHITE" />
-                     </yAxis>
-                  </BarChart>
-                  <Label layoutX="38.0" layoutY="23.0" text="Gastos" textFill="WHITE">
+                  <Label layoutX="23.0" layoutY="29.0" text="Más ventas del año:" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="L_mas_ventas" alignment="CENTER" layoutX="80.0" layoutY="85.0" text="...." textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="29.0" layoutY="152.0" text="Más valor del año:" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="L_mas_liquido" alignment="CENTER" layoutX="80.0" layoutY="224.0" text="...." textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
                </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
             </Pane>
             <Pane prefHeight="334.0" prefWidth="350.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
                <children>
-                  <LineChart fx:id="LC_ventas" layoutX="2.0" layoutY="78.0" onDragDetected="#rellenar_ventas" prefHeight="256.0" prefWidth="350.0">
+                  <LineChart fx:id="LC_ventas" layoutX="2.0" layoutY="78.0" prefHeight="256.0" prefWidth="350.0">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
@@ -141,7 +146,7 @@
                   <Insets left="20.0" />
                </opaqueInsets>
                <HBox.margin>
-                  <Insets left="10.0" right="10.0" />
+                  <Insets />
                </HBox.margin>
             </Pane>
          </children>
@@ -154,12 +159,13 @@
             <BoxBlur height="4.77" width="0.0" />
          </effect>
       </Separator>
-      <TableView fx:id="TV_comercialesVentas" layoutX="406.0" layoutY="570.0" prefHeight="297.0" prefWidth="936.0" stylesheets="@../../../styles/estilo.css">
+      <TableView fx:id="TV_comerciales" layoutX="406.0" layoutY="570.0" prefHeight="297.0" prefWidth="936.0" stylesheets="@../../../styles/estilo.css">
          <columns>
-            <TableColumn prefWidth="196.0" resizable="false" text="Nombre" />
-            <TableColumn prefWidth="267.0" resizable="false" text="Apellidos" />
-            <TableColumn prefWidth="237.0" resizable="false" text="Concesionario" />
-            <TableColumn prefWidth="235.0" resizable="false" text="Ventas" />
+            <TableColumn fx:id="C_concesionario" prefWidth="191.0" resizable="false" text="Concesionario" />
+            <TableColumn fx:id="C_nombre" prefWidth="220.0" resizable="false" text="Nombre" />
+            <TableColumn fx:id="C_apellidos" prefWidth="218.0" resizable="false" text="Apellidos" />
+            <TableColumn fx:id="C_NIF" prefWidth="166.0" resizable="false" text="NIF" />
+            <TableColumn fx:id="C_usuario" prefWidth="140.0" resizable="false" text="Usuario" />
          </columns>
       </TableView>
       <Button fx:id="BTN_stock" layoutX="78.0" layoutY="316.0" mnemonicParsing="false" onAction="#abrirStock" prefHeight="25.0" prefWidth="170.0" styleClass="boton-navBar" stylesheets="@../../../styles/estilo.css" text="Stock" textFill="#00b86b">

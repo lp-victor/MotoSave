@@ -17,7 +17,7 @@ public class MotosaveMain extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        //LOAD load = new LOAD();
+        // LOAD load = new LOAD();
 
         try {
             // Cargar el archivo FXML
@@ -31,7 +31,7 @@ public class MotosaveMain extends Application {
             stage.setTitle("Login Motosave");
             stage.setScene(scene);
             stage.setResizable(false);
-            // Mostrar el escenario
+            // Mostrar el escenariojuan
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

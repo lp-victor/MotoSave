@@ -19,13 +19,12 @@ public class Comercial {
     @JoinColumn(name = "id_concesionario")
     private Concesionario concesionario;
 
-
     private String usuario;
     private String contraseña;
+
     private String NIF;
     private String nombre;
     private String apellido;
-    private double salario; // Campo calculado con las ventas realizadas
 
     public Comercial() {
     }
@@ -88,17 +87,21 @@ public class Comercial {
         this.apellido = apellido;
     }
 
-    public double getSalario() {
-        return salario;
-    }
-
-    public void setSalario(double salario) {
-        this.salario = salario;
-    }
 
     public void setContrasena(String contraseña) {
         this.contraseña = Encriptador.encriptarContraseña(contraseña);
     }
 
-
+    @Override
+    public String toString() {
+        return "Comercial{" +
+                "id_comercial=" + id_comercial +
+                ", concesionario=" + concesionario +
+                ", usuario='" + usuario + '\'' +
+                ", contraseña='" + contraseña + '\'' +
+                ", NIF='" + NIF + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                '}';
+    }
 }

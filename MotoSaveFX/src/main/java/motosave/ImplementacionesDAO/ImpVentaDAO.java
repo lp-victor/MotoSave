@@ -51,10 +51,10 @@ public class ImpVentaDAO implements VentaDAO {
     @Override
     public List<Venta> listarVentasComercial(EntityManager em, int idComercial) {
         try {
-            String jpql = "SELECT v FROM venta v JOIN v.comercial c WHERE c.id_comercial = :id_comercial";
-            List<Venta> ventas = (em.createQuery(jpql, Venta.class)
+            String jpql = "SELECT v FROM Venta v JOIN v.comercial c WHERE c.id_comercial = :id_comercial";
+            List<Venta> ventas = em.createQuery(jpql, Venta.class)
                     .setParameter("id_comercial", idComercial)
-                    .getResultList());
+                    .getResultList();
             return ventas;
         } catch (Exception e) {
             e.printStackTrace();

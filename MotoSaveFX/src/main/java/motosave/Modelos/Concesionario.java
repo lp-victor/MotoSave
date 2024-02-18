@@ -20,9 +20,6 @@ public class Concesionario {
 
     private String ubicacion;
 
-    // Relación con Comercial (un concesionario tiene muchos comerciales)
-
-
     public Concesionario() {
     }
 

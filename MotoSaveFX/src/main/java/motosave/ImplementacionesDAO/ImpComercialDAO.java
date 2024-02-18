@@ -78,15 +78,8 @@ public class ImpComercialDAO implements ComercialDAO {
     public void modificarComercial(EntityManager em, Comercial comercial) {
         try {
             em.getTransaction().begin();
-            Comercial comercialExistente = em.find(Comercial.class, comercial.getId_comercial());
-            if (comercialExistente != null) {
-                comercialExistente.setUsuario(comercial.getUsuario());
-                comercialExistente.setNIF(comercial.getNIF());
-                comercialExistente.setNombre(comercial.getNombre());
-                comercialExistente.setApellido(comercial.getApellido());
-                comercialExistente.setSalario(comercial.getSalario());
-                comercialExistente.setConcesionario(comercial.getConcesionario());
-                em.merge(comercialExistente);
+            if (comercial != null) {
+                em.merge(comercial);
             }
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -103,9 +96,8 @@ public class ImpComercialDAO implements ComercialDAO {
     public void eliminarComercial(EntityManager em, Comercial comercial) {
         try {
             em.getTransaction().begin();
-            Comercial comercialABorrar = em.find(Comercial.class, comercial.getId_comercial());
-            if (comercialABorrar != null) {
-                em.remove(comercialABorrar);
+            if (comercial != null) {
+                em.remove(comercial);
             }
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -120,14 +112,14 @@ public class ImpComercialDAO implements ComercialDAO {
      */
     @Override
     public ArrayList<Comercial> listarComerciales(EntityManager em) {
-        List<Comercial> comerciales = null;
         try {
-            String jpql = "SELECT c FROM Comercial c";
+            String jpql = "FROM Comercial";
             Query query = em.createQuery(jpql);
-            comerciales = query.getResultList();
+            List<Comercial> comerciales = query.getResultList();
+            return new ArrayList<>(comerciales);
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return new ArrayList<>(comerciales);
     }
 }
