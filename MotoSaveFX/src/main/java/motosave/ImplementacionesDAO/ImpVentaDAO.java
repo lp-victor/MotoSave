@@ -11,8 +11,7 @@ import motosave.Modelos.Venta;
 import java.util.List;
 
 /**
- * Implementación de la interfaz VentaDAO.
- * Proporciona un método para realizar la venta de una motocicleta.
+ * @author MotoSave
  */
 public class ImpVentaDAO implements VentaDAO {
 
@@ -33,6 +32,12 @@ public class ImpVentaDAO implements VentaDAO {
         }
     }
 
+    /**
+     * Lista todas las ventas de motocicletas realizadas.
+     *
+     * @param em El EntityManager utilizado para realizar la operación.
+     * @return Una lista de todas las ventas de motocicletas realizadas.
+     */
     @Override
     public List<Venta> listarVentasGeneral(EntityManager em) {
         try {
@@ -44,6 +49,13 @@ public class ImpVentaDAO implements VentaDAO {
         }
     }
 
+    /**
+     * Lista todas las ventas de motocicletas realizadas por un comercial específico.
+     *
+     * @param em         El EntityManager utilizado para realizar la operación.
+     * @param idComercial El ID del comercial del cual se desean obtener las ventas.
+     * @return Una lista de todas las ventas de motocicletas realizadas por el comercial especificado.
+     */
     @Override
     public List<Venta> listarVentasComercial(EntityManager em, int idComercial) {
         try {

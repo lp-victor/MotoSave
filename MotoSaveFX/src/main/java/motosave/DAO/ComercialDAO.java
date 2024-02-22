@@ -10,7 +10,7 @@ import motosave.Modelos.Comercial;
 import java.util.ArrayList;
 
 /**
- * @author victo
+ * @author MotoSave
  */
 public interface ComercialDAO {
 

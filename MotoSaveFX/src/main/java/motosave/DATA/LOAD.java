@@ -19,7 +19,12 @@ import static motosave.EnumeradosMoto.Colores.*;
 import static motosave.EnumeradosMoto.Marcas.*;
 
 /**
- * @author victo
+ * La clase LOAD proporciona funcionalidad para cargar datos iniciales en el sistema.
+ * Esto incluye la creación de concesionarios, administradores, comerciales, motocicletas, clientes y ventas.
+ * Además, ajusta los precios de las motocicletas según un beneficio predefinido.
+ * Esta clase se utiliza para inicializar el sistema con datos de muestra.
+ *
+ * @author MotoSave
  */
 public class LOAD {
 
@@ -47,7 +52,6 @@ public class LOAD {
     Comercial c3 = new Comercial(Barcelona, "victor", "1234", "12345678C", "Victor", "Lopez Jimenez");
 
     // Clientes
-
     Cliente cliente1 = new Cliente("MotoTodo", "mototodo@yahoo.com", 916370127, "C/ Mar oceana 10, Las Rozas");
     Cliente cliente2 = new Cliente("SpeedMotos", "speedmotos@gmail.com", 914567897, "Avenida Principe de Asturias 17, Fuencarral");
     Cliente cliente3 = new Cliente("Moto Racing", "motoracing@gmail.com", 919456785, "C/ Mar de plata 11, Poligono Marconi, Parla");
@@ -87,7 +91,11 @@ public class LOAD {
     ArrayList<Motocicleta> motos28 = factoryMoto.fabricarMotos(KTM, ModelosKTM.DUKE.toString(), NARANJA, 5);
     ArrayList<Motocicleta> motos29 = factoryMoto.fabricarMotos(KTM, ModelosKTM.RC.toString(), NEGRO, 5);
 
-    // Creacion de datos para poder usar la aplicacion
+    /**
+     * Constructor de la clase LOAD.
+     * Carga datos iniciales en el sistema, incluyendo concesionarios, administradores, comerciales, motocicletas,
+     * clientes y ventas.
+     */
     public LOAD() {
         concDAO.agregarConcesionario(Granada, miEntityManager.getEntityManager());
         concDAO.agregarConcesionario(Madrid, miEntityManager.getEntityManager());
@@ -308,6 +316,12 @@ public class LOAD {
 
     }
 
+    /**
+     * Cambia el precio de una motocicleta aplicando un beneficio.
+     *
+     * @param precio El precio original de la motocicleta.
+     * @return El nuevo precio de la motocicleta con el beneficio aplicado.
+     */
     private double cambiarPrecioMoto(double precio) {
         precio = precio * LOAD.beneficio;
         if (precio % 1 != 0) {

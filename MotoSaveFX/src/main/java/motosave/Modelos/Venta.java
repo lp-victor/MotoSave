@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 /**
- * @author victo
+ * @author MotoSave
  */
 @Entity
 @Table(name = "venta")

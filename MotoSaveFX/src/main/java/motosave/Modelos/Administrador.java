@@ -11,7 +11,7 @@ import jakarta.persistence.Id;
 import motosave.DATA.Encriptador;
 
 /**
- * @author victo
+ * @author MotoSave
  */
 @Entity
 public class Administrador {

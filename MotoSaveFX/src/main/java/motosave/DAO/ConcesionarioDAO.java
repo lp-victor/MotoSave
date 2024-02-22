@@ -8,7 +8,7 @@ import jakarta.persistence.EntityManager;
 import motosave.Modelos.Concesionario;
 
 /**
- * @author victo
+ * @author MotoSave
  */
 public interface ConcesionarioDAO {
 

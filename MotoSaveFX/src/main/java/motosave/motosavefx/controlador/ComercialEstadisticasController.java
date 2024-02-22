@@ -26,9 +26,17 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
+/**
+ * @author MotoSave
+ */
 public class ComercialEstadisticasController implements Initializable {
+    /**
+     * Formato utilizado para mostrar las fechas en el panel de control.
+     */
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    /**
+     * Nombres de los meses para mostrar en las gráficas.
+     */
     private static final String[] NOMBRES_MESES = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
             "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
     @FXML
@@ -51,6 +59,12 @@ public class ComercialEstadisticasController implements Initializable {
     @FXML
     private Label L_indentificacion_comercial;
 
+    /**
+     * Inicializa el controlador.
+     *
+     * @param url            La URL de inicialización.
+     * @param resourceBundle El ResourceBundle utilizado para la inicialización.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ventadao = new ImpVentaDAO();
@@ -64,11 +78,20 @@ public class ComercialEstadisticasController implements Initializable {
         cargarCB();
     }
 
+    /**
+     * Carga los años disponibles en el ComboBox.
+     */
     private void cargarCB() {
         CB_tiempo.getItems().addAll("2024", "2023", "2022");
         CB_tiempo.setOnAction(event -> rellenarVentasAnio());
     }
 
+    /**
+     * Obtiene las ventas del comercial para el año seleccionado.
+     *
+     * @param anio El año seleccionado.
+     * @return La lista de ventas del año.
+     */
     private List<Venta> obtenerVentasPorAnio(String anio) {
         List<Venta> ventasPorAnio = new ArrayList<>();
 
@@ -87,12 +110,20 @@ public class ComercialEstadisticasController implements Initializable {
         return ventasPorAnio;
     }
 
+    /**
+     * Rellena los gráficos con las ventas del año seleccionado.
+     */
     private void rellenarVentasAnio() {
         List<Venta> ventasAnio = obtenerVentasPorAnio(CB_tiempo.getValue());
         rellenarVentasPorAnioBarChart(ventasAnio);
         rellenarVentasPorAnoLineChart(ventasAnio);
     }
 
+    /**
+     * Rellena el gráfico de barras con las ventas mensuales del año seleccionado.
+     *
+     * @param ventas La lista de ventas del año.
+     */
     private void rellenarVentasPorAnioBarChart(List<Venta> ventas) {
         int[] contadorMeses = new int[12];
 
@@ -112,6 +143,11 @@ public class ComercialEstadisticasController implements Initializable {
         });
     }
 
+    /**
+     * Rellena el gráfico de líneas con los ingresos mensuales del año seleccionado.
+     *
+     * @param ventas La lista de ventas del año.
+     */
     private void rellenarVentasPorAnoLineChart(List<Venta> ventas) {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Ingresos Mensuales"); // Cambiamos "Ventas Mensuales" por "Ingresos Mensuales"
@@ -136,7 +172,11 @@ public class ComercialEstadisticasController implements Initializable {
     }
 
     //===============================================================================================================
-
+    /**
+     * Abre la ventana de ventas.
+     *
+     * @param actionEvent El evento de acción.
+     */
     @FXML
     public void abrir_ventas(ActionEvent actionEvent) {
         try {
@@ -161,6 +201,11 @@ public class ComercialEstadisticasController implements Initializable {
         }
     }
 
+    /**
+     * Cierra la sesión actual y abre la ventana de inicio de sesión.
+     *
+     * @param actionEvent El evento de acción.
+     */
     @FXML
     public void cerrar_sesion(ActionEvent actionEvent) {
         try {
@@ -186,6 +231,12 @@ public class ComercialEstadisticasController implements Initializable {
 
     }
 
+    /**
+     * Convierte un objeto Date a un objeto LocalDate.
+     *
+     * @param fecha La fecha a convertir.
+     * @return La fecha convertida a LocalDate.
+     */
     private LocalDate convertirALocalDate(Date fecha) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(fecha);

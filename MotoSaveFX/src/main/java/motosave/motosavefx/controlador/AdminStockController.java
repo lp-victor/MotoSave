@@ -25,7 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
-
+/**
+ * @author MotoSave
+ */
 public class AdminStockController implements Initializable {
 
 
@@ -77,6 +79,13 @@ public class AdminStockController implements Initializable {
     @FXML
     private TableColumn<Motocicleta, Integer> colCilindrada;
 
+    /**
+     * Método de inicialización del controlador.
+     * Configura los elementos de la interfaz de usuario y carga los datos iniciales.
+     *
+     * @param url            La URL del archivo FXML.
+     * @param resourceBundle El ResourceBundle utilizado para localizar objetos de la interfaz de usuario.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         concDAO = new ImpConcesionarioDAO();
@@ -124,6 +133,11 @@ public class AdminStockController implements Initializable {
 
     }
 
+    /**
+     * Abre la vista del panel de control administrativo.
+     *
+     * @param actionEvent El evento de acción que desencadenó el método.
+     */
     @FXML
     public void abrirDashboard(ActionEvent actionEvent) {
         try {
@@ -148,6 +162,11 @@ public class AdminStockController implements Initializable {
         }
     }
 
+    /**
+     * Cierra la sesión actual y abre la pantalla de inicio de sesión.
+     *
+     * @param actionEvent El evento de acción que desencadenó el método.
+     */
     @FXML
     public void cerrar_sesion(ActionEvent actionEvent) {
         try {
@@ -172,6 +191,11 @@ public class AdminStockController implements Initializable {
         }
     }
 
+    /**
+     * Abre la vista de gestión de comerciales.
+     *
+     * @param actionEvent El evento de acción que desencadenó el método.
+     */
     @FXML
     public void abrirComerciales(ActionEvent actionEvent) {
         try {
@@ -196,11 +220,21 @@ public class AdminStockController implements Initializable {
         }
     }
 
+    /**
+     * Carga la cilindrada y el precio por unidad automáticamente al seleccionar la marca y el modelo.
+     *
+     * @param actionEvent El evento de acción que desencadenó el método.
+     */
     @FXML
     public void cargarCilindradaPrecio(ActionEvent actionEvent) {
         rellenarCamposCilindradaYPrecio();
     }
 
+    /**
+     * Carga la cilindrada y el precio por unidad automáticamente al seleccionar la marca y el modelo.
+     *
+     * @param actionEvent El evento de acción que desencadenó el método.
+     */
     @FXML
     public void modificarModeloMoto(ActionEvent actionEvent) {
         Motocicleta motoModificada = T_tablaExistencias.getSelectionModel().getSelectedItem();
@@ -213,6 +247,11 @@ public class AdminStockController implements Initializable {
 
     }
 
+    /**
+     * Agrega una nueva motocicleta al inventario.
+     *
+     * @param actionEvent El evento de acción que desencadenó el método.
+     */
     @FXML
     public void comprarModeloMoto(ActionEvent actionEvent) {
 
@@ -239,10 +278,9 @@ public class AdminStockController implements Initializable {
     }
 
     /**
-     * Elimina la moto con el DAO de moto y cargando de la tabla la moto selecionada.
-     * Restablecemos los datos.
+     * Elimina la motocicleta seleccionada del inventario.
      *
-     * @param actionEvent
+     * @param actionEvent El evento de acción que desencadenó el método.
      */
     @FXML
     public void eliminarModeloMoto(ActionEvent actionEvent) {
@@ -252,9 +290,9 @@ public class AdminStockController implements Initializable {
     }
 
     /**
-     * Boton para Restablecer los datos en blanco.
+     * Restablece los campos de entrada de datos a sus valores predeterminados.
      *
-     * @param actionEvent
+     * @param actionEvent El evento de acción que desencadenó el método.
      */
     @FXML
     public void restablecerDatosMotoSeleccion(ActionEvent actionEvent) {
@@ -366,7 +404,7 @@ public class AdminStockController implements Initializable {
     }
 
     /**
-     * Método para cargar concesionarios en el ComboBox.
+     * Carga la lista de concesionarios en el ComboBox de selección.
      */
     private void cargarConcesionariosEnComboBox() {
         List<Concesionario> concesionarios = concDAO.listarConcesionarios(miEntityManager.getEntityManager());
@@ -374,7 +412,7 @@ public class AdminStockController implements Initializable {
     }
 
     /**
-     * Método para cargar motocicletas según el concesionario seleccionado
+     * Carga las motocicletas del concesionario seleccionado en la tabla.
      */
     private void cargarMotocicletasSegunConcesionarioSeleccionado() {
         Concesionario concesionarioSeleccionado = CmB_concesionarios_selecion.getValue();
@@ -393,11 +431,11 @@ public class AdminStockController implements Initializable {
     }
 
     /**
-     * Cuenta las motos mientras carga las motos en la tabla.
+     * Cuenta la cantidad de motocicletas iguales en la lista.
      *
-     * @param moto
-     * @param listaMotos
-     * @return Cantidad de motos, de la moto seleccionada o agregada.
+     * @param moto      La motocicleta a contar.
+     * @param listaMotos La lista de motocicletas.
+     * @return La cantidad de motocicletas iguales.
      */
     private int contarMotosIguales(Motocicleta moto, List<Motocicleta> listaMotos) {
         int contador = 0;
@@ -412,11 +450,11 @@ public class AdminStockController implements Initializable {
     }
 
     /**
-     * Comprobar Motocicletas iguales. (Introduciendo el arraylist de las motos de un concesionarioy cada moto individual)
+     * Comprueba si dos motocicletas son iguales.
      *
-     * @param motocicleta1
-     * @param motocicleta2
-     * @return Boolean si son iguales excluyendo el id.
+     * @param motocicleta1 La primera motocicleta.
+     * @param motocicleta2 La segunda motocicleta.
+     * @return true si las motocicletas son iguales, false de lo contrario.
      */
     private boolean sonMotocicletasIguales(Motocicleta motocicleta1, Motocicleta motocicleta2) {
         // Implementa la lógica de comparación para tus atributos relevantes (excluyendo el ID)
@@ -429,7 +467,7 @@ public class AdminStockController implements Initializable {
     }
 
     /**
-     * Rellena el comboBox de MArcas.
+     * Rellena el ComboBox con las marcas disponibles.
      */
     private void llenarComboBoxMarcas() {
         ObservableList<Marcas> marcasList = FXCollections.observableArrayList(Marcas.values());
@@ -437,7 +475,7 @@ public class AdminStockController implements Initializable {
     }
 
     /**
-     * Rellena el comboBox de Colores.
+     * Rellena el ComboBox con los colores disponibles.
      */
     private void llenarComboBoxColores() {
         ObservableList<Colores> coloresList = FXCollections.observableArrayList(Colores.values());
@@ -516,7 +554,7 @@ public class AdminStockController implements Initializable {
     }
 
     /**
-     * Aplica la validación de cantidad al TextField, permitiendo solo dígitos y mostrando un borde rojo en caso de error.
+     * Aplica la validación de cantidad al TextField, permitiendo solo dígitos.
      */
     private void aplicarValidacionCantidad() {
         UnaryOperator<TextFormatter.Change> filter = change -> {
@@ -565,6 +603,5 @@ public class AdminStockController implements Initializable {
     private Motocicleta obtenerMotocicletaPorMarcaYModelo(Marcas marca, String modelo, Colores color) {
         return factoriaMoto.fabricarMotos(marca, modelo, color, 1).getFirst();
     }
-
 
 }

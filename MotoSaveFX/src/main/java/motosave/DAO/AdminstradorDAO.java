@@ -8,7 +8,7 @@ import jakarta.persistence.EntityManager;
 import motosave.Modelos.Administrador;
 
 /**
- * @author victo
+ * @author MotoSave
  */
 public interface AdminstradorDAO {
 

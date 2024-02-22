@@ -21,7 +21,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
+/**
+ * @author MotoSave
+ */
 public class AdminComercialesController implements Initializable {
 
     ObservableList<Comercial> comercialesList;
@@ -71,6 +73,13 @@ public class AdminComercialesController implements Initializable {
     @FXML
     private Label L_error_NIF;
 
+    /**
+     * Inicializa el controlador.
+     * Configura las variables y llama al método cargarDatos() para cargar los datos iniciales en la interfaz de usuario.
+     *
+     * @param url            La URL del archivo FXML.
+     * @param resourceBundle El ResourceBundle utilizado para localizar objetos de la interfaz de usuario.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comDAO = new ImpComercialDAO();
@@ -80,6 +89,10 @@ public class AdminComercialesController implements Initializable {
         cargarDatos();
     }
 
+    /**
+     * Carga los datos iniciales en la interfaz de usuario.
+     * Llena un ComboBox con concesionarios disponibles y configura la tabla para mostrar los comerciales.
+     */
     private void cargarDatos() {
         llenarComboBoxConcesionarios(CmB_concesionario);
 
@@ -92,6 +105,12 @@ public class AdminComercialesController implements Initializable {
         cargarComerciales();
     }
 
+    /**
+     * Agrega un nuevo comercial al sistema.
+     * Valida los campos de entrada y realiza la inserción en la base de datos si los datos son válidos.
+     *
+     * @param actionEvent El evento de acción que desencadenó el método.
+     */
     @FXML
     public void agregarComercial(ActionEvent actionEvent) {
         L_error_concesionario.setVisible(false);
@@ -129,6 +148,9 @@ public class AdminComercialesController implements Initializable {
 
     }
 
+    /**
+     * Limpia los campos de entrada en la interfaz de usuario.
+     */
     private void limpiarCampos() {
         TF_apellidos.setText("");
         TF_nombre.setText("");
@@ -138,12 +160,19 @@ public class AdminComercialesController implements Initializable {
         PF_pass1.setText("");
     }
 
-
+    /**
+     * Llena el ComboBox de concesionarios con los datos obtenidos de la base de datos.
+     *
+     * @param comboBox El ComboBox que se va a llenar con los concesionarios disponibles.
+     */
     private void llenarComboBoxConcesionarios(ComboBox<Concesionario> comboBox) {
         List<Concesionario> concesionarios = concDAO.listarConcesionarios(miEntityManager.getEntityManager());
         comboBox.getItems().addAll(concesionarios);
     }
 
+    /**
+     * Carga la lista de comerciales desde la base de datos y la muestra en la tabla.
+     */
     private void cargarComerciales() {
         List<Comercial> comerciales = comDAO.listarComerciales(miEntityManager.getEntityManager());
 
@@ -158,6 +187,11 @@ public class AdminComercialesController implements Initializable {
         TV_comerciales.setItems(comercialesList);
     }
 
+    /**
+     * Elimina un comercial seleccionado de la base de datos y actualiza la vista.
+     *
+     * @param actionEvent El evento de acción que desencadenó el método.
+     */
     @FXML
     public void eliminar_comercial(ActionEvent actionEvent) {
         Comercial comercial = TV_comerciales.getSelectionModel().getSelectedItem();
@@ -168,6 +202,11 @@ public class AdminComercialesController implements Initializable {
         }
     }
 
+    /**
+     * Cierra la sesión actual y abre la pantalla de inicio de sesión.
+     *
+     * @param actionEvent El evento de acción que desencadenó el método.
+     */
     @FXML
     public void cerrar_sesion(ActionEvent actionEvent) {
         try {
@@ -192,6 +231,11 @@ public class AdminComercialesController implements Initializable {
         }
     }
 
+    /**
+     * Abre el panel de control de administrador (dashboard).
+     *
+     * @param actionEvent El evento de acción que desencadenó el método.
+     */
     @FXML
     public void abrirDashboard(ActionEvent actionEvent) {
         try {
@@ -216,6 +260,11 @@ public class AdminComercialesController implements Initializable {
         }
     }
 
+    /**
+     * Abre la vista del inventario de motocicletas.
+     *
+     * @param actionEvent El evento de acción que desencadenó el método.
+     */
     @FXML
     public void abrirStock(ActionEvent actionEvent) {
         try {

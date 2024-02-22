@@ -21,7 +21,9 @@ import motosave.Persistencia.miEntityManager;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/**
+ * @author MotoSave
+ */
 public class LoginController implements Initializable {
 
     Comercial comercial;
@@ -39,7 +41,12 @@ public class LoginController implements Initializable {
     @FXML
     private Button BTN_acceder;
 
-
+    /**
+     * Inicializa el controlador.
+     *
+     * @param url            La URL de inicialización.
+     * @param resourceBundle El ResourceBundle utilizado para la inicialización.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comercial = new Comercial();
@@ -50,6 +57,11 @@ public class LoginController implements Initializable {
         PF_contrasena.setText("admin");
     }
 
+    /**
+     * Maneja el evento de inicio de sesión.
+     *
+     * @param actionEvent El evento de acción.
+     */
     @FXML
     public void loggear(ActionEvent actionEvent) {
         L_control_vacios.setVisible(false);
@@ -72,6 +84,9 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Inicia la sesión de un comercial y abre la ventana correspondiente.
+     */
     private void iniciarComercial() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Comercial_Ventas.fxml"));
@@ -96,6 +111,9 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Inicia la sesión de un administrador y abre la ventana correspondiente.
+     */
     private void iniciarAdmin() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/motosave/motosavefx/vista/Admin_Dashboard.fxml"));

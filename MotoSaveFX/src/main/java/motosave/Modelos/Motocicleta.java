@@ -3,7 +3,7 @@ package motosave.Modelos;
 import jakarta.persistence.*;
 
 /**
- * @author victo
+ * @author MotoSave
  */
 @Entity
 @Table(name = "motocicleta")

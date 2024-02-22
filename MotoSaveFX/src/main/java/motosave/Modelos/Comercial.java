@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import motosave.DATA.Encriptador;
 
 /**
- * @author victo
+ * @author MotoSave
  */
 @Entity
 @Table(name = "comercial", uniqueConstraints = {

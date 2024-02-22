@@ -13,14 +13,25 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.util.List;
-
+/**
+ * Esta clase se encarga de escribir objetos Cliente en un archivo XML.
+ *
+ * @author MotoSave
+ */
 public class ClienteXMLWriter {
 
     public ClienteXMLWriter() {
     }
 
+    /**
+     * Escribe la lista de clientes en un archivo XML en la ruta especificada.
+     *
+     * @param clientes    La lista de clientes a escribir en el archivo XML.
+     * @param rutaArchivo La ruta del archivo XML donde se escribirán los clientes.
+     */
     public void escribirXML(List<Cliente> clientes, String rutaArchivo) {
         try {
+            // Crear un nuevo documento XML
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.newDocument();
@@ -29,7 +40,7 @@ public class ClienteXMLWriter {
             Element rootElement = doc.createElement("clientes");
             doc.appendChild(rootElement);
 
-            // Crear elemento por cada cliente
+            // Crear un elemento por cada cliente y agregarlo al elemento raíz
             for (Cliente cliente : clientes) {
                 Element clienteElement = doc.createElement("cliente");
 
@@ -56,6 +67,14 @@ public class ClienteXMLWriter {
         }
     }
 
+    /**
+     * Método privado para crear un nuevo elemento XML y agregarlo al padre con el valor especificado.
+     *
+     * @param doc    El documento XML.
+     * @param parent El elemento padre al que se agregará el nuevo elemento.
+     * @param nombre El nombre del nuevo elemento.
+     * @param valor  El valor del nuevo elemento.
+     */
     private void createElement(Document doc, Element parent, String nombre, String valor) {
         Element e = doc.createElement(nombre);
         e.appendChild(doc.createTextNode(valor));

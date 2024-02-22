@@ -7,12 +7,26 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
+/**
+ * @author MotoSave
+ */
 public class MotosaveMain extends Application {
+
+    /**
+     * Método principal para iniciar la aplicación.
+     *
+     * @param args Los argumentos de la línea de comandos.
+     */
     public static void main(String[] args) {
         launch();
     }
 
+    /**
+     * Método para iniciar la aplicación.
+     *
+     * @param stage El escenario principal de la aplicación.
+     * @throws IOException Si hay un error al cargar el archivo FXML.
+     */
     @Override
     public void start(Stage stage) throws IOException {
 

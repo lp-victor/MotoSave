@@ -8,10 +8,18 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @author victo
+ * La clase Encriptador proporciona funcionalidad para encriptar contraseñas utilizando el algoritmo SHA-256.
+ * Este encriptador convierte una contraseña de texto plano en una representación hash segura.
+ *
+ * @author MotoSave
  */
 public class Encriptador {
-
+    /**
+     * Encripta una contraseña utilizando el algoritmo SHA-256.
+     *
+     * @param contraseña La contraseña en texto plano que se va a encriptar.
+     * @return La representación hash en formato hexadecimal de la contraseña encriptada.
+     */
     public static String encriptarContraseña(String contraseña) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256"); // Crea una caja que encripta

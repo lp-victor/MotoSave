@@ -10,7 +10,7 @@ import motosave.Modelos.Venta;
 import java.util.List;
 
 /**
- * @author victo
+ * @author MotoSave
  */
 public interface VentaDAO {
 

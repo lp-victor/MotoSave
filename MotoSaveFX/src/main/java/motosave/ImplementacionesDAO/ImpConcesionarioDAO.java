@@ -11,9 +11,7 @@ import motosave.Modelos.Concesionario;
 import java.util.List;
 
 /**
- * Implementación de la interfaz ConcesionarioDAO.
- * Proporciona métodos para realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar)
- * en la base de datos para la entidad Concesionario.
+ * @author MotoSave
  */
 public class ImpConcesionarioDAO implements ConcesionarioDAO {
 
@@ -41,7 +39,7 @@ public class ImpConcesionarioDAO implements ConcesionarioDAO {
     /**
      * Lista todos los concesionarios disponibles.
      *
-     * @param em
+     * @param em El EntityManager utilizado para realizar la operación.
      * @return Lista de Concesionarios
      */
     public List<Concesionario> listarConcesionarios(EntityManager em) {

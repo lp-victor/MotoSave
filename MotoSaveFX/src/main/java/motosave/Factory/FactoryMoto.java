@@ -7,13 +7,25 @@ import motosave.Modelos.Motocicleta;
 import java.util.ArrayList;
 
 /**
- * @author victo
+ * La clase FactoryMoto proporciona funcionalidad para fabricar motocicletas de diferentes marcas, modelos y colores.
+ * Se utiliza para crear lotes de motocicletas según los parámetros especificados.
+ *
+ * @author MotoSave
  */
 public class FactoryMoto {
 
     public FactoryMoto() {
     }
 
+    /**
+     * Fabrica un conjunto de motocicletas basadas en la marca, modelo, color y cantidad especificados.
+     *
+     * @param marca    La marca de las motocicletas a fabricar.
+     * @param modelo   El modelo de las motocicletas a fabricar.
+     * @param color    El color de las motocicletas a fabricar.
+     * @param cantidad La cantidad de motocicletas a fabricar.
+     * @return Un ArrayList que contiene las motocicletas fabricadas.
+     */
     public ArrayList<Motocicleta> fabricarMotos(Marcas marca, String modelo, Colores color, int cantidad) {
         Motocicleta moto = null;
         ArrayList<Motocicleta> motosCreadas = new ArrayList<>();

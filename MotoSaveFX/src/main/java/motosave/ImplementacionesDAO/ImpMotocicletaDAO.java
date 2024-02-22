@@ -12,9 +12,7 @@ import motosave.Modelos.Motocicleta;
 import java.util.List;
 
 /**
- * Implementación de la interfaz MotocicletaDAO.
- * Proporciona métodos para realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar)
- * en la base de datos para la entidad Motocicleta.
+ * @author MotoSave
  */
 public class ImpMotocicletaDAO implements MotocicletaDAO {
 
@@ -40,8 +38,8 @@ public class ImpMotocicletaDAO implements MotocicletaDAO {
     /**
      * Actualiza la moto que entra por parametro en la base de datos,
      *
-     * @param moto
-     * @param entityManager
+     * @param moto          La motocicleta a actualizar.
+     * @param entityManager El EntityManager utilizado para realizar la operación.
      */
     @Override
     public void actualizarMoto(Motocicleta moto, EntityManager entityManager) {

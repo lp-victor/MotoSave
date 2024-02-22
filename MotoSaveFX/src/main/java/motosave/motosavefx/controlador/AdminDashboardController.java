@@ -27,10 +27,18 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
+/**
+ * @author MotoSave
+ */
 public class AdminDashboardController implements Initializable {
 
+    /**
+     * Formato utilizado para mostrar las fechas en el panel de control.
+     */
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    /**
+     * Nombres de los meses para mostrar en las gráficas.
+     */
     private static final String[] NOMBRES_MESES = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
             "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
     ImpComercialDAO comDAO;
@@ -68,6 +76,13 @@ public class AdminDashboardController implements Initializable {
     @FXML
     private Label L_error_anio;
 
+    /**
+     * Inicializa el controlador.
+     * Configura las variables y llama al método cargarDatos() para cargar los datos iniciales en la interfaz de usuario.
+     *
+     * @param url            La URL del archivo FXML.
+     * @param resourceBundle El ResourceBundle utilizado para localizar objetos de la interfaz de usuario.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comDAO = new ImpComercialDAO();
@@ -86,12 +101,21 @@ public class AdminDashboardController implements Initializable {
         CB_tiempo.setOnAction(event -> rellenarVentasAnio(comercialSeleccionado));
     }
 
+    /**
+     * Método de inicialización para restablecer la selección del comercial.
+     *
+     * @param actionEvent El evento de acción que desencadenó el método.
+     */
     @FXML
     public void restablecerSeleccionComercial(ActionEvent actionEvent) {
         comercialSeleccionado = null;
         rellenarVentasAnio(comercialSeleccionado);
     }
 
+    /**
+     * Carga los datos iniciales en la interfaz de usuario.
+     * Llena el ComboBox con años disponibles y configura la tabla para mostrar los comerciales.
+     */
     private void cargarDatos() {
         llenarComboBoxAnios();
 
@@ -105,6 +129,9 @@ public class AdminDashboardController implements Initializable {
         cargarComerciales();
     }
 
+    /**
+     * Carga la lista de comerciales desde la base de datos y la muestra en la tabla.
+     */
     private void cargarComerciales() {
         List<Comercial> comerciales = comDAO.listarComerciales(miEntityManager.getEntityManager());
 
@@ -121,10 +148,16 @@ public class AdminDashboardController implements Initializable {
 
     // ============================ POR TERMINAR ====================================
 
+    /**
+     * Llena el ComboBox con los años disponibles.
+     */
     private void llenarComboBoxAnios() {
         CB_tiempo.getItems().addAll("2024", "2023", "2022");
     }
 
+    /**
+     * Llena el ComboBox con los años disponibles.
+     */
     private void rellenarVentasAnio(Comercial comercialSeleccionado) {
         String anioSeleccionado = CB_tiempo.getValue();
         List<Venta> ventasAnio;
@@ -142,6 +175,12 @@ public class AdminDashboardController implements Initializable {
         rellenarVentasPorAnoLineChart(ventasAnio, comercialSeleccionado);
     }
 
+    /**
+     * Obtiene las ventas por año para todos los comerciales.
+     *
+     * @param anio El año seleccionado.
+     * @return Una lista de ventas para el año seleccionado.
+     */
     private List<Venta> obtenerVentasPorAnioTodosComerciales(String anio) {
         // Lista para almacenar las ventas por año
         List<Venta> ventasPorAnio = new ArrayList<>();
@@ -163,6 +202,13 @@ public class AdminDashboardController implements Initializable {
         return ventasPorAnio;
     }
 
+    /**
+     * Obtiene las ventas por año para un comercial específico.
+     *
+     * @param anio      El año seleccionado.
+     * @param comercial El comercial seleccionado.
+     * @return Una lista de ventas para el año seleccionado y el comercial especificado.
+     */
     private List<Venta> obtenerVentasPorAnioComercial(String anio, Comercial comercial) {
         List<Venta> todasLasVentasComercial = null;
         List<Venta> ventasPorAnio = new ArrayList<>();
@@ -191,6 +237,12 @@ public class AdminDashboardController implements Initializable {
         return ventasPorAnio;
     }
 
+    /**
+     * Rellena la gráfica de barras con las ventas por mes.
+     *
+     * @param ventas               La lista de ventas para el año seleccionado.
+     * @param comercialSeleccionado El comercial seleccionado (puede ser null si no hay selección).
+     */
     private void rellenarVentasPorAnioBarChart(List<Venta> ventas, Comercial comercialSeleccionado) {
         Map<Comercial, int[]> ventasPorComercialYMes = new HashMap<>(); // Hashmap con los comerciales y sus ventas por mes
 
@@ -239,6 +291,12 @@ public class AdminDashboardController implements Initializable {
         });
     }
 
+    /**
+     * Rellena la gráfica de líneas con los ingresos por mes.
+     *
+     * @param ventas               La lista de ventas para el año seleccionado.
+     * @param comercialSeleccionado El comercial seleccionado (puede ser null si no hay selección).
+     */
     private void rellenarVentasPorAnoLineChart(List<Venta> ventas, Comercial comercialSeleccionado) {
         Map<Comercial, double[]> ingresosPorComercialYMes = new HashMap<>();
 
@@ -277,6 +335,9 @@ public class AdminDashboardController implements Initializable {
         });
     }
 
+    /**
+     * Actualiza las etiquetas de los comerciales con más ventas y más ingresos.
+     */
     private void actualizarLabelsComercialesDestacados() {
         String anioSeleccionado = CB_tiempo.getValue();
         if (anioSeleccionado == null || anioSeleccionado.isEmpty()) {
@@ -328,6 +389,12 @@ public class AdminDashboardController implements Initializable {
         }
     }
 
+    /**
+     * Convierte un objeto Date a LocalDate.
+     *
+     * @param fecha La fecha a convertir.
+     * @return La fecha convertida a LocalDate.
+     */
     private LocalDate convertirALocalDate(Date fecha) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(fecha);
@@ -339,6 +406,11 @@ public class AdminDashboardController implements Initializable {
     }
 
     // ====================================================================
+    /**
+     * Abre la vista del inventario de motocicletas.
+     *
+     * @param actionEvent El evento de acción que desencadenó el método.
+     */
     @FXML
     public void abrirStock(ActionEvent actionEvent) {
         try {
@@ -363,6 +435,11 @@ public class AdminDashboardController implements Initializable {
         }
     }
 
+    /**
+     * Cierra la sesión actual y abre la pantalla de inicio de sesión.
+     *
+     * @param actionEvent El evento de acción que desencadenó el método.
+     */
     @FXML
     public void cerrar_sesion(ActionEvent actionEvent) {
         try {
@@ -387,6 +464,11 @@ public class AdminDashboardController implements Initializable {
         }
     }
 
+    /**
+     * Abre la vista de gestión de comerciales.
+     *
+     * @param actionEvent El evento de acción que desencadenó el método.
+     */
     @FXML
     public void abrirComerciales(ActionEvent actionEvent) {
         try {

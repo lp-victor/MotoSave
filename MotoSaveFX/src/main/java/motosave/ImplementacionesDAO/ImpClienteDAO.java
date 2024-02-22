@@ -6,9 +6,17 @@ import motosave.Modelos.Cliente;
 
 import java.util.List;
 
+/**
+ * @author MotoSave
+ */
 public class ImpClienteDAO implements ClienteDAO {
 
-
+    /**
+     * Añade un nuevo cliente a la base de datos.
+     *
+     * @param em           El EntityManager utilizado para realizar la operación.
+     * @param nuevoCliente El cliente a añadir.
+     */
     @Override
     public void anadirCliente(EntityManager em, Cliente nuevoCliente) {
         try {
@@ -20,6 +28,12 @@ public class ImpClienteDAO implements ClienteDAO {
         }
     }
 
+    /**
+     * Lista todos los clientes almacenados en la base de datos.
+     *
+     * @param em El EntityManager utilizado para realizar la operación.
+     * @return Una lista de objetos Cliente, o null si ocurre un error.
+     */
     @Override
     public List<Cliente> listarClientes(EntityManager em) {
         try {

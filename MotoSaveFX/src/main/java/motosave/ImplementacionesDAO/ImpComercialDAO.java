@@ -16,9 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Implementación de la interfaz ComercialDAO.
- * Proporciona métodos para realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar)
- * en la base de datos para la entidad Comercial.
+ * @author MotoSave
  */
 public class ImpComercialDAO implements ComercialDAO {
 
@@ -71,6 +69,13 @@ public class ImpComercialDAO implements ComercialDAO {
         }
     }
 
+    /**
+     * Busca un usuario comercial en la base de datos.
+     *
+     * @param em       El EntityManager utilizado para realizar la operación.
+     * @param usuario_e El nombre de usuario del comercial a buscar.
+     * @return true si se encuentra el usuario, false de lo contrario.
+     */
     @Override
     public boolean buscarUsuarioComercial(EntityManager em, String usuario_e) {
         try {
@@ -87,6 +92,13 @@ public class ImpComercialDAO implements ComercialDAO {
         }
     }
 
+    /**
+     * Busca un NIF de comercial en la base de datos.
+     *
+     * @param em    El EntityManager utilizado para realizar la operación.
+     * @param NIF_e El NIF del comercial a buscar.
+     * @return true si se encuentra el NIF, false de lo contrario.
+     */
     @Override
     public boolean buscarNIFComercial(EntityManager em, String NIF_e) {
         try {

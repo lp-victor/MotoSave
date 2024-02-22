@@ -30,7 +30,9 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-
+/**
+ * @author MotoSave
+ */
 public class ComercialVentasController implements Initializable {
 
     private ImpConcesionarioDAO concDAO;
@@ -87,7 +89,12 @@ public class ComercialVentasController implements Initializable {
     @FXML
     private Label L_backup_ok;
 
-
+    /**
+     * Inicializa el controlador.
+     *
+     * @param url            La URL de inicialización.
+     * @param resourceBundle El ResourceBundle utilizado para la inicialización.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         concDAO = new ImpConcesionarioDAO();
@@ -105,7 +112,11 @@ public class ComercialVentasController implements Initializable {
         cargarDatos();
     }
 
-
+    /**
+     * Abre la ventana de estadísticas.
+     *
+     * @param actionEvent El evento de acción.
+     */
     @FXML
     public void abrir_estadisticas(ActionEvent actionEvent) {
         try {
@@ -130,11 +141,21 @@ public class ComercialVentasController implements Initializable {
         }
     }
 
+    /**
+     * Maneja la selección de un concesionario en el ComboBox.
+     *
+     * @param actionEvent El evento de acción.
+     */
     @FXML
     public void seleccionar_concesionario(ActionEvent actionEvent) {
         concesionarioSeleccionado = CmB_concesionarios.getValue().toString();
     }
 
+    /**
+     * Cierra la sesión actual y abre la ventana de inicio de sesión.
+     *
+     * @param actionEvent El evento de acción.
+     */
     @FXML
     public void cerrar_sesion(ActionEvent actionEvent) {
         try {
@@ -159,6 +180,11 @@ public class ComercialVentasController implements Initializable {
         }
     }
 
+    /**
+     * Realiza la venta de una motocicleta a un cliente.
+     *
+     * @param actionEvent El evento de acción.
+     */
     @FXML
     public void realizar_venta(ActionEvent actionEvent) {
         L_error_motocicleta.setVisible(false);
@@ -197,6 +223,11 @@ public class ComercialVentasController implements Initializable {
         }
     }
 
+    /**
+     * Limpia el filtro de búsqueda y muestra todas las motocicletas.
+     *
+     * @param actionEvent El evento de acción.
+     */
     @FXML
     public void limpiarFiltro(ActionEvent actionEvent) {
         CmB_concesionarios.getItems().clear();
@@ -207,6 +238,9 @@ public class ComercialVentasController implements Initializable {
         L_error_cliente.setVisible(false);
     }
 
+    /**
+     * Calcula el precio total de la motocicleta seleccionada.
+     */
     @FXML
     private void calcularPrecioTotal() {
         Motocicleta motocicleta = T_tablaExistencias.getSelectionModel().getSelectedItem();
@@ -218,8 +252,12 @@ public class ComercialVentasController implements Initializable {
         }
     }
 
+    /**
+     * Recupera los datos de respaldo de los clientes desde un archivo XML.
+     *
+     * @param actionEvent El evento de acción.
+     */
     @FXML
-
     public void recuperarBackUp(ActionEvent actionEvent) {
         T_tabla_clientes.getItems().clear();
         // Utilizamos PauseTransition para no bloquear el hilo de la interfaz
@@ -254,6 +292,11 @@ public class ComercialVentasController implements Initializable {
 //         T_tabla_clientes.setItems(clientesList);
     }
 
+    /**
+     * Realiza un respaldo de los datos de los clientes en un archivo XML.
+     *
+     * @param actionEvent El evento de acción.
+     */
     @FXML
     public void hacerBackUp(ActionEvent actionEvent) {
         clienteXMLWriter.escribirXML(clientesList, rutaXML);
@@ -268,11 +311,19 @@ public class ComercialVentasController implements Initializable {
 
     }
 
+    /**
+     * Llena el ComboBox de concesionarios con los disponibles en la base de datos.
+     *
+     * @param comboBox El ComboBox a llenar.
+     */
     private void llenarComboBoxConcesionarios(ComboBox<Concesionario> comboBox) {
         List<Concesionario> concesionarios = concDAO.listarConcesionarios(miEntityManager.getEntityManager());
         comboBox.getItems().addAll(concesionarios);
     }
 
+    /**
+     * Carga los datos iniciales en las tablas de motocicletas y clientes.
+     */
     private void cargarDatos() {
         llenarComboBoxConcesionarios(CmB_concesionarios);
 
@@ -297,6 +348,9 @@ public class ComercialVentasController implements Initializable {
         cargarClientes();
     }
 
+    /**
+     * Carga las motocicletas según el concesionario seleccionado en el ComboBox.
+     */
     private void cargarMotocicletasSegunConcesionarioSeleccionado() {
         Concesionario concesionarioSeleccionado = (Concesionario) CmB_concesionarios.getValue();
         List<Motocicleta> motocicletas = null;
@@ -315,6 +369,9 @@ public class ComercialVentasController implements Initializable {
         T_tablaExistencias.setItems(motocicletasList);
     }
 
+    /**
+     * Carga todas las motocicletas disponibles en la tabla general.
+     */
     private void cargarMotocicletasGeneral() {
         List<Motocicleta> motocicletas = motoDAO.listarMotos(miEntityManager.getEntityManager());
 
@@ -327,6 +384,12 @@ public class ComercialVentasController implements Initializable {
         T_tablaExistencias.setItems(motocicletasList);
     }
 
+    /**
+     * Calcula el nuevo precio de una motocicleta aplicando el beneficio de la empresa.
+     *
+     * @param precio El precio original de la motocicleta.
+     * @return El nuevo precio con el beneficio aplicado.
+     */
     private double cambiarPrecioMoto(double precio) {
         precio = precio * LOAD.beneficio;
         if (precio % 1 != 0) {
@@ -335,6 +398,9 @@ public class ComercialVentasController implements Initializable {
         return precio;
     }
 
+    /**
+     * Carga la lista de clientes desde la base de datos y la muestra en la tabla correspondiente.
+     */
     private void cargarClientes() {
         List<Cliente> clientes = clienteDAO.listarClientes(miEntityManager.getEntityManager());
 

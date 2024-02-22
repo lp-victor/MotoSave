@@ -12,8 +12,7 @@ import motosave.DATA.Encriptador;
 import motosave.Modelos.Administrador;
 
 /**
- * Implementación de la interfaz AdminstradorDAO.
- * Proporciona métodos para autenticar y realizar operaciones relacionadas con los administradores en la base de datos.
+ * @author MotoSave
  */
 public class ImpAdministradorDAO implements AdminstradorDAO {
 
@@ -46,10 +45,10 @@ public class ImpAdministradorDAO implements AdminstradorDAO {
     }
 
     /**
-     * Crea un Administrador  en la base de datos pasado por Parametro.
+     * Crea un Administrador en la base de datos.
      *
-     * @param em
-     * @param admin
+     * @param em    El EntityManager utilizado para realizar la operación.
+     * @param admin El administrador a crear.
      */
     @Override
     public void crearAdministrador(EntityManager em, Administrador admin) {

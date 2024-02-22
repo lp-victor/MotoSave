@@ -1,7 +1,9 @@
 package motosave.Modelos;
 
 import jakarta.persistence.*;
-
+/**
+ * @author MotoSave
+ */
 @Entity
 public class Cliente {
     @Id
