@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import motosave.DATA.LOAD;
 
 import java.io.IOException;
 
@@ -17,7 +16,7 @@ public class MotosaveMain extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-         //LOAD load = new LOAD();
+        //LOAD load = new LOAD();
 
         try {
             // Cargar el archivo FXML
@@ -31,7 +30,7 @@ public class MotosaveMain extends Application {
             stage.setTitle("Login Motosave");
             stage.setScene(scene);
             stage.setResizable(false);
-            // Mostrar el escenariojuan
+            // Mostrar el escenario
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

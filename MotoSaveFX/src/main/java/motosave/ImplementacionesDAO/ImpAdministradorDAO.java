@@ -19,6 +19,7 @@ public class ImpAdministradorDAO implements AdminstradorDAO {
 
     /**
      * Autentica un administrador en la base de datos mediante su nombre de usuario y contraseña.
+     *
      * @param em       El EntityManager utilizado para realizar la operación.
      * @param password La contraseña del administrador.
      * @param nombre   El nombre de usuario del administrador.
@@ -37,11 +38,7 @@ public class ImpAdministradorDAO implements AdminstradorDAO {
             // Ejecuta la consulta y obtiene el resultado
             Administrador admin = (Administrador) query.getSingleResult();
 
-            if (admin != null) {
-                return true;
-            } else {
-                return false;
-            }
+            return admin != null;
         } catch (NoResultException e) {
             System.out.println("Usuario incorrecto");
             return false;
@@ -50,6 +47,7 @@ public class ImpAdministradorDAO implements AdminstradorDAO {
 
     /**
      * Crea un Administrador  en la base de datos pasado por Parametro.
+     *
      * @param em
      * @param admin
      */

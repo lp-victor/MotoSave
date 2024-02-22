@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class FactoryMoto {
 
     public FactoryMoto() {
-
     }
 
     public ArrayList<Motocicleta> fabricarMotos(Marcas marca, String modelo, Colores color, int cantidad) {

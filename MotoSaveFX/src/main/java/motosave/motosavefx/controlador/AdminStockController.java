@@ -10,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import motosave.EnumeradosMoto.*;
 import motosave.Factory.FactoryMoto;
@@ -22,7 +21,9 @@ import motosave.Persistencia.miEntityManager;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 public class AdminStockController implements Initializable {
@@ -62,13 +63,9 @@ public class AdminStockController implements Initializable {
     @FXML
     private ComboBox<String> CmB_modelo;
     @FXML
-    private Label L_indentificacion_comercial;
-    @FXML
     private TextField TF_cilindrada;
     @FXML
     private ComboBox<Colores> CmB_color;
-    @FXML
-    private Pane P_comercialVentas;
     @FXML
     private TableColumn<Motocicleta, String> colMarca;
     @FXML
@@ -79,8 +76,6 @@ public class AdminStockController implements Initializable {
     private TableColumn<Motocicleta, Double> colPrecio;
     @FXML
     private TableColumn<Motocicleta, Integer> colCilindrada;
-    @FXML
-    private Button BTN_comprar1;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -210,7 +205,7 @@ public class AdminStockController implements Initializable {
     public void modificarModeloMoto(ActionEvent actionEvent) {
         Motocicleta motoModificada = T_tablaExistencias.getSelectionModel().getSelectedItem();
         motoModificada.setColor(String.valueOf(CmB_color.getValue()));
-        motoModificada.setConcesionario((Concesionario) CmB_concesionarios_anadir.getValue());
+        motoModificada.setConcesionario(CmB_concesionarios_anadir.getValue());
         motoDAO.actualizarMoto(motoModificada, miEntityManager.getEntityManager());
 
         //cargarMotocicletasSegunConcesionarioSeleccionado();
@@ -246,6 +241,7 @@ public class AdminStockController implements Initializable {
     /**
      * Elimina la moto con el DAO de moto y cargando de la tabla la moto selecionada.
      * Restablecemos los datos.
+     *
      * @param actionEvent
      */
     @FXML
@@ -257,6 +253,7 @@ public class AdminStockController implements Initializable {
 
     /**
      * Boton para Restablecer los datos en blanco.
+     *
      * @param actionEvent
      */
     @FXML
@@ -267,7 +264,7 @@ public class AdminStockController implements Initializable {
     /**
      * Metodo para calcular el precio final adquirido de los textField de precio y cantidad.
      */
-    private void mostrarPrecioFinalAutomatico(){
+    private void mostrarPrecioFinalAutomatico() {
         TF_cantidad.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.isEmpty()) {
                 int cantidad = Integer.parseInt(newValue);
@@ -278,13 +275,13 @@ public class AdminStockController implements Initializable {
                     precioUnidad = 0;
                 }
                 double precioTotal = precioUnidad * cantidad;
-                if((precioTotal % 1) == 0){
-                    TF_precio_total.setText((int)precioTotal+" €");
-                }else{
+                if ((precioTotal % 1) == 0) {
+                    TF_precio_total.setText((int) precioTotal + " €");
+                } else {
                     TF_precio_total.setText(String.format("%.2f", precioTotal));
                 }
 
-            }else{
+            } else {
                 TF_precio_total.setText("");
             }
 
@@ -320,7 +317,7 @@ public class AdminStockController implements Initializable {
         llenarComboBoxMarcas();
         llenarComboBoxConcesionarios(CmB_concesionarios_anadir);
         CmB_marca.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            llenarComboBoxModelo((Marcas) newValue);
+            llenarComboBoxModelo(newValue);
         });
         cargarMotocicletasSegunConcesionarioSeleccionado();
     }
@@ -342,26 +339,25 @@ public class AdminStockController implements Initializable {
                 TF_cantidad.setDisable(true);
                 TF_precio_total.setDisable(true);
 
-                Concesionario seleccionado = (Concesionario) CmB_concesionarios_selecion.getValue();
+                Concesionario seleccionado = CmB_concesionarios_selecion.getValue();
                 CmB_marca.setValue(Marcas.BMW.str2Marcas(newValue.getMarca()));
                 CmB_modelo.setValue(newValue.getModelo());
                 CmB_concesionarios_anadir.setValue(newValue.getConcesionario());
                 CmB_color.setValue(Colores.GRIS.str2Color(newValue.getColor()));
                 TF_cilindrada.setText(String.valueOf(newValue.getCc()));
-                TF_precio_unidad.setText(String.valueOf((int)newValue.getPrecio_compra()));
+                TF_precio_unidad.setText(String.valueOf((int) newValue.getPrecio_compra()));
                 TF_cantidad.setText(String.valueOf(contarMotosIguales(
                         newValue,
                         motoDAO.listarMotosConcesionario(
                                 seleccionado.getId_concesionario(),
                                 miEntityManager.getEntityManager()
                         ))));
-                double precioAux=newValue.getPrecio_compra() * Double.parseDouble(TF_cantidad.getText());
-                if(precioAux%1==0){
-                    TF_precio_total.setText((int)precioAux+" €");
-                }else{
-                    TF_precio_total.setText(precioAux+" €");
+                double precioAux = newValue.getPrecio_compra() * Double.parseDouble(TF_cantidad.getText());
+                if (precioAux % 1 == 0) {
+                    TF_precio_total.setText((int) precioAux + " €");
+                } else {
+                    TF_precio_total.setText(precioAux + " €");
                 }
-
 
 
             }
@@ -381,7 +377,7 @@ public class AdminStockController implements Initializable {
      * Método para cargar motocicletas según el concesionario seleccionado
      */
     private void cargarMotocicletasSegunConcesionarioSeleccionado() {
-        Concesionario concesionarioSeleccionado = (Concesionario) CmB_concesionarios_selecion.getValue();
+        Concesionario concesionarioSeleccionado = CmB_concesionarios_selecion.getValue();
         List<Motocicleta> motocicletas = motoDAO.listarMotosConcesionario(
                 concesionarioSeleccionado.getId_concesionario(), miEntityManager.getEntityManager()
         );
@@ -398,6 +394,7 @@ public class AdminStockController implements Initializable {
 
     /**
      * Cuenta las motos mientras carga las motos en la tabla.
+     *
      * @param moto
      * @param listaMotos
      * @return Cantidad de motos, de la moto seleccionada o agregada.
@@ -539,9 +536,9 @@ public class AdminStockController implements Initializable {
      * Rellena los campos de cilindrada y precio por unidad basándose en la marca y el modelo seleccionados.
      */
     private void rellenarCamposCilindradaYPrecio() {
-        Marcas marcaSeleccionada = (Marcas) CmB_marca.getValue();
+        Marcas marcaSeleccionada = CmB_marca.getValue();
         String modeloSeleccionado = String.valueOf(CmB_modelo.getValue());
-        Colores colorSelecionado = (Colores) CmB_color.getValue();
+        Colores colorSelecionado = CmB_color.getValue();
 
         if (marcaSeleccionada != null && modeloSeleccionado != null) {
             Motocicleta motocicleta = obtenerMotocicletaPorMarcaYModelo(marcaSeleccionada, modeloSeleccionado, colorSelecionado);
@@ -568,7 +565,6 @@ public class AdminStockController implements Initializable {
     private Motocicleta obtenerMotocicletaPorMarcaYModelo(Marcas marca, String modelo, Colores color) {
         return factoriaMoto.fabricarMotos(marca, modelo, color, 1).getFirst();
     }
-
 
 
 }

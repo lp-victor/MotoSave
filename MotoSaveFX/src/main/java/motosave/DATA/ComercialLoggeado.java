@@ -4,10 +4,13 @@ import motosave.Modelos.Comercial;
 
 public class ComercialLoggeado {
 
+    // Clase con patron singleton
+
     private static Comercial comercial = null;
 
     private ComercialLoggeado() {
     }
+
     public static Comercial getComercialLoggeado() {
         return comercial;
     }

@@ -12,8 +12,8 @@ public enum Marcas {
     HONDA, YAMAHA, BMW, DUCATI, KAWASAKI, SUZUKI, KTM, DAISVI;
 
 
-    public Marcas str2Marcas(String in){
-        switch (in){
+    public Marcas str2Marcas(String in) {
+        switch (in) {
             case "HONDA":
                 return HONDA;
             case "YAMAHA":

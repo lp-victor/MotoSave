@@ -1,169 +1,219 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.effect.BoxBlur?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-
-<Pane fx:id="P_comercialVentas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="919.0" prefWidth="1440.0" style="-fx-background-color: #1F2A36;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="motosave.motosavefx.controlador.ComercialVentasController">
-   <children>
-      <Pane layoutX="-1.0" prefHeight="920.0" prefWidth="311.0" style="-fx-background-color: #374452; -fx-background-radius: 0 30 30 0;">
-         <children>
-            <Button fx:id="BTN_salir" alignment="CENTER_RIGHT" layoutX="81.0" layoutY="823.0" mnemonicParsing="false" onAction="#cerrar_sesion" prefHeight="45.0" prefWidth="150.0" styleClass="boton-salir" stylesheets="@../../../styles/estilo.css" text="Salir    " textFill="RED">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <ImageView fitHeight="30.0" fitWidth="36.0" layoutX="104.0" layoutY="830.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/exit_icon.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="BTN_estadisticas" layoutX="76.0" layoutY="316.0" mnemonicParsing="false" onAction="#abrir_estadisticas" prefHeight="25.0" prefWidth="170.0" styleClass="boton-navBar" stylesheets="@../../../styles/estilo.css" text="Estadísticas" textFill="#00b86b">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button layoutX="76.0" layoutY="244.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" styleClass="boton-navBar" stylesheets="@../../../styles/estilo.css" text="Ventas" textFill="#00b86b">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="53.0" layoutY="253.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/moto_icon.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="53.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/stats_icon.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="177.0" fitWidth="186.0" layoutX="64.0" layoutY="24.0">
-               <image>
-                  <Image url="@../../../images/fotor-ai-2024020418187-removebg-preview.png" />
-               </image>
-            </ImageView>
-         </children>
-      </Pane>
-      <Separator layoutX="310.0" layoutY="96.0" prefHeight="5.0" prefWidth="1131.0">
-         <effect>
-            <BoxBlur height="4.77" width="0.0" />
-         </effect></Separator>
-      <ComboBox fx:id="CmB_concesionarios" layoutX="517.0" layoutY="37.0" onAction="#seleccionar_concesionario" prefWidth="150.0" stylesheets="@../../../styles/estilo.css" visibleRowCount="3">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></ComboBox>
-      <Label layoutX="365.0" layoutY="41.0" prefHeight="17.0" prefWidth="130.0" text="Concesionario:" textFill="#f4f3f3">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <Button fx:id="BTN_vender" layoutX="799.0" layoutY="820.0" mnemonicParsing="false" onAction="#realizar_venta" prefHeight="40.0" prefWidth="157.0" styleClass="boton-accion" stylesheets="@../../../styles/estilo.css" text="Vender" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <TableView fx:id="T_tablaExistencias" focusTraversable="false" layoutX="392.0" layoutY="126.0" onMouseClicked="#calcularPrecioTotal" prefHeight="383.0" prefWidth="970.0" stylesheets="@../../../styles/estilo.css">
-        <columns>
-            <TableColumn fx:id="colUbicacion" prefWidth="161.0" resizable="false" text="Ubicación" />
-          <TableColumn fx:id="colMarca" prefWidth="161.0" resizable="false" text="Marca" />
-          <TableColumn fx:id="colModelo" prefWidth="161.0" resizable="false" text="Modelo" />
-            <TableColumn fx:id="colColor" prefWidth="161.0" resizable="false" text="Color" />
-            <TableColumn fx:id="colCilindrada" prefWidth="161.0" resizable="false" text="Cilindrada" />
-            <TableColumn fx:id="colPrecio" prefWidth="164.0" resizable="false" text="Precio" />
-        </columns>
-      </TableView>
-      <Label layoutX="777.0" layoutY="541.0" prefHeight="32.0" prefWidth="229.0" text="SELECCIONA CLIENTE" textFill="#f4f3f3">
-         <font>
-            <Font name="System Bold" size="22.0" />
-         </font>
-      </Label>
-      <Separator layoutX="311.0" layoutY="529.0" prefHeight="5.0" prefWidth="1131.0">
-         <effect>
-            <BoxBlur height="4.77" width="0.0" />
-         </effect>
-      </Separator>
-      <Label fx:id="L_indentificacion_comercial" layoutX="1297.0" layoutY="22.0" text="Comercial" textFill="WHITE">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Label fx:id="L_sede_comercial" layoutX="1297.0" layoutY="48.0" text="Sede comercial" textFill="WHITE">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="30.0" fitWidth="36.0" layoutX="1246.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/user_icon.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="L_control_vacios" layoutX="542.0" layoutY="826.0" style="visibility: hidden;" text="Completa todos los campos." textFill="#b80000">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Label fx:id="L_control_telefono" layoutX="542.0" layoutY="827.0" style="visibility: hidden;" text="Introduce solo numeros en el apartado 'Telefono'" textFill="#b80000">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Label layoutX="807.0" layoutY="24.0" text="VENTA" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="42.0" />
-         </font>
-      </Label>
-      <Button fx:id="BTN_limpiar" layoutX="682.0" layoutY="39.0" mnemonicParsing="false" onAction="#limpiarFiltro" styleClass="boton-restablecer-filtros" stylesheets="@../../../styles/estilo.css" text="Restablecer" textFill="#00b86b">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <TableView fx:id="T_tabla_clientes" focusTraversable="false" layoutX="392.0" layoutY="580.0" prefHeight="218.0" prefWidth="970.0" stylesheets="@../../../styles/estilo.css">
-        <columns>
-          <TableColumn fx:id="TC_cliente_nombre" prefWidth="154.0" resizable="false" text="Nombre" />
-            <TableColumn fx:id="TC_cliente_correo" prefWidth="345.0" resizable="false" text="Correo" />
-            <TableColumn fx:id="TC_cliente_telefono" prefWidth="105.0" resizable="false" text="Teléfono" />
-            <TableColumn fx:id="TC_cliente_direccion" prefWidth="365.0" resizable="false" text="Dirección" />
-        </columns>
-      </TableView>
-      <Label fx:id="L_error_motocicleta" layoutX="1019.0" layoutY="827.0" prefHeight="27.0" prefWidth="240.0" text="Selecciona una motocicleta." textFill="RED" visible="false">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="L_error_cliente" layoutX="1019.0" layoutY="827.0" prefHeight="27.0" prefWidth="240.0" text="Selecciona un cliente." textFill="RED" visible="false">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="L_precio_total" layoutX="432.0" layoutY="826.0" prefHeight="27.0" prefWidth="240.0" text="Precio Total: ...." textFill="WHITE" visible="false">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Label>
-   </children>
+<?import javafx.scene.text.*?>
+<Pane xmlns:fx="http://javafx.com/fxml/1" fx:id="P_comercialVentas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+      minWidth="-Infinity" prefHeight="919.0" prefWidth="1440.0" style="-fx-background-color: #1F2A36;"
+      xmlns="http://javafx.com/javafx/21" fx:controller="motosave.motosavefx.controlador.ComercialVentasController">
+    <children>
+        <Pane layoutX="-1.0" prefHeight="920.0" prefWidth="311.0"
+              style="-fx-background-color: #374452; -fx-background-radius: 0 30 30 0;">
+            <children>
+                <Button fx:id="BTN_salir" alignment="CENTER_RIGHT" layoutX="81.0" layoutY="823.0"
+                        mnemonicParsing="false" onAction="#cerrar_sesion" prefHeight="45.0" prefWidth="150.0"
+                        styleClass="boton-salir" stylesheets="@../../../styles/estilo.css" text="Salir    "
+                        textFill="RED">
+                    <font>
+                        <Font name="System Bold" size="18.0"/>
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </Button>
+                <ImageView fitHeight="30.0" fitWidth="36.0" layoutX="104.0" layoutY="830.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/exit_icon.png"/>
+                    </image>
+                </ImageView>
+                <Button fx:id="BTN_estadisticas" layoutX="76.0" layoutY="316.0" mnemonicParsing="false"
+                        onAction="#abrir_estadisticas" prefHeight="25.0" prefWidth="170.0" styleClass="boton-navBar"
+                        stylesheets="@../../../styles/estilo.css" text="Estadísticas" textFill="#00b86b">
+                    <font>
+                        <Font name="System Bold" size="18.0"/>
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </Button>
+                <Button layoutX="76.0" layoutY="244.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0"
+                        styleClass="boton-navBar" stylesheets="@../../../styles/estilo.css" text="Ventas"
+                        textFill="#00b86b">
+                    <font>
+                        <Font name="System Bold" size="18.0"/>
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </Button>
+                <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="53.0" layoutY="253.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/moto_icon.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="53.0" layoutY="324.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/stats_icon.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="177.0" fitWidth="186.0" layoutX="64.0" layoutY="24.0">
+                    <image>
+                        <Image url="@../../../images/fotor-ai-2024020418187-removebg-preview.png"/>
+                    </image>
+                </ImageView>
+            </children>
+        </Pane>
+        <Separator layoutX="310.0" layoutY="96.0" prefHeight="5.0" prefWidth="1131.0">
+            <effect>
+                <BoxBlur height="4.77" width="0.0"/>
+            </effect>
+        </Separator>
+        <ComboBox fx:id="CmB_concesionarios" layoutX="517.0" layoutY="37.0" onAction="#seleccionar_concesionario"
+                  prefWidth="150.0" stylesheets="@../../../styles/estilo.css" visibleRowCount="3">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </ComboBox>
+        <Label layoutX="365.0" layoutY="41.0" prefHeight="17.0" prefWidth="130.0" text="Concesionario:"
+               textFill="#f4f3f3">
+            <font>
+                <Font name="System Bold" size="18.0"/>
+            </font>
+        </Label>
+        <Button fx:id="BTN_vender" layoutX="1205.0" layoutY="824.0" mnemonicParsing="false" onAction="#realizar_venta"
+                prefHeight="40.0" prefWidth="157.0" styleClass="boton-accion" stylesheets="@../../../styles/estilo.css"
+                text="Vender" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="18.0"/>
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </Button>
+        <TableView fx:id="T_tablaExistencias" focusTraversable="false" layoutX="392.0" layoutY="126.0"
+                   onMouseClicked="#calcularPrecioTotal" prefHeight="383.0" prefWidth="970.0"
+                   stylesheets="@../../../styles/estilo.css">
+            <columns>
+                <TableColumn fx:id="colUbicacion" prefWidth="161.0" resizable="false" text="Ubicación"/>
+                <TableColumn fx:id="colMarca" prefWidth="161.0" resizable="false" text="Marca"/>
+                <TableColumn fx:id="colModelo" prefWidth="161.0" resizable="false" text="Modelo"/>
+                <TableColumn fx:id="colColor" prefWidth="161.0" resizable="false" text="Color"/>
+                <TableColumn fx:id="colCilindrada" prefWidth="161.0" resizable="false" text="Cilindrada"/>
+                <TableColumn fx:id="colPrecio" prefWidth="164.0" resizable="false" text="Precio"/>
+            </columns>
+        </TableView>
+        <Label layoutX="777.0" layoutY="541.0" prefHeight="32.0" prefWidth="229.0" text="SELECCIONA CLIENTE"
+               textFill="#f4f3f3">
+            <font>
+                <Font name="System Bold" size="22.0"/>
+            </font>
+        </Label>
+        <Separator layoutX="311.0" layoutY="529.0" prefHeight="5.0" prefWidth="1131.0">
+            <effect>
+                <BoxBlur height="4.77" width="0.0"/>
+            </effect>
+        </Separator>
+        <Label fx:id="L_indentificacion_comercial" layoutX="1297.0" layoutY="22.0" text="Comercial" textFill="WHITE">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Label>
+        <Label fx:id="L_sede_comercial" layoutX="1297.0" layoutY="48.0" text="Sede comercial" textFill="WHITE">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Label>
+        <ImageView fitHeight="30.0" fitWidth="36.0" layoutX="1246.0" layoutY="33.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <image>
+                <Image url="@../../../images/user_icon.png"/>
+            </image>
+        </ImageView>
+        <Label fx:id="L_control_vacios" layoutX="542.0" layoutY="826.0" style="visibility: hidden;"
+               text="Completa todos los campos." textFill="#b80000">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Label>
+        <Label fx:id="L_control_telefono" layoutX="542.0" layoutY="827.0" style="visibility: hidden;"
+               text="Introduce solo numeros en el apartado 'Telefono'" textFill="#b80000">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Label>
+        <Label layoutX="807.0" layoutY="24.0" text="VENTA" textAlignment="CENTER" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="42.0"/>
+            </font>
+        </Label>
+        <Button fx:id="BTN_limpiar" layoutX="682.0" layoutY="39.0" mnemonicParsing="false" onAction="#limpiarFiltro"
+                styleClass="boton-restablecer-filtros" stylesheets="@../../../styles/estilo.css" text="Restablecer"
+                textFill="#00b86b">
+            <font>
+                <Font name="System Bold" size="14.0"/>
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </Button>
+        <TableView fx:id="T_tabla_clientes" focusTraversable="false" layoutX="392.0" layoutY="580.0" prefHeight="218.0"
+                   prefWidth="970.0" stylesheets="@../../../styles/estilo.css">
+            <columns>
+                <TableColumn fx:id="TC_cliente_nombre" prefWidth="154.0" resizable="false" text="Nombre"/>
+                <TableColumn fx:id="TC_cliente_correo" prefWidth="345.0" resizable="false" text="Correo"/>
+                <TableColumn fx:id="TC_cliente_telefono" prefWidth="105.0" resizable="false" text="Teléfono"/>
+                <TableColumn fx:id="TC_cliente_direccion" prefWidth="365.0" resizable="false" text="Dirección"/>
+            </columns>
+        </TableView>
+        <Label fx:id="L_error_motocicleta" layoutX="952.0" layoutY="830.0" prefHeight="27.0" prefWidth="240.0"
+               text="Selecciona una motocicleta." textFill="RED" visible="false">
+            <font>
+                <Font name="System Bold" size="18.0"/>
+            </font>
+        </Label>
+        <Label fx:id="L_error_cliente" layoutX="952.0" layoutY="830.0" prefHeight="27.0" prefWidth="240.0"
+               text="Selecciona un cliente." textFill="RED" visible="false">
+            <font>
+                <Font name="System Bold" size="18.0"/>
+            </font>
+        </Label>
+        <Label fx:id="L_precio_total" layoutX="432.0" layoutY="826.0" prefHeight="27.0" prefWidth="240.0"
+               text="Precio Total: ...." textFill="WHITE" visible="false">
+            <font>
+                <Font name="System Bold" size="24.0"/>
+            </font>
+        </Label>
+        <Button layoutX="397.0" layoutY="829.0" mnemonicParsing="false" onAction="#hacerBackUp"
+                styleClass="boton-accion" stylesheets="@../../../styles/estilo.css" text="Back up clientes"
+                textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="14.0"/>
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </Button>
+        <Button fx:id="BTN_limpiar11" layoutX="547.0" layoutY="829.0" mnemonicParsing="false"
+                onAction="#recuperarBackUp" styleClass="boton-accion" stylesheets="@../../../styles/estilo.css"
+                text="Recuperar back up" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="14.0"/>
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </Button>
+        <Label fx:id="L_backup_ok" layoutX="705.0" layoutY="830.0" prefHeight="27.0" prefWidth="157.0"
+               text="Back up realizado." textFill="#00b86b" visible="false">
+            <font>
+                <Font name="System Bold" size="18.0"/>
+            </font>
+        </Label>
+    </children>
 </Pane>

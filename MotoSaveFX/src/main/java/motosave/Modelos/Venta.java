@@ -2,7 +2,6 @@ package motosave.Modelos;
 
 import jakarta.persistence.*;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -88,10 +87,6 @@ public class Venta {
 
     public void setPrecio_final(double precio_final) {
         this.precio_final = precio_final;
-    }
-
-    public Date getFormattedFecha() {
-        return fecha_venta;
     }
 
     @Override

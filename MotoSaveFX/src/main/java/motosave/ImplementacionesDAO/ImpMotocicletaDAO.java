@@ -9,7 +9,6 @@ import jakarta.persistence.EntityTransaction;
 import motosave.DAO.MotocicletaDAO;
 import motosave.Modelos.Motocicleta;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,6 +39,7 @@ public class ImpMotocicletaDAO implements MotocicletaDAO {
 
     /**
      * Actualiza la moto que entra por parametro en la base de datos,
+     *
      * @param moto
      * @param entityManager
      */
@@ -77,28 +77,6 @@ public class ImpMotocicletaDAO implements MotocicletaDAO {
             System.out.println("Motocicleta eliminada con éxito.");
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    /**
-     * Obtiene una motocicleta de la base de datos por su ID.
-     *
-     * @param id_moto       El ID de la motocicleta a obtener.
-     * @param entityManager El EntityManager utilizado para realizar la operación.
-     * @return La motocicleta encontrada o null si no se encuentra.
-     */
-    @Override
-    public Motocicleta obtenerMotoPorId(int id_moto, EntityManager entityManager) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-
-        try {
-            Motocicleta motocicleta = entityManager.find(Motocicleta.class, id_moto);
-            transaction.commit();
-            return motocicleta;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
         }
     }
 
@@ -155,18 +133,6 @@ public class ImpMotocicletaDAO implements MotocicletaDAO {
             e.printStackTrace();
             return null;
         }*/
-    }
-
-    @Override
-    public List<Motocicleta> listarMotocicletasVendidas(EntityManager em) {
-        try {
-            String jpql = "SELECT v.moto FROM Venta v";
-            List<Motocicleta> motosVendidas = em.createQuery(jpql, Motocicleta.class).getResultList();
-            return motosVendidas;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
 }

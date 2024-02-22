@@ -7,7 +7,6 @@ package motosave.DAO;
 import jakarta.persistence.EntityManager;
 import motosave.Modelos.Motocicleta;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,17 +14,14 @@ import java.util.List;
  */
 public interface MotocicletaDAO {
 
-    public abstract void guardarMoto(Motocicleta moto, EntityManager em);
+    void guardarMoto(Motocicleta moto, EntityManager em);
 
-    public abstract void actualizarMoto(Motocicleta moto, EntityManager em);
+    void actualizarMoto(Motocicleta moto, EntityManager em);
 
-    public abstract void eliminarMoto(Motocicleta moto, EntityManager em);
+    void eliminarMoto(Motocicleta moto, EntityManager em);
 
-    public abstract Motocicleta obtenerMotoPorId(int id_moto, EntityManager em);
+    List<Motocicleta> listarMotos(EntityManager em);
 
-    public abstract List<Motocicleta> listarMotos(EntityManager em);
+    List<Motocicleta> listarMotosConcesionario(int id_concesionario, EntityManager em);
 
-    public abstract List<Motocicleta> listarMotosConcesionario(int id_concesionario, EntityManager em);
-
-    public abstract List<Motocicleta> listarMotocicletasVendidas (EntityManager em);
 }

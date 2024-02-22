@@ -7,7 +7,7 @@ import motosave.DATA.Encriptador;
  * @author victo
  */
 @Entity
-@Table(name = "comercial",  uniqueConstraints = {
+@Table(name = "comercial", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"NIF", "usuario"})
 })
 public class Comercial {

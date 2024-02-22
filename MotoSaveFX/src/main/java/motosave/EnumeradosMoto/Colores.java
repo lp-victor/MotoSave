@@ -11,8 +11,8 @@ public enum Colores {
 
     ROJO, NEGRO, AZUL, VERDE, BLANCO, NARANJA, AMARILLO, PLATEADO, GRIS;
 
-    public Colores str2Color(String in){
-        switch (in){
+    public Colores str2Color(String in) {
+        switch (in) {
             case "ROJO":
                 return ROJO;
             case "NEGRO":

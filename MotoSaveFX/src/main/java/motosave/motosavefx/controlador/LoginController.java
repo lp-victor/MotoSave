@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import motosave.ImplementacionesDAO.ImpAdministradorDAO;
 import motosave.ImplementacionesDAO.ImpComercialDAO;
@@ -39,8 +38,6 @@ public class LoginController implements Initializable {
     private TextField TF_usuario;
     @FXML
     private Button BTN_acceder;
-    @FXML
-    private AnchorPane P_login;
 
 
     @Override

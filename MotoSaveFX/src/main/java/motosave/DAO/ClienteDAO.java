@@ -7,11 +7,7 @@ import java.util.List;
 
 public interface ClienteDAO {
 
-    public abstract void anadirCliente(EntityManager em, Cliente nuevoCliente);
+    void anadirCliente(EntityManager em, Cliente nuevoCliente);
 
-    public abstract Cliente buscarCliente(EntityManager em, int id_cliente);
-
-    public abstract Cliente buscarClienteCorreo(EntityManager em, String correo);
-
-    public abstract List<Cliente> listarClientes (EntityManager em);
+    List<Cliente> listarClientes(EntityManager em);
 }

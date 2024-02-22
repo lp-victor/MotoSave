@@ -12,9 +12,9 @@ import motosave.Modelos.Administrador;
  */
 public interface AdminstradorDAO {
 
-    public abstract boolean loggearAdmin(EntityManager em, String password, String usuario);
+    boolean loggearAdmin(EntityManager em, String password, String usuario);
 
-    public abstract void crearAdministrador(EntityManager em, Administrador admin);
+    void crearAdministrador(EntityManager em, Administrador admin);
 
 
 }

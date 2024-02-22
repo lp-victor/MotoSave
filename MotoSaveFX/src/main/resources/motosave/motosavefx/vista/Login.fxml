@@ -1,113 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.effect.Light.Distant?>
-<?import javafx.scene.effect.Lighting?>
-<?import javafx.scene.effect.Shadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
-
-<AnchorPane fx:id="P_login" prefHeight="919.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="motosave.motosavefx.controlador.LoginController">
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="P_login" prefHeight="919.0" prefWidth="1440.0"
+            xmlns="http://javafx.com/javafx/21" fx:controller="motosave.motosavefx.controlador.LoginController">
     <children>
-        <Pane layoutX="-1.0" layoutY="-1.0" prefHeight="920.0" prefWidth="1441.0" style="-fx-background-color: #1F2A36;">
+        <Pane layoutX="-1.0" layoutY="-1.0" prefHeight="920.0" prefWidth="1441.0"
+              style="-fx-background-color: #1F2A36;">
             <children>
-                <ImageView fitHeight="671.0" fitWidth="811.0" layoutX="656.0" layoutY="213.0" opacity="0.54" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/portada_traveseira-sin_fondow.png" />
-               </image>
-               <effect>
-                  <Lighting diffuseConstant="1.11" specularConstant="0.75" specularExponent="38.35" surfaceScale="2.14">
-                     <bumpInput>
-                        <Shadow />
-                     </bumpInput>
-                     <light>
-                        <Light.Distant />
-                     </light>
-                  </Lighting>
-               </effect></ImageView>
-            <ImageView fitHeight="175.0" fitWidth="651.0" layoutX="676.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/motosave_logo_nombre4.png" />
-               </image>
-               <effect>
-                  <Lighting diffuseConstant="1.28" specularConstant="1.17" specularExponent="30.28" surfaceScale="3.61">
-                     <bumpInput>
-                        <Shadow height="21.06" radius="8.86" width="16.38" />
-                     </bumpInput>
-                     <light>
-                        <Light.Distant />
-                     </light>
-                  </Lighting>
-               </effect>
-            </ImageView>
+                <ImageView fitHeight="671.0" fitWidth="811.0" layoutX="656.0" layoutY="213.0" opacity="0.54"
+                           pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/portada_traveseira-sin_fondow.png"/>
+                    </image>
+                    <effect>
+                        <Lighting diffuseConstant="1.11" specularConstant="0.75" specularExponent="38.35"
+                                  surfaceScale="2.14">
+                            <bumpInput>
+                                <Shadow/>
+                            </bumpInput>
+                            <light>
+                                <Light.Distant/>
+                            </light>
+                        </Lighting>
+                    </effect>
+                </ImageView>
+                <ImageView fitHeight="175.0" fitWidth="651.0" layoutX="676.0" layoutY="47.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/motosave_logo_nombre4.png"/>
+                    </image>
+                    <effect>
+                        <Lighting diffuseConstant="1.28" specularConstant="1.17" specularExponent="30.28"
+                                  surfaceScale="3.61">
+                            <bumpInput>
+                                <Shadow height="21.06" radius="8.86" width="16.38"/>
+                            </bumpInput>
+                            <light>
+                                <Light.Distant/>
+                            </light>
+                        </Lighting>
+                    </effect>
+                </ImageView>
             </children>
         </Pane>
-        <Pane layoutX="13.0" layoutY="12.0" prefHeight="894.0" prefWidth="527.0" style="-fx-background-color: #374452; -fx-background-radius: 20;">
+        <Pane layoutX="13.0" layoutY="12.0" prefHeight="894.0" prefWidth="527.0"
+              style="-fx-background-color: #374452; -fx-background-radius: 20;">
             <children>
-                <TextField fx:id="TF_usuario" layoutX="118.0" layoutY="447.0" prefHeight="35.0" prefWidth="279.0" stylesheets="@../../../styles/estilo.css">
+                <TextField fx:id="TF_usuario" layoutX="118.0" layoutY="447.0" prefHeight="35.0" prefWidth="279.0"
+                           stylesheets="@../../../styles/estilo.css">
                     <font>
-                        <Font size="16.0" />
+                        <Font size="16.0"/>
                     </font>
                 </TextField>
-                <PasswordField fx:id="PF_contrasena" layoutX="118.0" layoutY="536.0" prefHeight="35.0" prefWidth="279.0" stylesheets="@../../../styles/estilo.css">
+                <PasswordField fx:id="PF_contrasena" layoutX="118.0" layoutY="536.0" prefHeight="35.0" prefWidth="279.0"
+                               stylesheets="@../../../styles/estilo.css">
                     <font>
-                        <Font size="16.0" />
+                        <Font size="16.0"/>
                     </font>
                 </PasswordField>
-                <Button fx:id="BTN_acceder" layoutX="118.0" layoutY="633.0" mnemonicParsing="false" onAction="#loggear" prefHeight="40.0" prefWidth="279.0" styleClass="boton-accion" stylesheets="@../../../styles/estilo.css" text="Login" textFill="WHITE">
+                <Button fx:id="BTN_acceder" layoutX="118.0" layoutY="633.0" mnemonicParsing="false" onAction="#loggear"
+                        prefHeight="40.0" prefWidth="279.0" styleClass="boton-accion"
+                        stylesheets="@../../../styles/estilo.css" text="Login" textFill="WHITE">
                     <font>
-                        <Font name="System Bold" size="19.0" />
+                        <Font name="System Bold" size="19.0"/>
                     </font>
                     <effect>
                         <DropShadow>
                             <color>
-                                <Color red="0.12631578743457794" green="0.11976607888936996" blue="0.11976607888936996" />
+                                <Color red="0.12631578743457794" green="0.11976607888936996"
+                                       blue="0.11976607888936996"/>
                             </color>
                         </DropShadow>
                     </effect>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
                 </Button>
                 <Label layoutX="118.0" layoutY="414.0" text="Introduce nombre de Usuario" textFill="#00b86b">
                     <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="System Bold" size="16.0"/>
                     </font>
                 </Label>
                 <Label layoutX="118.0" layoutY="505.0" text="Introduce tu Contraseña" textFill="#00b86b">
                     <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="System Bold" size="16.0"/>
                     </font>
                 </Label>
-                <Label layoutX="181.0" layoutY="294.0" prefHeight="70.0" prefWidth="156.0" text="LOGIN" textFill="#faf3f3">
+                <Label layoutX="181.0" layoutY="294.0" prefHeight="70.0" prefWidth="156.0" text="LOGIN"
+                       textFill="#faf3f3">
                     <font>
-                        <Font name="System Bold" size="48.0" />
+                        <Font name="System Bold" size="48.0"/>
                     </font>
                 </Label>
-                <Label fx:id="L_control_vacios" layoutX="116.0" layoutY="579.0" prefHeight="41.0" prefWidth="279.0" style="visibility: hidden;" text="Completa todos los campos." textFill="#b80000">
+                <Label fx:id="L_control_vacios" layoutX="116.0" layoutY="579.0" prefHeight="41.0" prefWidth="279.0"
+                       style="visibility: hidden;" text="Completa todos los campos." textFill="#b80000">
                     <font>
-                        <Font size="16.0" />
+                        <Font size="16.0"/>
                     </font>
                 </Label>
-                <Label fx:id="L_control_correcto" layoutX="116.0" layoutY="583.0" prefHeight="35.0" prefWidth="279.0" style="visibility: hidden;" text="Usuario o contraseña incorrectos." textFill="#b80000">
+                <Label fx:id="L_control_correcto" layoutX="116.0" layoutY="583.0" prefHeight="35.0" prefWidth="279.0"
+                       style="visibility: hidden;" text="Usuario o contraseña incorrectos." textFill="#b80000">
                     <font>
-                        <Font size="16.0" />
+                        <Font size="16.0"/>
                     </font>
                 </Label>
-            <ImageView fitHeight="190.0" fitWidth="200.0" layoutX="164.0" layoutY="63.0">
-               <image>
-                  <Image url="@../../../images/fotor-ai-2024020418187-removebg-preview.png" />
-               </image>
-            </ImageView>
+                <ImageView fitHeight="190.0" fitWidth="200.0" layoutX="164.0" layoutY="63.0">
+                    <image>
+                        <Image url="@../../../images/fotor-ai-2024020418187-removebg-preview.png"/>
+                    </image>
+                </ImageView>
             </children>
         </Pane>
     </children>

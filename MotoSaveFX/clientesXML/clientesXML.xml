@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clientes>
+    <cliente>
+        <id_cliente>1</id_cliente>
+        <nombre>MotoTodo</nombre>
+        <correo>mototodo@yahoo.com</correo>
+        <telefono>916370127</telefono>
+        <direccion>C/ Mar oceana 10, Las Rozas</direccion>
+    </cliente>
+    <cliente>
+        <id_cliente>2</id_cliente>
+        <nombre>SpeedMotos</nombre>
+        <correo>speedmotos@gmail.com</correo>
+        <telefono>914567897</telefono>
+        <direccion>Avenida Principe de Asturias 17, Fuencarral</direccion>
+    </cliente>
+    <cliente>
+        <id_cliente>3</id_cliente>
+        <nombre>Moto Racing</nombre>
+        <correo>motoracing@gmail.com</correo>
+        <telefono>919456785</telefono>
+        <direccion>C/ Mar de plata 11, Poligono Marconi, Parla</direccion>
+    </cliente>
+    <cliente>
+        <id_cliente>4</id_cliente>
+        <nombre>Moto Ocasion</nombre>
+        <correo>moto.ocasion@hotmail.com</correo>
+        <telefono>913456784</telefono>
+        <direccion>C/ Real 34, Nave 6, Colmenar Viejo</direccion>
+    </cliente>
+</clientes>

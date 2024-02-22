@@ -24,6 +24,7 @@ public class ImpComercialDAO implements ComercialDAO {
 
     /**
      * Verifica si un comercial puede iniciar sesión con el usuario y la contraseña proporcionados.
+     *
      * @param em         El EntityManager utilizado para realizar la operación.
      * @param contrasena La contraseña del comercial.
      * @param usuario    El nombre de usuario del comercial.
@@ -55,6 +56,7 @@ public class ImpComercialDAO implements ComercialDAO {
 
     /**
      * Agrega un nuevo comercial a la base de datos.
+     *
      * @param em        El EntityManager utilizado para realizar la operación.
      * @param comercial El comercial que se va a agregar.
      */
@@ -103,6 +105,7 @@ public class ImpComercialDAO implements ComercialDAO {
 
     /**
      * Elimina un comercial de la base de datos.
+     *
      * @param em        El EntityManager utilizado para realizar la operación.
      * @param comercial El comercial que se va a eliminar.
      */
@@ -121,6 +124,7 @@ public class ImpComercialDAO implements ComercialDAO {
 
     /**
      * Lista todos los comerciales almacenados en la base de datos.
+     *
      * @param em El EntityManager utilizado para realizar la operación.
      * @return Una lista de todos los comerciales almacenados.
      */

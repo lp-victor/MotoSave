@@ -1,225 +1,246 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.effect.BoxBlur?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-
-<Pane fx:id="P_comercialEstadisticas" prefWidth="1440.0" style="-fx-background-color: #1F2A36;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="motosave.motosavefx.controlador.AdminDashboardController">
-   <children>
-      <Pane prefHeight="920.0" prefWidth="311.0" style="-fx-background-color: #374452; -fx-background-radius: 0 30 30 0;">
-         <children>
-            <Button fx:id="BTN_salir" alignment="CENTER_RIGHT" layoutX="80.0" layoutY="824.0" mnemonicParsing="false" onAction="#cerrar_sesion" prefHeight="45.0" prefWidth="150.0" styleClass="boton-salir" stylesheets="@../../../styles/estilo.css" text="Salir    " textFill="RED">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="54.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/dashboard_icon.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="55.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/tieda_icon.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="55.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/comerciales_icon.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="30.0" fitWidth="36.0" layoutX="103.0" layoutY="832.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/exit_icon.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="177.0" fitWidth="186.0" layoutX="65.0" layoutY="24.0">
-               <image>
-                  <Image url="@../../../images/fotor-ai-2024020418187-removebg-preview.png" />
-               </image>
-            </ImageView>
-         </children>
-      </Pane>
-      <Separator layoutX="309.0" layoutY="97.0" prefHeight="4.0" prefWidth="1131.0">
-         <effect>
-            <BoxBlur height="4.77" width="0.0" />
-         </effect></Separator>
-      <Label layoutX="362.0" layoutY="42.0" text="Año:" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <ComboBox fx:id="CB_tiempo" layoutX="442.0" layoutY="40.0" prefWidth="150.0" stylesheets="@../../../styles/estilo.css" visibleRowCount="3">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ComboBox>
-      <Label layoutX="744.0" layoutY="18.0" text="DASHBOARD" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="42.0" />
-         </font>
-      </Label>
-      <HBox alignment="CENTER" layoutX="352.0" layoutY="198.0" prefHeight="371.0" prefWidth="1048.0">
-         <children>
-            <Pane prefHeight="371.0" prefWidth="445.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
-               <children>
-                  <BarChart fx:id="BC_ventas" layoutY="56.0" prefHeight="317.0" prefWidth="446.0">
-                    <xAxis>
-                      <NumberAxis minorTickCount="0" side="BOTTOM" tickLabelFill="WHITE">
-                           <tickLabelFont>
-                              <Font size="12.0" />
-                           </tickLabelFont></NumberAxis>
-                    </xAxis>
-                    <yAxis>
-                      <CategoryAxis prefHeight="255.0" prefWidth="74.0" side="LEFT" tickLabelFill="WHITE">
-                           <tickLabelFont>
-                              <Font size="10.0" />
-                           </tickLabelFont></CategoryAxis>
-                    </yAxis>
-                  </BarChart>
-                  <Label layoutX="38.0" layoutY="14.0" text="Ventas" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Label>
-               </children>
-               <HBox.margin>
-                  <Insets right="50.0" />
-               </HBox.margin>
-            </Pane>
-            <Pane prefHeight="371.0" prefWidth="445.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
-               <children>
-                  <LineChart fx:id="LC_liquido" layoutX="2.0" layoutY="56.0" prefHeight="317.0" prefWidth="446.0">
-                    <xAxis>
-                      <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis prefHeight="255.0" prefWidth="52.0" side="LEFT" tickLabelFill="#f7f4f4">
-                           <tickLabelFont>
-                              <Font size="12.0" />
-                           </tickLabelFont></NumberAxis>
-                    </yAxis>
-                  </LineChart>
-                  <Label layoutX="35.0" layoutY="14.0" text="Liquido" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Label>
-               </children>
-               <opaqueInsets>
-                  <Insets left="20.0" />
-               </opaqueInsets>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Pane>
-         </children>
-         <opaqueInsets>
-            <Insets right="10.0" />
-         </opaqueInsets>
-      </HBox>
-      <TableView fx:id="TV_comerciales" layoutX="408.0" layoutY="638.0" prefHeight="236.0" prefWidth="936.0" stylesheets="@../../../styles/estilo.css">
-         <columns>
-            <TableColumn fx:id="C_concesionario" prefWidth="191.0" resizable="false" text="Concesionario" />
-            <TableColumn fx:id="C_nombre" prefWidth="220.0" resizable="false" text="Nombre" />
-            <TableColumn fx:id="C_apellidos" prefWidth="218.0" resizable="false" text="Apellidos" />
-            <TableColumn fx:id="C_NIF" prefWidth="166.0" resizable="false" text="NIF" />
-            <TableColumn fx:id="C_usuario" prefWidth="140.0" resizable="false" text="Usuario" />
-         </columns>
-      </TableView>
-      <Button fx:id="BTN_stock" layoutX="78.0" layoutY="316.0" mnemonicParsing="false" onAction="#abrirStock" prefHeight="25.0" prefWidth="170.0" styleClass="boton-navBar" stylesheets="@../../../styles/estilo.css" text="Stock" textFill="#00b86b">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button layoutX="77.0" layoutY="246.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" styleClass="boton-navBar" stylesheets="@../../../styles/estilo.css" text="Dashboard" textFill="#00b86b">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button fx:id="BTN_comerciales" layoutX="78.0" layoutY="384.0" mnemonicParsing="false" onAction="#abrirComerciales" prefHeight="25.0" prefWidth="170.0" styleClass="boton-navBar" stylesheets="@../../../styles/estilo.css" text="Comerciales" textFill="#00b86b">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Label fx:id="L_indentificacion_comercial" layoutX="1289.0" layoutY="36.0" text="Administrador" textFill="WHITE">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="30.0" fitWidth="36.0" layoutX="1238.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/user_icon.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="742.0" layoutY="589.0" prefHeight="32.0" prefWidth="270.0" text="SELECCIONA COMERCIAL" textFill="#f4f3f3">
-         <font>
-            <Font name="System Bold" size="22.0" />
-         </font>
-      </Label>
-      <Button fx:id="BTN_restablecer" layoutX="1065.0" layoutY="590.0" mnemonicParsing="false" onAction="#restablecerSeleccionComercial" styleClass="boton-restablecer-filtros" stylesheets="@../../../styles/estilo.css" text="Restablecer Seleccion" textFill="#00b86b">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Pane layoutX="480.0" layoutY="124.0" prefHeight="52.0" prefWidth="795.0" style="-fx-background-color: #374452; -fx-background-radius: 10;">
-         <children>
-            <Label layoutX="25.0" layoutY="11.0" text="Más ventas del año:" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Label>
-            <Label fx:id="L_mas_ventas" alignment="CENTER" layoutX="252.0" layoutY="11.0" text="...." textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Label>
-            <Label layoutX="417.0" layoutY="11.0" text="Más valor del año:" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Label>
-            <Label fx:id="L_mas_liquido" alignment="CENTER" layoutX="638.0" layoutY="11.0" text="...." textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Label fx:id="L_error_anio" layoutX="472.0" layoutY="592.0" prefHeight="27.0" prefWidth="240.0" text="Selecciona un año." textFill="RED" visible="false">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-   </children>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<Pane xmlns:fx="http://javafx.com/fxml/1" fx:id="P_comercialEstadisticas" prefWidth="1440.0"
+      style="-fx-background-color: #1F2A36;" xmlns="http://javafx.com/javafx/21"
+      fx:controller="motosave.motosavefx.controlador.AdminDashboardController">
+    <children>
+        <Pane prefHeight="920.0" prefWidth="311.0"
+              style="-fx-background-color: #374452; -fx-background-radius: 0 30 30 0;">
+            <children>
+                <Button fx:id="BTN_salir" alignment="CENTER_RIGHT" layoutX="80.0" layoutY="824.0"
+                        mnemonicParsing="false" onAction="#cerrar_sesion" prefHeight="45.0" prefWidth="150.0"
+                        styleClass="boton-salir" stylesheets="@../../../styles/estilo.css" text="Salir    "
+                        textFill="RED">
+                    <font>
+                        <Font name="System Bold" size="18.0"/>
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </Button>
+                <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="54.0" layoutY="254.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/dashboard_icon.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="55.0" layoutY="324.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/tieda_icon.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="55.0" layoutY="393.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/comerciales_icon.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="30.0" fitWidth="36.0" layoutX="103.0" layoutY="832.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/exit_icon.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="177.0" fitWidth="186.0" layoutX="65.0" layoutY="24.0">
+                    <image>
+                        <Image url="@../../../images/fotor-ai-2024020418187-removebg-preview.png"/>
+                    </image>
+                </ImageView>
+            </children>
+        </Pane>
+        <Separator layoutX="309.0" layoutY="97.0" prefHeight="4.0" prefWidth="1131.0">
+            <effect>
+                <BoxBlur height="4.77" width="0.0"/>
+            </effect>
+        </Separator>
+        <Label layoutX="362.0" layoutY="42.0" text="Año:" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="18.0"/>
+            </font>
+        </Label>
+        <ComboBox fx:id="CB_tiempo" layoutX="442.0" layoutY="40.0" prefWidth="150.0"
+                  stylesheets="@../../../styles/estilo.css" visibleRowCount="3">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </ComboBox>
+        <Label layoutX="744.0" layoutY="18.0" text="DASHBOARD" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="42.0"/>
+            </font>
+        </Label>
+        <HBox alignment="CENTER" layoutX="352.0" layoutY="198.0" prefHeight="371.0" prefWidth="1048.0">
+            <children>
+                <Pane prefHeight="371.0" prefWidth="445.0"
+                      style="-fx-background-color: #374452; -fx-background-radius: 10;">
+                    <children>
+                        <BarChart fx:id="BC_ventas" layoutY="56.0" prefHeight="317.0" prefWidth="446.0">
+                            <xAxis>
+                                <NumberAxis minorTickCount="0" side="BOTTOM" tickLabelFill="WHITE">
+                                    <tickLabelFont>
+                                        <Font size="12.0"/>
+                                    </tickLabelFont>
+                                </NumberAxis>
+                            </xAxis>
+                            <yAxis>
+                                <CategoryAxis prefHeight="255.0" prefWidth="74.0" side="LEFT" tickLabelFill="WHITE">
+                                    <tickLabelFont>
+                                        <Font size="10.0"/>
+                                    </tickLabelFont>
+                                </CategoryAxis>
+                            </yAxis>
+                        </BarChart>
+                        <Label layoutX="38.0" layoutY="14.0" text="Ventas" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="20.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                    <HBox.margin>
+                        <Insets right="50.0"/>
+                    </HBox.margin>
+                </Pane>
+                <Pane prefHeight="371.0" prefWidth="445.0"
+                      style="-fx-background-color: #374452; -fx-background-radius: 10;">
+                    <children>
+                        <LineChart fx:id="LC_liquido" layoutX="2.0" layoutY="56.0" prefHeight="317.0" prefWidth="446.0">
+                            <xAxis>
+                                <CategoryAxis side="BOTTOM"/>
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis prefHeight="255.0" prefWidth="52.0" side="LEFT" tickLabelFill="#f7f4f4">
+                                    <tickLabelFont>
+                                        <Font size="12.0"/>
+                                    </tickLabelFont>
+                                </NumberAxis>
+                            </yAxis>
+                        </LineChart>
+                        <Label layoutX="35.0" layoutY="14.0" text="Liquido" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="20.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                    <opaqueInsets>
+                        <Insets left="20.0"/>
+                    </opaqueInsets>
+                    <HBox.margin>
+                        <Insets/>
+                    </HBox.margin>
+                </Pane>
+            </children>
+            <opaqueInsets>
+                <Insets right="10.0"/>
+            </opaqueInsets>
+        </HBox>
+        <TableView fx:id="TV_comerciales" layoutX="408.0" layoutY="638.0" prefHeight="236.0" prefWidth="936.0"
+                   stylesheets="@../../../styles/estilo.css">
+            <columns>
+                <TableColumn fx:id="C_concesionario" prefWidth="191.0" resizable="false" text="Concesionario"/>
+                <TableColumn fx:id="C_nombre" prefWidth="220.0" resizable="false" text="Nombre"/>
+                <TableColumn fx:id="C_apellidos" prefWidth="218.0" resizable="false" text="Apellidos"/>
+                <TableColumn fx:id="C_NIF" prefWidth="166.0" resizable="false" text="NIF"/>
+                <TableColumn fx:id="C_usuario" prefWidth="140.0" resizable="false" text="Usuario"/>
+            </columns>
+        </TableView>
+        <Button fx:id="BTN_stock" layoutX="78.0" layoutY="316.0" mnemonicParsing="false" onAction="#abrirStock"
+                prefHeight="25.0" prefWidth="170.0" styleClass="boton-navBar" stylesheets="@../../../styles/estilo.css"
+                text="Stock" textFill="#00b86b">
+            <font>
+                <Font name="System Bold" size="18.0"/>
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </Button>
+        <Button layoutX="77.0" layoutY="246.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0"
+                styleClass="boton-navBar" stylesheets="@../../../styles/estilo.css" text="Dashboard" textFill="#00b86b">
+            <font>
+                <Font name="System Bold" size="18.0"/>
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </Button>
+        <Button fx:id="BTN_comerciales" layoutX="78.0" layoutY="384.0" mnemonicParsing="false"
+                onAction="#abrirComerciales" prefHeight="25.0" prefWidth="170.0" styleClass="boton-navBar"
+                stylesheets="@../../../styles/estilo.css" text="Comerciales" textFill="#00b86b">
+            <font>
+                <Font name="System Bold" size="18.0"/>
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </Button>
+        <Label fx:id="L_indentificacion_comercial" layoutX="1289.0" layoutY="36.0" text="Administrador"
+               textFill="WHITE">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Label>
+        <ImageView fitHeight="30.0" fitWidth="36.0" layoutX="1238.0" layoutY="33.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <image>
+                <Image url="@../../../images/user_icon.png"/>
+            </image>
+        </ImageView>
+        <Label layoutX="742.0" layoutY="589.0" prefHeight="32.0" prefWidth="270.0" text="SELECCIONA COMERCIAL"
+               textFill="#f4f3f3">
+            <font>
+                <Font name="System Bold" size="22.0"/>
+            </font>
+        </Label>
+        <Button fx:id="BTN_restablecer" layoutX="1065.0" layoutY="590.0" mnemonicParsing="false"
+                onAction="#restablecerSeleccionComercial" styleClass="boton-restablecer-filtros"
+                stylesheets="@../../../styles/estilo.css" text="Restablecer Seleccion" textFill="#00b86b">
+            <font>
+                <Font name="System Bold" size="14.0"/>
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </Button>
+        <Pane layoutX="480.0" layoutY="124.0" prefHeight="52.0" prefWidth="795.0"
+              style="-fx-background-color: #374452; -fx-background-radius: 10;">
+            <children>
+                <Label layoutX="25.0" layoutY="11.0" text="Más ventas del año:" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="20.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="L_mas_ventas" alignment="CENTER" layoutX="252.0" layoutY="11.0" text="...."
+                       textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="20.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="417.0" layoutY="11.0" text="Más valor del año:" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="20.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="L_mas_liquido" alignment="CENTER" layoutX="638.0" layoutY="11.0" text="...."
+                       textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="20.0"/>
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+        <Label fx:id="L_error_anio" layoutX="472.0" layoutY="592.0" prefHeight="27.0" prefWidth="240.0"
+               text="Selecciona un año." textFill="RED" visible="false">
+            <font>
+                <Font name="System Bold" size="18.0"/>
+            </font>
+        </Label>
+    </children>
 </Pane>

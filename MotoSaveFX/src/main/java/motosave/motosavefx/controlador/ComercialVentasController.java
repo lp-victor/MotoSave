@@ -1,17 +1,19 @@
 package motosave.motosavefx.controlador;
 
+import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import motosave.DATA.ComercialLoggeado;
 import motosave.DATA.LOAD;
 import motosave.ImplementacionesDAO.ImpClienteDAO;
@@ -19,34 +21,34 @@ import motosave.ImplementacionesDAO.ImpConcesionarioDAO;
 import motosave.ImplementacionesDAO.ImpMotocicletaDAO;
 import motosave.ImplementacionesDAO.ImpVentaDAO;
 import motosave.Modelos.*;
+import motosave.Persistencia.ClienteXMLReader;
+import motosave.Persistencia.ClienteXMLWriter;
 import motosave.Persistencia.miEntityManager;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class ComercialVentasController implements Initializable {
 
-    ImpConcesionarioDAO concDAO;
-    ImpMotocicletaDAO motoDAO;
-    ImpVentaDAO ventaDAO;
-    ImpClienteDAO clienteDAO;
-    String concesionarioSeleccionado = "";
-    ObservableList<Motocicleta> motocicletasList;
-    ObservableList<Cliente> clientesList;
+    private ImpConcesionarioDAO concDAO;
+    private ImpMotocicletaDAO motoDAO;
+    private ImpVentaDAO ventaDAO;
+    private ImpClienteDAO clienteDAO;
+    private String concesionarioSeleccionado = "";
+    private ObservableList<Motocicleta> motocicletasList;
+    private ObservableList<Cliente> clientesList;
     private Comercial comercial;
+    private ClienteXMLWriter clienteXMLWriter;
+    private ClienteXMLReader clienteXMLReader;
+    private final String rutaXML = "clientesXML/clientesXML.xml";
 
-    @FXML
-    private Pane P_comercialVentas;
     @FXML
     private Button BTN_salir;
     @FXML
     private Button BTN_estadisticas;
-    @FXML
-    private Button BTN_limpiar;
-    @FXML
-    private Button BTN_vender;
-    @FXML
     private ComboBox CmB_concesionarios;
     @FXML
     private TableView<Motocicleta> T_tablaExistencias;
@@ -77,15 +79,13 @@ public class ComercialVentasController implements Initializable {
     @FXML
     private Label L_sede_comercial;
     @FXML
-    private Label L_control_telefono;
-    @FXML
-    private Label L_control_vacios;
-    @FXML
     private Label L_error_motocicleta;
     @FXML
     private Label L_error_cliente;
     @FXML
     private Label L_precio_total;
+    @FXML
+    private Label L_backup_ok;
 
 
     @Override
@@ -99,6 +99,8 @@ public class ComercialVentasController implements Initializable {
         comercial = ComercialLoggeado.getComercialLoggeado();
         L_indentificacion_comercial.setText(comercial.getNombre());
         L_sede_comercial.setText(String.valueOf(comercial.getConcesionario().getUbicacion()));
+        clienteXMLWriter = new ClienteXMLWriter();
+        clienteXMLReader = new ClienteXMLReader();
 
         cargarDatos();
     }
@@ -172,9 +174,9 @@ public class ComercialVentasController implements Initializable {
 
             Cliente cliente = T_tabla_clientes.getSelectionModel().getSelectedItem();
 
-            if (cliente == null){
+            if (cliente == null) {
                 L_error_cliente.setVisible(true);
-            }  else {
+            } else {
                 L_error_motocicleta.setVisible(false);
                 L_error_cliente.setVisible(false);
 
@@ -205,12 +207,73 @@ public class ComercialVentasController implements Initializable {
         L_error_cliente.setVisible(false);
     }
 
+    @FXML
+    private void calcularPrecioTotal() {
+        Motocicleta motocicleta = T_tablaExistencias.getSelectionModel().getSelectedItem();
+        if (motocicleta != null) {
+            L_precio_total.setVisible(true);
+            L_precio_total.setText("Precio total: " + cambiarPrecioMoto(motocicleta.getPrecio_compra()));
+            L_error_motocicleta.setVisible(false);
+            L_error_cliente.setVisible(false);
+        }
+    }
+
+    @FXML
+
+    public void recuperarBackUp(ActionEvent actionEvent) {
+        T_tabla_clientes.getItems().clear();
+        // Utilizamos PauseTransition para no bloquear el hilo de la interfaz
+        // de esta manera logramos un efecto de carga tras recuperar los datos del xml.
+        PauseTransition pause = new PauseTransition(Duration.seconds(5));
+        Scene scene = BTN_estadisticas.getScene();
+        scene.setCursor(Cursor.WAIT);
+        pause.setOnFinished(event -> {
+            List<Cliente> clientes = clienteXMLReader.leerXML(rutaXML);
+            if (clientes != null) {
+                for (Cliente cliente : clientes) {
+                    clientesList.add(cliente);
+                }
+                scene.setCursor(Cursor.DEFAULT);
+            }
+            T_tabla_clientes.setItems(clientesList);
+        });
+        pause.play();
+
+        // Opcion 1
+        // Colisiona con el hilo de la interfaz y da InterruptedException
+//         try {
+//             wait(5000);
+//         } catch (InterruptedException e) {
+//             throw new RuntimeException(e);
+//         }
+//
+//         for (Cliente cliente : clienteXMLReader.leerXML(rutaXML)) {
+//             clientesList.add(cliente);
+//         }
+//
+//         T_tabla_clientes.setItems(clientesList);
+    }
+
+    @FXML
+    public void hacerBackUp(ActionEvent actionEvent) {
+        clienteXMLWriter.escribirXML(clientesList, rutaXML);
+        // Utilizamos de nuevo PauseTransition para dar un feedback al usuario
+        // y que sepa que se ha realizado correctamente el back up.
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        L_backup_ok.setVisible(true);
+        pause.setOnFinished(event -> {
+            L_backup_ok.setVisible(false);
+        });
+        pause.play();
+
+    }
+
     private void llenarComboBoxConcesionarios(ComboBox<Concesionario> comboBox) {
         List<Concesionario> concesionarios = concDAO.listarConcesionarios(miEntityManager.getEntityManager());
         comboBox.getItems().addAll(concesionarios);
     }
 
-    private void cargarDatos (){
+    private void cargarDatos() {
         llenarComboBoxConcesionarios(CmB_concesionarios);
 
         CmB_concesionarios.setOnAction(event -> cargarMotocicletasSegunConcesionarioSeleccionado());
@@ -244,7 +307,7 @@ public class ComercialVentasController implements Initializable {
         }
         T_tablaExistencias.getItems().clear();
 
-        if ( motocicletas != null) {
+        if (motocicletas != null) {
             for (Motocicleta moto : motocicletas) {
                 motocicletasList.add(moto);
             }
@@ -264,10 +327,10 @@ public class ComercialVentasController implements Initializable {
         T_tablaExistencias.setItems(motocicletasList);
     }
 
-    private double cambiarPrecioMoto (double precio) {
+    private double cambiarPrecioMoto(double precio) {
         precio = precio * LOAD.beneficio;
-        if(precio%1 != 0){
-            precio= Double.parseDouble(String.valueOf((int) precio));
+        if (precio % 1 != 0) {
+            precio = Double.parseDouble(String.valueOf((int) precio));
         }
         return precio;
     }
@@ -282,17 +345,6 @@ public class ComercialVentasController implements Initializable {
         }
 
         T_tabla_clientes.setItems(clientesList);
-    }
-
-    @FXML
-    private void calcularPrecioTotal() {
-        Motocicleta motocicleta = T_tablaExistencias.getSelectionModel().getSelectedItem();
-        if (motocicleta != null){
-            L_precio_total.setVisible(true);
-            L_precio_total.setText("Precio total: " + cambiarPrecioMoto(motocicleta.getPrecio_compra()));
-            L_error_motocicleta.setVisible(false);
-            L_error_cliente.setVisible(false);
-        }
     }
 
 }

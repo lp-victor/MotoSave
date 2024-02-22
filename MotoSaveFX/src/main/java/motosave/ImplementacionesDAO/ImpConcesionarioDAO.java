@@ -5,10 +5,8 @@
 package motosave.ImplementacionesDAO;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
 import motosave.DAO.ConcesionarioDAO;
 import motosave.Modelos.Concesionario;
-import motosave.Modelos.Motocicleta;
 
 import java.util.List;
 
@@ -21,6 +19,7 @@ public class ImpConcesionarioDAO implements ConcesionarioDAO {
 
     /**
      * Agrega un nuevo concesionario a la base de datos.
+     *
      * @param conc          El concesionario que se va a agregar.
      * @param entityManager El EntityManager utilizado para realizar la operación.
      */
@@ -39,52 +38,9 @@ public class ImpConcesionarioDAO implements ConcesionarioDAO {
         }
     }
 
-    @Override
-    public void eliminarConcesionario(EntityManager em) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     * Lista los nombres de todos los concesionarios almacenados en la base de datos.
-     * @param em El EntityManager utilizado para realizar la operación.
-     * @return Una lista de los nombres de los concesionarios almacenados.
-     */
-    @Override
-    public List<String> listarNombreConcesionarios(EntityManager em) {
-        try {
-            // Consulta JPQL para obtener los nombres de los concesionarios
-            List<String> nombresConcesionarios = em.createQuery("SELECT c.ubicacion FROM Concesionario c", String.class)
-                    .getResultList();
-
-            return nombresConcesionarios;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    /**
-     * Buscar un Concesionario por el id_Concesionario
-     * @param em
-     * @param id_concesionario
-     * @return Concesionario
-     */
-    @Override
-    public Concesionario buscarConcesionario(EntityManager em, int id_concesionario) {
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-
-        try {
-            Concesionario concesionario = em.find(Concesionario.class, id_concesionario);
-            transaction.commit();
-            return concesionario;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
-    }
-
     /**
      * Lista todos los concesionarios disponibles.
+     *
      * @param em
      * @return Lista de Concesionarios
      */

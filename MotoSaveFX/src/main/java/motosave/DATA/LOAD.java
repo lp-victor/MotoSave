@@ -10,7 +10,6 @@ import motosave.ImplementacionesDAO.*;
 import motosave.Modelos.*;
 import motosave.Persistencia.miEntityManager;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,10 +48,10 @@ public class LOAD {
 
     // Clientes
 
-    Cliente cliente1 = new Cliente("MotoTodo","mototodo@yahoo.com",916370127,"C/ Mar oceana 10, Las Rozas");
-    Cliente cliente2 = new Cliente("SpeedMotos","speedmotos@gmail.com",914567897,"Avenida Principe de Asturias 17, Fuencarral");
-    Cliente cliente3 = new Cliente("Moto Racing","motoracing@gmail.com",919456785,"C/ Mar de plata 11, Poligono Marconi, Parla");
-    Cliente cliente4 = new Cliente("Moto Ocasion","moto.ocasion@hotmail.com",913456784,"C/ Real 34, Nave 6, Colmenar Viejo");
+    Cliente cliente1 = new Cliente("MotoTodo", "mototodo@yahoo.com", 916370127, "C/ Mar oceana 10, Las Rozas");
+    Cliente cliente2 = new Cliente("SpeedMotos", "speedmotos@gmail.com", 914567897, "Avenida Principe de Asturias 17, Fuencarral");
+    Cliente cliente3 = new Cliente("Moto Racing", "motoracing@gmail.com", 919456785, "C/ Mar de plata 11, Poligono Marconi, Parla");
+    Cliente cliente4 = new Cliente("Moto Ocasion", "moto.ocasion@hotmail.com", 913456784, "C/ Real 34, Nave 6, Colmenar Viejo");
 
 
     // Motos
@@ -67,7 +66,7 @@ public class LOAD {
     ArrayList<Motocicleta> motos7 = factoryMoto.fabricarMotos(YAMAHA, ModelosYAMAHA.VMAX.toString(), NEGRO, 5);
     ArrayList<Motocicleta> motos8 = factoryMoto.fabricarMotos(DAISVI, ModelosDAISVI.TRAVESEIRA.toString(), AZUL, 5);
     ArrayList<Motocicleta> motos9 = factoryMoto.fabricarMotos(DAISVI, ModelosDAISVI.BELMONTER.toString(), VERDE, 5);
-    ArrayList<Motocicleta> motos10 = factoryMoto.fabricarMotos(DAISVI, ModelosDAISVI.RAPID_LIM.toString(),NEGRO , 5);
+    ArrayList<Motocicleta> motos10 = factoryMoto.fabricarMotos(DAISVI, ModelosDAISVI.RAPID_LIM.toString(), NEGRO, 5);
     ArrayList<Motocicleta> motos11 = factoryMoto.fabricarMotos(DAISVI, ModelosDAISVI.RUBENTURE.toString(), ROJO, 5);
     ArrayList<Motocicleta> motos12 = factoryMoto.fabricarMotos(DAISVI, ModelosDAISVI.SUPATRI.toString(), VERDE, 5);
     ArrayList<Motocicleta> motos13 = factoryMoto.fabricarMotos(DUCATI, ModelosDUCATI.PANIGALE.toString(), ROJO, 5);
@@ -79,13 +78,13 @@ public class LOAD {
     ArrayList<Motocicleta> motos19 = factoryMoto.fabricarMotos(SUZUKI, ModelosSUZUKI.V_STROM.toString(), AZUL, 5);
     ArrayList<Motocicleta> motos20 = factoryMoto.fabricarMotos(KAWASAKI, ModelosKAWASAKI.NINJA.toString(), VERDE, 5);
     ArrayList<Motocicleta> motos21 = factoryMoto.fabricarMotos(KAWASAKI, ModelosKAWASAKI.VULCAN.toString(), NEGRO, 5);
-    ArrayList<Motocicleta> motos22 = factoryMoto.fabricarMotos(KAWASAKI, ModelosKAWASAKI.ZH2.toString(),VERDE, 5);
+    ArrayList<Motocicleta> motos22 = factoryMoto.fabricarMotos(KAWASAKI, ModelosKAWASAKI.ZH2.toString(), VERDE, 5);
     ArrayList<Motocicleta> motos23 = factoryMoto.fabricarMotos(BMW, ModelosBMW.RT.toString(), GRIS, 5);
     ArrayList<Motocicleta> motos24 = factoryMoto.fabricarMotos(BMW, ModelosBMW.NINE_T.toString(), NEGRO, 5);
     ArrayList<Motocicleta> motos25 = factoryMoto.fabricarMotos(BMW, ModelosBMW.GS.toString(), BLANCO, 5);
     ArrayList<Motocicleta> motos26 = factoryMoto.fabricarMotos(BMW, ModelosBMW.ADVENTURE.toString(), AZUL, 5);
     ArrayList<Motocicleta> motos27 = factoryMoto.fabricarMotos(KTM, ModelosKTM.EXC.toString(), NARANJA, 5);
-    ArrayList<Motocicleta> motos28 = factoryMoto.fabricarMotos(KTM, ModelosKTM.DUKE.toString(),NARANJA, 5);
+    ArrayList<Motocicleta> motos28 = factoryMoto.fabricarMotos(KTM, ModelosKTM.DUKE.toString(), NARANJA, 5);
     ArrayList<Motocicleta> motos29 = factoryMoto.fabricarMotos(KTM, ModelosKTM.RC.toString(), NEGRO, 5);
 
     // Creacion de datos para poder usar la aplicacion
@@ -233,22 +232,22 @@ public class LOAD {
         Calendar calendar = Calendar.getInstance();
 
         // Hace 1 mes
-                calendar.add(Calendar.MONTH, -1);
-                Date haceUnMes = calendar.getTime();
+        calendar.add(Calendar.MONTH, -1);
+        Date haceUnMes = calendar.getTime();
 
         // Restablece la fecha actual
-                calendar.setTime(new Date());
+        calendar.setTime(new Date());
 
         // Hace 6 meses
-                calendar.add(Calendar.MONTH, -6);
-                Date haceSeisMeses = calendar.getTime();
+        calendar.add(Calendar.MONTH, -6);
+        Date haceSeisMeses = calendar.getTime();
 
         // Restablece la fecha actual
-                calendar.setTime(new Date());
+        calendar.setTime(new Date());
 
         // Hace 8 meses
-                calendar.add(Calendar.MONTH, -8);
-                Date haceOchoMeses = calendar.getTime();
+        calendar.add(Calendar.MONTH, -8);
+        Date haceOchoMeses = calendar.getTime();
 
         // Hace 2 años
         calendar.add(Calendar.MONTH, -17);
@@ -257,30 +256,30 @@ public class LOAD {
         // Restablece la fecha actual
         calendar.setTime(new Date());
 
-        Venta ventaHaceUnMes1 = new Venta(haceUnMes, c1, motos1.get(3), cambiarPrecioMoto (motos1.get(3).getPrecio_compra()), cliente1);
-        Venta ventaHaceUnMes2 = new Venta(haceUnMes, c1, motos4.get(1), cambiarPrecioMoto (motos4.get(1).getPrecio_compra()), cliente2);
-        Venta ventaHaceUnMes3 = new Venta(haceUnMes, c3, motos2.get(4), cambiarPrecioMoto (motos2.get(4).getPrecio_compra()), cliente3);
-        Venta ventaHaceUnMes4 = new Venta(haceUnMes, c2, motos7.get(2), cambiarPrecioMoto (motos7.get(2).getPrecio_compra()), cliente4);
-        Venta ventaHaceUnMes5 = new Venta(haceUnMes, c3, motos13.get(2), cambiarPrecioMoto (motos13.get(2).getPrecio_compra()), cliente3);
+        Venta ventaHaceUnMes1 = new Venta(haceUnMes, c1, motos1.get(3), cambiarPrecioMoto(motos1.get(3).getPrecio_compra()), cliente1);
+        Venta ventaHaceUnMes2 = new Venta(haceUnMes, c1, motos4.get(1), cambiarPrecioMoto(motos4.get(1).getPrecio_compra()), cliente2);
+        Venta ventaHaceUnMes3 = new Venta(haceUnMes, c3, motos2.get(4), cambiarPrecioMoto(motos2.get(4).getPrecio_compra()), cliente3);
+        Venta ventaHaceUnMes4 = new Venta(haceUnMes, c2, motos7.get(2), cambiarPrecioMoto(motos7.get(2).getPrecio_compra()), cliente4);
+        Venta ventaHaceUnMes5 = new Venta(haceUnMes, c3, motos13.get(2), cambiarPrecioMoto(motos13.get(2).getPrecio_compra()), cliente3);
 
-        Venta ventaHaceSeisMeses1 = new Venta(haceSeisMeses, c3, motos29.get(2), cambiarPrecioMoto (motos29.get(2).getPrecio_compra()), cliente2);
-        Venta ventaHaceSeisMeses2 = new Venta(haceSeisMeses, c1, motos26.get(2), cambiarPrecioMoto (motos26.get(2).getPrecio_compra()), cliente1);
-        Venta ventaHaceSeisMeses3 = new Venta(haceSeisMeses, c3, motos23.get(2), cambiarPrecioMoto (motos23.get(2).getPrecio_compra()), cliente1);
-        Venta ventaHaceSeisMeses4 = new Venta(haceSeisMeses, c3, motos22.get(2), cambiarPrecioMoto (motos22.get(2).getPrecio_compra()), cliente2);
-        Venta ventaHaceSeisMeses5 = new Venta(haceSeisMeses, c1, motos21.get(2), cambiarPrecioMoto (motos21.get(2).getPrecio_compra()), cliente3);
+        Venta ventaHaceSeisMeses1 = new Venta(haceSeisMeses, c3, motos29.get(2), cambiarPrecioMoto(motos29.get(2).getPrecio_compra()), cliente2);
+        Venta ventaHaceSeisMeses2 = new Venta(haceSeisMeses, c1, motos26.get(2), cambiarPrecioMoto(motos26.get(2).getPrecio_compra()), cliente1);
+        Venta ventaHaceSeisMeses3 = new Venta(haceSeisMeses, c3, motos23.get(2), cambiarPrecioMoto(motos23.get(2).getPrecio_compra()), cliente1);
+        Venta ventaHaceSeisMeses4 = new Venta(haceSeisMeses, c3, motos22.get(2), cambiarPrecioMoto(motos22.get(2).getPrecio_compra()), cliente2);
+        Venta ventaHaceSeisMeses5 = new Venta(haceSeisMeses, c1, motos21.get(2), cambiarPrecioMoto(motos21.get(2).getPrecio_compra()), cliente3);
 
-        Venta ventaHaceOchoMeses1 = new Venta(haceOchoMeses, c2, motos12.get(1), cambiarPrecioMoto (motos12.get(1).getPrecio_compra()), cliente4);
-        Venta ventaHaceOchoMeses2 = new Venta(haceOchoMeses, c3, motos5.get(3), cambiarPrecioMoto (motos5.get(3).getPrecio_compra()), cliente2);
-        Venta ventaHaceOchoMeses3 = new Venta(haceOchoMeses, c2, motos16.get(2), cambiarPrecioMoto (motos16.get(2).getPrecio_compra()), cliente3);
-        Venta ventaHaceOchoMeses4 = new Venta(haceOchoMeses, c3, motos17.get(1), cambiarPrecioMoto (motos17.get(1).getPrecio_compra()), cliente1);
-        Venta ventaHaceOchoMeses5 = new Venta(haceOchoMeses, c2, motos12.get(4), cambiarPrecioMoto (motos12.get(4).getPrecio_compra()), cliente2);
-        Venta ventaHaceOchoMeses6 = new Venta(haceOchoMeses, c1, motos11.getFirst(), cambiarPrecioMoto (motos11.getFirst().getPrecio_compra()), cliente1);
+        Venta ventaHaceOchoMeses1 = new Venta(haceOchoMeses, c2, motos12.get(1), cambiarPrecioMoto(motos12.get(1).getPrecio_compra()), cliente4);
+        Venta ventaHaceOchoMeses2 = new Venta(haceOchoMeses, c3, motos5.get(3), cambiarPrecioMoto(motos5.get(3).getPrecio_compra()), cliente2);
+        Venta ventaHaceOchoMeses3 = new Venta(haceOchoMeses, c2, motos16.get(2), cambiarPrecioMoto(motos16.get(2).getPrecio_compra()), cliente3);
+        Venta ventaHaceOchoMeses4 = new Venta(haceOchoMeses, c3, motos17.get(1), cambiarPrecioMoto(motos17.get(1).getPrecio_compra()), cliente1);
+        Venta ventaHaceOchoMeses5 = new Venta(haceOchoMeses, c2, motos12.get(4), cambiarPrecioMoto(motos12.get(4).getPrecio_compra()), cliente2);
+        Venta ventaHaceOchoMeses6 = new Venta(haceOchoMeses, c1, motos11.getFirst(), cambiarPrecioMoto(motos11.getFirst().getPrecio_compra()), cliente1);
 
-        Venta ventahaceDosAnios1 = new Venta(haceDosAnios, c3, motos5.get(2), cambiarPrecioMoto (motos5.get(2).getPrecio_compra()), cliente2);
-        Venta ventahaceDosAnios2 = new Venta(haceDosAnios, c2, motos16.get(3), cambiarPrecioMoto (motos16.get(3).getPrecio_compra()), cliente3);
-        Venta ventahaceDosAnios3 = new Venta(haceDosAnios, c3, motos17.get(2), cambiarPrecioMoto (motos17.get(2).getPrecio_compra()), cliente1);
-        Venta ventahaceDosAnios4 = new Venta(haceDosAnios, c2, motos12.get(3), cambiarPrecioMoto (motos12.get(3).getPrecio_compra()), cliente2);
-        Venta ventahaceDosAnios5 = new Venta(haceDosAnios, c1, motos10.getFirst(), cambiarPrecioMoto (motos10.getFirst().getPrecio_compra()), cliente1);
+        Venta ventahaceDosAnios1 = new Venta(haceDosAnios, c3, motos5.get(2), cambiarPrecioMoto(motos5.get(2).getPrecio_compra()), cliente2);
+        Venta ventahaceDosAnios2 = new Venta(haceDosAnios, c2, motos16.get(3), cambiarPrecioMoto(motos16.get(3).getPrecio_compra()), cliente3);
+        Venta ventahaceDosAnios3 = new Venta(haceDosAnios, c3, motos17.get(2), cambiarPrecioMoto(motos17.get(2).getPrecio_compra()), cliente1);
+        Venta ventahaceDosAnios4 = new Venta(haceDosAnios, c2, motos12.get(3), cambiarPrecioMoto(motos12.get(3).getPrecio_compra()), cliente2);
+        Venta ventahaceDosAnios5 = new Venta(haceDosAnios, c1, motos10.getFirst(), cambiarPrecioMoto(motos10.getFirst().getPrecio_compra()), cliente1);
 
         ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaHaceUnMes1);
         ventaDAO.realizarVenta(miEntityManager.getEntityManager(), ventaHaceUnMes2);
@@ -309,10 +308,10 @@ public class LOAD {
 
     }
 
-    private double cambiarPrecioMoto (double precio) {
+    private double cambiarPrecioMoto(double precio) {
         precio = precio * LOAD.beneficio;
-        if(precio%1 != 0){
-            precio= Double.parseDouble(String.valueOf((int) precio));
+        if (precio % 1 != 0) {
+            precio = Double.parseDouble(String.valueOf((int) precio));
         }
         return precio;
     }

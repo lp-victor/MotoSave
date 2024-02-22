@@ -13,10 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import motosave.ImplementacionesDAO.ImpComercialDAO;
 import motosave.ImplementacionesDAO.ImpConcesionarioDAO;
-import motosave.Modelos.Cliente;
 import motosave.Modelos.Comercial;
 import motosave.Modelos.Concesionario;
-import motosave.Modelos.Motocicleta;
 import motosave.Persistencia.miEntityManager;
 
 import java.io.IOException;
@@ -26,11 +24,10 @@ import java.util.ResourceBundle;
 
 public class AdminComercialesController implements Initializable {
 
+    ObservableList<Comercial> comercialesList;
     private Comercial comercial;
     private ImpComercialDAO comDAO;
     private ImpConcesionarioDAO concDAO;
-    ObservableList<Comercial> comercialesList;
-
     @FXML
     private ComboBox<Concesionario> CmB_concesionario;
     @FXML
@@ -46,10 +43,6 @@ public class AdminComercialesController implements Initializable {
     @FXML
     private PasswordField PF_pass2;
     @FXML
-    private Button BTN_agregar;
-    @FXML
-    private Button BTN_eliminar;
-    @FXML
     private Button BTN_salir;
     @FXML
     private TableView<Comercial> TV_comerciales;
@@ -57,8 +50,6 @@ public class AdminComercialesController implements Initializable {
     private Button BTN_dashboard;
     @FXML
     private Button BTN_stock;
-    @FXML
-    private Label L_indentificacion_comercial;
     @FXML
     private TableColumn<Comercial, String> C_nombre;
     @FXML
@@ -86,10 +77,10 @@ public class AdminComercialesController implements Initializable {
         concDAO = new ImpConcesionarioDAO();
         comercialesList = FXCollections.observableArrayList();
 
-        cargarDatos ();
+        cargarDatos();
     }
 
-    private void cargarDatos (){
+    private void cargarDatos() {
         llenarComboBoxConcesionarios(CmB_concesionario);
 
         C_nombre.setCellValueFactory(new PropertyValueFactory<Comercial, String>("nombre"));
@@ -112,9 +103,9 @@ public class AdminComercialesController implements Initializable {
         Concesionario concesionario = CmB_concesionario.getValue();
         if (concesionario == null) {
             L_error_concesionario.setVisible(true);
-        } else if (TF_usuario.getText().isBlank() || PF_pass1.getText().isBlank() ||TF_NIF.getText().isBlank() ||TF_nombre.getText().isBlank() ||TF_apellidos.getText().isBlank() ||PF_pass2.getText().isBlank()){
+        } else if (TF_usuario.getText().isBlank() || PF_pass1.getText().isBlank() || TF_NIF.getText().isBlank() || TF_nombre.getText().isBlank() || TF_apellidos.getText().isBlank() || PF_pass2.getText().isBlank()) {
             L_error_campos.setVisible(true);
-        }else if (!PF_pass1.getText().equals(PF_pass2.getText())){
+        } else if (!PF_pass1.getText().equals(PF_pass2.getText())) {
             L_error_contrasenas.setVisible(true);
         } else if (comDAO.buscarUsuarioComercial(miEntityManager.getEntityManager(), TF_usuario.getText())) {
             L_error_usuario.setVisible(true);

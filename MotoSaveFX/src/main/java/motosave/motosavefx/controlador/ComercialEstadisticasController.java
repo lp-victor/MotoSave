@@ -3,7 +3,6 @@ package motosave.motosavefx.controlador;
 import jakarta.persistence.EntityManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -40,8 +39,6 @@ public class ComercialEstadisticasController implements Initializable {
     private Comercial comercial;
     private EntityManager miEntity;
     @FXML
-    private Label L_ventas_anuales;
-    @FXML
     private Button BTN_ventas;
     @FXML
     private Label L_bienvenido;
@@ -53,8 +50,6 @@ public class ComercialEstadisticasController implements Initializable {
     private Label L_sede_comercial;
     @FXML
     private Label L_indentificacion_comercial;
-    @FXML
-    private Label L_liquido_anual;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

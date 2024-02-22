@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,9 +14,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import motosave.DATA.ComercialLoggeado;
 import motosave.ImplementacionesDAO.ImpComercialDAO;
 import motosave.ImplementacionesDAO.ImpVentaDAO;
 import motosave.Modelos.Comercial;
@@ -33,15 +30,13 @@ import java.util.*;
 
 public class AdminDashboardController implements Initializable {
 
-    ImpComercialDAO comDAO;
-    ImpVentaDAO ventaDAO;
-
-    ObservableList<Comercial> comercialesList ;
-    Comercial comercialSeleccionado;
-
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final String[] NOMBRES_MESES = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
             "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+    ImpComercialDAO comDAO;
+    ImpVentaDAO ventaDAO;
+    ObservableList<Comercial> comercialesList;
+    Comercial comercialSeleccionado;
     @FXML
     private ComboBox<String> CB_tiempo;
     @FXML
@@ -50,10 +45,6 @@ public class AdminDashboardController implements Initializable {
     private Button BTN_stock;
     @FXML
     private Button BTN_salir;
-    @FXML
-    private Label L_indentificacion_comercial;
-    @FXML
-    private Pane P_comercialEstadisticas;
     @FXML
     private Label L_mas_liquido;
     @FXML
@@ -75,8 +66,6 @@ public class AdminDashboardController implements Initializable {
     @FXML
     private LineChart<String, Number> LC_liquido;
     @FXML
-    private Button BTN_restablecer;
-    @FXML
     private Label L_error_anio;
 
     @Override
@@ -85,7 +74,7 @@ public class AdminDashboardController implements Initializable {
         ventaDAO = new ImpVentaDAO();
         comercialesList = FXCollections.observableArrayList();
         comercialSeleccionado = null;
-        cargarDatos ();
+        cargarDatos();
 
         TV_comerciales.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
@@ -103,7 +92,7 @@ public class AdminDashboardController implements Initializable {
         rellenarVentasAnio(comercialSeleccionado);
     }
 
-    private void cargarDatos (){
+    private void cargarDatos() {
         llenarComboBoxAnios();
 
         // Tabla existencias
@@ -132,7 +121,7 @@ public class AdminDashboardController implements Initializable {
 
     // ============================ POR TERMINAR ====================================
 
-    private void llenarComboBoxAnios(){
+    private void llenarComboBoxAnios() {
         CB_tiempo.getItems().addAll("2024", "2023", "2022");
     }
 
@@ -140,7 +129,7 @@ public class AdminDashboardController implements Initializable {
         String anioSeleccionado = CB_tiempo.getValue();
         List<Venta> ventasAnio;
 
-        if(comercialSeleccionado != null) {
+        if (comercialSeleccionado != null) {
             // Si hay un comercial seleccionado, obtener ventas solo para ese comercial
             ventasAnio = obtenerVentasPorAnioComercial(anioSeleccionado, comercialSeleccionado);
         } else {
@@ -180,7 +169,7 @@ public class AdminDashboardController implements Initializable {
         LocalDate fechaInicio = null;
         LocalDate fechaFin = null;
 
-        if ( anio != null) {
+        if (anio != null) {
             L_error_anio.setVisible(false);
             fechaInicio = LocalDate.parse(anio + "-01-01", FORMATTER);
             fechaFin = LocalDate.parse(anio + "-12-31", FORMATTER);
@@ -188,8 +177,8 @@ public class AdminDashboardController implements Initializable {
             L_error_anio.setVisible(true);
         }
 
-        if(comercial != null) {
-           todasLasVentasComercial = ventaDAO.listarVentasComercial(miEntityManager.getEntityManager(), comercial.getId_comercial());
+        if (comercial != null) {
+            todasLasVentasComercial = ventaDAO.listarVentasComercial(miEntityManager.getEntityManager(), comercial.getId_comercial());
         }
         if (todasLasVentasComercial != null) {
             for (Venta venta : todasLasVentasComercial) {
@@ -209,10 +198,10 @@ public class AdminDashboardController implements Initializable {
             Comercial comercial = venta.getComercial();
             LocalDate fechaVenta = convertirALocalDate(venta.getFecha_venta()); // Transformamos la fecha al formato yy-MM-dd
             int[] contadorMeses = ventasPorComercialYMes.getOrDefault(comercial, new int[12]); // Recoge o crea un array de ventas
-                                                                                                          // para cada comercial (default int[12])
+            // para cada comercial (default int[12])
 
             contadorMeses[fechaVenta.getMonthValue() - 1]++; // Rellena el numero ventas por mes (resta 1 para que los valores
-                                                            //  coincidan con los correspondientes en el Array)
+            //  coincidan con los correspondientes en el Array)
 
             ventasPorComercialYMes.put(comercial, contadorMeses); // Completa el HashMap
         }
@@ -220,11 +209,11 @@ public class AdminDashboardController implements Initializable {
 
         Platform.runLater(() -> { // Controla que la tabla solo se actualize en el hilo de JavaFX
             BC_ventas.getData().clear(); // Limpia los datos anteriores si hubiere
-            if(comercialSeleccionado == null) {
+            if (comercialSeleccionado == null) {
                 ventasPorComercialYMes.forEach((comercial, ventasMes) -> {
                     XYChart.Series<Number, String> set = new XYChart.Series<>();
 
-                    if (comercial != null){
+                    if (comercial != null) {
                         set.setName(comercial.getNombre()); // Establece la leyenda (comercial)
                     }
 
@@ -349,7 +338,7 @@ public class AdminDashboardController implements Initializable {
         return LocalDate.of(year, month, day);
     }
 
-// ====================================================================
+    // ====================================================================
     @FXML
     public void abrirStock(ActionEvent actionEvent) {
         try {

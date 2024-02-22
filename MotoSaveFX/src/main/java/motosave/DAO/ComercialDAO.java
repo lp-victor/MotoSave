@@ -14,15 +14,16 @@ import java.util.ArrayList;
  */
 public interface ComercialDAO {
 
-    public abstract boolean loggearComercial(EntityManager em, String contraseña, String usuario);
+    boolean loggearComercial(EntityManager em, String contraseña, String usuario);
 
-    public abstract void anadirComercial(EntityManager em, Comercial comercial);
+    void anadirComercial(EntityManager em, Comercial comercial);
 
-    public abstract boolean buscarNIFComercial(EntityManager em, String usuario);
-    public abstract boolean buscarUsuarioComercial(EntityManager em, String NIF);
+    boolean buscarNIFComercial(EntityManager em, String usuario);
 
-    public abstract void eliminarComercial(EntityManager em, Comercial comercial);
+    boolean buscarUsuarioComercial(EntityManager em, String NIF);
 
-    public abstract ArrayList<Comercial> listarComerciales(EntityManager em);
+    void eliminarComercial(EntityManager em, Comercial comercial);
+
+    ArrayList<Comercial> listarComerciales(EntityManager em);
 
 }
