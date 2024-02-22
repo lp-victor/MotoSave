@@ -51,6 +51,7 @@ public class ComercialVentasController implements Initializable {
     private Button BTN_salir;
     @FXML
     private Button BTN_estadisticas;
+    @FXML
     private ComboBox CmB_concesionarios;
     @FXML
     private TableView<Motocicleta> T_tablaExistencias;
@@ -88,6 +89,10 @@ public class ComercialVentasController implements Initializable {
     private Label L_precio_total;
     @FXML
     private Label L_backup_ok;
+    @FXML
+    private Button BTN_limpiar;
+    @FXML
+    private Button BTN_vender;
 
     /**
      * Inicializa el controlador.

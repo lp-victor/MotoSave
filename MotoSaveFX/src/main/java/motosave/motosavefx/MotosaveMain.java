@@ -13,7 +13,7 @@ import java.io.IOException;
 public class MotosaveMain extends Application {
 
     /**
-     * Método principal para iniciar la aplicación.
+     * Método principal para inijuanciar la aplicación.
      *
      * @param args Los argumentos de la línea de comandos.
      */
