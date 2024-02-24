@@ -15,7 +15,7 @@ public class miEntityManager {
     private static EntityManager entityManager = null; // Instancia única
 
     private miEntityManager() {
-    } // Creamos el constructor privado para que no se pueda llamar desde fuera.
+    } // Constructor privado para que no se pueda llamar desde fuera de la clase.
 
     // Este metodo es la unica forma de llamar a la instancia de miEntityManager
     // De esta forma nos aseguramos que tenemos una instancia única y no la repetimos
