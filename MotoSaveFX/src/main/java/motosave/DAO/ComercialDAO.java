@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public interface ComercialDAO {
 
-    boolean loggearComercial(EntityManager em, String contrasena, String usuario);
+    boolean loggearComercial(EntityManager em, String contraseña, String usuario);
 
     void anadirComercial(EntityManager em, Comercial comercial);
 

@@ -10,6 +10,6 @@ import java.util.List;
 public interface ClienteDAO {
 
     void anadirCliente(EntityManager em, Cliente nuevoCliente);
-    Cliente buscarCliente (EntityManager em, int id_cliente);
+
     List<Cliente> listarClientes(EntityManager em);
 }
