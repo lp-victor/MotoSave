@@ -281,7 +281,7 @@ public class ComercialVentasController implements Initializable {
             T_tabla_clientes.setItems(clientesList);
         });
         pause.play();
-
+    
         // Opcion 1
         // Colisiona con el hilo de la interfaz y da InterruptedException
 //         try {
