@@ -1,8 +1,10 @@
 package motosave.ImplementacionesDAO;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import motosave.DAO.ClienteDAO;
 import motosave.Modelos.Cliente;
+import motosave.Modelos.Comercial;
 
 import java.util.List;
 
@@ -25,6 +27,26 @@ public class ImpClienteDAO implements ClienteDAO {
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Busca un cliente en la base de datos dado su id.
+     *
+     * @param em           El EntityManager utilizado para realizar la operación.
+     * @param id_cliente   El id del cliente a buscar.
+     */
+    @Override
+    public Cliente buscarCliente(EntityManager em, int id_cliente) {
+        try {
+            String jpql = "SELECT c FROM Cliente c WHERE c.id_cliente = :id_cliente";
+            Query query = em.createQuery(jpql)
+                    .setParameter("id_cliente", id_cliente);
+            Cliente cliente = (Cliente) query.getSingleResult();
+            return cliente;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

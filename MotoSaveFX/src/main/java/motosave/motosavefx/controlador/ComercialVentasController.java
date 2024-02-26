@@ -274,13 +274,18 @@ public class ComercialVentasController implements Initializable {
             List<Cliente> clientes = clienteXMLReader.leerXML(rutaXML);
             if (clientes != null) {
                 for (Cliente cliente : clientes) {
-                    clientesList.add(cliente);
+                    clientesList.add(clienteDAO.buscarCliente(miEntityManager.getEntityManager(), cliente.getId_cliente()));
                 }
                 scene.setCursor(Cursor.DEFAULT);
             }
             T_tabla_clientes.setItems(clientesList);
         });
         pause.play();
+
+
+        cargarMotocicletasGeneral();
+        CmB_concesionarios.getSelectionModel().clearSelection();
+        T_tablaExistencias.refresh();
 
         // Opcion 1
         // Colisiona con el hilo de la interfaz y da InterruptedException
@@ -313,7 +318,6 @@ public class ComercialVentasController implements Initializable {
             L_backup_ok.setVisible(false);
         });
         pause.play();
-
     }
 
     /**
@@ -382,8 +386,10 @@ public class ComercialVentasController implements Initializable {
 
         T_tablaExistencias.getItems().clear();
 
-        for (Motocicleta moto : motocicletas) {
-            motocicletasList.add(moto);
+        if(motocicletas != null ) {
+            for (Motocicleta moto : motocicletas) {
+                motocicletasList.add(moto);
+            }
         }
 
         T_tablaExistencias.setItems(motocicletasList);
