@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import motosave.DATA.ComercialLoggeado;
@@ -138,6 +139,11 @@ public class ComercialVentasController implements Initializable {
             stage.show();
             stage.setResizable(false);
 
+            String path = "/images/fotor-ai-2024020418187-removebg-preview.png";
+            Image icon = new Image(getClass().getResourceAsStream(path));
+            stage.getIcons().add(icon);
+            stage.setTitle("MotoSave");
+
             Stage myStage = (Stage) this.BTN_estadisticas.getScene().getWindow();
             myStage.close();
 
@@ -176,6 +182,11 @@ public class ComercialVentasController implements Initializable {
             stage.setScene(scene);
             stage.show();
             stage.setResizable(false);
+
+            String path = "/images/fotor-ai-2024020418187-removebg-preview.png";
+            Image icon = new Image(getClass().getResourceAsStream(path));
+            stage.getIcons().add(icon);
+            stage.setTitle("MotoSave");
 
             Stage myStage = (Stage) this.BTN_salir.getScene().getWindow();
             myStage.close();

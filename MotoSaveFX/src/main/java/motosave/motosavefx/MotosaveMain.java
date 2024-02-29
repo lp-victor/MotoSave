@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -11,15 +12,6 @@ import java.io.IOException;
  * @author MotoSave
  */
 public class MotosaveMain extends Application {
-
-    /**
-     * Método principal para inijuanciar la aplicación.
-     *
-     * @param args Los argumentos de la línea de comandos.
-     */
-    public static void main(String[] args) {
-        launch();
-    }
 
     /**
      * Método para iniciar la aplicación.
@@ -44,6 +36,10 @@ public class MotosaveMain extends Application {
             stage.setTitle("Login Motosave");
             stage.setScene(scene);
             stage.setResizable(false);
+            String path = "/images/fotor-ai-2024020418187-removebg-preview.png";
+            Image icon = new Image(getClass().getResourceAsStream(path));
+            stage.getIcons().add(icon);
+            stage.setTitle("MotoSave");
             // Mostrar el escenario
             stage.show();
         } catch (Exception e) {

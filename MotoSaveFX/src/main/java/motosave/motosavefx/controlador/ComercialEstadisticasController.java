@@ -14,6 +14,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import motosave.DATA.ComercialLoggeado;
 import motosave.ImplementacionesDAO.ImpVentaDAO;
@@ -193,6 +194,11 @@ public class ComercialEstadisticasController implements Initializable {
             stage.show();
             stage.setResizable(false);
 
+            String path = "/images/fotor-ai-2024020418187-removebg-preview.png";
+            Image icon = new Image(getClass().getResourceAsStream(path));
+            stage.getIcons().add(icon);
+            stage.setTitle("MotoSave");
+
             Stage myStage = (Stage) this.BTN_ventas.getScene().getWindow();
             myStage.close();
 
@@ -221,6 +227,11 @@ public class ComercialEstadisticasController implements Initializable {
             stage.setScene(scene);
             stage.show();
             stage.setResizable(false);
+
+            String path = "/images/fotor-ai-2024020418187-removebg-preview.png";
+            Image icon = new Image(getClass().getResourceAsStream(path));
+            stage.getIcons().add(icon);
+            stage.setTitle("MotoSave");
 
             Stage myStage = (Stage) this.BTN_salir.getScene().getWindow();
             myStage.close();

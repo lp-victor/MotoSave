@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import motosave.ImplementacionesDAO.ImpComercialDAO;
 import motosave.ImplementacionesDAO.ImpConcesionarioDAO;
@@ -223,6 +224,11 @@ public class AdminComercialesController implements Initializable {
             stage.show();
             stage.setResizable(false);
 
+            String path = "/images/fotor-ai-2024020418187-removebg-preview.png";
+            Image icon = new Image(getClass().getResourceAsStream(path));
+            stage.getIcons().add(icon);
+            stage.setTitle("MotoSave");
+
             Stage myStage = (Stage) this.BTN_salir.getScene().getWindow();
             myStage.close();
 
@@ -252,6 +258,11 @@ public class AdminComercialesController implements Initializable {
             stage.show();
             stage.setResizable(false);
 
+            String path = "/images/fotor-ai-2024020418187-removebg-preview.png";
+            Image icon = new Image(getClass().getResourceAsStream(path));
+            stage.getIcons().add(icon);
+            stage.setTitle("MotoSave");
+
             Stage myStage = (Stage) this.BTN_dashboard.getScene().getWindow();
             myStage.close();
 
@@ -280,6 +291,11 @@ public class AdminComercialesController implements Initializable {
             stage.setScene(scene);
             stage.show();
             stage.setResizable(false);
+
+            String path = "/images/fotor-ai-2024020418187-removebg-preview.png";
+            Image icon = new Image(getClass().getResourceAsStream(path));
+            stage.getIcons().add(icon);
+            stage.setTitle("MotoSave");
 
             Stage myStage = (Stage) this.BTN_stock.getScene().getWindow();
             myStage.close();

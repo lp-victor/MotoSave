@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import motosave.ImplementacionesDAO.ImpAdministradorDAO;
 import motosave.ImplementacionesDAO.ImpComercialDAO;
@@ -102,6 +103,11 @@ public class LoginController implements Initializable {
             stage.show();
             stage.setResizable(false);
 
+            String path = "/images/fotor-ai-2024020418187-removebg-preview.png";
+            Image icon = new Image(getClass().getResourceAsStream(path));
+            stage.getIcons().add(icon);
+            stage.setTitle("MotoSave");
+
             Stage myStage = (Stage) this.BTN_acceder.getScene().getWindow();
             myStage.close();
 
@@ -128,6 +134,11 @@ public class LoginController implements Initializable {
             stage.setScene(scene);
             stage.show();
             stage.setResizable(false);
+
+            String path = "/images/fotor-ai-2024020418187-removebg-preview.png";
+            Image icon = new Image(getClass().getResourceAsStream(path));
+            stage.getIcons().add(icon);
+            stage.setTitle("MotoSave");
 
             Stage myStage = (Stage) this.BTN_acceder.getScene().getWindow();
             myStage.close();
