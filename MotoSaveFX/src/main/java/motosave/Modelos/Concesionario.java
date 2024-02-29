@@ -50,7 +50,7 @@ public class Concesionario {
 
     @Override
     public String toString() {
-        return id_concesionario + " - " + ubicacion;
+        return ubicacion;
     }
 
 }

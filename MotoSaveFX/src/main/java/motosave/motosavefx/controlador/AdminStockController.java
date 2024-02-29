@@ -89,6 +89,9 @@ public class AdminStockController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        BTN_modificar.setVisible(false);
+        BTN_eliminar.setVisible(false);
+
         concDAO = new ImpConcesionarioDAO();
         motoDAO = new ImpMotocicletaDAO();
         factoriaMoto = new FactoryMoto();
@@ -431,6 +434,8 @@ public class AdminStockController implements Initializable {
      * Carga las motocicletas del concesionario seleccionado en la tabla.
      */
     private void cargarMotocicletasSegunConcesionarioSeleccionado() {
+
+
         Concesionario concesionarioSeleccionado = CmB_concesionarios_selecion.getValue();
         List<Motocicleta> motocicletas = motoDAO.listarMotosConcesionario(
                 concesionarioSeleccionado.getId_concesionario(), miEntityManager.getEntityManager()
