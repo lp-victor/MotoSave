@@ -2,7 +2,7 @@
 
 ## Sobre el proyecto 
 Motosave es un trabajo de fin de curso para la asignatura de Acceso a Datos del grado DAM.
-La aplicación imula la lógica de un **negocio de venta de motocicletas**. Cuenta con un usuario 
+La aplicación simula la lógica de un **negocio de venta de motocicletas**. Cuenta con un usuario 
 administrador y usuarios para los comerciales. 
 
 ## Tecnologías utilizadas
