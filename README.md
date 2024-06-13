@@ -7,8 +7,15 @@ administrador y usuarios para los comerciales.
 
 ## Tecnologías utilizadas
 
-La aplicación está desarrollada en **Java** con una arquitectura **MVC**, para la persistencia,
-se ha utilizado **Hibernate** y para la UI, **JavaFX**.
+### Principales
+- Java 
+- JavaFX
+- Hibernate
+
+### Otros relevantes
+- GitHub para el control de versiones.
+- IDE: IntelliJ IDEA Community Edition
+- Infrastructura MVC
 
 
 
